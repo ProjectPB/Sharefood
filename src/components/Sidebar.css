@@ -5,7 +5,7 @@
 
 .sidebar--hidden {
     width: 50px;
-    background-color: #efefef !important;
+    background-color: #efefef;
 }
 
 .sidebar__option {

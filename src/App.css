@@ -1,3 +1,18 @@
+body {
+  --orange: #e7af14;
+}
+
 .app__main {
   display: flex;
+}
+
+.app__menuIcon {
+  top: 0;
+  position: absolute;
+  z-index: 100;
+  padding: 14px;
+}
+
+.app__menuIcon:hover {
+  cursor: pointer;
 }

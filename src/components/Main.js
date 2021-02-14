@@ -54,6 +54,124 @@ function Main() {
         UserImage={Avatar}
         image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
       />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
+
+      <Card
+        title="Spaghetti"
+        user="Patryk"
+        UserImage={Avatar}
+        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+      />
     </div>
   );
 }

@@ -6,9 +6,8 @@ import SearchIcon from "@material-ui/icons/Search";
 
 function Header() {
     return (
-        <nav className="header">
+        <div className="header">
             <div className="header__left">
-                <MenuIcon fontSize="large" />
                 <h2>ShareFood</h2>
             </div>
 
@@ -26,10 +25,10 @@ function Header() {
             <div className="header__right">
                 <div className="header__avatar">
                     <Avatar src="" alt="Patryk"/>
-                    <h3>Patryk B</h3>
+                    <h3>Patryk</h3>
                 </div>
             </div>
-        </nav>
+        </div>
     )
 }
 

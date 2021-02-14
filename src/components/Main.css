@@ -3,4 +3,16 @@
   flex: 1;
   display: flex;
   flex-wrap: wrap;
+  overflow-y: scroll;
+}
+
+/* CHROME/SAFARI/OPERA */
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+/* IE, EDGE, FIREFOX */
+.main {
+  -ms-overflow-style: none; /* IE/EDGE */
+  scrollbar-width: none; /* FIREFOX */
 }
