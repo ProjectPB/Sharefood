@@ -1,0 +1,42 @@
+.sidebar {
+    width: 300px;
+    background-color: #efefef;
+}
+
+.sidebar--hidden {
+    width: 50px;
+    background-color: #efefef !important;
+}
+
+.sidebar__option {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.sidebar__option:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.sidebar__option > h1 {
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 10px;
+}
+
+.sidebar__option--hidden {
+    text-align: center;
+    padding: 10px;
+}
+
+.sidebar__option--hidden:hover {
+    text-align: center;
+    padding: 10px;
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.sidebar__option--hidden > h1 {
+    display: none;
+}
