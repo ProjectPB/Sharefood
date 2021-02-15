@@ -1,20 +1,24 @@
 .sidebar {
     width: 300px;
     background-color: #efefef;
+    border-right: 1px solid black;
 }
 
 .sidebar--hidden {
-    width: 50px;
+    width: 65px;
     background-color: #efefef;
+    border-right: 1px solid black;
 }
 
-.sidebar__option {
+.sidebar__option, 
+.sidebar__option--hidden {
     display: flex;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
 }
 
-.sidebar__option:hover {
+.sidebar__option:hover,
+.sidebar__option--hidden:hover {
     cursor: pointer;
     background-color: lightgray;
 }
@@ -25,18 +29,8 @@
     padding-left: 10px;
 }
 
-.sidebar__option--hidden {
-    text-align: center;
-    padding: 10px;
-}
-
-.sidebar__option--hidden:hover {
-    text-align: center;
-    padding: 10px;
-    cursor: pointer;
-    background-color: lightgray;
-}
-
 .sidebar__option--hidden > h1 {
     display: none;
 }
+
+/* #E7AF14; */

@@ -1,43 +1,42 @@
 import React, { useState } from "react";
 import "./Sidebar.css";
-import SearchIcon from "@material-ui/icons/Search";
-import SatelliteIcon from "@material-ui/icons/Satellite";
+import HomeIcon from '@material-ui/icons/Home';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LibraryAddIcon from '@material-ui/icons/LibraryAdd';
+
 
 function Sidebar({ hidden }) {
   return (
     <div className={hidden ? "sidebar--hidden" : "sidebar"}>
       <div className={hidden ? "sidebar__option--hidden" : "sidebar__option"}>
-        <SearchIcon />
-        <h1>GŁÓWNA</h1>
+        <HomeIcon fontSize="large" />
+        <h1>MAIN</h1>
       </div>
 
       <div className={hidden ? "sidebar__option--hidden" : "sidebar__option"}>
-        <SatelliteIcon />
-        <h1>POPULARNE</h1>
-      </div>
-
-      <hr />
-
-      <div className={hidden ? "sidebar__option--hidden" : "sidebar__option"}>
-        <SatelliteIcon />
-        <h1>MOJE PRZEPISY</h1>
-      </div>
-
-      <div className={hidden ? "sidebar__option--hidden" : "sidebar__option"}>
-        <SatelliteIcon />
-        <h1>ULUBIONE</h1>
-      </div>
-
-      <div className={hidden ? "sidebar__option--hidden" : "sidebar__option"}>
-        <SatelliteIcon />
-        <h1>POLUBIONE</h1>
+        <WhatshotIcon fontSize="large" />
+        <h1>POPULAR</h1>
       </div>
 
       <hr />
 
       <div className={hidden ? "sidebar__option--hidden" : "sidebar__option"}>
-        <SatelliteIcon />
-        <h1>MOJE KOLEKCJE</h1>
+        <MenuBookIcon fontSize="large" />
+        <h1>CREATED BY ME</h1>
+      </div>
+
+      <div className={hidden ? "sidebar__option--hidden" : "sidebar__option"}>
+        <FavoriteIcon fontSize="large" />
+        <h1>FAVORITE</h1>
+      </div>
+
+      <hr />
+
+      <div className={hidden ? "sidebar__option--hidden" : "sidebar__option"}>
+        <LibraryAddIcon fontSize="large"/>
+        <h1>COLLECTIONS</h1>
       </div>
     </div>
   );

@@ -2,13 +2,9 @@ body {
   --orange: #e7af14;
 }
 
-.app {
-  height: 100vh;
-}
-
 .app__main {
   display: flex;
-  height: 90vh;
+  height: 91vh;
 }
 
 .app__menuIcon {
