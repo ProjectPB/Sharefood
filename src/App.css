@@ -1,10 +1,12 @@
 body {
   --orange: #e7af14;
+  overflow: hidden;
 }
 
 .app__main {
   display: flex;
-  height: 91vh;
+  position: absolute;
+  height: calc(100vh - 62px);
 }
 
 .app__menuIcon {
