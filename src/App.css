@@ -1,21 +1,23 @@
-body {
-  --orange: #e7af14;
-  overflow: hidden;
-}
-
 .app__main {
-  display: flex;
-  position: absolute;
-  height: calc(100vh - 62px);
+    display: flex;
+    position: absolute;
+    height: calc(100vh - 62px);
+    width: 100vw;
 }
 
 .app__menuIcon {
-  top: 0;
-  position: absolute;
-  z-index: 100;
-  padding: 14px;
+    position: absolute;
+    z-index: 100;
+    top: 12px;
+    left: 15px;
 }
 
 .app__menuIcon:hover {
-  cursor: pointer;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    .app__menuIcon {
+        top: 20px;
+    }
 }

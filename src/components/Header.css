@@ -3,7 +3,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-    background-color: #efefef;  
+    background-color: #efefef;
     border-bottom: 1px solid black;
 }
 
@@ -15,17 +15,22 @@
 }
 
 .header__left > h2 {
-    font-size: 14px;
-    margin-left: 10px;
+    font-size: 12px;
+    margin-left: 5px;
 }
 
 .header > button {
-    background-color: #E7AF14;
+    background-color: #e7af14;
     border: 2px solid black;
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
     margin-left: 10px;
+    outline: none;
+}
+
+.header > button:hover {
+    cursor: pointer;
 }
 
 .header__searchBar {
@@ -44,25 +49,26 @@
 .header__searchIcon {
     padding: 5px;
     height: 20px !important;
-    background-color: #E7AF14;
+    background-color: #e7af14;
     border: 1px solid black;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
-.header__right {
+.header__avatar {
     display: flex;
     align-items: center;
     margin-right: 20px;
     margin-left: 10px;
 }
 
-.header__avatar {
-    display: flex;
-    align-items: center;
-}
-
 .header__avatar > h3 {
     margin-left: 5px;
     font-size: 14px;
+}
+
+@media screen and (max-width: 600px) {
+    .header__avatar > h3 {
+        display: none;
+    }
 }

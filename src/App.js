@@ -18,7 +18,7 @@ function App() {
       <Header />
       <MenuIcon className="app__menuIcon" fontSize="large" onClick={handleOpen} />
       <div className="app__main">
-        {openSidebar ? <Sidebar /> : <Sidebar hidden />}
+        {openSidebar ? <Sidebar hidden /> : <Sidebar />}
         <Main />
       </div>
     </div>

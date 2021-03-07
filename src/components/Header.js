@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import "./Header.css";
 import Avatar from '@material-ui/core/Avatar';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from "@material-ui/icons/Search";
 
 function Header() {
@@ -20,13 +19,11 @@ function Header() {
                 <SearchIcon className="header__searchIcon" />
             </div>
 
-            <button>Create recipe</button>
+            <button>Create</button>
 
-            <div className="header__right">
-                <div className="header__avatar">
+            <div className="header__avatar">
                     <Avatar src="" alt="Patryk"/>
                     <h3>Patryk</h3>
-                </div>
             </div>
         </div>
     )

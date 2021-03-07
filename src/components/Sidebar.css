@@ -32,3 +32,13 @@
 .sidebar__option--hidden > h1 {
     display: none;
 }
+
+@media (max-width: 550px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebar__option {
+        justify-content: center;
+    }
+}

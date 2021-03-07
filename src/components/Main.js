@@ -7,34 +7,22 @@ function Main() {
   return (
     <div className="main">
       <Card
-        title="Spaghetti"
+        title="Spaghetti1"
         user="Patryk"
         UserImage={Avatar}
         image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
       />
       <Card
-        title="Spaghetti"
+        title="Jakieś śniadanie"
         user="Patryk"
         UserImage={Avatar}
-        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+        image="https://www.chasinglenscapes.com/wp-content/uploads/2020/06/food-photography-on-the-go-tips.jpg"
       />
       <Card
-        title="Spaghetti"
+        title="Pitca"
         user="Patryk"
         UserImage={Avatar}
-        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-      />
-      <Card
-        title="Spaghetti"
-        user="Patryk"
-        UserImage={Avatar}
-        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-      />
-      <Card
-        title="Spaghetti"
-        user="Patryk"
-        UserImage={Avatar}
-        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
+        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
       />
       <Card
         title="Spaghetti"
@@ -317,7 +305,7 @@ function Main() {
       />
 
       <Card
-        title="Spaghetti"
+        title="Spaghettix"
         user="Patryk"
         UserImage={Avatar}
         image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
