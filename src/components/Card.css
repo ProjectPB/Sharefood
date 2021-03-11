@@ -3,6 +3,11 @@
     flex-direction: column;
     margin: 10px;
     width: 31%;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: scale(1.025);
 }
 
 .card > img {
@@ -24,8 +29,25 @@
     padding: 5px;
 }
 
+.card__right {
+    display: flex;
+}
+
+.card__favorite {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 5px 5px;
+}
+
+.card__favorite > p {
+    font-size: 10px;
+    font-weight: 500;
+    margin-top: 6px;
+}
+
 .card__user {
-    padding-right: 10px;
+    padding: 5px 10px;
 }
 
 .card__user > .MuiAvatar-root {
