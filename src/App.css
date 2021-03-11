@@ -4,20 +4,3 @@
     height: calc(100vh - 62px);
     width: 100vw;
 }
-
-.app__menuIcon {
-    position: absolute;
-    z-index: 100;
-    top: 12px;
-    left: 15px;
-}
-
-.app__menuIcon:hover {
-    cursor: pointer;
-}
-
-@media screen and (max-width: 600px) {
-    .app__menuIcon {
-        top: 12.5px;
-    }
-}

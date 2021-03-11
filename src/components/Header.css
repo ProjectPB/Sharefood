@@ -10,8 +10,12 @@
 .header__left {
     display: flex;
     align-items: center;
-    margin-left: 60px;
+    margin-left: 15px;
     margin-right: 10px;
+}
+
+.header__left > .MuiSvgIcon-root {
+    cursor: pointer;
 }
 
 .header__left > h2 {

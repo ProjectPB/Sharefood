@@ -6,14 +6,20 @@ import {
     Whatshot,
 } from "@material-ui/icons";
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectSidebarIsOpen } from "../features/sidebarSlice";
 import "./Sidebar.css";
 
-function Sidebar({ hidden }) {
+function Sidebar() {
+    const sidebarIsOpen = useSelector(selectSidebarIsOpen);
+
     return (
-        <div className={hidden ? "sidebar--hidden" : "sidebar"}>
+        <div className={sidebarIsOpen ? "sidebar--hidden" : "sidebar"}>
             <div
                 className={
-                    hidden ? "sidebar__option--hidden" : "sidebar__option"
+                    sidebarIsOpen
+                        ? "sidebar__option--hidden"
+                        : "sidebar__option"
                 }
             >
                 <Home fontSize="large" />
@@ -22,7 +28,9 @@ function Sidebar({ hidden }) {
 
             <div
                 className={
-                    hidden ? "sidebar__option--hidden" : "sidebar__option"
+                    sidebarIsOpen
+                        ? "sidebar__option--hidden"
+                        : "sidebar__option"
                 }
             >
                 <Whatshot fontSize="large" />
@@ -33,7 +41,9 @@ function Sidebar({ hidden }) {
 
             <div
                 className={
-                    hidden ? "sidebar__option--hidden" : "sidebar__option"
+                    sidebarIsOpen
+                        ? "sidebar__option--hidden"
+                        : "sidebar__option"
                 }
             >
                 <MenuBook fontSize="large" />
@@ -42,7 +52,9 @@ function Sidebar({ hidden }) {
 
             <div
                 className={
-                    hidden ? "sidebar__option--hidden" : "sidebar__option"
+                    sidebarIsOpen
+                        ? "sidebar__option--hidden"
+                        : "sidebar__option"
                 }
             >
                 <Favorite fontSize="large" />
@@ -53,7 +65,9 @@ function Sidebar({ hidden }) {
 
             <div
                 className={
-                    hidden ? "sidebar__option--hidden" : "sidebar__option"
+                    sidebarIsOpen
+                        ? "sidebar__option--hidden"
+                        : "sidebar__option"
                 }
             >
                 <LibraryAdd fontSize="large" />
