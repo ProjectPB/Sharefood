@@ -31,9 +31,6 @@
     font-size: 14px;
     margin-left: 10px;
     outline: none;
-}
-
-.header > button:hover {
     cursor: pointer;
 }
 
@@ -64,6 +61,7 @@
     align-items: center;
     margin-right: 20px;
     margin-left: 10px;
+    cursor: pointer;
 }
 
 .header__avatar > h3 {

@@ -4,6 +4,7 @@
     margin: 10px;
     width: 31%;
     cursor: pointer;
+    position: relative;
 }
 
 .card:hover {
@@ -24,6 +25,19 @@
     justify-content: space-between;
 }
 
+.card > h1 {
+    position: absolute;
+    opacity: 0.75;
+    background-color: green;
+    border: 1px solid;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 5px;
+    right: 0;
+    color: white;
+}
+
 .card__info > h1 {
     font-size: 12px;
     padding: 5px;
@@ -37,7 +51,7 @@
     display: flex;
     align-items: center;
     flex-direction: column;
-    padding: 5px 5px;
+    padding: 5px 0;
 }
 
 .card__favorite > p {
@@ -47,7 +61,7 @@
 }
 
 .card__user {
-    padding: 5px 10px;
+    padding: 5px 5px;
 }
 
 .card__user > .MuiAvatar-root {

@@ -4,17 +4,33 @@ import Avatar from "@material-ui/core/Avatar";
 import SearchIcon from "@material-ui/icons/Search";
 import { useDispatch, useSelector } from "react-redux";
 import { Menu } from "@material-ui/icons";
-import { closeSidebar, openSidebar, selectSidebarIsOpen } from "../features/sidebarSlice";
+import {
+    closeSidebar,
+    openSidebar,
+    selectSidebarIsOpen,
+} from "../features/sidebarSlice";
+import {
+    closeNewRecipe,
+    openNewRecipe,
+    selectNewRecipeIsOpen,
+} from "../features/newRecipeSlice";
 
 function Header() {
     const dispatch = useDispatch();
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
+    const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
 
     const handleSidebar = () => {
         if (sidebarIsOpen) {
             dispatch(closeSidebar());
         } else {
             dispatch(openSidebar());
+        }
+    };
+
+    const handleCreateRecipe = () => {
+        if (!newRecipeIsOpen) {
+            dispatch(openNewRecipe());
         }
     };
 
@@ -34,7 +50,7 @@ function Header() {
                 <SearchIcon className="header__searchIcon" />
             </div>
 
-            <button>Create</button>
+            <button onClick={handleCreateRecipe}>Create</button>
 
             <div className="header__avatar">
                 <Avatar src="" alt="Patryk" />

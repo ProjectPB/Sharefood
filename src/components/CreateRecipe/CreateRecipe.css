@@ -1,0 +1,115 @@
+.createRecipe__container {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgb(231, 175, 20, 0.9);
+    position: absolute;
+    display: grid;
+    place-items: center;
+    z-index: 999;
+}
+
+.createRecipe {
+    background-color: whitesmoke;
+    width: 60%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 15px;
+    position: relative;
+}
+
+.createRecipe > .MuiSvgIcon-root {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 30px !important;
+}
+
+.createRecipe__upper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.createRecipe__upper > img {
+    width: 30%;
+    object-fit: contain;
+}
+
+.createRecipe__info {
+    flex: 1;
+    margin-left: 15px;
+}
+
+.createRecipe__title {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.createRecipe__titleInput {
+    width: calc(100% - 12px);   
+}
+
+/* LOWER  */
+
+.createRecipe__body {
+    display: flex;
+}
+
+.createRecipe__textarea {
+    flex: 0.5;
+    margin: 10px;
+}
+
+.createRecipe__textarea > textarea {
+    width: 100%;
+    resize: none;
+    height: 400px;
+}
+
+.createRecipe__button {
+    background-color: #e7af14;
+    border: 2px solid black;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+@media screen and (max-width: 650px) {
+    .createRecipe {
+        width: 75%;
+    }
+
+    .createRecipe__upper {
+        flex-direction: column;
+    }
+
+    .createRecipe__info {
+        margin-left: 10px;
+        margin-top: 10px;
+    }
+
+    .createRecipe__upper > img {
+        width: 70%;
+        object-fit: contain;
+        margin: 0 auto;
+        margin-bottom: 5px;
+    }
+
+    .createRecipe__body {
+        flex-direction: column;
+    }
+
+    .createRecipe__textarea > textarea {
+        height: 100px;
+    }
+}

@@ -5,6 +5,7 @@ import "./Card.css";
 function Card({ user, image, title, UserImage }) {
     return (
         <div className="card">
+            <h1>MAIN</h1>
             <img src={image} alt="" />
             <div className="card__info">
                 <h1>{title}</h1>
