@@ -88,7 +88,7 @@
     position: relative;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 100px;
+    width: 75px;
 }
 
 @media screen and (max-width: 950px) {
@@ -117,8 +117,8 @@
     }
 
     .createRecipe__upper > img {
-        width: 300px;
-        height: 225px;
+        width: 400px;
+        height: 300px;
         margin: 0 auto;
     }
     
@@ -129,5 +129,12 @@
     
     .createRecipe__body > div > textarea {
         height: 200px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .createRecipe__upper > img {
+        width: 250px;
+        height: 187.5px;
     }
 }

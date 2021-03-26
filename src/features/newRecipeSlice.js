@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 export const newRecipeSlice = createSlice ({
     name: "newRecipe",
     initialState: {
-        newRecipeIsOpen: true,
+        newRecipeIsOpen: false,
     },
     reducers: {
         openNewRecipe: (state) => {

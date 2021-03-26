@@ -56,7 +56,7 @@ function CreateRecipe() {
                         <textarea placeholder="Method" />
                     </div>
                 </div>
-                <button className="createRecipe__button">CREATE</button>
+                <button className="createRecipe__button">Create</button>
             </form>
         </div>
     );

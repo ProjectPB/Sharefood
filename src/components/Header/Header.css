@@ -32,7 +32,7 @@
     margin-left: 10px;
     outline: none;
     cursor: pointer;
-    width: 100px;
+    width: 75px;
 }
 
 .header__searchBar {
@@ -46,6 +46,7 @@
     border: 1px solid black;
     width: 100%;
     padding: 10px;
+    outline: none;
 }
 
 .header__searchIcon {
@@ -55,6 +56,7 @@
     border: 1px solid black;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;
+    cursor: pointer;
 }
 
 .header__avatar {
@@ -62,16 +64,9 @@
     align-items: center;
     margin-right: 20px;
     margin-left: 10px;
-    cursor: pointer;
 }
 
-.header__avatar > h3 {
+.header__avatar > .MuiSvgIcon-root {
     margin-left: 5px;
-    font-size: 14px;
-}
-
-@media screen and (max-width: 600px) {
-    .header__avatar > h3 {
-        display: none;
-    }
+    cursor: pointer;
 }

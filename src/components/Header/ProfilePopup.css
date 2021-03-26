@@ -1,0 +1,32 @@
+.profilePopup {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: whitesmoke;
+    right: 35px;
+    top: 55px;
+    z-index: 999;
+    border: 1px solid;
+    padding: 5px;
+    border-radius: 10px;
+    border-top-right-radius: 0px;
+}
+
+.profilePopup__userInfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+    padding: 10px;
+}
+
+.profilePopup__logout {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+    width: 100px;
+    padding: 0px 10px 10px 10px;
+}

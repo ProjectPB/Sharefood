@@ -1,24 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Header.css";
-import Avatar from "@material-ui/core/Avatar";
-import SearchIcon from "@material-ui/icons/Search";
 import { useDispatch, useSelector } from "react-redux";
-import { Menu } from "@material-ui/icons";
+
 import {
     closeSidebar,
     openSidebar,
     selectSidebarIsOpen,
-} from "../features/sidebarSlice";
+} from "../../features/sidebarSlice";
 import {
     closeNewRecipe,
     openNewRecipe,
     selectNewRecipeIsOpen,
-} from "../features/newRecipeSlice";
+} from "../../features/newRecipeSlice";
+
+import Avatar from "@material-ui/core/Avatar";
+import SearchIcon from "@material-ui/icons/Search";
+import { ExpandLess, ExpandMore, Menu } from "@material-ui/icons";
+import ProfilePopup from "./ProfilePopup";
 
 function Header() {
     const dispatch = useDispatch();
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
     const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
+    const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
 
     const handleSidebar = () => {
         if (sidebarIsOpen) {
@@ -32,6 +36,10 @@ function Header() {
         if (!newRecipeIsOpen) {
             dispatch(openNewRecipe());
         }
+    };
+
+    const handleProfileMenu = () => {
+        setProfileMenuIsOpen(!profileMenuIsOpen);
     };
 
     return (
@@ -54,7 +62,12 @@ function Header() {
 
             <div className="header__avatar">
                 <Avatar src="" alt="Patryk" />
-                <h3>Patryk</h3>
+                {profileMenuIsOpen ? (
+                    <ExpandLess fontSize="large" onClick={handleProfileMenu} />
+                ) : (
+                    <ExpandMore fontSize="large" onClick={handleProfileMenu} />
+                )}
+                {profileMenuIsOpen && <ProfilePopup />}
             </div>
         </div>
     );

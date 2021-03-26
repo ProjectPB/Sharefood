@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar";
 import Main from "./components/Main";
 import CreateRecipe from "./components/CreateRecipe/CreateRecipe";
