@@ -1,0 +1,8 @@
+.main {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+    justify-content: center;
+    padding: 10px 0;
+}

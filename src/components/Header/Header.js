@@ -8,7 +8,6 @@ import {
     selectSidebarIsOpen,
 } from "../../features/sidebarSlice";
 import {
-    closeNewRecipe,
     openNewRecipe,
     selectNewRecipeIsOpen,
 } from "../../features/newRecipeSlice";
@@ -16,7 +15,8 @@ import {
 import Avatar from "@material-ui/core/Avatar";
 import SearchIcon from "@material-ui/icons/Search";
 import { ExpandLess, ExpandMore, Menu } from "@material-ui/icons";
-import ProfilePopup from "./ProfilePopup";
+import ProfilePopup from "./ProfilePopup/ProfilePopup";
+import CreateRecipe from "../CreateRecipe/CreateRecipe";
 
 function Header() {
     const dispatch = useDispatch();
@@ -44,6 +44,7 @@ function Header() {
 
     return (
         <div className="header">
+            {newRecipeIsOpen && <CreateRecipe />}
             <div className="header__left">
                 <Menu onClick={handleSidebar} fontSize="large" />
                 <h2>ShareFood</h2>

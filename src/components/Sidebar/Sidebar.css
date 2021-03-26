@@ -1,0 +1,44 @@
+.sidebar {
+    width: 300px;
+    background-color: #efefef;
+    border-right: 1px solid black;
+}
+
+.sidebar--hidden {
+    width: 65px;
+    background-color: #efefef;
+    border-right: 1px solid black;
+}
+
+.sidebar__option, 
+.sidebar__option--hidden {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+}
+
+.sidebar__option:hover,
+.sidebar__option--hidden:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.sidebar__option > h1 {
+    font-size: 16px;
+    font-weight: 500;
+    padding-left: 10px;
+}
+
+.sidebar__option--hidden > h1 {
+    display: none;
+}
+
+@media (max-width: 550px) {
+    .sidebar {
+        width: 100%;
+    }
+
+    .sidebar__option {
+        justify-content: center;
+    }
+}
