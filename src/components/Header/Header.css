@@ -62,11 +62,17 @@
 .header__avatar {
     display: flex;
     align-items: center;
-    margin-right: 20px;
+    margin-right: 10px;
     margin-left: 10px;
 }
 
 .header__avatar > .MuiSvgIcon-root {
     margin-left: 5px;
     cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+    .header > button {
+        margin: 0;
+    }
 }

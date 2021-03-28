@@ -1,13 +1,12 @@
 .createRecipe__container {
-    height: 100vh;
+    height: 100%;
     width: 100vw;
     background-color: rgb(231, 175, 20, 0.9);
-    position: absolute;
+    position: fixed;
     z-index: 999;
     display: grid;
     place-items: center;
-    overflow: hidden;
-    bottom: 0;
+    top: 0;
 }
 
 .createRecipe {
@@ -43,7 +42,7 @@
 .createRecipe__info {
     margin-left: 15px;
     flex: 1;
-}   
+}
 
 .createRecipe__title {
     display: flex;
@@ -122,12 +121,12 @@
         height: 300px;
         margin: 0 auto;
     }
-    
+
     .createRecipe__ingredientsText {
         margin-right: 0;
         margin-bottom: 10px;
     }
-    
+
     .createRecipe__body > div > textarea {
         height: 200px;
     }

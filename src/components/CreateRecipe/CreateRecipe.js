@@ -37,7 +37,7 @@ function CreateRecipe() {
                             <option value="other">Other</option>
                         </select>
                         <div className="createRecipe__title">
-                            <h3>Recipe name</h3>
+                            <h3>Recipe</h3>
                             <input
                                 type="text"
                                 className="createRecipe__titleInput"

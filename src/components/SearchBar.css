@@ -1,0 +1,24 @@
+.searchBar {
+    display: flex;
+    padding: 5px;
+    background-color: #efefef;
+    border-bottom: 1px solid;
+}
+
+.searchInput {
+    height: 10px;
+    border: 1px solid black;
+    width: 100%;
+    padding: 10px;
+    outline: none;
+}
+
+.searchIcon {
+    padding: 5px;
+    height: 20px !important;
+    background-color: #e7af14;
+    border: 1px solid black;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    cursor: pointer;
+}

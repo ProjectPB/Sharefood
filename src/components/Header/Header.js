@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -23,6 +23,17 @@ function Header() {
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
     const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
     const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
+
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        window.addEventListener("resize", () => {
+            setWidth(window.innerWidth);
+        });
+        if (width < 600) {
+            dispatch(openSidebar());
+        }
+    }, []);
 
     const handleSidebar = () => {
         if (sidebarIsOpen) {
@@ -50,14 +61,16 @@ function Header() {
                 <h2>ShareFood</h2>
             </div>
 
-            <div className="header__searchBar">
-                <input
-                    className="header__searchInput"
-                    placeholder="Find the recipe..."
-                    type="text"
-                />
-                <SearchIcon className="header__searchIcon" />
-            </div>
+            {width >= 600 && (
+                <div className="header__searchBar">
+                    <input
+                        className="header__searchInput"
+                        placeholder="Find the recipe..."
+                        type="text"
+                    />
+                    <SearchIcon className="header__searchIcon" />
+                </div>
+            )}
 
             <button onClick={handleCreateRecipe}>Create</button>
 
