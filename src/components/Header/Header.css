@@ -21,6 +21,7 @@
 .header__left > h2 {
     font-size: 12px;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 .header > button {

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./Header.css";
 import { useDispatch, useSelector } from "react-redux";
+
+import "./Header.css";
 
 import {
     closeSidebar,
@@ -14,12 +15,14 @@ import {
 
 import Avatar from "@material-ui/core/Avatar";
 import SearchIcon from "@material-ui/icons/Search";
-import { ExpandLess, ExpandMore, Menu } from "@material-ui/icons";
+import { ExpandLess, ExpandMore, Home, Menu } from "@material-ui/icons";
 import ProfilePopup from "./ProfilePopup/ProfilePopup";
 import CreateRecipe from "../CreateRecipe/CreateRecipe";
+import { useHistory } from "react-router-dom";
 
-function Header() {
+function Header({ sidebarIconDisplayed }) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
     const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
     const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
@@ -53,15 +56,23 @@ function Header() {
         setProfileMenuIsOpen(!profileMenuIsOpen);
     };
 
+    const navToMain = () => {
+        history.push("/");
+    };
+
     return (
         <div className="header">
             {newRecipeIsOpen && <CreateRecipe />}
             <div className="header__left">
-                <Menu onClick={handleSidebar} fontSize="large" />
-                <h2>ShareFood</h2>
+                {sidebarIconDisplayed ? (
+                    <Menu onClick={handleSidebar} fontSize="large" />
+                ) : (
+                    <Home onClick={navToMain} fontSize="large" />
+                )}
+                <h2 onClick={navToMain}>ShareFood</h2>
             </div>
 
-            {width >= 600 && (
+            {width > 600 && (
                 <div className="header__searchBar">
                     <input
                         className="header__searchInput"
