@@ -1,8 +1,52 @@
 .main {
-    flex: 1;
-    display: flex;
-    flex-wrap: wrap;
     overflow-y: scroll;
-    justify-content: center;
-    padding: 10px 0;
+    flex: 1;
+}
+
+.cards--wide {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
+    margin: 20px 0px 0px 20px;
+    justify-content: flex-start;
+}
+
+.cards--narrow {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
+    justify-content: flex-start;
+    margin: 20px 0px 0px 20px;
+}
+
+@media screen and (max-width: 1024px) {
+    .cards--wide {
+        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
+    }
+
+    .cards--narrow {
+        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .cards--narrow {
+        grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .cards--wide {
+        grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
+    }
+}
+
+@media screen and (max-width: 800px) and (max-height: 450px) {
+    .cards--narrow {
+        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
+    }
+}
+
+@media screen and (max-width: 600px) and (max-height: 450px) {
+    .cards--wide {
+        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
+    }
 }
