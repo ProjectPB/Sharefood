@@ -1,6 +1,6 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
-export const newRecipeSlice = createSlice ({
+export const newRecipeSlice = createSlice({
     name: "newRecipe",
     initialState: {
         newRecipeIsOpen: false,
@@ -12,8 +12,8 @@ export const newRecipeSlice = createSlice ({
         closeNewRecipe: (state) => {
             state.newRecipeIsOpen = false;
         },
-    }
-})
+    },
+});
 
 export const { openNewRecipe, closeNewRecipe } = newRecipeSlice.actions;
 

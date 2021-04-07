@@ -1,3 +1,7 @@
+.createRecipe__processingIcon {
+    position: absolute;
+}
+
 .createRecipe__container {
     height: 100%;
     width: 100vw;
@@ -7,6 +11,54 @@
     display: grid;
     place-items: center;
     top: 0;
+}
+
+.createRecipe__upper {
+    display: flex;
+}
+
+.createRecipe__image {
+    width: 400px;
+    height: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.createRecipe__imageInput {
+    position: absolute;
+    width: 400px;
+    object-fit: cover;
+    height: 300px;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.createRecipe__imageInput::-webkit-file-upload-button {
+    cursor: pointer;
+}
+
+.createRecipe__image > img {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+}
+
+.createRecipe__image > p {
+    position: absolute;
+    bottom: 10%;
+    color: gray;
+}
+
+.createRecipe__image > .MuiSvgIcon-root {
+    position: absolute;
+    bottom: 20%;
+    color: rgb(231, 175, 20, 0.9) !important;
+    border: 1px solid black;
+    border-radius: 100%;
+    width: 30px;
+    height: 30px;
 }
 
 .createRecipe {
@@ -27,16 +79,6 @@
     right: 5px;
     cursor: pointer;
     font-size: 30px !important;
-}
-
-.createRecipe__upper {
-    display: flex;
-}
-
-.createRecipe__upper > img {
-    width: 400px;
-    object-fit: contain;
-    height: 300px;
 }
 
 .createRecipe__info {
@@ -75,6 +117,8 @@
 
 .createRecipe__body > div > textarea {
     height: 100%;
+    resize: none;
+    outline: none;
 }
 
 .createRecipe__button {
@@ -116,9 +160,7 @@
         flex-direction: column;
     }
 
-    .createRecipe__upper > img {
-        width: 400px;
-        height: 300px;
+    .createRecipe__image {
         margin: 0 auto;
     }
 
@@ -133,8 +175,18 @@
 }
 
 @media screen and (max-width: 450px) {
-    .createRecipe__upper > img {
+    .createRecipe__image,
+    .createRecipe__image > img {
         width: 250px;
         height: 187.5px;
+    }
+
+    .createRecipe__image > p {
+        font-size: 10px;
+    }
+
+    .createRecipe__image > .MuiSvgIcon-root {
+        width: 20px;
+        height: 20px;
     }
 }

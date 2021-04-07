@@ -1,11 +1,62 @@
 .card {
+    position: relative;
+    outline: 1px solid;
+}
+
+.card > h2 {
+    position: absolute;
+    font-size: 12px;
+    right: 5px;
+    top: 5px;
+    padding: 10px;
+    background-color: rgba(245, 245, 245, 0.7);
+    border-radius: 10px;
+    border: 1px solid;
+}
+
+.card__info {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+    background-color: whitesmoke;
+}
+
+.card__info > h1 {
+    font-size: 14px;
+    flex: 1;
+    text-align: center;
+}
+
+@media screen and (max-width: 1400px) {
+    .card__info > h1 {
+        font-size: 10px;
+    }
+}
+
+.card__user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 2%;
+}
+
+.card__user > p {
+    font-size: 12px;
+}
+
+.card__user > .MuiAvatar-root {
+    width: 25px !important;
+    height: 25px;
+}
+
+.card--narrow {
     display: flex;
     flex-direction: column;
     width: calc((100vw - 395px) / 3);
     margin: 0px 20px 20px 0px;
 }
 
-.card > img {
+.card--narrow > img {
     object-fit: cover;
     height: calc((100vw - 395px) / 3 / 1.33);
 }
@@ -14,6 +65,7 @@
     transform: scale(1.025);
     cursor: pointer;
     opacity: 0.8;
+    transition: ease-in 0.2s;
 }
 
 .card--wide {
@@ -28,18 +80,12 @@
     height: calc((100vw - 160px) / 3 / 1.33);
 }
 
-.card--wide:hover {
-    transform: scale(1.025);
-    cursor: pointer;
-    opacity: 0.8;
-}
-
 @media screen and (max-width: 1024px) {
-    .card {
+    .card--narrow {
         width: calc((100vw - 375px) / 2);
     }
 
-    .card > img {
+    .card--narrow > img {
         height: calc((100vw - 375px) / 2 / 1.33);
     }
 
@@ -53,11 +99,11 @@
 }
 
 @media screen and (max-width: 800px) {
-    .card {
+    .card--narrow {
         width: calc((100vw - 355px));
     }
 
-    .card > img {
+    .card--narrow > img {
         height: calc((100vw - 355px) / 1.33);
     }
 }
@@ -73,11 +119,11 @@
 }
 
 @media screen and (max-width: 800px) and (max-height: 450px) {
-    .card {
+    .card--narrow {
         width: calc((100vw - 355px) / 2);
     }
 
-    .card > img {
+    .card--narrow > img {
         height: calc((100vw - 355px) / 2 / 1.33);
     }
 
@@ -89,57 +135,3 @@
         height: calc((100vw - 115px) / 2 / 1.33);
     }
 }
-
-/* .card {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    cursor: pointer;
-    position: relative;
-    width: 400px;
-    box-sizing: border-box;
-} */
-
-/*
-.card__info {
-    border: 1px solid black;
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.card > h1 {
-    position: absolute;
-    opacity: 0.75;
-    background-color: green;
-    border: 1px solid;
-    font-size: 15px;
-    padding: 5px;
-    border-radius: 10px;
-    margin: 5px;
-    right: 0;
-    color: white;
-}
-
-.card__info > h1 {
-    font-size: 12px;
-    padding: 5px;
-}
-
-.card__user {
-    padding: 5px;
-    margin-right: 5px;
-}
-
-.card__user > .MuiAvatar-root {
-    width: 25px;
-    height: 25px;
-    margin: 2.5px;
-}
-
-.card__user > p {
-    font-size: 10px;
-    font-weight: 500;
-    text-align: center;
-} */
