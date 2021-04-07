@@ -12,10 +12,10 @@ import { CircularProgress } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 function CreateRecipe() {
+    const [type, setType] = useState("");
+    const [title, setTitle] = useState("");
     const [ingredients, setIngredients] = useState("");
     const [method, setMethod] = useState("");
-    const [title, setTitle] = useState("");
-    const [type, setType] = useState("none");
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
     const [previewImage, setPreviewImage] = useState(
@@ -37,39 +37,55 @@ function CreateRecipe() {
         }
     };
 
+    const validate = () => {
+        const inputs = [type, title, ingredients, method, image];
+
+        let checkedInputs = inputs.every((input) => input);
+
+        return checkedInputs;
+    };
+
     const handleCreate = (e) => {
         e.preventDefault();
 
-        const imageName = new Date().getTime() + image.name;
+        validate();
 
-        const uploadTask = storage.ref(`images/${imageName}`).put(image);
+        if (validate()) {
+            const imageName = new Date().getTime() + image.name;
 
-        uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                const progress = Math.round(
-                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                );
-                setProgress(progress);
-            },
-            (error) => {
-                alert(error.message);
-            },
-            () => {
-                storage
-                    .ref("images")
-                    .child(imageName)
-                    .getDownloadURL()
-                    .then(() => {
-                        console.log(title);
-                        console.log(stringToArray(ingredients));
-                        console.log(stringToArray(method));
-                        console.log(type);
-                        alert("RECIPE ADDED!");
-                        dispatch(closeNewRecipe());
-                    });
-            }
-        );
+            const uploadTask = storage.ref(`images/${imageName}`).put(image);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress = Math.round(
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                    );
+                    setProgress(progress);
+                },
+                (error) => {
+                    alert(error.message);
+                },
+                () => {
+                    storage
+                        .ref("images")
+                        .child(imageName)
+                        .getDownloadURL()
+                        .then((url) => {
+                            console.log(title);
+                            console.log(stringToArray(ingredients));
+                            console.log(stringToArray(method));
+                            console.log(type);
+                            console.log(url);
+                            alert("RECIPE ADDED!");
+                            dispatch(closeNewRecipe());
+                        });
+                }
+            );
+        } else {
+            alert("PLEASE MAKE SURE THAT ALL INPUTS ARE FILLED");
+            return;
+        }
     };
 
     return (
@@ -86,7 +102,9 @@ function CreateRecipe() {
                 <div className="createRecipe__upper">
                     <div className="createRecipe__image">
                         <img src={previewImage} alt="image" />
-                        {!image && <p>For the best results, please attach 4:3 image</p> }
+                        {!image && (
+                            <p>For the best results, please attach 4:3 image</p>
+                        )}
                         {!image && <AddCircleIcon />}
                         <input
                             type="file"
@@ -117,7 +135,6 @@ function CreateRecipe() {
                                 onChange={(e) => setTitle(e.target.value)}
                                 type="text"
                                 required
-                                className="createRecipe__titleInput"
                                 placeholder="Title"
                             />
                         </div>
