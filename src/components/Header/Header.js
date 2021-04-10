@@ -19,6 +19,7 @@ import { ExpandLess, ExpandMore, Home, Menu } from "@material-ui/icons";
 import ProfilePopup from "./ProfilePopup/ProfilePopup";
 import CreateRecipe from "../CreateRecipe/CreateRecipe";
 import { useHistory } from "react-router-dom";
+import { selectUser } from "../../features/userSlice";
 
 function Header({ sidebarIconDisplayed }) {
     const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function Header({ sidebarIconDisplayed }) {
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
     const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
     const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
+    const user = useSelector(selectUser);
 
     const [width, setWidth] = useState(window.innerWidth);
 
@@ -86,7 +88,7 @@ function Header({ sidebarIconDisplayed }) {
             <button onClick={handleCreateRecipe}>Create</button>
 
             <div className="header__avatar">
-                <Avatar src="" alt="Patryk" />
+                <Avatar src={user?.profilePic} alt={user?.displayName} />
                 {profileMenuIsOpen ? (
                     <ExpandLess fontSize="large" onClick={handleProfileMenu} />
                 ) : (

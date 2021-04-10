@@ -1,0 +1,17 @@
+.signUp {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.signUp > h3 {
+    text-align: center;
+}
+
+.signUp > input {
+    padding: 10px;
+}
+
+.register > button {
+    padding: 5px;
+}
