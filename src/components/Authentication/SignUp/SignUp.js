@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { auth, provider } from "../../../firebase";
+import { auth, db, provider } from "../../../firebase";
 import { login } from "../../../features/userSlice";
 import "./SignUp.css";
 
@@ -30,8 +30,8 @@ function SignUp() {
             return alert("Please enter a full name!");
         }
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .then((userAuth) => {
+        auth.createUserWithEmailAndPassword(email, password).then(
+            (userAuth) => {
                 userAuth.user
                     .updateProfile({
                         displayName: username,
@@ -44,10 +44,17 @@ function SignUp() {
                                 displayName: userAuth.user.displayName,
                                 profilePic: userAuth.user.photoURL,
                             })
-                        );
-                    });
-            })
-            .catch((error) => alert(error.message));
+                        ) &&
+                            db.collection("users").doc(userAuth.user.uid).set({
+                                email: userAuth.user.email,
+                                uid: userAuth.user.uid,
+                                displayName: userAuth.user.displayName,
+                                profilePic: userAuth.user.photoURL,
+                            });
+                    })
+                    .catch((error) => alert(error.message));
+            }
+        );
     };
 
     return (

@@ -1,32 +1,11 @@
 import { Avatar } from "@material-ui/core";
-import { FavoriteOutlined } from "@material-ui/icons";
+import { FavoriteBorderOutlined, FavoriteOutlined } from "@material-ui/icons";
 import React, { useState } from "react";
 import "./Recipe.css";
 
 function Recipe() {
-    const [ingredients, setIngredients] = useState([
-        "jajka",
-        "chleb",
-        "masło",
-        "ziemniaczki",
-        "sól",
-        "pieprz",
-    ]);
-
-    const [steps, setSteps] = useState([
-        "Zetrzyj sobie ser tu na tarce, żeby był dobrze starty i ładnie elegancko",
-        "obróć",
-        "mieszaj",
-        "gotuj",
-        "podrzuć",
-        "obróć",
-        "mieszaj",
-        "gotuj",
-        "podrzuć",
-        "obróć",
-        "mieszaj",
-        "gotuj",
-    ]);
+    const [ingredients, setIngredients] = useState([]);
+    const [steps, setSteps] = useState([]);
 
     return (
         <div className="recipe__container">
@@ -38,19 +17,16 @@ function Recipe() {
                         alt=""
                     />
                     <div className="recipe__info">
-                        <h2>MAIN</h2>
-                        <h1>
-                            Spaghetti z sosem pomidorowym, kurczakiem,
-                            krewetkami, makaronem, ziemniaczkami i koperkiem
-                        </h1>
+                        <h2>@TYPE@</h2>
+                        <h1>@TYTUŁ@</h1>
                         <div className="recipe__infoBottom">
                             <div className="recipe__author">
                                 <Avatar src="" alt="" />
-                                <h5>by @autor@</h5>
+                                <h5>@AUTHOR@</h5>
                             </div>
                             <div className="recipe__likes">
-                                <FavoriteOutlined fontSize="large" />
-                                <p>345</p>
+                                <FavoriteBorderOutlined fontSize="large" />
+                                <p>@LIKES@</p>
                             </div>
                         </div>
                     </div>
@@ -58,7 +34,7 @@ function Recipe() {
 
                 <div className="recipe__body">
                     <div className="recipe__ingredients">
-                        <h2>INGREDIENTS</h2>
+                        <h2>@ingredients@</h2>
                         <ul className="recipe__ingredientsList">
                             {ingredients.map((ingredient) => (
                                 <li>{ingredient}</li>
@@ -66,7 +42,7 @@ function Recipe() {
                         </ul>
                     </div>
                     <div className="recipe__method">
-                        <h2>METHOD</h2>
+                        <h2>@method@</h2>
                         <ul className="recipe__steps">
                             {steps.map((step) => (
                                 <li>{step}</li>

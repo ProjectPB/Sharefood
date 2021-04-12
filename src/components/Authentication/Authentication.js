@@ -3,7 +3,7 @@ import "./Authentication.css";
 import Login from "./Login/Login";
 import SignUp from "./SignUp/SignUp";
 import { useDispatch } from "react-redux";
-import { auth, provider } from "../../firebase";
+import { auth, db, provider } from "../../firebase";
 import { login } from "../../features/userSlice";
 
 function Authentication() {
@@ -26,7 +26,13 @@ function Authentication() {
                         displayName: userAuth.user.displayName,
                         profilePic: userAuth.user.photoURL,
                     })
-                );
+                ) &&
+                    db.collection("users").doc(userAuth.user.uid).set({
+                        email: userAuth.user.email,
+                        uid: userAuth.user.uid,
+                        displayName: userAuth.user.displayName,
+                        profilePic: userAuth.user.photoURL,
+                    });
             })
             .catch((error) => alert(error));
     };

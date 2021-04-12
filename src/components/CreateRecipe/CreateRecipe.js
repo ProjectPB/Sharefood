@@ -4,10 +4,12 @@ import {
     closeNewRecipe,
     selectNewRecipeIsOpen,
 } from "../../features/newRecipeSlice";
+import { selectUser } from "../../features/userSlice";
 import "./CreateRecipe.css";
 import { stringToArray } from "../../util/TextFormat";
 import { Close } from "@material-ui/icons";
-import { storage } from "../../firebase";
+import { db, storage } from "../../firebase";
+import firebase from "firebase";
 import { CircularProgress } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
@@ -23,6 +25,7 @@ function CreateRecipe() {
     );
     const dispatch = useDispatch();
     const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
+    const user = useSelector(selectUser);
 
     const closeRecipe = () => {
         if (newRecipeIsOpen) {
@@ -50,42 +53,47 @@ function CreateRecipe() {
 
         validate();
 
-        if (validate()) {
-            const imageName = new Date().getTime() + image.name;
-
-            const uploadTask = storage.ref(`images/${imageName}`).put(image);
-
-            uploadTask.on(
-                "state_changed",
-                (snapshot) => {
-                    const progress = Math.round(
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                    );
-                    setProgress(progress);
-                },
-                (error) => {
-                    alert(error.message);
-                },
-                () => {
-                    storage
-                        .ref("images")
-                        .child(imageName)
-                        .getDownloadURL()
-                        .then((url) => {
-                            console.log(title);
-                            console.log(stringToArray(ingredients));
-                            console.log(stringToArray(method));
-                            console.log(type);
-                            console.log(url);
-                            alert("RECIPE ADDED!");
-                            dispatch(closeNewRecipe());
-                        });
-                }
-            );
-        } else {
-            alert("PLEASE MAKE SURE THAT ALL INPUTS ARE FILLED");
-            return;
+        if (!validate()) {
+            return alert("PLEASE MAKE SURE THAT ALL INPUTS ARE FILLED");
         }
+
+        const imageName = new Date().getTime() + image.name;
+
+        const uploadTask = storage.ref(`recipeImages/${imageName}`).put(image);
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const progress = Math.round(
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                setProgress(progress);
+            },
+            (error) => {
+                alert(error.message);
+            },
+            () => {
+                storage
+                    .ref("recipeImages")
+                    .child(imageName)
+                    .getDownloadURL()
+                    .then((url) => {
+                        db.collection("recipes").add({
+                            authorId: user.uid,
+                            authorProfilePic: user.profilePic,
+                            authorName: user.displayName,
+                            type: type,
+                            title: title,
+                            image: url,
+                            ingredients: stringToArray(ingredients),
+                            method: stringToArray(method),
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                        });
+                        alert("RECIPE ADDED!");
+                        dispatch(closeNewRecipe());
+                    });
+            }
+        );
     };
 
     return (

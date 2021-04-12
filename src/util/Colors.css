@@ -1,0 +1,27 @@
+.breakfast__color {
+    background-color: greenyellow;
+}
+
+.appetizer__color {
+    background-color: lightblue;
+}
+
+.soup__color {
+    background-color: lightcoral;
+}
+
+.main__color {
+    background-color: lightsalmon;
+}
+
+.dessert__color {
+    background-color: lightpink;
+}
+
+.drink__color {
+    background-color: burlywood;
+}
+
+.other__color {
+    background-color: lightgray;
+}

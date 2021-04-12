@@ -1,9 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Card.css";
 import { useHistory } from "react-router-dom";
+import { Avatar } from "@material-ui/core";
+import "../../util/Colors.css";
 
-function Card({ user, image, title, UserImage, wide }) {
-
+function Card({
+    wide,
+    authorId,
+    authorName,
+    authorProfilePic,
+    image,
+    ingredients,
+    method,
+    timestamp,
+    title,
+    type,
+}) {
     const history = useHistory();
 
     const navToRecipe = () => {
@@ -15,13 +27,13 @@ function Card({ user, image, title, UserImage, wide }) {
             onClick={navToRecipe}
             className={`card ${wide ? "card--wide" : "card--narrow"}`}
         >
-            <h2>MAIN</h2>
+            <h2 className={`${type}__color`}>{type.toUpperCase()}</h2>
             <img src={image} alt="" />
             <div className="card__info">
                 <h1>{title}</h1>
                 <div className="card__user">
-                    <UserImage />
-                    <p>{user}</p>
+                    <Avatar src={authorProfilePic} />
+                    <p>{authorName}</p>
                 </div>
             </div>
         </div>

@@ -3,14 +3,14 @@
     flex: 1;
 }
 
-.cards--wide {
+.main--wide {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
     margin: 20px 0px 0px 20px;
     justify-content: flex-start;
 }
 
-.cards--narrow {
+.main--narrow {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
     justify-content: flex-start;
@@ -18,35 +18,35 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .cards--wide {
+    .main--wide {
         grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
     }
 
-    .cards--narrow {
+    .main--narrow {
         grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
     }
 }
 
 @media screen and (max-width: 800px) {
-    .cards--narrow {
+    .main--narrow {
         grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
     }
 }
 
 @media screen and (max-width: 600px) {
-    .cards--wide {
+    .main--wide {
         grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
     }
 }
 
 @media screen and (max-width: 800px) and (max-height: 450px) {
-    .cards--narrow {
+    .main--narrow {
         grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
     }
 }
 
 @media screen and (max-width: 600px) and (max-height: 450px) {
-    .cards--wide {
+    .main--wide {
         grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
     }
 }

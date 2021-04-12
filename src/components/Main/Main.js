@@ -1,230 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Main.css";
 import Card from "../Card/Card";
 import { useSelector } from "react-redux";
 import { selectSidebarIsOpen } from "../../features/sidebarSlice";
 import { Avatar } from "@material-ui/core";
+import { db } from "../../firebase";
 
 function Main() {
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
+    const [recipes, setRecipes] = useState([]);
+
+    /* recipesData:
+    authorId,
+    authorName,
+    authorProfilePic,
+    image
+    ingredients,
+    method,
+    timestamp,
+    title,
+    type */
+
+    useEffect(() => {
+        db.collection("recipes")
+            .orderBy("timestamp", "desc")
+            .get()
+            .then((querySnapshot) => {
+                setRecipes(
+                    querySnapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        data: doc.data(),
+                    }))
+                );
+            });
+    }, []);
+
+    console.log(recipes);
 
     return (
         <div className="main">
             {sidebarIsOpen ? (
-                <div className="cards--wide">
-                    <Card
-                        wide
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        wide
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        wide
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
-                    <Card
-                        wide
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        wide
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        wide
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
-                    <Card
-                        wide
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        wide
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        wide
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
-                    <Card
-                        wide
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        wide
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        wide
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
+                <div className="main--wide">
+                    {recipes.map(({ id, data }) => (
+                        <Card
+                            wide
+                            authorId={data.authorId}
+                            authorName={data.authorName}
+                            authorProfilePic={data.authorProfilePic}
+                            image={data.image}
+                            ingredients={data.ingredients}
+                            method={data.method}
+                            timestamp={data.timestamp}
+                            title={data.title}
+                            type={data.type}
+                        />
+                    ))}
                 </div>
             ) : (
-                <div className="cards--narrow">
-                    <Card
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
-                    <Card
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
-                    <Card
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
-                    <Card
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
-                    <Card
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
-                    <Card
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
-                    <Card
-                        title="Pyszne Spaghetti z sosem pomidorowym, kurczakiem, krewetkami, rucolą i cukinią"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://image.freepik.com/free-photo/pasta-spaghetti-with-shrimps-sauce_1220-5072.jpg"
-                    />
-                    <Card
-                        title="Jakieś śniadanie"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hand-held-bbq-favorites-royalty-free-image-694189032-1564779029.jpg?crop=1.00xw:0.669xh;0,0.0919xh&resize=1200:*"
-                    />
-                    <Card
-                        title="Pitca"
-                        user="Patryk"
-                        UserImage={Avatar}
-                        image="https://assets.bonappetit.com/photos/597f6564e85ce178131a6475/master/w_1200,c_limit/0817-murray-mancini-dried-tomato-pie.jpg"
-                    />
+                <div className="main--narrow">
+                    {recipes.map(({ id, data }) => (
+                        <Card
+                            authorId={data.authorId}
+                            authorName={data.authorName}
+                            authorProfilePic={data.authorProfilePic}
+                            image={data.image}
+                            ingredients={data.ingredients}
+                            method={data.method}
+                            timestamp={data.timestamp}
+                            title={data.title}
+                            type={data.type}
+                        />
+                    ))}
                 </div>
             )}
         </div>
