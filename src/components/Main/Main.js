@@ -3,28 +3,29 @@ import "./Main.css";
 import Card from "../Card/Card";
 import { useSelector } from "react-redux";
 import { selectSidebarIsOpen } from "../../features/sidebarSlice";
-import { Avatar } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
 import { db } from "../../firebase";
 
 function Main() {
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
+    const [isLoading, setIsLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
-
-    /* recipesData:
-    authorId,
-    authorName,
-    authorProfilePic,
-    image
-    ingredients,
-    method,
-    timestamp,
-    title,
-    type */
 
     useEffect(() => {
         db.collection("recipes")
             .orderBy("timestamp", "desc")
-            .get()
+            .onSnapshot((snapshot) =>
+                setRecipes(
+                    snapshot.docs.map((doc) => ({
+                        id: doc.id,
+                        data: doc.data(),
+                    }))
+                )
+            );
+        setIsLoading(false);
+    }, []);
+
+    /* WITH A REFRESH .get()
             .then((querySnapshot) => {
                 setRecipes(
                     querySnapshot.docs.map((doc) => ({
@@ -32,18 +33,19 @@ function Main() {
                         data: doc.data(),
                     }))
                 );
-            });
-    }, []);
+                setIsLoading(false);
+            }); */
 
-    console.log(recipes);
-
-    return (
+    return isLoading ? (
+        <CircularProgress className="processingIcon" size={60} />
+    ) : (
         <div className="main">
             {sidebarIsOpen ? (
                 <div className="main--wide">
                     {recipes.map(({ id, data }) => (
                         <Card
                             wide
+                            id={id}
                             authorId={data.authorId}
                             authorName={data.authorName}
                             authorProfilePic={data.authorProfilePic}
@@ -60,6 +62,7 @@ function Main() {
                 <div className="main--narrow">
                     {recipes.map(({ id, data }) => (
                         <Card
+                            id={id}
                             authorId={data.authorId}
                             authorName={data.authorName}
                             authorProfilePic={data.authorProfilePic}

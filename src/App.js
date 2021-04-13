@@ -46,7 +46,7 @@ function App() {
                     <Authentication />
                 ) : (
                     <Switch>
-                        <Route path="/recipe">
+                        <Route path="/:recipeId">
                             <Header />
                             {width <= 600 && <SearchBar />}
                             <Recipe />

@@ -6,6 +6,7 @@ import "../../util/Colors.css";
 
 function Card({
     wide,
+    id,
     authorId,
     authorName,
     authorProfilePic,
@@ -15,11 +16,14 @@ function Card({
     timestamp,
     title,
     type,
+    likes,
 }) {
     const history = useHistory();
 
     const navToRecipe = () => {
-        history.push(`/recipe`);
+        history.push({
+            pathname: id,
+        });
     };
 
     return (

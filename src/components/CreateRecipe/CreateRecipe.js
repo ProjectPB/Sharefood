@@ -88,6 +88,7 @@ function CreateRecipe() {
                             ingredients: stringToArray(ingredients),
                             method: stringToArray(method),
                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                            likes: [],
                         });
                         alert("RECIPE ADDED!");
                         dispatch(closeNewRecipe());
@@ -100,7 +101,7 @@ function CreateRecipe() {
         <div className="createRecipe__container">
             {progress > 0 && (
                 <CircularProgress
-                    className="createRecipe__processingIcon"
+                    className="processingIcon"
                     value={progress}
                     size={60}
                 />

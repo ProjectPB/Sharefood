@@ -1,27 +1,41 @@
 .breakfast__color {
     background-color: greenyellow;
+    opacity: 0.8;
+    color: white;
 }
 
 .appetizer__color {
     background-color: lightblue;
+    opacity: 0.8;
+    color: black;
 }
 
 .soup__color {
     background-color: lightcoral;
+    opacity: 0.8;
+    color: black;
 }
 
 .main__color {
     background-color: lightsalmon;
+    opacity: 0.8;
+    color: black;
 }
 
 .dessert__color {
     background-color: lightpink;
+    opacity: 0.8;
+    color: black;
 }
 
 .drink__color {
     background-color: burlywood;
+    opacity: 0.8;
+    color: black;
 }
 
 .other__color {
     background-color: lightgray;
+    opacity: 0.8;
+    color: black;
 }
