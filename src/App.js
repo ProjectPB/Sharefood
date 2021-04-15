@@ -41,27 +41,43 @@ function App() {
 
     return (
         <div className="app">
-            <Router>
-                {!user ? (
-                    <Authentication />
-                ) : (
+            {!user ? (
+                <Authentication />
+            ) : (
+                <Router>
+                    <Header />
+                    {width <= 600 && <SearchBar />}
                     <Switch>
-                        <Route path="/:recipeId">
-                            <Header />
-                            {width <= 600 && <SearchBar />}
+                        <Route path="/recipe/:recipeId">
                             <Recipe />
                         </Route>
-                        <Route path="/">
-                            <Header sidebarIconDisplayed />
-                            {width <= 600 && <SearchBar />}
+                        <Route path="/favorite">
                             <div className="app__main">
                                 <Sidebar />
-                                <Main />
+                                <Main fetch="favorite" />
+                            </div>
+                        </Route>
+                        <Route path="/my">
+                            <div className="app__main">
+                                <Sidebar />
+                                <Main fetch="my" />
+                            </div>
+                        </Route>
+                        <Route path="/popular">
+                            <div className="app__main">
+                                <Sidebar />
+                                <Main fetch="popular" />
+                            </div>
+                        </Route>
+                        <Route path="/">
+                            <div className="app__main">
+                                <Sidebar />
+                                <Main fetch="all" />
                             </div>
                         </Route>
                     </Switch>
-                )}
-            </Router>
+                </Router>
+            )}
         </div>
     );
 }

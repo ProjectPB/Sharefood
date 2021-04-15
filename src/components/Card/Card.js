@@ -16,13 +16,13 @@ function Card({
     timestamp,
     title,
     type,
-    likes,
+    likesQuantity,
 }) {
     const history = useHistory();
 
     const navToRecipe = () => {
         history.push({
-            pathname: id,
+            pathname: `/recipe/${id}`,
         });
     };
 
@@ -40,6 +40,8 @@ function Card({
                     <p>{authorName}</p>
                 </div>
             </div>
+            <p>{likesQuantity} polubienia</p>
+            <p>{timestamp?.toDate().toLocaleString()}</p>
         </div>
     );
 }

@@ -88,9 +88,10 @@ function CreateRecipe() {
                             ingredients: stringToArray(ingredients),
                             method: stringToArray(method),
                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                            likes: [],
+                            likesUsers: [],
+                            likesQuantity: 0,
                         });
-                        alert("RECIPE ADDED!");
+                        alert("Recipe added, Please refresh the website");
                         dispatch(closeNewRecipe());
                     });
             }
@@ -99,7 +100,7 @@ function CreateRecipe() {
 
     return (
         <div className="createRecipe__container">
-            {progress > 0 && (
+            {progress > 0 && progress < 100 && (
                 <CircularProgress
                     className="processingIcon"
                     value={progress}

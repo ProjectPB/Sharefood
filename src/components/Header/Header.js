@@ -18,16 +18,17 @@ import SearchIcon from "@material-ui/icons/Search";
 import { ExpandLess, ExpandMore, Home, Menu } from "@material-ui/icons";
 import ProfilePopup from "./ProfilePopup/ProfilePopup";
 import CreateRecipe from "../CreateRecipe/CreateRecipe";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { selectUser } from "../../features/userSlice";
 
-function Header({ sidebarIconDisplayed }) {
+function Header() {
     const dispatch = useDispatch();
     const history = useHistory();
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
     const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
     const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
     const user = useSelector(selectUser);
+    const location = useLocation();
 
     const [width, setWidth] = useState(window.innerWidth);
 
@@ -66,11 +67,11 @@ function Header({ sidebarIconDisplayed }) {
         <div className="header">
             {newRecipeIsOpen && <CreateRecipe />}
             <div className="header__left">
-                {sidebarIconDisplayed ? (
-                    <Menu onClick={handleSidebar} fontSize="large" />
+                <Menu onClick={handleSidebar} fontSize="large" />
+                {/* {location.pathname === "/" ? (
                 ) : (
                     <Home onClick={navToMain} fontSize="large" />
-                )}
+                )} */}
                 <h2 onClick={navToMain}>ShareFood</h2>
             </div>
 

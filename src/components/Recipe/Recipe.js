@@ -10,36 +10,41 @@ import { selectUser } from "../../features/userSlice";
 import firebase from "firebase";
 
 function Recipe() {
+    const user = useSelector(selectUser);
+    const location = useLocation();
+    const recipeId = location.pathname.substring(8);
     const [recipeData, setRecipeData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const location = useLocation();
-    const user = useSelector(selectUser);
 
     useEffect(() => {
         db.collection("recipes")
-            .doc(location.pathname)
+            .doc(recipeId)
             .onSnapshot((doc) => {
                 setRecipeData(doc.data());
                 setIsLoading(false);
             });
     }, []);
 
-    const likeRecipe = () => {
+    const likeRecipe = (e) => {
+        e.preventDefault();
+
         db.collection("recipes")
-            .doc(location.pathname)
+            .doc(recipeId)
             .update({
-                likes: firebase.firestore.FieldValue.arrayUnion(user.uid),
+                likesUsers: firebase.firestore.FieldValue.arrayUnion(user.uid),
+                likesQuantity: firebase.firestore.FieldValue.increment(1),
             });
-        console.log(recipeData);
     };
 
-    const dislikeRecipe = () => {
+    const dislikeRecipe = (e) => {
+        e.preventDefault();
+
         db.collection("recipes")
-            .doc(location.pathname)
+            .doc(recipeId)
             .update({
-                likes: firebase.firestore.FieldValue.arrayRemove(user.uid),
+                likesUsers: firebase.firestore.FieldValue.arrayRemove(user.uid),
+                likesQuantity: firebase.firestore.FieldValue.increment(-1),
             });
-        console.log(recipeData);
     };
 
     return isLoading ? (
@@ -67,7 +72,7 @@ function Recipe() {
                                 <h5>{recipeData.authorName}</h5>
                             </div>
                             <div className="recipe__likes">
-                                {!recipeData.likes.includes(user.uid) ? (
+                                {!recipeData.likesUsers.includes(user.uid) ? (
                                     <FavoriteBorderOutlined
                                         onClick={likeRecipe}
                                         fontSize="large"
@@ -78,7 +83,7 @@ function Recipe() {
                                         fontSize="large"
                                     />
                                 )}
-                                <p>{recipeData.likes.length}</p>
+                                <p>{recipeData.likesQuantity}</p>
                             </div>
                         </div>
                     </div>
@@ -90,16 +95,16 @@ function Recipe() {
                             Ingredients
                         </h2>
                         <ul className="recipe__ingredientsList">
-                            {recipeData.ingredients.map((ingredient) => (
-                                <li>{ingredient}</li>
+                            {recipeData.ingredients.map((ingredient, index) => (
+                                <li key={index}>{ingredient}</li>
                             ))}
                         </ul>
                     </div>
                     <div className="recipe__method">
                         <h2 className={`${recipeData.type}__color`}>Method</h2>
                         <ul className="recipe__steps">
-                            {recipeData.method.map((step) => (
-                                <li>{step}</li>
+                            {recipeData.method.map((step, index) => (
+                                <li key={index}>{step}</li>
                             ))}
                         </ul>
                     </div>

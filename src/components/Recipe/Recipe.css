@@ -63,12 +63,16 @@
     margin-left: 2px;
 }
 
-.recipe__author > h5 {
-    margin-left: 10px;
-}
-
 .recipe__likes > p {
     margin-left: 12px;
+}
+
+.recipe__likes > .MuiSvgIcon-root {
+    cursor: pointer;
+}
+
+.recipe__author > h5 {
+    margin-left: 10px;
 }
 
 .recipe__image {
