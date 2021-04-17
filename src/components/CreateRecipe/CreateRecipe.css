@@ -25,7 +25,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
+    outline: 1px solid black;
 }
 
 .createRecipe__imageInput {
