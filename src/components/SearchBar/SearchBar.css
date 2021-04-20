@@ -5,6 +5,12 @@
     border-bottom: 1px solid;
 }
 
+.searchBar__onHeader {
+    display: flex;
+    flex: 1;
+    max-width: 500px;
+}
+
 .searchInput {
     height: 10px;
     border: 1px solid black;

@@ -14,12 +14,12 @@ import {
 } from "../../features/newRecipeSlice";
 
 import Avatar from "@material-ui/core/Avatar";
-import SearchIcon from "@material-ui/icons/Search";
 import { ExpandLess, ExpandMore, Home, Menu } from "@material-ui/icons";
 import ProfilePopup from "./ProfilePopup/ProfilePopup";
 import CreateRecipe from "../CreateRecipe/CreateRecipe";
 import { useHistory, useLocation } from "react-router-dom";
 import { selectUser } from "../../features/userSlice";
+import SearchBar from "../SearchBar/SearchBar";
 
 function Header() {
     const dispatch = useDispatch();
@@ -75,16 +75,7 @@ function Header() {
                 <h2 onClick={navToMain}>ShareFood</h2>
             </div>
 
-            {width > 600 && (
-                <div className="header__searchBar">
-                    <input
-                        className="header__searchInput"
-                        placeholder="Find the recipe..."
-                        type="text"
-                    />
-                    <SearchIcon className="header__searchIcon" />
-                </div>
-            )}
+            {width > 600 && <SearchBar onHeader />}
 
             <button onClick={handleCreateRecipe}>Create</button>
 

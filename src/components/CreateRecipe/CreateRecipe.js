@@ -6,7 +6,7 @@ import {
 } from "../../features/newRecipeSlice";
 import { selectUser } from "../../features/userSlice";
 import "./CreateRecipe.css";
-import { stringToArray } from "../../util/TextFormat";
+import { renderTags, stringToArray } from "../../util/TextFormat";
 import { Close } from "@material-ui/icons";
 import { db, storage } from "../../firebase";
 import firebase from "firebase";
@@ -85,6 +85,7 @@ function CreateRecipe() {
                             type: type,
                             title: title,
                             image: url,
+                            tags: renderTags(title, ingredients, type),
                             ingredients: stringToArray(ingredients),
                             method: stringToArray(method),
                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),

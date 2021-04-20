@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login, logout, selectUser } from "./features/userSlice";
+import { auth } from "./firebase";
+
 import Header from "./components/Header/Header";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Main from "./components/Main/Main";
-import SearchBar from "./components/SearchBar";
+import SearchBar from "./components/SearchBar/SearchBar";
 import Recipe from "./components/Recipe/Recipe";
-import { auth } from "./firebase";
-import "./App.css";
 import Authentication from "./components/Authentication/Authentication";
+import "./App.css";
 
 function App() {
     const [width, setWidth] = useState(window.innerWidth);
@@ -48,6 +49,12 @@ function App() {
                     <Header />
                     {width <= 600 && <SearchBar />}
                     <Switch>
+                        <Route path="/results">
+                            <div className="app__main">
+                                <Sidebar />
+                                <Main fetch="search" />
+                            </div>
+                        </Route>
                         <Route path="/recipe/:recipeId">
                             <Recipe />
                         </Route>

@@ -11,9 +11,14 @@ import { useLocation } from "react-router";
 function Main({ fetch }) {
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
     const user = useSelector(selectUser);
+
+    const location = useLocation();
+    const { search } = useLocation();
     const [isLoading, setIsLoading] = useState(true);
     const [recipes, setRecipes] = useState([]);
-    const location = useLocation();
+
+    const searchParams = new URLSearchParams(search);
+    const queryResult = searchParams.get("q");
 
     useEffect(() => {
         switch (fetch) {
@@ -75,13 +80,28 @@ function Main({ fetch }) {
                         setIsLoading(false);
                     });
                 return;
+            case "search":
+                db.collection("recipes")
+                    .where("tags", "array-contains", queryResult)
+                    .get()
+                    .then((querySnapshot) => {
+                        setRecipes(
+                            querySnapshot.docs.map((doc) => ({
+                                id: doc.id,
+                                data: doc.data(),
+                            }))
+                        );
+                        setIsLoading(false);
+                    });
+                return;
         }
-    }, [location.pathname]);
+    }, [location.pathname, search]);
 
     return isLoading ? (
         <CircularProgress className="processingIcon" size={60} />
     ) : (
         <div className="main">
+            {search && <h3>Search results for {queryResult}</h3>}
             {recipes.length === 0 && <h2>TU NIKOGO NIE MA</h2>}
             {sidebarIsOpen ? (
                 <div className="main--wide">
