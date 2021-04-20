@@ -6,7 +6,7 @@ import {
 } from "../../features/newRecipeSlice";
 import { selectUser } from "../../features/userSlice";
 import "./CreateRecipe.css";
-import { renderTags, stringToArray } from "../../util/TextFormat";
+import { renderTags, stringToArray, titleFormat } from "../../util/TextFormat";
 import { Close } from "@material-ui/icons";
 import { db, storage } from "../../firebase";
 import firebase from "firebase";
@@ -83,7 +83,7 @@ function CreateRecipe() {
                             authorProfilePic: user.profilePic,
                             authorName: user.displayName,
                             type: type,
-                            title: title,
+                            title: titleFormat(title),
                             image: url,
                             tags: renderTags(title, ingredients, type),
                             ingredients: stringToArray(ingredients),

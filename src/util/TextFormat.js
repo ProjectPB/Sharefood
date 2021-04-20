@@ -32,3 +32,9 @@ export const renderTags = (strTitle, strIngredients, strType) => {
     tags = [...new Set(lowered)];
     return tags;
 };
+
+export const titleFormat = (str) => {
+    const capitalStr = str[0].toUpperCase() + str.substring(1);
+    const formatStr = capitalStr.trim(" ");
+    return formatStr;
+};
