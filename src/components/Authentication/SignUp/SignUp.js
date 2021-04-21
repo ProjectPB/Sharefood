@@ -30,8 +30,8 @@ function SignUp() {
             return alert("Please enter a full name!");
         }
 
-        auth.createUserWithEmailAndPassword(email, password).then(
-            (userAuth) => {
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((userAuth) => {
                 userAuth.user
                     .updateProfile({
                         displayName: username,
@@ -51,10 +51,9 @@ function SignUp() {
                                 displayName: userAuth.user.displayName,
                                 profilePic: userAuth.user.photoURL,
                             });
-                    })
-                    .catch((error) => alert(error.message));
-            }
-        );
+                    });
+            })
+            .catch((error) => alert(error.message));
     };
 
     return (
