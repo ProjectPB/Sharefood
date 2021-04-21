@@ -7,6 +7,20 @@
     height: calc(100vh - 62px);
 }
 
+.app__processing {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgray;
+    height: 100vh;
+    width: 100vw;
+}
+
+.app__processing > h1 {
+    margin-bottom: 30px;
+}
+
 @media screen and (max-width: 600px) {
     .app__main {
         height: calc(100vh - 105px);

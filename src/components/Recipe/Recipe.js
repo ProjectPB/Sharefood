@@ -47,69 +47,79 @@ function Recipe() {
             });
     };
 
-    return isLoading ? (
-        <CircularProgress className="processingIcon" size={60} />
-    ) : (
+    return (
         <div className="recipe__container">
-            <div className="recipe">
-                <div className="recipe__upper">
-                    <img
-                        className="recipe__image"
-                        src={recipeData.image}
-                        alt=""
-                    />
-                    <div className="recipe__info">
-                        <h2 className={`${recipeData.type}__color`}>
-                            {recipeData.type.toUpperCase()}
-                        </h2>
-                        <h1>{recipeData.title}</h1>
-                        <div className="recipe__infoBottom">
-                            <div className="recipe__author">
-                                <Avatar
-                                    src={recipeData.authorProfilePic}
-                                    alt=""
-                                />
-                                <h5>{recipeData.authorName}</h5>
-                            </div>
-                            <div className="recipe__likes">
-                                {!recipeData.likesUsers.includes(user.uid) ? (
-                                    <FavoriteBorderOutlined
-                                        onClick={likeRecipe}
-                                        fontSize="large"
+            {isLoading ? (
+                <div className="recipe__processing">
+                    <CircularProgress size={60} />
+                </div>
+            ) : (
+                <div className="recipe">
+                    <div className="recipe__upper">
+                        <img
+                            className="recipe__image"
+                            src={recipeData.image}
+                            alt=""
+                        />
+                        <div className="recipe__info">
+                            <h2 className={`${recipeData.type}__color`}>
+                                {recipeData.type?.toUpperCase()}
+                            </h2>
+                            <h1>{recipeData.title}</h1>
+                            <div className="recipe__infoBottom">
+                                <div className="recipe__author">
+                                    <Avatar
+                                        src={recipeData.authorProfilePic}
+                                        alt=""
                                     />
-                                ) : (
-                                    <Favorite
-                                        onClick={dislikeRecipe}
-                                        fontSize="large"
-                                    />
-                                )}
-                                <p>{recipeData.likesQuantity}</p>
+                                    <h5>{recipeData.authorName}</h5>
+                                </div>
+                                <div className="recipe__likes">
+                                    {!recipeData.likesUsers?.includes(
+                                        user.uid
+                                    ) ? (
+                                        <FavoriteBorderOutlined
+                                            onClick={likeRecipe}
+                                            fontSize="large"
+                                        />
+                                    ) : (
+                                        <Favorite
+                                            onClick={dislikeRecipe}
+                                            fontSize="large"
+                                        />
+                                    )}
+                                    <p>{recipeData.likesQuantity}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="recipe__body">
-                    <div className="recipe__ingredients">
-                        <h2 className={`${recipeData.type}__color`}>
-                            Ingredients
-                        </h2>
-                        <ul className="recipe__ingredientsList">
-                            {recipeData.ingredients.map((ingredient, index) => (
-                                <li key={index}>{ingredient}</li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="recipe__method">
-                        <h2 className={`${recipeData.type}__color`}>Method</h2>
-                        <ul className="recipe__steps">
-                            {recipeData.method.map((step, index) => (
-                                <li key={index}>{step}</li>
-                            ))}
-                        </ul>
+                    <div className="recipe__body">
+                        <div className="recipe__ingredients">
+                            <h2 className={`${recipeData.type}__color`}>
+                                Ingredients
+                            </h2>
+                            <ul className="recipe__ingredientsList">
+                                {recipeData.ingredients?.map(
+                                    (ingredient, index) => (
+                                        <li key={index}>{ingredient}</li>
+                                    )
+                                )}
+                            </ul>
+                        </div>
+                        <div className="recipe__method">
+                            <h2 className={`${recipeData.type}__color`}>
+                                Method
+                            </h2>
+                            <ul className="recipe__steps">
+                                {recipeData.method?.map((step, index) => (
+                                    <li key={index}>{step}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }

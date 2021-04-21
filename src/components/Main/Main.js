@@ -98,7 +98,9 @@ function Main({ fetch }) {
     }, [location.pathname, search]);
 
     return isLoading ? (
-        <CircularProgress className="processingIcon" size={60} />
+        <div className="main__processing">
+            <CircularProgress size={60} />
+        </div>
     ) : (
         <div className="main">
             {search && <h3>Search results for {queryResult}</h3>}

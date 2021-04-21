@@ -10,12 +10,14 @@ import Main from "./components/Main/Main";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Recipe from "./components/Recipe/Recipe";
 import Authentication from "./components/Authentication/Authentication";
+import { CircularProgress } from "@material-ui/core";
 import "./App.css";
 
 function App() {
     const [width, setWidth] = useState(window.innerWidth);
     const user = useSelector(selectUser);
     const dispatch = useDispatch();
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         window.addEventListener("resize", () => {
@@ -37,10 +39,16 @@ function App() {
             } else {
                 dispatch(logout());
             }
+            setIsLoading(false);
         });
     }, []);
 
-    return (
+    return isLoading ? (
+        <div className="app__processing">
+            <h1>Sharefood</h1>
+            <CircularProgress size={60} />
+        </div>
+    ) : (
         <div className="app">
             {!user ? (
                 <Authentication />

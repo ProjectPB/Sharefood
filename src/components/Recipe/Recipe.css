@@ -1,15 +1,16 @@
+.recipe__processing {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .recipe__container {
     display: flex;
     flex-direction: column;
     height: calc(100vh - 62px);
     overflow-y: scroll;
     overflow-x: hidden;
-}
-
-@media screen and (max-width: 600px) {
-    .recipe__container {
-        height: calc(100vh - 105px);
-    }
 }
 
 .recipe {
@@ -139,6 +140,10 @@
 }
 
 @media screen and (max-width: 600px) {
+    .recipe__container {
+        height: calc(100vh - 105px);
+    }
+
     .recipe {
         margin: 0 0 10px 0;
     }

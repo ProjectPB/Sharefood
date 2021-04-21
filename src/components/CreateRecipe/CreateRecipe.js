@@ -34,7 +34,13 @@ function CreateRecipe() {
     };
 
     const handleFileChange = (e) => {
-        if (e.target.files[0]) {
+        const pattern = /image-*/;
+        const file = e.target.files[0];
+
+        if (!file.type.match(pattern)) {
+            alert("Invalid format");
+            return;
+        } else {
             setImage(e.target.files[0]);
             setPreviewImage(URL.createObjectURL(e.target.files[0]));
         }
@@ -103,7 +109,7 @@ function CreateRecipe() {
         <div className="createRecipe__container">
             {progress > 0 && progress < 100 && (
                 <CircularProgress
-                    className="processingIcon"
+                    className="createRecipe__processingIcon"
                     value={progress}
                     size={60}
                 />
@@ -121,6 +127,7 @@ function CreateRecipe() {
                             type="file"
                             onChange={handleFileChange}
                             className="createRecipe__imageInput"
+                            accept="image/*"
                         />
                     </div>
                     <div className="createRecipe__info">
