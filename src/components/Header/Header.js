@@ -29,6 +29,7 @@ function Header() {
     const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
     const user = useSelector(selectUser);
     const location = useLocation();
+    const [menuIcon, setMenuIcon] = useState(true);
 
     const [width, setWidth] = useState(window.innerWidth);
 
@@ -67,11 +68,11 @@ function Header() {
         <div className="header">
             {newRecipeIsOpen && <CreateRecipe />}
             <div className="header__left">
-                <Menu onClick={handleSidebar} fontSize="large" />
-                {/* {location.pathname === "/" ? (
+                {!location.pathname.includes("/recipe") ? (
+                    <Menu onClick={handleSidebar} fontSize="large" />
                 ) : (
                     <Home onClick={navToMain} fontSize="large" />
-                )} */}
+                )}
                 <h2 onClick={navToMain}>ShareFood</h2>
             </div>
 
