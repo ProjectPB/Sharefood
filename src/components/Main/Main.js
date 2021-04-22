@@ -7,6 +7,7 @@ import { CircularProgress } from "@material-ui/core";
 import { db } from "../../firebase";
 import { selectUser } from "../../features/userSlice";
 import { useLocation } from "react-router";
+import NoData from "../NoData/NoData";
 
 function Main({ fetch }) {
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
@@ -104,7 +105,7 @@ function Main({ fetch }) {
     ) : (
         <div className="main">
             {search && <h3>Search results for {queryResult}</h3>}
-            {recipes.length === 0 && <h2>TU NIKOGO NIE MA</h2>}
+            {recipes.length === 0 && <NoData />}
             {sidebarIsOpen ? (
                 <div className="main--wide">
                     {recipes.map(({ id, data }) => (

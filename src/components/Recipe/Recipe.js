@@ -8,6 +8,7 @@ import { useLocation } from "react-router";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import firebase from "firebase";
+import NoData from "../NoData/NoData";
 
 function Recipe() {
     const user = useSelector(selectUser);
@@ -47,35 +48,37 @@ function Recipe() {
             });
     };
 
-    return (
+    return isLoading ? (
+        <div className="recipe__processing">
+            <CircularProgress size={60} />
+        </div>
+    ) : (
         <div className="recipe__container">
-            {isLoading ? (
-                <div className="recipe__processing">
-                    <CircularProgress size={60} />
-                </div>
+            {!recipeData ? (
+                <NoData />
             ) : (
                 <div className="recipe">
                     <div className="recipe__upper">
                         <img
                             className="recipe__image"
-                            src={recipeData.image}
+                            src={recipeData?.image}
                             alt=""
                         />
                         <div className="recipe__info">
-                            <h2 className={`${recipeData.type}__color`}>
-                                {recipeData.type?.toUpperCase()}
+                            <h2 className={`${recipeData?.type}__color`}>
+                                {recipeData?.type?.toUpperCase()}
                             </h2>
-                            <h1>{recipeData.title}</h1>
+                            <h1>{recipeData?.title}</h1>
                             <div className="recipe__infoBottom">
                                 <div className="recipe__author">
                                     <Avatar
-                                        src={recipeData.authorProfilePic}
+                                        src={recipeData?.authorProfilePic}
                                         alt=""
                                     />
-                                    <h5>{recipeData.authorName}</h5>
+                                    <h5>{recipeData?.authorName}</h5>
                                 </div>
                                 <div className="recipe__likes">
-                                    {!recipeData.likesUsers?.includes(
+                                    {!recipeData?.likesUsers?.includes(
                                         user.uid
                                     ) ? (
                                         <FavoriteBorderOutlined
@@ -88,7 +91,7 @@ function Recipe() {
                                             fontSize="large"
                                         />
                                     )}
-                                    <p>{recipeData.likesQuantity}</p>
+                                    <p>{recipeData?.likesQuantity}</p>
                                 </div>
                             </div>
                         </div>
@@ -96,11 +99,11 @@ function Recipe() {
 
                     <div className="recipe__body">
                         <div className="recipe__ingredients">
-                            <h2 className={`${recipeData.type}__color`}>
+                            <h2 className={`${recipeData?.type}__color`}>
                                 Ingredients
                             </h2>
                             <ul className="recipe__ingredientsList">
-                                {recipeData.ingredients?.map(
+                                {recipeData?.ingredients?.map(
                                     (ingredient, index) => (
                                         <li key={index}>{ingredient}</li>
                                     )
@@ -108,11 +111,11 @@ function Recipe() {
                             </ul>
                         </div>
                         <div className="recipe__method">
-                            <h2 className={`${recipeData.type}__color`}>
+                            <h2 className={`${recipeData?.type}__color`}>
                                 Method
                             </h2>
                             <ul className="recipe__steps">
-                                {recipeData.method?.map((step, index) => (
+                                {recipeData?.method?.map((step, index) => (
                                     <li key={index}>{step}</li>
                                 ))}
                             </ul>
@@ -120,6 +123,7 @@ function Recipe() {
                     </div>
                 </div>
             )}
+            )
         </div>
     );
 }
