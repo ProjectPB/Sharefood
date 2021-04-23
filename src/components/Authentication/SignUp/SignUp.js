@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { auth, db, provider } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import { login } from "../../../features/userSlice";
 import "./SignUp.css";
+import { Lock, Mail, Person } from "@material-ui/icons";
+import Input from "../../Input/Input";
 
-function SignUp() {
+function SignUp({ cancel }) {
     const dispatch = useDispatch();
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -58,36 +60,56 @@ function SignUp() {
 
     return (
         <div className="signUp">
-            <h3>REJESTRACJA</h3>
-            <input
+            <h3>SIGN UP</h3>
+            <Input
+                Icon={Person}
                 placeholder="Username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
             />
-            <input
+            <Input
+                Icon={Mail}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="E-mail"
                 type="email"
             />
-
-            <input
+            <Input
+                Icon={Lock}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 type="password"
             />
-            <input
+            <Input
+                Icon={Lock}
                 value={passwordConfirm}
                 onChange={(e) => setPasswordConfirm(e.target.value)}
                 placeholder="Confirm Password"
                 type="password"
             />
 
-            <button type="submit" onClick={register}>
-                Sign Up
-            </button>
+            <div className="signUp__buttons">
+                <button
+                    style={{
+                        color: "orange",
+                        backgroundColor: "white",
+                    }}
+                    onClick={cancel}
+                >
+                    CANCEL
+                </button>
+                <button
+                    style={{
+                        backgroundColor: "orange",
+                    }}
+                    type="submit"
+                    onClick={register}
+                >
+                    SIGN UP
+                </button>
+            </div>
         </div>
     );
 }

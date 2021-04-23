@@ -1,27 +1,22 @@
 .login {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    width: 100%;
 }
 
 .login > h3 {
     text-align: center;
-}
-
-.login__googleButton {
-    margin-top: 15px;
-    cursor: pointer;
-    padding: 10px;
-    background-color: orange;
-    border: 1px solid;
-    border-radius: 10px;
-}
-
-.login > input {
-    padding: 10px;
-    outline: none;
-    border: 1px solid;
+    margin-bottom: 5px;
+    font-size: 18px;
+    font-weight: 600;
 }
 
 .login > button {
-    padding: 5px;
+    border-radius: 2px;
+    padding: 11px 8px;
+    cursor: pointer;
+    outline: none;
+    border: thin solid;
+    font-size: 14px;
 }

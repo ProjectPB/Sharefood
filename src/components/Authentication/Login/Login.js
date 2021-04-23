@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { auth, provider } from "../../../firebase";
+import { auth } from "../../../firebase";
 import { login } from "../../../features/userSlice";
 import "./Login.css";
+import { Lock, Mail } from "@material-ui/icons";
+import Input from "../../Input/Input";
 
 function Login() {
     const dispatch = useDispatch();
@@ -28,23 +30,31 @@ function Login() {
 
     return (
         <div className="login">
-            <h3>LOGOWANIE</h3>
-            <input
+            <h3>SIGN IN</h3>
+            <Input
+                Icon={Mail}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="E-mail"
                 type="email"
             />
 
-            <input
+            <Input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 type="password"
+                Icon={Lock}
             />
 
-            <button type="submit" onClick={signIn}>
-                Sign In
+            <button
+                style={{
+                    backgroundColor: "orange",
+                }}
+                type="submit"
+                onClick={signIn}
+            >
+                SIGN IN
             </button>
         </div>
     );

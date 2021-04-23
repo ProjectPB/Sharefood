@@ -40,7 +40,7 @@ function Authentication() {
     return (
         <div className="authentication__container">
             <div className="authentication">
-                {newAccount ? <SignUp /> : <Login />}
+                {newAccount ? <SignUp cancel={handleAccount} /> : <Login />}
 
                 {!newAccount && (
                     <p>
@@ -55,15 +55,19 @@ function Authentication() {
                 )}
 
                 {!newAccount && (
-                    <button
-                        className="authentication__googleButton"
-                        onClick={loginGoogle}
-                    >
-                        SIGN IN WITH GOOGLE
-                    </button>
+                    <div className="authentication__google">
+                        <img
+                            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                            alt="google"
+                        />
+                        <button
+                            className="authentication__googleButton"
+                            onClick={loginGoogle}
+                        >
+                            SIGN IN WITH GOOGLE
+                        </button>
+                    </div>
                 )}
-
-                {newAccount && <button onClick={handleAccount}>Cancel</button>}
             </div>
         </div>
     );
