@@ -10,7 +10,7 @@ function SearchBar({ onHeader }) {
     const navToSearchResult = (e) => {
         e.preventDefault();
 
-        const loweredInput = input[0].toLowerCase() + input.substring(1);
+        const loweredInput = input[0]?.toLowerCase() + input.substring(1);
 
         input && history.push(`/results/?q=${loweredInput}`);
 

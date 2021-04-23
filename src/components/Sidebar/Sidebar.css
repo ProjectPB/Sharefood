@@ -10,56 +10,12 @@
     border-right: 1px solid black;
 }
 
-.sidebar__option,
-.sidebar__option--hidden {
-    display: flex;
-    align-items: center;
-    padding: 15px;
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
-
-.sidebar__option:hover,
-.sidebar__option--hidden:hover {
-    cursor: pointer;
-    background-color: lightgray;
-}
-
-.sidebar__option > h1 {
-    font-size: 16px;
-    font-weight: 500;
-    padding-left: 10px;
-}
-
-.sidebar__option--hidden > h1 {
-    display: none;
-}
-
 @media screen and (max-width: 600px) {
     .sidebar {
         width: 100%;
     }
-
-    .sidebar__option {
-        justify-content: center;
-    }
 }
 
-@media screen and (max-height: 450px) {
-    .sidebar__option > .MuiSvgIcon-root {
-        width: 20px !important;
-        height: 20px !important;
-    }
-
-    .sidebar__option > h1 {
-        font-size: 14px;
-    }
-
-    .sidebar__option--hidden > .MuiSvgIcon-root {
-        width: 20px !important;
-        height: 20px !important;
-    }
+.selected {
+    background-color: rgb(128, 128, 128, 0.8);
 }
