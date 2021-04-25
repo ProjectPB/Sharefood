@@ -38,7 +38,7 @@ function Header() {
             setWidth(window.innerWidth);
         });
         if (width < 600) {
-            dispatch(openSidebar());
+            dispatch(closeSidebar());
         }
     }, []);
 

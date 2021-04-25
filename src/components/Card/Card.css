@@ -1,6 +1,15 @@
 .card {
     position: relative;
     outline: 1px solid;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    margin: 0px 20px 20px 0px;
+    width: calc(100% - 20px);
+}
+
+.hidden > div {
+    display: none;
 }
 
 .card > h2 {
@@ -11,6 +20,12 @@
     padding: 10px;
     border-radius: 10px;
     border: 1px solid;
+}
+
+.card > img {
+    object-fit: cover;
+    aspect-ratio: 4 / 3;
+    width: 100%;
 }
 
 .card__info {
@@ -24,12 +39,6 @@
     font-size: 14px;
     flex: 1;
     text-align: center;
-}
-
-@media screen and (max-width: 1400px) {
-    .card__info > h1 {
-        font-size: 10px;
-    }
 }
 
 .card__user {
@@ -48,89 +57,14 @@
     height: 25px;
 }
 
-.card--narrow {
-    display: flex;
-    flex-direction: column;
-    width: calc((100vw - 395px) / 3);
-    margin: 0px 20px 20px 0px;
-}
-
-.card--narrow > img {
-    object-fit: cover;
-    height: calc((100vw - 395px) / 3 / 1.33);
-}
-
 .card:hover {
-    transform: scale(1.025);
-    cursor: pointer;
     opacity: 0.8;
+    transform: scale(1.025);
     transition: ease-in 0.2s;
 }
 
-.card--wide {
-    display: flex;
-    flex-direction: column;
-    margin: 0px 20px 20px 0px;
-    width: calc((100vw - 160px) / 3);
-}
-
-.card--wide > img {
-    object-fit: cover;
-    height: calc((100vw - 160px) / 3 / 1.33);
-}
-
-@media screen and (max-width: 1024px) {
-    .card--narrow {
-        width: calc((100vw - 375px) / 2);
-    }
-
-    .card--narrow > img {
-        height: calc((100vw - 375px) / 2 / 1.33);
-    }
-
-    .card--wide {
-        width: calc((100vw - 140px) / 2);
-    }
-
-    .card--wide > img {
-        height: calc((100vw - 140px) / 2 / 1.33);
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .card--narrow {
-        width: calc((100vw - 355px));
-    }
-
-    .card--narrow > img {
-        height: calc((100vw - 355px) / 1.33);
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .card--wide {
-        width: calc((100vw - 120px));
-    }
-
-    .card--wide > img {
-        height: calc((100vw - 120px) / 1.33);
-    }
-}
-
-@media screen and (max-width: 800px) and (max-height: 450px) {
-    .card--narrow {
-        width: calc((100vw - 355px) / 2);
-    }
-
-    .card--narrow > img {
-        height: calc((100vw - 355px) / 2 / 1.33);
-    }
-
-    .card--wide {
-        width: calc((100vw - 115px) / 2);
-    }
-
-    .card--wide > img {
-        height: calc((100vw - 115px) / 2 / 1.33);
+@media screen and (max-width: 1400px) {
+    .card__info > h1 {
+        font-size: 10px;
     }
 }

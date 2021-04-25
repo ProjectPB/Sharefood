@@ -5,11 +5,10 @@ import { login, logout, selectUser } from "./features/userSlice";
 import { auth } from "./firebase";
 
 import Header from "./components/Header/Header";
-import Sidebar from "./components/Sidebar/Sidebar";
-import Main from "./components/Main/Main";
 import SearchBar from "./components/SearchBar/SearchBar";
 import Recipe from "./components/Recipe/Recipe";
 import Authentication from "./components/Authentication/Authentication";
+import Main from "./components/Main/Main";
 import { CircularProgress } from "@material-ui/core";
 import "./App.css";
 
@@ -58,37 +57,22 @@ function App() {
                     {width <= 600 && <SearchBar />}
                     <Switch>
                         <Route path="/results">
-                            <div className="app__main">
-                                <Sidebar />
-                                <Main fetch="search" />
-                            </div>
+                            <Main fetch="search" />
                         </Route>
                         <Route path="/recipe/:recipeId">
                             <Recipe />
                         </Route>
                         <Route path="/favorite">
-                            <div className="app__main">
-                                <Sidebar />
-                                <Main fetch="favorite" />
-                            </div>
+                            <Main fetch="favorite" />
                         </Route>
                         <Route path="/my">
-                            <div className="app__main">
-                                <Sidebar />
-                                <Main fetch="my" />
-                            </div>
+                            <Main fetch="my" />
                         </Route>
                         <Route path="/popular">
-                            <div className="app__main">
-                                <Sidebar />
-                                <Main fetch="popular" />
-                            </div>
+                            <Main fetch="popular" />
                         </Route>
                         <Route path="/">
-                            <div className="app__main">
-                                <Sidebar />
-                                <Main fetch="all" />
-                            </div>
+                            <Main fetch="all" />
                         </Route>
                     </Switch>
                 </Router>

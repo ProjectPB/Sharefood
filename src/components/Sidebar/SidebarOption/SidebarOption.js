@@ -7,7 +7,7 @@ function SidebarOption({ Icon, title }) {
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
 
     return (
-        <div className={ sidebarIsOpen ? "sidebar__option--hidden" : "sidebar__option" }>
+        <div className={ sidebarIsOpen ? "sidebar__option" : "sidebar__option--hidden" }>
             <Icon fontSize="large" />
             <h1>{title}</h1>
         </div>

@@ -10,7 +10,7 @@ function Sidebar() {
     const sidebarIsOpen = useSelector(selectSidebarIsOpen);
 
     return (
-        <div className={sidebarIsOpen ? "sidebar--hidden" : "sidebar"}>
+        <div className={sidebarIsOpen ? "sidebar" : "sidebar--hidden"}>
             <NavLink to="/" exact activeClassName="selected">
                 <SidebarOption selected Icon={Home} title="MAIN" />
             </NavLink>

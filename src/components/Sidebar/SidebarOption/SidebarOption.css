@@ -37,19 +37,3 @@ a {
         justify-content: center;
     }
 }
-
-@media screen and (max-height: 450px) {
-    .sidebar__option > .MuiSvgIcon-root {
-        width: 20px !important;
-        height: 20px !important;
-    }
-
-    .sidebar__option > h1 {
-        font-size: 14px;
-    }
-
-    .sidebar__option--hidden > .MuiSvgIcon-root {
-        width: 20px !important;
-        height: 20px !important;
-    }
-}

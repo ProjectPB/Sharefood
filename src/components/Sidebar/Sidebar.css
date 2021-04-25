@@ -1,13 +1,13 @@
 .sidebar {
     width: 300px;
     background-color: #efefef;
-    border-right: 1px solid black;
+    outline: 1px solid black;
 }
 
 .sidebar--hidden {
     width: fit-content;
     background-color: #efefef;
-    border-right: 1px solid black;
+    outline: 1px solid black;
 }
 
 @media screen and (max-width: 600px) {

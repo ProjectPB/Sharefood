@@ -1,60 +1,10 @@
 .main {
-    overflow-y: scroll;
-    flex: 1;
-}
-
-.main__processing {
-    position: relative;
-    flex: 1;
-    justify-content: center;
-    align-items: center;
     display: flex;
-}
-
-.main--wide {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
-    margin: 20px 0px 0px 20px;
-    justify-content: flex-start;
-}
-
-.main--narrow {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
-    justify-content: flex-start;
-    margin: 20px 0px 0px 20px;
-}
-
-@media screen and (max-width: 1024px) {
-    .main--wide {
-        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
-    }
-
-    .main--narrow {
-        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .main--narrow {
-        grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
-    }
+    height: calc(100vh - 62px);
 }
 
 @media screen and (max-width: 600px) {
-    .main--wide {
-        grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
-    }
-}
-
-@media screen and (max-width: 800px) and (max-height: 450px) {
-    .main--narrow {
-        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
-    }
-}
-
-@media screen and (max-width: 600px) and (max-height: 450px) {
-    .main--wide {
-        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
+    .main {
+        height: calc(100vh - 105px);
     }
 }
