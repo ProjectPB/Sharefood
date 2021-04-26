@@ -23,26 +23,36 @@
     justify-content: space-between;
 }
 
+.recipe__image {
+    object-fit: cover;
+    flex: 0.35;
+    width: calc(35% - 7px);
+    aspect-ratio: 4 / 3;
+    outline: 1px solid black;
+}
+
 .recipe__info {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 0.65;
     padding-bottom: 10px;
     margin: 0 0 0 20px;
     background-color: whitesmoke;
     outline: 1px solid black;
 }
 
-.recipe__info > h1 {
-    text-align: center;
-    font-size: 26px;
-    margin-top: 5px;
-}
-
 .recipe__info > h2 {
     font-size: 15px;
     text-align: center;
     padding: 10px;
+}
+
+.recipe__title {
+    font-size: 24px;
+    margin-top: 5px;
+    text-align: center;
+    word-break: break-all;
+    padding: 0 5px;
 }
 
 .recipe__infoBottom {
@@ -76,24 +86,10 @@
     margin-left: 10px;
 }
 
-.recipe__image {
-    object-fit: cover;
-    width: calc(35% - 7px);
-    aspect-ratio: 4 / 3;
-    outline: 1px solid black;
-}
-
 .recipe__body {
     display: flex;
     justify-content: space-between;
     margin: 20px 0;
-}
-
-.recipe__ingredients {
-    flex: 0.35;
-    background-color: whitesmoke;
-    outline: 1px solid black;
-    margin-right: 20px;
 }
 
 .recipe__body > div > h2 {
@@ -103,6 +99,13 @@
     position: relative;
 }
 
+.recipe__ingredients {
+    flex: 0.35;
+    background-color: whitesmoke;
+    outline: 1px solid black;
+    margin-right: 15px;
+}
+
 .recipe__method {
     flex: 0.65;
     background-color: whitesmoke;
@@ -110,26 +113,24 @@
 }
 
 .recipe__ingredientsList {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 15px;
-    padding-left: 25px;
+    font-size: 14px;
+    padding: 10px 10px 10px 25px;
+}
+
+.recipe__steps {
+    padding: 10px 10px 10px 25px;
+    font-size: 14px;
+    list-style-type: decimal;
 }
 
 .recipe__ingredientsList > li {
     margin-bottom: 5px;
+    word-break: break-word;
 }
 
 .recipe__steps > li {
     margin-bottom: 5px;
-}
-
-.recipe__steps {
-    list-style-type: decimal;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    font-size: 15px;
-    padding-left: 30px;
+    word-break: break-word;
 }
 
 @media screen and (max-width: 980px) {
@@ -172,9 +173,5 @@
 
     .recipe__ingredients {
         margin-right: 5px;
-    }
-
-    .recipe__ingredientsList {
-        font-size: 12px;
     }
 }

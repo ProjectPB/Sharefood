@@ -68,7 +68,9 @@ function Recipe() {
                             <h2 className={`${recipeData?.type}__color`}>
                                 {recipeData?.type?.toUpperCase()}
                             </h2>
-                            <h1>{recipeData?.title}</h1>
+                            <h1 className="recipe__title">
+                                {recipeData?.title}
+                            </h1>
                             <div className="recipe__infoBottom">
                                 <div className="recipe__author">
                                     <Avatar

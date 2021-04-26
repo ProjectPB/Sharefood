@@ -8,11 +8,17 @@
     width: calc(100% - 20px);
 }
 
+.card:hover {
+    opacity: 0.8;
+    transform: scale(1.025);
+    transition: ease-in 0.2s;
+}
+
 .hidden > div {
     display: none;
 }
 
-.card > h2 {
+.card__type {
     position: absolute;
     font-size: 12px;
     right: 5px;
@@ -31,40 +37,65 @@
 .card__info {
     display: flex;
     justify-content: space-between;
-    padding: 5px;
+    flex-direction: column;
+    padding: 2.5px 5px 5px 5px;
     background-color: whitesmoke;
+    border-top: 1px solid;
+    height: 55px;
 }
 
-.card__info > h1 {
-    font-size: 14px;
-    flex: 1;
+.card__title {
+    font-size: 12px;
+    margin-bottom: 5px;
+    word-break: break-all;
+    overflow: hidden;
+    font-weight: 500;
     text-align: center;
+    margin: auto;
+    line-height: 16px;
+}
+
+.card__data {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.card__likes {
+    display: flex;
+    align-items: center;
+}
+
+.card__likes > p {
+    margin-left: 5px;
+    font-size: 12px;
+    font-weight: 400;   
+}
+
+.card__dataTime {
+    margin: 0 5px;
+    padding: 0 5px;
+    font-size: 12px;
+    font-weight: 400;
+    border-left: 1px solid;
 }
 
 .card__user {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
     align-items: center;
-    margin: 0 2%;
+    padding: 0 2px;
+    flex: 1;
 }
 
 .card__user > p {
     font-size: 12px;
+    font-weight: 400;
+    margin-right: 5px;
 }
 
 .card__user > .MuiAvatar-root {
-    width: 25px !important;
-    height: 25px;
-}
-
-.card:hover {
-    opacity: 0.8;
-    transform: scale(1.025);
-    transition: ease-in 0.2s;
-}
-
-@media screen and (max-width: 1400px) {
-    .card__info > h1 {
-        font-size: 10px;
-    }
+    width: 15px;
+    height: 15px;
 }
