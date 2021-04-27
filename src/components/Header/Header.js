@@ -29,7 +29,6 @@ function Header() {
     const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
     const user = useSelector(selectUser);
     const location = useLocation();
-    const [menuIcon, setMenuIcon] = useState(true);
 
     const [width, setWidth] = useState(window.innerWidth);
 
@@ -40,7 +39,7 @@ function Header() {
         if (width < 600) {
             dispatch(closeSidebar());
         }
-    }, []);
+    }, [width]);
 
     const handleSidebar = () => {
         if (sidebarIsOpen) {

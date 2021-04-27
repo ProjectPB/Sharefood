@@ -51,7 +51,7 @@ function Card({
                         <p>{likesQuantity}</p>
                     </div>
                     <Moment fromNow className="card__dataTime">
-                        {timestamp.toDate()}
+                        {timestamp?.toDate()}
                     </Moment>
                     <div className="card__user">
                         <p>{authorName}</p>
