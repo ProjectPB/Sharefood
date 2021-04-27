@@ -1,18 +1,25 @@
 import { Avatar, CircularProgress } from "@material-ui/core";
-import { Favorite, FavoriteBorderOutlined } from "@material-ui/icons";
+import {
+    DeleteOutlined,
+    Favorite,
+    FavoriteBorderOutlined,
+    DateRange,
+} from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { db } from "../../firebase";
+import { db, storage } from "../../firebase";
 import "./Recipe.css";
 import "../../util/Colors.css";
-import { useLocation } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
 import firebase from "firebase";
 import NoData from "../NoData/NoData";
+import Moment from "react-moment";
 
 function Recipe() {
     const user = useSelector(selectUser);
     const location = useLocation();
+    const history = useHistory();
     const recipeId = location.pathname.substring(8);
     const [recipeData, setRecipeData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -48,6 +55,23 @@ function Recipe() {
             });
     };
 
+    const deleteRecipe = (e) => {
+        e.preventDefault();
+
+        const answer = window.confirm(
+            "Are you sure you want to delete this recipe?"
+        );
+
+        if (answer) {
+            db.collection("recipes").doc(recipeId).delete();
+            storage.refFromURL(recipeData?.image).delete();
+            alert("Recipe deleted");
+            history.push("/");
+        } else {
+            return;
+        }
+    };
+
     return isLoading ? (
         <div className="recipe__processing">
             <CircularProgress size={60} />
@@ -72,13 +96,6 @@ function Recipe() {
                                 {recipeData?.title}
                             </h1>
                             <div className="recipe__infoBottom">
-                                <div className="recipe__author">
-                                    <Avatar
-                                        src={recipeData?.authorProfilePic}
-                                        alt=""
-                                    />
-                                    <h5>{recipeData?.authorName}</h5>
-                                </div>
                                 <div className="recipe__likes">
                                     {!recipeData?.likesUsers?.includes(
                                         user.uid
@@ -95,6 +112,31 @@ function Recipe() {
                                     )}
                                     <p>{recipeData?.likesQuantity}</p>
                                 </div>
+                                <div className="recipe__timeContainer">
+                                    <DateRange />
+                                    <Moment
+                                        format="YYYY MMMM DD"
+                                        className="recipe__time"
+                                    >
+                                        {recipeData?.timestamp?.toDate()}
+                                    </Moment>
+                                </div>
+                                <div className="recipe__author">
+                                    <p>{recipeData?.authorName}</p>
+                                    <Avatar
+                                        src={recipeData?.authorProfilePic}
+                                        alt=""
+                                    />
+                                </div>
+                                {recipeData?.authorId === user.uid && (
+                                    <div className="recipe__delete">
+                                        <DeleteOutlined
+                                            className="recipe__delete"
+                                            onClick={deleteRecipe}
+                                            fontSize="large"
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
