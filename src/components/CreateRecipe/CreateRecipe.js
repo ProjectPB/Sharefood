@@ -34,11 +34,15 @@ function CreateRecipe() {
     };
 
     const handleFileChange = (e) => {
-        const pattern = /image-*/;
         const file = e.target.files[0];
+        const typePattern = /image-*/;
+        const maxSize = 20;
 
-        if (!file.type.match(pattern)) {
+        if (!file?.type.match(typePattern)) {
             alert("Invalid format");
+            return;
+        } else if (file.size / (1024 * 1024) > maxSize) {
+            alert(`Please attach an image with a size below ${maxSize}MB`);
             return;
         } else {
             setImage(e.target.files[0]);
