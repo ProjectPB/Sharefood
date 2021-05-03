@@ -10,9 +10,7 @@ function Authentication() {
     const dispatch = useDispatch();
     const [newAccount, setNewAccount] = useState(false);
 
-    const handleAccount = (e) => {
-        e.preventDefault();
-
+    const handleAccount = () => {
         setNewAccount(!newAccount);
     };
 
@@ -34,7 +32,22 @@ function Authentication() {
                         profilePic: userAuth.user.photoURL,
                     });
             })
-            .catch((error) => alert(error));
+            .catch((error) => alert(error.message));
+    };
+
+    const useTestAccount = () => {
+        auth.signInWithEmailAndPassword("Tester@tester.com", "tester")
+            .then((userAuth) => {
+                dispatch(
+                    login({
+                        email: userAuth.user.email,
+                        uid: userAuth.user.uid,
+                        displayName: userAuth.user.displayName,
+                        profilePic: userAuth.user.photoURL,
+                    })
+                );
+            })
+            .catch((error) => alert(error.message));
     };
 
     return (
@@ -65,6 +78,18 @@ function Authentication() {
                             onClick={loginGoogle}
                         >
                             SIGN IN WITH GOOGLE
+                        </button>
+                    </div>
+                )}
+
+                {!newAccount && (
+                    <div className="authentication__test">
+                        <hr />
+                        <button
+                            className="authentication__testButton"
+                            onClick={useTestAccount}
+                        >
+                            TEST ACCOUNT LOGIN
                         </button>
                     </div>
                 )}

@@ -61,3 +61,20 @@
 .authentication > p {
     margin-top: 5px;
 }
+
+.authentication__test {
+    margin-top: 10px;
+    width: 100%;
+}
+
+.authentication__test > button {
+    margin-top: 10px;
+    padding: 11px 8px;
+    cursor: pointer;
+    outline: none;
+    border: thin solid;
+    font-size: 14px;
+    border-radius: 2px;
+    background-color: whitesmoke;
+    width: 100%;
+}

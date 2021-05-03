@@ -11,9 +11,7 @@ function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const signIn = (e) => {
-        e.preventDefault();
-
+    const signIn = () => {
         auth.signInWithEmailAndPassword(email, password)
             .then((userAuth) => {
                 dispatch(
@@ -25,7 +23,7 @@ function Login() {
                     })
                 );
             })
-            .catch((error) => alert(error));
+            .catch((error) => alert(error.message));
     };
 
     return (
@@ -38,7 +36,6 @@ function Login() {
                 placeholder="E-mail"
                 type="email"
             />
-
             <Input
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -46,14 +43,7 @@ function Login() {
                 type="password"
                 Icon={Lock}
             />
-
-            <button
-                style={{
-                    backgroundColor: "orange",
-                }}
-                type="submit"
-                onClick={signIn}
-            >
+            <button type="submit" onClick={signIn}>
                 SIGN IN
             </button>
         </div>

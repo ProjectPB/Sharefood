@@ -115,7 +115,7 @@ function Recipe() {
                                 <div className="recipe__timeContainer">
                                     <DateRange />
                                     <Moment
-                                        format="YYYY MMMM DD"
+                                        format="MMMM DD YYYY"
                                         className="recipe__time"
                                     >
                                         {recipeData?.timestamp?.toDate()}

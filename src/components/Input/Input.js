@@ -14,8 +14,6 @@ function Input({ Icon, value, onChange, placeholder, type }) {
         }
     };
 
-    console.log(newType);
-
     return (
         <div className="input">
             <Icon fontSize="small" />
