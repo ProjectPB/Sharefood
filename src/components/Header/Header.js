@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory, useLocation } from "react-router-dom";
+import { ExpandLess, ExpandMore, Home, Menu } from "@material-ui/icons";
+import Avatar from "@material-ui/core/Avatar";
 
 import "./Header.css";
 
@@ -12,14 +15,12 @@ import {
     openNewRecipe,
     selectNewRecipeIsOpen,
 } from "../../features/newRecipeSlice";
+import { selectUser } from "../../features/userSlice";
 
-import Avatar from "@material-ui/core/Avatar";
-import { ExpandLess, ExpandMore, Home, Menu } from "@material-ui/icons";
 import ProfilePopup from "./ProfilePopup/ProfilePopup";
 import CreateRecipe from "../CreateRecipe/CreateRecipe";
-import { useHistory, useLocation } from "react-router-dom";
-import { selectUser } from "../../features/userSlice";
 import SearchBar from "../SearchBar/SearchBar";
+import { ClickAwayListener } from "@material-ui/core";
 
 function Header() {
     const dispatch = useDispatch();
@@ -63,6 +64,10 @@ function Header() {
         history.push("/");
     };
 
+    const handleClickAway = () => {
+        setProfileMenuIsOpen(false);
+    };
+
     return (
         <div className="header">
             {newRecipeIsOpen && <CreateRecipe />}
@@ -81,12 +86,22 @@ function Header() {
 
             <div className="header__avatar">
                 <Avatar src={user?.profilePic} alt={user?.displayName} />
-                {profileMenuIsOpen ? (
-                    <ExpandLess fontSize="large" onClick={handleProfileMenu} />
-                ) : (
-                    <ExpandMore fontSize="large" onClick={handleProfileMenu} />
-                )}
-                {profileMenuIsOpen && <ProfilePopup />}
+                <ClickAwayListener onClickAway={handleClickAway}>
+                    <div className="header__profilePopup">
+                        {profileMenuIsOpen ? (
+                            <ExpandLess
+                                fontSize="large"
+                                onClick={handleProfileMenu}
+                            />
+                        ) : (
+                            <ExpandMore
+                                fontSize="large"
+                                onClick={handleProfileMenu}
+                            />
+                        )}
+                        {profileMenuIsOpen ? <ProfilePopup /> : null}
+                    </div>
+                </ClickAwayListener>
             </div>
         </div>
     );
