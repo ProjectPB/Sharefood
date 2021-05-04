@@ -18,6 +18,13 @@
     justify-content: flex-start;
 }
 
+.renderRecipes__queryResult {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 50 0;
+}
+
 @media screen and (max-width: 1050px) {
     .renderRecipes {
         grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
