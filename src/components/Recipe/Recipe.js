@@ -4,6 +4,7 @@ import {
     Favorite,
     FavoriteBorderOutlined,
     DateRange,
+    Group,
 } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { db, storage } from "../../firebase";
@@ -143,9 +144,15 @@ function Recipe() {
 
                     <div className="recipe__body">
                         <div className="recipe__ingredients">
-                            <h2 className={`${recipeData?.type}__color`}>
-                                Ingredients
-                            </h2>
+                            <div
+                                className={`${recipeData?.type}__color recipe__ingredientsHeader`}
+                            >
+                                <h2>Ingredients</h2>
+                                <div className="recipe__portions">
+                                    <Group />
+                                    <p>{recipeData?.portions}</p>
+                                </div>
+                            </div>
                             <ul className="recipe__ingredientsList">
                                 {recipeData?.ingredients?.map(
                                     (ingredient, index) => (

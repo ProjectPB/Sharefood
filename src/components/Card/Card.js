@@ -7,14 +7,10 @@ import "./Card.css";
 import "../../util/Colors.css";
 
 function Card({
-    wide,
     id,
-    authorId,
     authorName,
     authorProfilePic,
     image,
-    ingredients,
-    method,
     timestamp,
     title,
     type,

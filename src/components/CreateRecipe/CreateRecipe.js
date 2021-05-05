@@ -18,6 +18,7 @@ function CreateRecipe() {
     const [title, setTitle] = useState("");
     const [ingredients, setIngredients] = useState("");
     const [method, setMethod] = useState("");
+    const [portions, setPortions] = useState(1);
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
     const [previewImage, setPreviewImage] = useState(
@@ -51,9 +52,9 @@ function CreateRecipe() {
     };
 
     const validate = () => {
-        const inputs = [type, title, ingredients, method, image];
+        const inputs = [type, title, ingredients, method, image, portions];
 
-        let checkedInputs = inputs.every((input) => input);
+        let checkedInputs = inputs.every((input) => input) && portions > 0;
 
         return checkedInputs;
     };
@@ -64,7 +65,9 @@ function CreateRecipe() {
         validate();
 
         if (!validate()) {
-            return alert("PLEASE MAKE SURE THAT ALL INPUTS ARE FILLED");
+            return alert(
+                "Please make sure that all fields are filled properly."
+            );
         }
 
         const imageName = new Date().getTime() + image.name;
@@ -101,6 +104,7 @@ function CreateRecipe() {
                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                             likesUsers: [],
                             likesQuantity: 0,
+                            portions: portions,
                         });
                         alert("Recipe added, Please refresh the website");
                         dispatch(closeNewRecipe());
@@ -135,23 +139,37 @@ function CreateRecipe() {
                         />
                     </div>
                     <div className="createRecipe__info">
-                        <select
-                            onChange={(e) => setType(e.target.value)}
-                            className="createRecipe__types"
-                        >
-                            <option value="" hidden>
-                                Type
-                            </option>
-                            <option value="breakfast">Breakfast</option>
-                            <option value="appetizer">Appetizer</option>
-                            <option value="soup">Soup</option>
-                            <option value="main">Main</option>
-                            <option value="dessert">Dessert</option>
-                            <option value="drink">Drink</option>
-                            <option value="other">Other</option>
-                        </select>
+                        <div className="createRecipe__portions">
+                            <h3>Portions</h3>
+                            <input
+                                value={portions}
+                                onChange={(e) => setPortions(e.target.value)}
+                                type="number"
+                                required
+                                autoFocus
+                                min="1"
+                            />
+                        </div>
+                        <div className="createRecipe__types">
+                            <h3>Type</h3>
+                            <select
+                                onChange={(e) => setType(e.target.value)}
+                                className="createRecipe__select"
+                            >
+                                <option value="" hidden>
+                                    Type
+                                </option>
+                                <option value="breakfast">Breakfast</option>
+                                <option value="appetizer">Appetizer</option>
+                                <option value="soup">Soup</option>
+                                <option value="main">Main</option>
+                                <option value="dessert">Dessert</option>
+                                <option value="drink">Drink</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
                         <div className="createRecipe__title">
-                            <h3>Recipe</h3>
+                            <h3>Title</h3>
                             <input
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}

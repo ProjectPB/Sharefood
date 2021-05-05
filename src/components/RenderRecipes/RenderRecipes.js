@@ -132,12 +132,9 @@ function RenderRecipes({ fetch }) {
                     <Card
                         key={id}
                         id={id}
-                        authorId={data.authorId}
                         authorName={data.authorName}
                         authorProfilePic={data.authorProfilePic}
                         image={data.image}
-                        ingredients={data.ingredients}
-                        method={data.method}
                         timestamp={data.timestamp}
                         title={data.title}
                         type={data.type}

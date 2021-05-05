@@ -112,7 +112,7 @@
     margin: 20px 0;
 }
 
-.recipe__body > div > h2 {
+.recipe__method > h2 {
     font-size: 15px;
     padding: 10px;
     text-align: center;
@@ -121,9 +121,33 @@
 
 .recipe__ingredients {
     flex: 0.35;
-    background-color: whitesmoke;
     outline: 1px solid black;
     margin-right: 15px;
+}
+
+.recipe__ingredientsHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.recipe__ingredientsHeader > h2 {
+    font-size: 15px;
+    padding: 10px;
+    flex: 1;
+}
+
+.recipe__portions {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.recipe__portions > p {
+    font-size: 15px;
+    margin-left: 5px;
+    color: black;
+    font-weight: 500;
 }
 
 .recipe__method {

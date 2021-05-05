@@ -88,6 +88,27 @@
     flex: 1;
 }
 
+.createRecipe__types {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.createRecipe__select {
+    height: 22px;
+    width: 100px;
+}
+
+.createRecipe__portions {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+}
+
+.createRecipe__portions > input {
+    outline: none;
+}
+
 .createRecipe__title {
     display: flex;
     flex-direction: column;
