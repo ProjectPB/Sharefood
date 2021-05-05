@@ -177,6 +177,7 @@ function CreateRecipe() {
                                 type="text"
                                 required
                                 placeholder="Title"
+                                spellCheck="false"
                             />
                         </div>
                     </div>
@@ -188,6 +189,7 @@ function CreateRecipe() {
                             placeholder="Ingredients"
                             value={ingredients}
                             onChange={(e) => setIngredients(e.target.value)}
+                            spellCheck="false"
                         />
                     </div>
                     <div className="createRecipe__methodText">
@@ -196,6 +198,7 @@ function CreateRecipe() {
                             placeholder="Method"
                             value={method}
                             onChange={(e) => setMethod(e.target.value)}
+                            spellCheck="false"
                         />
                     </div>
                 </div>
