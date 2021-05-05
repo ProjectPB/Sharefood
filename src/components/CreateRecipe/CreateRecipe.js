@@ -6,7 +6,12 @@ import {
 } from "../../features/newRecipeSlice";
 import { selectUser } from "../../features/userSlice";
 import "./CreateRecipe.css";
-import { renderTags, stringToArray, titleFormat } from "../../util/TextFormat";
+import {
+    ingredientsToArray,
+    methodToArray,
+    renderTags,
+    titleFormat,
+} from "../../util/TextFormat";
 import { Close } from "@material-ui/icons";
 import { db, storage } from "../../firebase";
 import firebase from "firebase";
@@ -18,7 +23,7 @@ function CreateRecipe() {
     const [title, setTitle] = useState("");
     const [ingredients, setIngredients] = useState("");
     const [method, setMethod] = useState("");
-    const [portions, setPortions] = useState(null);
+    const [portions, setPortions] = useState(1);
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
     const [previewImage, setPreviewImage] = useState(
@@ -100,8 +105,8 @@ function CreateRecipe() {
                             title: titleFormat(title),
                             image: url,
                             tags: renderTags(title, ingredients, type),
-                            ingredients: stringToArray(ingredients),
-                            method: stringToArray(method),
+                            ingredients: ingredientsToArray(ingredients),
+                            method: methodToArray(method),
                             timestamp: firebase.firestore.FieldValue.serverTimestamp(),
                             likesUsers: [],
                             likesQuantity: 0,
@@ -185,7 +190,7 @@ function CreateRecipe() {
                     <div className="createRecipe__ingredientsText">
                         <h3>Ingredients</h3>
                         <textarea
-                            placeholder="Use commas or return button to separate ingredients"
+                            placeholder="Use commas or return buttons to separate ingredients"
                             value={ingredients}
                             onChange={(e) => setIngredients(e.target.value)}
                             spellCheck="false"
@@ -194,7 +199,7 @@ function CreateRecipe() {
                     <div className="createRecipe__methodText">
                         <h3>Method</h3>
                         <textarea
-                            placeholder="Use commas or return button to separate steps"
+                            placeholder="Use full stops or return buttons to separate steps"
                             value={method}
                             onChange={(e) => setMethod(e.target.value)}
                             spellCheck="false"

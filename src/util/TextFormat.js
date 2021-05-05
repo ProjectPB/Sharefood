@@ -1,5 +1,18 @@
-export const stringToArray = (str) => {
+export const ingredientsToArray = (str) => {
     const splitStr = str.split(/,|\n/);
+    const trimmedStr = splitStr.map((i) => i.trim());
+    const filteredStr = trimmedStr.filter((i) => {
+        return i != "";
+    });
+    return filteredStr;
+};
+
+export const methodToArray = (str) => {
+    const splitStr = str
+        .replace(/\./g, "\r")
+        .replace(/\r\n/g, "\r")
+        .replace(/\n/g, "\r")
+        .split(/\r/);
     const trimmedStr = splitStr.map((i) => i.trim());
     const filteredStr = trimmedStr.filter((i) => {
         return i != "";
