@@ -123,6 +123,7 @@
     flex: 0.35;
     outline: 1px solid black;
     margin-right: 15px;
+    background-color: whitesmoke;
 }
 
 .recipe__ingredientsHeader {
