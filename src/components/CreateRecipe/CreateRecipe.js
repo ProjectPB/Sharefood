@@ -14,11 +14,11 @@ import { CircularProgress } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 function CreateRecipe() {
-    const [type, setType] = useState("");
+    const [type, setType] = useState(null);
     const [title, setTitle] = useState("");
     const [ingredients, setIngredients] = useState("");
     const [method, setMethod] = useState("");
-    const [portions, setPortions] = useState(1);
+    const [portions, setPortions] = useState(null);
     const [image, setImage] = useState(null);
     const [progress, setProgress] = useState(0);
     const [previewImage, setPreviewImage] = useState(
@@ -176,7 +176,6 @@ function CreateRecipe() {
                                 onChange={(e) => setTitle(e.target.value)}
                                 type="text"
                                 required
-                                placeholder="Title"
                                 spellCheck="false"
                             />
                         </div>
@@ -186,7 +185,7 @@ function CreateRecipe() {
                     <div className="createRecipe__ingredientsText">
                         <h3>Ingredients</h3>
                         <textarea
-                            placeholder="Ingredients"
+                            placeholder="Use commas or return button to separate ingredients"
                             value={ingredients}
                             onChange={(e) => setIngredients(e.target.value)}
                             spellCheck="false"
@@ -195,7 +194,7 @@ function CreateRecipe() {
                     <div className="createRecipe__methodText">
                         <h3>Method</h3>
                         <textarea
-                            placeholder="Method"
+                            placeholder="Use commas or return button to separate steps"
                             value={method}
                             onChange={(e) => setMethod(e.target.value)}
                             spellCheck="false"
