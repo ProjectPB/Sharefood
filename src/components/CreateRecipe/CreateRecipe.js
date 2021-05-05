@@ -54,7 +54,8 @@ function CreateRecipe() {
     const validate = () => {
         const inputs = [type, title, ingredients, method, image, portions];
 
-        let checkedInputs = inputs.every((input) => input) && portions > 0;
+        let checkedInputs =
+            inputs.every((input) => input) && portions > 0 && portions <= 99;
 
         return checkedInputs;
     };
