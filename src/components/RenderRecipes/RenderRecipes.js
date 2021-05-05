@@ -111,13 +111,15 @@ function RenderRecipes({ fetch }) {
         }
     };
 
+    console.log(search);
+
     return isLoading ? (
         <div className="renderRecipes__processing">
             <CircularProgress size={60} />
         </div>
     ) : (
         <div className="renderRecipes__container">
-            {search && (
+            {search.includes("?q=") && (
                 <h3 className="renderRecipes__queryResult">
                     Search results for {queryResult}
                 </h3>
