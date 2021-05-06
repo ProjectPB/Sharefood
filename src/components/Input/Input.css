@@ -6,6 +6,7 @@
     border-radius: 2px;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
 .input > .MuiSvgIcon-root {
@@ -23,4 +24,6 @@
 .input__visibilityIcon {
     margin-right: 5px;
     cursor: pointer;
+    position: absolute;
+    right: 5px;
 }
