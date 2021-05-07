@@ -6,7 +6,6 @@ import { auth } from "./firebase";
 
 import Header from "./components/Header/Header";
 import SearchBar from "./components/SearchBar/SearchBar";
-import Recipe from "./components/Recipe/Recipe";
 import Authentication from "./components/Authentication/Authentication";
 import Main from "./components/Main/Main";
 import { CircularProgress } from "@material-ui/core";
@@ -60,7 +59,7 @@ function App() {
                             <Main fetch="search" />
                         </Route>
                         <Route path="/recipe/:recipeId">
-                            <Recipe />
+                            <Main recipe />
                         </Route>
                         <Route path="/favorite">
                             <Main fetch="favorite" />

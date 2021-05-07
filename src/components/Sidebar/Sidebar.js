@@ -22,7 +22,7 @@ function Sidebar() {
             <hr />
 
             <NavLink to="/my" activeClassName="selected">
-                <SidebarOption Icon={MenuBook} title="CREATED BY ME" />
+                <SidebarOption Icon={MenuBook} title="MY RECIPES" />
             </NavLink>
 
             <NavLink to="/favorite" activeClassName="selected">

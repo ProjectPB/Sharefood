@@ -1,18 +1,22 @@
 .sidebar {
     width: 300px;
     background-color: #efefef;
-    outline: 1px solid black;
+    border-right: 1px solid black;
 }
 
 .sidebar--hidden {
     width: fit-content;
     background-color: #efefef;
-    outline: 1px solid black;
+    border-right: 1px solid black;
 }
 
 @media screen and (max-width: 600px) {
     .sidebar {
         width: 100%;
+    }
+
+    .sidebar--hidden {
+        display: none;
     }
 }
 
