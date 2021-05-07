@@ -25,32 +25,26 @@
     user-select: none;
 }
 
-.header > button {
+.header__button {
     background-color: #e7af14;
     border: 2px solid black;
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
-    margin-left: 10px;
+    margin-right: 15px;
     outline: none;
     cursor: pointer;
     width: 75px;
 }
 
-.header__avatar {
+.header__right {
     display: flex;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 15px;
     margin-left: 10px;
 }
 
-.header__profilePopup > .MuiSvgIcon-root {
+.header__profilePopup {
     margin-left: 5px;
     cursor: pointer;
-}
-
-@media screen and (max-width: 600px) {
-    .header > button {
-        margin: 0;
-    }
 }

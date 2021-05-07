@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, useLocation } from "react-router-dom";
-import { ExpandLess, ExpandMore, Home, Menu } from "@material-ui/icons";
+import { Menu } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 
 import "./Header.css";
@@ -29,7 +29,6 @@ function Header() {
     const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
     const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
     const user = useSelector(selectUser);
-    const location = useLocation();
 
     const [width, setWidth] = useState(window.innerWidth);
 
@@ -72,33 +71,23 @@ function Header() {
         <div className="header">
             {newRecipeIsOpen && <CreateRecipe />}
             <div className="header__left">
-                {!location.pathname.includes("/recipe") ? (
-                    <Menu onClick={handleSidebar} fontSize="large" />
-                ) : (
-                    <Home onClick={navToMain} fontSize="large" />
-                )}
+                <Menu onClick={handleSidebar} fontSize="large" />
                 <h2 onClick={navToMain}>ShareFood</h2>
             </div>
 
             {width > 600 && <SearchBar onHeader />}
 
-            <button onClick={handleCreateRecipe}>Create</button>
-
-            <div className="header__avatar">
-                <Avatar src={user?.profilePic} alt={user?.displayName} />
+            <div className="header__right">
+                <button className="header__button" onClick={handleCreateRecipe}>
+                    Create
+                </button>
                 <ClickAwayListener onClickAway={handleClickAway}>
                     <div className="header__profilePopup">
-                        {profileMenuIsOpen ? (
-                            <ExpandLess
-                                fontSize="large"
-                                onClick={handleProfileMenu}
-                            />
-                        ) : (
-                            <ExpandMore
-                                fontSize="large"
-                                onClick={handleProfileMenu}
-                            />
-                        )}
+                        <Avatar
+                            onClick={handleProfileMenu}
+                            src={user?.profilePic}
+                            alt={user?.displayName}
+                        />
                         {profileMenuIsOpen ? <ProfilePopup /> : null}
                     </div>
                 </ClickAwayListener>
