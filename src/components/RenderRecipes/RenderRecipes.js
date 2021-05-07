@@ -121,7 +121,7 @@ function RenderRecipes({ fetch }) {
         <div className="renderRecipes__container">
             {search.includes("?q=") && (
                 <h3 className="renderRecipes__queryResult">
-                    Search results for {queryResult}
+                    Search results for {queryResult} ({recipes.length})
                 </h3>
             )}
             {recipes.length === 0 && <NoData />}
