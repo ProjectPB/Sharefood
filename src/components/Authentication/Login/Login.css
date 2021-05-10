@@ -5,6 +5,10 @@
     width: 100%;
 }
 
+.login > div {
+    margin-bottom: 5px;
+}
+
 .login > h3 {
     text-align: center;
     margin-bottom: 5px;

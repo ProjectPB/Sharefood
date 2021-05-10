@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { auth, db } from "../../../firebase";
 import { login } from "../../../features/userSlice";
 import "./SignUp.css";
-import { Lock, Mail, Person } from "@material-ui/icons";
+import { InfoOutlined, Lock, Mail, Person } from "@material-ui/icons";
 import Input from "../../Input/Input";
 
 function SignUp({ cancel }) {
@@ -12,6 +12,7 @@ function SignUp({ cancel }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [openInfo, setOpenInfo] = useState(false);
 
     const checkPasswords = () => {
         if (password === passwordConfirm) {
@@ -21,15 +22,23 @@ function SignUp({ cancel }) {
         }
     };
 
+    const handleInfo = () => {
+        setOpenInfo(!openInfo);
+    };
+
     const register = (e) => {
         e.preventDefault();
 
-        if (!checkPasswords()) {
-            return alert("Your passwords do not match");
+        if (!username) {
+            return alert("Please enter a username.");
         }
 
-        if (!username) {
-            return alert("Please enter a full name!");
+        if (username.length > 12 || username.length < 4) {
+            return alert("Username does not match requirements.");
+        }
+
+        if (!checkPasswords()) {
+            return alert("Your passwords do not match.");
         }
 
         auth.createUserWithEmailAndPassword(email, password)
@@ -61,12 +70,20 @@ function SignUp({ cancel }) {
     return (
         <div className="signUp">
             <h3>SIGN UP</h3>
+            <InfoOutlined
+                onClick={handleInfo}
+                className="signUp__infoIcon"
+                fontSize="small"
+            />
             <Input
                 Icon={Person}
                 placeholder="Username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
+                pattern="^.{4,12}$"
+                openInfo={openInfo}
+                title="Between 4 and 12 characters"
             />
             <Input
                 Icon={Mail}
@@ -74,6 +91,9 @@ function SignUp({ cancel }) {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="E-mail"
                 type="email"
+                pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
+                title="example@example.com"
+                openInfo={openInfo}
             />
             <Input
                 Icon={Lock}
@@ -81,6 +101,9 @@ function SignUp({ cancel }) {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
                 type="password"
+                pattern=".{6,}"
+                openInfo={openInfo}
+                title="At least 6 characters"
             />
             <Input
                 Icon={Lock}
@@ -88,6 +111,7 @@ function SignUp({ cancel }) {
                 onChange={(e) => setPasswordConfirm(e.target.value)}
                 placeholder="Confirm Password"
                 type="password"
+                pattern={new RegExp(`^${password}$`)}
             />
 
             <div className="signUp__buttons">

@@ -3,6 +3,7 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
+    position: relative;
 }
 
 .signUp > h3 {
@@ -10,6 +11,20 @@
     margin-bottom: 5px;
     font-size: 18px;
     font-weight: 600;
+}
+
+.signUp__inputInfo {
+    font-size: 12px;
+    font-weight: 500;
+    color: gray;
+}
+
+.signUp__infoIcon {
+    position: absolute;
+    right: 5px;
+    top: 3px;
+    color: gray;
+    cursor: pointer;
 }
 
 .signUp__buttons {
