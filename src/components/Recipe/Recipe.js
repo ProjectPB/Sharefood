@@ -5,6 +5,7 @@ import {
     FavoriteBorderOutlined,
     DateRange,
     Group,
+    LocalDining,
 } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { db, storage } from "../../firebase";
@@ -16,6 +17,7 @@ import { selectUser } from "../../features/userSlice";
 import firebase from "firebase";
 import NoData from "../NoData/NoData";
 import Moment from "react-moment";
+import { titleFormat } from "../../util/TextFormat";
 
 function Recipe() {
     const user = useSelector(selectUser);
@@ -24,6 +26,7 @@ function Recipe() {
     const recipeId = location.pathname.substring(8);
     const [recipeData, setRecipeData] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [imgLoaded, setImgLoaded] = useState(false);
 
     useEffect(() => {
         db.collection("recipes")
@@ -83,56 +86,58 @@ function Recipe() {
                 <NoData />
             ) : (
                 <div className="recipe">
+                    <h1 className="recipe__title">{recipeData?.title}</h1>
                     <div className="recipe__upper">
                         <img
                             className="recipe__image"
                             src={recipeData?.image}
                             alt=""
+                            style={imgLoaded ? {} : { visibility: "none" }}
+                            onLoad={() => setImgLoaded(true)}
                         />
                         <div className="recipe__info">
-                            <h2 className={`${recipeData?.type}__color`}>
-                                {recipeData?.type?.toUpperCase()}
-                            </h2>
-                            <h1 className="recipe__title">
-                                {recipeData?.title}
-                            </h1>
-                            <div className="recipe__infoBottom">
-                                <div className="recipe__likes">
-                                    {!recipeData?.likesUsers?.includes(
-                                        user.uid
-                                    ) ? (
-                                        <FavoriteBorderOutlined
-                                            onClick={likeRecipe}
-                                            fontSize="large"
-                                        />
-                                    ) : (
-                                        <Favorite
-                                            onClick={dislikeRecipe}
-                                            fontSize="large"
-                                        />
-                                    )}
-                                    <p>{recipeData?.likesQuantity}</p>
+                            <div className="recipe__left">
+                                <div className="recipe__type">
+                                    <LocalDining fontSize="large" />
+                                    <p>{titleFormat(recipeData?.type)}</p>
                                 </div>
-                                <div className="recipe__timeContainer">
-                                    <DateRange />
+                                <div className="recipe__time">
+                                    <DateRange fontSize="large" />
                                     <Moment
                                         format="MMMM DD YYYY"
-                                        className="recipe__time"
+                                        className="recipe__date"
                                     >
                                         {recipeData?.timestamp?.toDate()}
                                     </Moment>
                                 </div>
                                 <div className="recipe__author">
-                                    <p>{recipeData?.authorName}</p>
                                     <Avatar
                                         src={recipeData?.authorProfilePic}
-                                        alt=""
+                                        alt={recipeData?.authorName}
                                     />
+                                    <p>{recipeData?.authorName}</p>
+                                </div>
+                            </div>
+                            <div className="recipe__right">
+                                <div className="recipe__favorite">
+                                    <p>{recipeData?.likesQuantity}</p>
+                                    {!recipeData?.likesUsers?.includes(
+                                        user.uid
+                                    ) ? (
+                                        <FavoriteBorderOutlined
+                                            fontSize="large"
+                                            onClick={likeRecipe}
+                                        />
+                                    ) : (
+                                        <Favorite
+                                            fontSize="large"
+                                            onClick={dislikeRecipe}
+                                        />
+                                    )}
                                 </div>
                                 {recipeData?.authorId === user.uid && (
                                     <div className="recipe__delete">
                                         <DeleteOutlined
-                                            className="recipe__delete"
                                             onClick={deleteRecipe}
                                             fontSize="large"
                                         />
@@ -140,36 +145,36 @@ function Recipe() {
                                 )}
                             </div>
                         </div>
-                    </div>
-
-                    <div className="recipe__body">
-                        <div className="recipe__ingredients">
-                            <div
-                                className={`${recipeData?.type}__color recipe__ingredientsHeader`}
-                            >
-                                <h2>Ingredients</h2>
-                                <div className="recipe__portions">
-                                    <Group />
-                                    <p>{recipeData?.portions}</p>
+                        <div className="recipe__body">
+                            <div className="recipe__ingredients">
+                                <div className="recipe__ingredientsHeader">
+                                    <h2>Ingredients</h2>
+                                    <div className="recipe__portions">
+                                        <Group />
+                                        <p>{recipeData?.portions}</p>
+                                    </div>
                                 </div>
+                                <ul className="recipe__ingredientsList">
+                                    {recipeData?.ingredients?.map(
+                                        (ingredient, index) => (
+                                            <li key={index}>{ingredient}</li>
+                                        )
+                                    )}
+                                </ul>
                             </div>
-                            <ul className="recipe__ingredientsList">
-                                {recipeData?.ingredients?.map(
-                                    (ingredient, index) => (
-                                        <li key={index}>{ingredient}</li>
-                                    )
-                                )}
-                            </ul>
-                        </div>
-                        <div className="recipe__method">
-                            <h2 className={`${recipeData?.type}__color`}>
-                                Method
-                            </h2>
-                            <ul className="recipe__steps">
-                                {recipeData?.method?.map((step, index) => (
-                                    <li key={index}>{step}</li>
-                                ))}
-                            </ul>
+                            <div className="recipe__method">
+                                <h2>Method</h2>
+                                <ul className="recipe__steps">
+                                    {recipeData?.method?.map((step, index) => (
+                                        <li
+                                            className="recipe__step"
+                                            key={index}
+                                        >
+                                            {step}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
