@@ -14,8 +14,82 @@
     top: 0;
 }
 
-.createRecipe__upper {
+.createRecipe {
+    background-color: whitesmoke;
+    width: 60%;
+    height: 90%;
     display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: relative;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
+.createRecipe__close {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 30px !important;
+}
+
+.createRecipe__title {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.createRecipe__title > input {
+    outline: none;
+    padding: 5px;
+}
+
+.createRecipe__ingredientsText,
+.createRecipe__methodText {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.createRecipe__ingredientsText > textarea,
+.createRecipe__methodText > textarea {
+    resize: none;
+    outline: none;
+    height: 300px;
+    padding: 5px;
+}
+
+.createRecipe__types {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.createRecipe__options {
+    width: 100px;
+    outline: none;
+    height: 30px;
+}
+
+.createRecipe__portions {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 15px;
+}
+
+.createRecipe__portions > input {
+    outline: none;
+    padding: 5px;
 }
 
 .createRecipe__image {
@@ -26,14 +100,16 @@
     flex-direction: column;
     align-items: center;
     outline: 1px solid black;
+    margin: 0 auto;
+    margin-top: 15px;
 }
 
 .createRecipe__imageInput {
-    position: absolute;
     width: 400px;
-    object-fit: cover;
     height: 300px;
     opacity: 0;
+    object-fit: cover;
+    position: absolute;
     cursor: pointer;
 }
 
@@ -63,92 +139,9 @@
     height: 30px;
 }
 
-.createRecipe {
-    background-color: whitesmoke;
-    width: 65%;
-    height: 85%;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid black;
-    border-radius: 15px;
-    padding: 15px;
-    position: relative;
-}
-
-.createRecipe > .MuiSvgIcon-root {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    cursor: pointer;
-    font-size: 30px !important;
-}
-
-.createRecipe__info {
-    margin-left: 15px;
-    flex: 1;
-}
-
-.createRecipe__types {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-}
-
-.createRecipe__select {
-    height: 22px;
-    width: 100px;
-}
-
-.createRecipe__portions {
-    display: flex;
-    flex-direction: column;
-    width: 100px;
-}
-
-.createRecipe__portions > input {
-    outline: none;
-}
-
-.createRecipe__title {
-    display: flex;
-    flex-direction: column;
-    margin-top: 10px;
-}
-
-.createRecipe__title > input {
-    outline: none;
-}
-
-.createRecipe__body {
-    display: flex;
-    flex: 1;
-    justify-content: space-between;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.createRecipe__ingredientsText {
-    flex: 0.35;
-    display: flex;
-    flex-direction: column;
-    margin-right: 20px;
-}
-
-.createRecipe__methodText {
-    flex: 0.65;
-    display: flex;
-    flex-direction: column;
-}
-
-.createRecipe__body > div > textarea {
-    height: 100%;
-    resize: none;
-    outline: none;
-}
-
 .createRecipe__button {
     background-color: #e7af14;
-    border: 2px solid black;
+    border: 1px solid black;
     padding: 10px;
     border-radius: 5px;
     font-size: 14px;
@@ -158,6 +151,7 @@
     left: 50%;
     transform: translate(-50%, 0);
     width: 75px;
+    margin-top: 15px;
 }
 
 @media screen and (max-width: 950px) {
@@ -165,37 +159,12 @@
         overflow: scroll;
         width: 80%;
         height: 80%;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
     }
 
     .createRecipe::-webkit-scrollbar {
         display: none;
-    }
-
-    .createRecipe__upper {
-        flex-direction: column;
-        margin-top: 20px;
-    }
-
-    .createRecipe__info {
-        margin-top: 10px;
-        margin-left: 0px;
-    }
-
-    .createRecipe__body {
-        flex-direction: column;
-    }
-
-    .createRecipe__image {
-        margin: 0 auto;
-    }
-
-    .createRecipe__ingredientsText {
-        margin-right: 0;
-        margin-bottom: 10px;
-    }
-
-    .createRecipe__body > div > textarea {
-        height: 200px;
     }
 }
 

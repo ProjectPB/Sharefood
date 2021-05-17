@@ -107,7 +107,8 @@ function CreateRecipe() {
                             tags: renderTags(title, ingredients, type),
                             ingredients: ingredientsToArray(ingredients),
                             method: methodToArray(method),
-                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                            timestamp:
+                                firebase.firestore.FieldValue.serverTimestamp(),
                             likesUsers: [],
                             likesQuantity: 0,
                             portions: portions,
@@ -129,82 +130,75 @@ function CreateRecipe() {
                 />
             )}
             <form className="createRecipe">
-                <Close onClick={closeRecipe} />
-                <div className="createRecipe__upper">
-                    <div className="createRecipe__image">
-                        <img src={previewImage} alt="image" />
-                        {!image && (
-                            <p>For the best results, please attach 4:3 image</p>
-                        )}
-                        {!image && <AddCircleIcon />}
-                        <input
-                            type="file"
-                            onChange={handleFileChange}
-                            className="createRecipe__imageInput"
-                            accept="image/*"
-                        />
-                    </div>
-                    <div className="createRecipe__info">
-                        <div className="createRecipe__portions">
-                            <h3>Portions</h3>
-                            <input
-                                value={portions}
-                                onChange={(e) => setPortions(e.target.value)}
-                                type="number"
-                                required
-                                autoFocus
-                                min="1"
-                            />
-                        </div>
-                        <div className="createRecipe__types">
-                            <h3>Type</h3>
-                            <select
-                                onChange={(e) => setType(e.target.value)}
-                                className="createRecipe__select"
-                            >
-                                <option value="" hidden>
-                                    Type
-                                </option>
-                                <option value="breakfast">Breakfast</option>
-                                <option value="appetizer">Appetizer</option>
-                                <option value="soup">Soup</option>
-                                <option value="main">Main</option>
-                                <option value="dessert">Dessert</option>
-                                <option value="drink">Drink</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div className="createRecipe__title">
-                            <h3>Title</h3>
-                            <input
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                type="text"
-                                required
-                                spellCheck="false"
-                            />
-                        </div>
-                    </div>
+                <Close className="createRecipe__close" onClick={closeRecipe} />
+                <div className="createRecipe__title">
+                    <h3>Title</h3>
+                    <input
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
+                        type="text"
+                        required
+                        spellCheck="false"
+                    />
                 </div>
-                <div className="createRecipe__body">
-                    <div className="createRecipe__ingredientsText">
-                        <h3>Ingredients</h3>
-                        <textarea
-                            placeholder="Use commas or return buttons to separate ingredients"
-                            value={ingredients}
-                            onChange={(e) => setIngredients(e.target.value)}
-                            spellCheck="false"
-                        />
-                    </div>
-                    <div className="createRecipe__methodText">
-                        <h3>Method</h3>
-                        <textarea
-                            placeholder="Use full stops or return buttons to separate steps"
-                            value={method}
-                            onChange={(e) => setMethod(e.target.value)}
-                            spellCheck="false"
-                        />
-                    </div>
+                <div className="createRecipe__ingredientsText">
+                    <h3>Ingredients</h3>
+                    <textarea
+                        placeholder="Use commas or return buttons to separate ingredients"
+                        value={ingredients}
+                        onChange={(e) => setIngredients(e.target.value)}
+                        spellCheck="false"
+                    />
+                </div>
+                <div className="createRecipe__methodText">
+                    <h3>Method</h3>
+                    <textarea
+                        placeholder="Use full stops or return buttons to separate steps"
+                        value={method}
+                        onChange={(e) => setMethod(e.target.value)}
+                        spellCheck="false"
+                    />
+                </div>
+                <div className="createRecipe__types">
+                    <h3>Type</h3>
+                    <select
+                        onChange={(e) => setType(e.target.value)}
+                        className="createRecipe__options"
+                    >
+                        <option value="" hidden>
+                            Type
+                        </option>
+                        <option value="breakfast">Breakfast</option>
+                        <option value="appetizer">Appetizer</option>
+                        <option value="soup">Soup</option>
+                        <option value="main">Main</option>
+                        <option value="dessert">Dessert</option>
+                        <option value="drink">Drink</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div className="createRecipe__portions">
+                    <h3>Portions</h3>
+                    <input
+                        value={portions}
+                        onChange={(e) => setPortions(e.target.value)}
+                        type="number"
+                        required
+                        min="1"
+                    />
+                </div>
+                <div className="createRecipe__image">
+                    <img src={previewImage} alt="image" />
+                    {!image && (
+                        <p>For the best results, please attach 4:3 image</p>
+                    )}
+                    {!image && <AddCircleIcon />}
+                    <input
+                        type="file"
+                        onChange={handleFileChange}
+                        className="createRecipe__imageInput"
+                        accept="image/*"
+                    />
                 </div>
                 <button
                     type="submit"
