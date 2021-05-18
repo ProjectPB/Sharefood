@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Moment from "react-moment";
-import { Favorite } from "@material-ui/icons";
+import { AccessTimeOutlined, Favorite, LocalDining } from "@material-ui/icons";
 import { Avatar } from "@material-ui/core";
 import "./Card.css";
-import "../../util/Colors.css";
 
 function Card({
     id,
@@ -30,9 +29,6 @@ function Card({
 
     return (
         <div onClick={navToRecipe} className={hidden ? "hidden" : "card"}>
-            <h2 className={`card__type ${type}__color`}>
-                {type?.toUpperCase()}
-            </h2>
             <img
                 style={imgLoaded ? {} : { visibility: "none" }}
                 onLoad={() => setImgLoaded(true)}
@@ -42,16 +38,27 @@ function Card({
             <div className="card__info">
                 <h1 className="card__title">{title}</h1>
                 <div className="card__data">
-                    <div className="card__likes">
-                        <Favorite fontSize="small" />
-                        <p>{likesQuantity}</p>
+                    <div className="card__dataLeft">
+                        <div className="card__time">
+                            <AccessTimeOutlined />
+                            <Moment fromNow className="card__timestamp">
+                                {timestamp?.toDate()}
+                            </Moment>
+                        </div>
+                        <div className="card__user">
+                            <Avatar src={authorProfilePic} />
+                            <p>{authorName}</p>
+                        </div>
                     </div>
-                    <Moment fromNow className="card__time">
-                        {timestamp?.toDate()}
-                    </Moment>
-                    <div className="card__user">
-                        <p>{authorName}</p>
-                        <Avatar src={authorProfilePic} />
+                    <div className="card__dataRight">
+                        <div className="card__type">
+                            <LocalDining fontSize="small" />
+                            <p>{type?.toUpperCase()}</p>
+                        </div>
+                        <div className="card__likes">
+                            <Favorite fontSize="small" />
+                            <p>{likesQuantity}</p>
+                        </div>
                     </div>
                 </div>
             </div>

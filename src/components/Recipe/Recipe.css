@@ -84,13 +84,22 @@
 }
 
 .recipe__favorite > p {
-    margin-right: 5px;
+    margin-left: 5px;
     font-size: 16px;
 }
 
 .recipe__delete {
     cursor: pointer;
-    float: right;
+    box-shadow: 0 0 2px 1px;
+}
+
+.recipe__delete:hover {
+    background-color: lightgray;
+}
+
+.recipe__delete > p {
+    margin-left: 5px;
+    font-size: 16px;
 }
 
 .recipe__body {
@@ -166,20 +175,6 @@
     font-size: 14px;
 }
 
-@media screen and (max-width: 600px) {
-    .recipe__container {
-        height: calc(100vh - 105px);
-    }
-
-    .recipe {
-        margin: 0;
-    }
-
-    .recipe__container::-webkit-scrollbar {
-        display: none;
-    }
-}
-
 @media screen and (max-width: 800px) {
     .recipe__body {
         flex-direction: column;
@@ -191,5 +186,19 @@
 
     .recipe__steps {
         padding-left: 15px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .recipe__container {
+        height: calc(100vh - 105px);
+    }
+
+    .recipe {
+        margin: 0;
+    }
+
+    .recipe__container::-webkit-scrollbar {
+        display: none;
     }
 }

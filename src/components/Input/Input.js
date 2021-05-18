@@ -36,10 +36,6 @@ function Input({
         }
     }, [value]);
 
-    if (placeholder === "Confirm Password") {
-        console.log(`PATTERN ${pattern}`);
-    }
-
     return (
         <div className="input__container">
             <div

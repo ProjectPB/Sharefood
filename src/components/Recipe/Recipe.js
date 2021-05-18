@@ -10,11 +10,10 @@ import {
 import React, { useEffect, useState } from "react";
 import { db, storage } from "../../firebase";
 import "./Recipe.css";
-import "../../util/Colors.css";
 import { useHistory, useLocation } from "react-router";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../features/userSlice";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import NoData from "../NoData/NoData";
 import Moment from "react-moment";
 import { titleFormat } from "../../util/TextFormat";
@@ -97,10 +96,6 @@ function Recipe() {
                         />
                         <div className="recipe__info">
                             <div className="recipe__left">
-                                <div className="recipe__type">
-                                    <LocalDining fontSize="large" />
-                                    <p>{titleFormat(recipeData?.type)}</p>
-                                </div>
                                 <div className="recipe__time">
                                     <DateRange fontSize="large" />
                                     <Moment
@@ -117,10 +112,22 @@ function Recipe() {
                                     />
                                     <p>{recipeData?.authorName}</p>
                                 </div>
+                                {recipeData?.authorId === user.uid && (
+                                    <div
+                                        className="recipe__delete"
+                                        onClick={deleteRecipe}
+                                    >
+                                        <DeleteOutlined fontSize="large" />
+                                        <p>Delete recipe</p>
+                                    </div>
+                                )}
                             </div>
                             <div className="recipe__right">
+                                <div className="recipe__type">
+                                    <LocalDining fontSize="large" />
+                                    <p>{recipeData?.type.toUpperCase()}</p>
+                                </div>
                                 <div className="recipe__favorite">
-                                    <p>{recipeData?.likesQuantity}</p>
                                     {!recipeData?.likesUsers?.includes(
                                         user.uid
                                     ) ? (
@@ -134,15 +141,8 @@ function Recipe() {
                                             onClick={dislikeRecipe}
                                         />
                                     )}
+                                    <p>{recipeData?.likesQuantity}</p>
                                 </div>
-                                {recipeData?.authorId === user.uid && (
-                                    <div className="recipe__delete">
-                                        <DeleteOutlined
-                                            onClick={deleteRecipe}
-                                            fontSize="large"
-                                        />
-                                    </div>
-                                )}
                             </div>
                         </div>
                         <div className="recipe__body">

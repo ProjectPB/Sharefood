@@ -111,8 +111,6 @@ function RenderRecipes({ fetch }) {
         }
     };
 
-    console.log(search);
-
     return isLoading ? (
         <div className="renderRecipes__processing">
             <CircularProgress size={60} />

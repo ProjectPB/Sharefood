@@ -14,7 +14,7 @@ import {
 } from "../../util/TextFormat";
 import { Close } from "@material-ui/icons";
 import { db, storage } from "../../firebase";
-import firebase from "firebase";
+import firebase from "firebase/app";
 import { CircularProgress } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 
