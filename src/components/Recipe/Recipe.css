@@ -88,20 +88,6 @@
     font-size: 16px;
 }
 
-.recipe__delete {
-    cursor: pointer;
-    box-shadow: 0 0 2px 1px;
-}
-
-.recipe__delete:hover {
-    background-color: lightgray;
-}
-
-.recipe__delete > p {
-    margin-left: 5px;
-    font-size: 16px;
-}
-
 .recipe__body {
     display: flex;
     justify-content: space-between;
@@ -173,6 +159,22 @@
     margin-bottom: 5px;
     word-break: break-word;
     font-size: 14px;
+}
+
+.recipe__delete {
+    cursor: pointer;
+}
+
+.recipe__delete:hover {
+    background-color: lightgray;
+    outline: 1px solid;
+}
+
+.recipe__delete > p {
+    margin-left: 5px;
+    font-size: 16px;
+    padding-right: 5px;
+    color: red;
 }
 
 @media screen and (max-width: 800px) {

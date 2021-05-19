@@ -4,6 +4,7 @@ import Moment from "react-moment";
 import { AccessTimeOutlined, Favorite, LocalDining } from "@material-ui/icons";
 import { Avatar } from "@material-ui/core";
 import "./Card.css";
+import { capitalizeLetter } from "../../util/TextFormat";
 
 function Card({
     id,
@@ -53,7 +54,7 @@ function Card({
                     <div className="card__dataRight">
                         <div className="card__type">
                             <LocalDining fontSize="small" />
-                            <p>{type?.toUpperCase()}</p>
+                            <p>{type && capitalizeLetter(type)}</p>
                         </div>
                         <div className="card__likes">
                             <Favorite fontSize="small" />

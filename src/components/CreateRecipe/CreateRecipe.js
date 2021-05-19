@@ -10,7 +10,7 @@ import {
     ingredientsToArray,
     methodToArray,
     renderTags,
-    titleFormat,
+    capitalizeLetter,
 } from "../../util/TextFormat";
 import { Close } from "@material-ui/icons";
 import { db, storage } from "../../firebase";
@@ -102,7 +102,7 @@ function CreateRecipe() {
                             authorProfilePic: user.profilePic,
                             authorName: user.displayName,
                             type: type,
-                            title: titleFormat(title),
+                            title: capitalizeLetter(title),
                             image: url,
                             tags: renderTags(title, ingredients, type),
                             ingredients: ingredientsToArray(ingredients),

@@ -16,7 +16,7 @@ import { selectUser } from "../../features/userSlice";
 import firebase from "firebase/app";
 import NoData from "../NoData/NoData";
 import Moment from "react-moment";
-import { titleFormat } from "../../util/TextFormat";
+import { capitalizeLetter } from "../../util/TextFormat";
 
 function Recipe() {
     const user = useSelector(selectUser);
@@ -125,7 +125,7 @@ function Recipe() {
                             <div className="recipe__right">
                                 <div className="recipe__type">
                                     <LocalDining fontSize="large" />
-                                    <p>{recipeData?.type.toUpperCase()}</p>
+                                    <p>{capitalizeLetter(recipeData?.type)}</p>
                                 </div>
                                 <div className="recipe__favorite">
                                     {!recipeData?.likesUsers?.includes(

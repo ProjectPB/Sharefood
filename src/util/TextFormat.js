@@ -46,7 +46,7 @@ export const renderTags = (strTitle, strIngredients, strType) => {
     return tags;
 };
 
-export const titleFormat = (str) => {
+export const capitalizeLetter = (str) => {
     const capitalStr = str[0].toUpperCase() + str.substring(1);
     const formatStr = capitalStr.trim(" ");
     return formatStr;
