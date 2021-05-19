@@ -1,12 +1,12 @@
 .sidebar {
     width: 300px;
-    background-color: #efefef;
+    background-color: var(--orange-medium);
     border-right: 1px solid black;
 }
 
 .sidebar--hidden {
     width: fit-content;
-    background-color: #efefef;
+    background-color: var(--orange-medium);
     border-right: 1px solid black;
 }
 
@@ -18,8 +18,4 @@
     .sidebar--hidden {
         display: none;
     }
-}
-
-.selected {
-    background-color: rgb(128, 128, 128, 0.8);
 }

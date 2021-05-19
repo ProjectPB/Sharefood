@@ -29,15 +29,21 @@ a {
     color: inherit;
 }
 
+.selected .sidebar__option--hidden,
+.selected .sidebar__option {
+    background-color: var(--orange-dark);
+}
+
 .sidebar__option:hover,
 .sidebar__option--hidden:hover {
     cursor: pointer;
-    background-color: lightgray;
-    transition: 0.2s ease-in-out;
+    background-color: var(--orange-hover);
+    transition: 0.3s ease-in-out;
 }
 
-.selected .sidebar__option:hover {
-    background-color: rgb(128, 128, 128, 0.8);
+.selected .sidebar__option:hover,
+.selected .sidebar__option--hidden:hover {
+    background-color: var(--orange-dark);
 }
 
 .sidebar__option > h2 {

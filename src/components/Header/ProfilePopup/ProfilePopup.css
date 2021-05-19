@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    background-color: whitesmoke;
+    background-color: var(--orange-medium);
     right: 25px;
     top: 55px;
     z-index: 999;
@@ -17,7 +17,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 1px solid black;
     padding: 10px;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .profilePopup__logout:hover {
-    background-color: gainsboro;
+    background-color: var(--orange-hover);
 }
 
 .profilePopup__logout > p {

@@ -23,5 +23,5 @@
     outline: none;
     border: thin solid;
     font-size: 14px;
-    background-color: orange;
+    background-color: var(--orange-dark);
 }

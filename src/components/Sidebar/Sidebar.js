@@ -19,8 +19,6 @@ function Sidebar() {
                 <SidebarOption Icon={Whatshot} title="POPULAR" />
             </NavLink>
 
-            <hr />
-
             <NavLink to="/my" activeClassName="selected">
                 <SidebarOption Icon={MenuBook} title="MY RECIPES" />
             </NavLink>

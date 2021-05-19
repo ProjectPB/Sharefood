@@ -29,15 +29,14 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    background-color: whitesmoke;
+    background-color: var(--orange-light);
     border-top: 1px solid;
     padding: 5px;
-    height: 90px;
+    height: 100px;
 }
 
 .card__title {
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 18px;
     word-break: break-word;
     text-align: center;
     overflow: hidden;

@@ -117,7 +117,7 @@ function SignUp({ cancel }) {
             <div className="signUp__buttons">
                 <button
                     style={{
-                        color: "orange",
+                        color: "var(--orange-dark)",
                         backgroundColor: "white",
                     }}
                     onClick={cancel}
@@ -126,7 +126,7 @@ function SignUp({ cancel }) {
                 </button>
                 <button
                     style={{
-                        backgroundColor: "orange",
+                        backgroundColor: "var(--orange-dark)",
                     }}
                     type="submit"
                     onClick={register}

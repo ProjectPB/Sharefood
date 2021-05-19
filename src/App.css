@@ -6,7 +6,7 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    background-color: lightgray;
+    background-color: var(--orange-light);
     height: 100vh;
     width: 100vw;
 }

@@ -9,6 +9,15 @@ body {
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    --orange-light: #fadbc7;
+    --orange-medium: #f4ab7b;
+    --orange-hover: #ef8843;
+    --orange-dark: #eb701e;
+    --gray-background: rgb(240, 240, 240);
+}
+
+h1 {
+    font-family: "Fjalla One", sans-serif;
 }
 
 code {

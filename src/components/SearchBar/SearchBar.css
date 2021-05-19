@@ -1,7 +1,7 @@
 .searchBar {
     display: flex;
     padding: 5px;
-    background-color: #efefef;
+    background-color: var(--orange-medium);
     border-bottom: 1px solid;
 }
 
@@ -17,12 +17,13 @@
     width: 100%;
     padding: 10px;
     outline: none;
+    background-color: var(--gray-background);
 }
 
 .searchIcon {
     padding: 5px;
     height: 20px !important;
-    background-color: #e7af14;
+    background-color: var(--orange-dark);
     border: 1px solid black;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;

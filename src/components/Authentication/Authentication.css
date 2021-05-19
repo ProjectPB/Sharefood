@@ -1,7 +1,7 @@
 .authentication__container {
     height: 100vh;
     width: 100vw;
-    background-color: lightgray;
+    background-color: var(--orange-light);
     display: grid;
     place-items: center;
 }
@@ -75,6 +75,6 @@
     border: thin solid;
     font-size: 14px;
     border-radius: 2px;
-    background-color: whitesmoke;
+    background-color: var(--orange-dark);
     width: 100%;
 }

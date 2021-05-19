@@ -12,7 +12,7 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    background-color: white;
+    background-color: var(--gray-background);
 }
 
 .recipe {
@@ -24,7 +24,7 @@
     outline: 1px solid;
     height: fit-content;
     max-width: 750px;
-    background-color: #efefef;
+    background-color: var(--orange-light);
 }
 
 .recipe__title {
@@ -45,6 +45,7 @@
     object-fit: cover;
     width: 100%;
     aspect-ratio: 4 / 3;
+    outline: 1px solid;
 }
 
 .recipe__info {
