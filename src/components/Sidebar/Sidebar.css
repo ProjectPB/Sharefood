@@ -1,12 +1,12 @@
 .sidebar {
     width: 300px;
-    background-color: var(--orange-medium);
+    background-color: var(--color-primary);
     border-right: 1px solid black;
 }
 
 .sidebar--hidden {
     width: fit-content;
-    background-color: var(--orange-medium);
+    background-color: var(--color-primary);
     border-right: 1px solid black;
 }
 

@@ -24,7 +24,7 @@
     outline: 1px solid;
     height: fit-content;
     max-width: 750px;
-    background-color: var(--orange-light);
+    background-color: var(--color-primary);
 }
 
 .recipe__title {

@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     position: absolute;
-    background-color: var(--orange-medium);
+    background-color: var(--color-primary);
     right: 25px;
     top: 55px;
     z-index: 999;
@@ -34,7 +34,7 @@
 }
 
 .profilePopup__logout:hover {
-    background-color: var(--orange-hover);
+    background-color: var(--color-hover);
 }
 
 .profilePopup__logout > p {

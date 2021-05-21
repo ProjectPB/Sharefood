@@ -1,7 +1,7 @@
 .searchBar {
     display: flex;
     padding: 5px;
-    background-color: var(--orange-medium);
+    background-color: var(--color-primary);
     border-bottom: 1px solid;
 }
 
@@ -23,7 +23,7 @@
 .searchIcon {
     padding: 5px;
     height: 20px !important;
-    background-color: var(--orange-dark);
+    background-color: var(--color-secondary);
     border: 1px solid black;
     border-top-right-radius: 5px;
     border-bottom-right-radius: 5px;

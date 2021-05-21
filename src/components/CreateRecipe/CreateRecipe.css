@@ -15,7 +15,7 @@
 }
 
 .createRecipe {
-    background-color: var(--orange-medium);
+    background-color: var(--color-primary);
     width: 60%;
     height: 90%;
     display: flex;
@@ -149,7 +149,7 @@
 }
 
 .createRecipe__button {
-    background-color: var(--orange-dark);
+    background-color: var(--color-secondary);
     border: 1px solid black;
     padding: 10px;
     border-radius: 5px;
