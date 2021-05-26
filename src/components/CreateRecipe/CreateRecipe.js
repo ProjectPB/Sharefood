@@ -7,10 +7,9 @@ import {
 import { selectUser } from "../../features/userSlice";
 import "./CreateRecipe.css";
 import {
-    ingredientsToArray,
-    methodToArray,
     renderTags,
     capitalizeLetter,
+    TextAreaToArray,
 } from "../../util/TextFormat";
 import { Close } from "@material-ui/icons";
 import { db, storage } from "../../firebase";
@@ -104,9 +103,14 @@ function CreateRecipe() {
                             type: type,
                             title: capitalizeLetter(title),
                             image: url,
-                            tags: renderTags(title, ingredients, type),
-                            ingredients: ingredientsToArray(ingredients),
-                            method: methodToArray(method),
+                            tags: renderTags(
+                                title,
+                                ingredients,
+                                type,
+                                user.displayName
+                            ),
+                            ingredients: TextAreaToArray(ingredients),
+                            method: TextAreaToArray(method),
                             timestamp:
                                 firebase.firestore.FieldValue.serverTimestamp(),
                             likesUsers: [],
@@ -144,7 +148,7 @@ function CreateRecipe() {
                 <div className="createRecipe__ingredientsText">
                     <h3>Ingredients</h3>
                     <textarea
-                        placeholder="Use commas or return buttons to separate ingredients"
+                        placeholder="Use return buttons to separate ingredients"
                         value={ingredients}
                         onChange={(e) => setIngredients(e.target.value)}
                         spellCheck="false"
@@ -153,7 +157,7 @@ function CreateRecipe() {
                 <div className="createRecipe__methodText">
                     <h3>Method</h3>
                     <textarea
-                        placeholder="Use full stops or return buttons to separate steps"
+                        placeholder="Use return buttons to separate steps"
                         value={method}
                         onChange={(e) => setMethod(e.target.value)}
                         spellCheck="false"

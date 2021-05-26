@@ -1,5 +1,5 @@
-export const ingredientsToArray = (str) => {
-    const splitStr = str.split(/,|\n/);
+export const TextAreaToArray = (str) => {
+    const splitStr = str.split(/\n/g);
     const trimmedStr = splitStr.map((i) => i.trim());
     const filteredStr = trimmedStr.filter((i) => {
         return i != "";
@@ -7,28 +7,28 @@ export const ingredientsToArray = (str) => {
     return filteredStr;
 };
 
-export const methodToArray = (str) => {
-    const splitStr = str
-        .replace(/\./g, "\r")
-        .replace(/\r\n/g, "\r")
-        .replace(/\n/g, "\r")
-        .split(/\r/);
-    const trimmedStr = splitStr.map((i) => i.trim());
-    const filteredStr = trimmedStr.filter((i) => {
-        return i != "";
-    });
-    return filteredStr;
-};
-
-export const renderTags = (strTitle, strIngredients, strType) => {
+export const renderTags = (
+    strTitle,
+    strIngredients,
+    strType,
+    strAuthorName
+) => {
     let tags = [];
     const titleWords = strTitle.split(" ");
     const titleTags = [];
 
-    const ingredientsNoReturns = strIngredients.split(/,|\n/);
-    const array = [strTitle, ingredientsNoReturns, strType].join(" ");
-    const arrNoCommas = array.replace(/,/g, " ");
+    const ingredientsNoReturns = strIngredients
+        .replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, ",")
+        .split(/,|\n/);
+    const basicArray = [
+        strTitle,
+        ingredientsNoReturns,
+        strType,
+        strAuthorName,
+    ].join(" ");
+    const arrNoCommas = basicArray.replace(/,/g, " ");
     const splitStr = arrNoCommas.split(" ");
+    splitStr.push(strAuthorName);
     const trimmedStr = splitStr.map((i) => i.trim());
     const noNumbers = trimmedStr.filter((i) => {
         return !/\d/.test(i) && i != "" && i.length >= 3;
