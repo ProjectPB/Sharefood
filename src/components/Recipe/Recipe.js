@@ -86,7 +86,7 @@ function Recipe() {
             ) : (
                 <div className="recipe">
                     <h1 className="recipe__title">{recipeData?.title}</h1>
-                    <div className="recipe__upper">
+                    <div className="recipe__main">
                         <img
                             className="recipe__image"
                             src={recipeData?.image}

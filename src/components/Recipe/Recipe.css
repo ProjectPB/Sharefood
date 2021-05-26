@@ -36,7 +36,7 @@
     font-size: 24px;
 }
 
-.recipe__upper {
+.recipe__main {
     display: flex;
     flex-direction: column;
 }
@@ -167,7 +167,7 @@
 }
 
 .recipe__delete:hover {
-    background-color: lightgray;
+    background-color: var(--color-hover);
     outline: 1px solid;
 }
 
@@ -176,6 +176,12 @@
     font-size: 16px;
     padding-right: 5px;
     color: red;
+}
+
+@media screen and (min-width: 1200px) {
+    .recipe__image {
+        min-width: 750px;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -197,11 +203,16 @@
         height: calc(100vh - 105px);
     }
 
+    .recipe__container::-webkit-scrollbar {
+        display: none;
+    }
+
     .recipe {
+        width: 100%;
         margin: 0;
     }
 
-    .recipe__container::-webkit-scrollbar {
-        display: none;
+    .recipe__main {
+        width: 100%;
     }
 }
