@@ -12,7 +12,9 @@ function SearchBar({ onHeader }) {
 
         const loweredInput = input[0]?.toLowerCase() + input.substring(1);
 
-        input && history.push(`/results/?q=${loweredInput}`);
+        const trimmedInput = loweredInput.trim();
+
+        input && history.push(`/results/?q=${trimmedInput}`);
 
         setInput("");
     };
@@ -29,10 +31,7 @@ function SearchBar({ onHeader }) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
             />
-            <Search
-                onClick={navToSearchResult}
-                className="searchIcon"
-            />
+            <Search onClick={navToSearchResult} className="searchIcon" />
         </form>
     );
 }
