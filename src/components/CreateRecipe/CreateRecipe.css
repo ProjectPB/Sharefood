@@ -46,7 +46,7 @@
 .createRecipe__title > input {
     outline: none;
     padding: 5px;
-    background-color: var(--gray-background);
+    background-color: var(--lightgray-background);
     border: 1px solid;
 }
 
@@ -64,7 +64,7 @@
     outline: none;
     height: 300px;
     padding: 5px;
-    background-color: var(--gray-background);
+    background-color: var(--lightgray-background);
     border: 1px solid;
 }
 
@@ -74,14 +74,13 @@
     margin: 0 auto;
     text-align: center;
     margin-top: 15px;
-    
 }
 
 .createRecipe__options {
     width: 100px;
     outline: none;
     height: 30px;
-    background-color: var(--gray-background);
+    background-color: var(--lightgray-background);
     border: 1px solid;
 }
 
@@ -97,7 +96,7 @@
 .createRecipe__portions > input {
     outline: none;
     padding: 5px;
-    background-color: var(--gray-background);
+    background-color: var(--lightgray-background);
     border: 1px solid;
 }
 

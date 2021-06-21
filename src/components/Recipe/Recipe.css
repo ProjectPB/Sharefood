@@ -12,7 +12,7 @@
     flex: 1;
     display: flex;
     justify-content: center;
-    background-color: var(--gray-background);
+    background-color: var(--darkgray-background);
 }
 
 .recipe {
@@ -24,7 +24,7 @@
     outline: 1px solid;
     height: fit-content;
     max-width: 750px;
-    background-color: var(--color-primary);
+    background-color: whitesmoke;
 }
 
 .recipe__title {

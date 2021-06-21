@@ -29,7 +29,7 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
-    background-color: var(--color-primary);
+    background-color: whitesmoke;
     border-top: 1px solid;
     padding: 5px;
     height: 100px;

@@ -1,7 +1,7 @@
 .renderRecipes__container {
     overflow-y: scroll;
     flex: 1;
-    background-color: var(--gray-background);
+    background-color: var(--darkgray-background);
 }
 
 .renderRecipes__processing {
@@ -10,7 +10,7 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    background-color: var(--gray-background);
+    background-color: var(--darkgray-background);
 }
 
 .renderRecipes {

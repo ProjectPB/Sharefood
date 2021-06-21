@@ -12,7 +12,8 @@ body {
     --color-primary: #ffe59c;
     --color-hover: #ffd34e;
     --color-secondary: #ffc000;
-    --gray-background: rgb(250, 250, 250);
+    --darkgray-background: rgb(230, 230, 230);
+    --lightgray-background: rgb(245, 245, 245);
 }
 
 h1 {
