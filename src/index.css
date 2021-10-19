@@ -19,3 +19,7 @@ body {
 h1 {
   font-family: "Fjalla One", sans-serif;
 }
+
+html {
+  overflow: hidden;
+}

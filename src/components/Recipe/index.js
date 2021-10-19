@@ -39,12 +39,16 @@ const Recipe = () => {
   const likeRecipe = (e) => {
     e.preventDefault();
 
-    db.collection("recipes")
-      .doc(recipeId)
-      .update({
-        likesUsers: firebase.firestore.FieldValue.arrayUnion(user.uid),
-        likesQuantity: firebase.firestore.FieldValue.increment(1),
-      });
+    if (user) {
+      db.collection("recipes")
+        .doc(recipeId)
+        .update({
+          likesUsers: firebase.firestore.FieldValue.arrayUnion(user?.uid),
+          likesQuantity: firebase.firestore.FieldValue.increment(1),
+        });
+    } else {
+      return alert("Please Sign In to like a recipe");
+    }
   };
 
   const dislikeRecipe = (e) => {
@@ -53,7 +57,7 @@ const Recipe = () => {
     db.collection("recipes")
       .doc(recipeId)
       .update({
-        likesUsers: firebase.firestore.FieldValue.arrayRemove(user.uid),
+        likesUsers: firebase.firestore.FieldValue.arrayRemove(user?.uid),
         likesQuantity: firebase.firestore.FieldValue.increment(-1),
       });
   };
@@ -109,7 +113,7 @@ const Recipe = () => {
                   />
                   <p>{recipeData?.authorName}</p>
                 </div>
-                {recipeData?.authorId === user.uid && (
+                {recipeData?.authorId === user?.uid && (
                   <div className="recipe__delete" onClick={deleteRecipe}>
                     <DeleteOutlined fontSize="large" />
                     <p>Delete recipe</p>
@@ -122,7 +126,7 @@ const Recipe = () => {
                   <p>{capitalizeLetter(recipeData?.type)}</p>
                 </div>
                 <div className="recipe__favorite">
-                  {!recipeData?.likesUsers?.includes(user.uid) ? (
+                  {!recipeData?.likesUsers?.includes(user?.uid) ? (
                     <FavoriteBorderOutlined
                       fontSize="large"
                       onClick={likeRecipe}

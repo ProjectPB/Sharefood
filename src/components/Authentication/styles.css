@@ -78,3 +78,32 @@
   background-color: var(--color-secondary);
   width: 100%;
 }
+
+a {
+  width: 100%;
+}
+
+.authentication__back {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+  border: 1px solid lightgray;
+  color: gray;
+  padding: 8px 5px;
+  border-radius: 5px;
+}
+
+.authentication__back > p {
+  display: block;
+  flex: 1;
+  margin-left: 25px;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.authentication__back:hover {
+  border: 1px solid black;
+  color: black;
+}

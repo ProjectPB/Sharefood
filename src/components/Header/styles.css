@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 0;
+  padding: 10px 15px;
   background-color: var(--color-primary);
   border-bottom: 1px solid black;
 }
@@ -10,7 +10,6 @@
 .header__left {
   display: flex;
   align-items: center;
-  margin-left: 15px;
   margin-right: 10px;
 }
 
@@ -19,6 +18,7 @@
 }
 
 .header__left > h2 {
+  display: block;
   font-size: 12px;
   margin-left: 5px;
   cursor: pointer;
@@ -31,7 +31,6 @@
   padding: 10px;
   border-radius: 5px;
   font-size: 14px;
-  margin-right: 15px;
   outline: none;
   cursor: pointer;
   width: 75px;
@@ -40,11 +39,16 @@
 .header__right {
   display: flex;
   align-items: center;
-  margin-right: 15px;
   margin-left: 10px;
 }
 
 .header__profilePopup {
-  margin-left: 5px;
+  margin-left: 15px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+  .header {
+    padding: 10px 5px;
+  }
 }

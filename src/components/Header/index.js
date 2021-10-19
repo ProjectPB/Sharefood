@@ -60,6 +60,10 @@ const Header = () => {
     history.push("/");
   };
 
+  const navToAuth = () => {
+    history.push("/auth");
+  };
+
   const handleClickAway = () => {
     setProfileMenuIsOpen(false);
   };
@@ -74,21 +78,29 @@ const Header = () => {
 
       {width > 600 && <SearchBar onHeader />}
 
-      <div className="header__right">
-        <button className="header__button" onClick={handleCreateRecipe}>
-          Create
-        </button>
-        <ClickAwayListener onClickAway={handleClickAway}>
-          <div className="header__profilePopup">
-            <Avatar
-              onClick={handleProfileMenu}
-              src={user?.profilePic}
-              alt={user?.displayName}
-            />
-            {profileMenuIsOpen ? <ProfilePopup /> : null}
-          </div>
-        </ClickAwayListener>
-      </div>
+      {user ? (
+        <div className="header__right">
+          <button className="header__button" onClick={handleCreateRecipe}>
+            Create
+          </button>
+          <ClickAwayListener onClickAway={handleClickAway}>
+            <div className="header__profilePopup">
+              <Avatar
+                onClick={handleProfileMenu}
+                src={user?.profilePic}
+                alt={user?.displayName}
+              />
+              {profileMenuIsOpen ? <ProfilePopup /> : null}
+            </div>
+          </ClickAwayListener>
+        </div>
+      ) : (
+        <div className="header__right">
+          <button className="header__button" onClick={navToAuth}>
+            Login
+          </button>
+        </div>
+      )}
     </div>
   );
 };

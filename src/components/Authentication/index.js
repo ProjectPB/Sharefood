@@ -1,13 +1,18 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import Login from "../Login";
 import SignUp from "../SignUp";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth, db, provider } from "../../firebase/firebase";
-import { login } from "../../redux/features/userSlice";
+import { login, selectUser } from "../../redux/features/userSlice";
 import "./styles.css";
+import { ArrowBack } from "@material-ui/icons";
+import { Link } from "react-router-dom";
 
 const Authentication = () => {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+  const history = useHistory();
   const [newAccount, setNewAccount] = useState(false);
 
   const handleAccount = () => {
@@ -35,6 +40,8 @@ const Authentication = () => {
       })
       .catch((error) => alert(error.message));
   };
+
+  user && history.push("/");
 
   return (
     <div className="authentication__container">
@@ -64,6 +71,13 @@ const Authentication = () => {
             </button>
           </div>
         )}
+
+        <Link to="/">
+          <div className="authentication__back">
+            <ArrowBack />
+            <p>Back to homepage</p>
+          </div>
+        </Link>
       </div>
     </div>
   );
