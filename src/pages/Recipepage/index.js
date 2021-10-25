@@ -14,8 +14,6 @@ const Recipepage = () => {
     });
   }, []);
 
-  console.log("XD");
-
   return (
     <div className="recipePage__container">
       <Header />

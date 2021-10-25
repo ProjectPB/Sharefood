@@ -40,7 +40,7 @@ const App = () => {
     <Router>
       <Switch>
         <Route
-          path={["/results", "/auth", "/favorite", "/my", "/popular"]}
+          path={["/results/:query", "/auth", "/favorite", "/my", "/popular"]}
           exact
         >
           <Homepage />

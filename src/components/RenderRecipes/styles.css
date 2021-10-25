@@ -20,11 +20,11 @@
   justify-content: flex-start;
 }
 
-.renderRecipes__queryResult {
+.renderRecipes__text {
   text-align: center;
   margin-top: 10px;
   font-size: 18px;
-  font-weight: 50 0;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 1050px) {
