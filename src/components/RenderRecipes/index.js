@@ -9,21 +9,19 @@ import Card from "../Card";
 import NoData from "../NoData";
 import "./styles.css";
 
-const RenderRecipes = ({ fetch }) => {
+const RenderRecipes = () => {
   const user = useSelector(selectUser);
   const sidebarIsOpen = useSelector(selectSidebarIsOpen);
-
   const location = useLocation();
   const { search } = useLocation();
   const [isLoading, setIsLoading] = useState(true);
   const [recipes, setRecipes] = useState([]);
-
   const searchParams = new URLSearchParams(search);
   const queryResult = searchParams.get("q");
 
   useEffect(() => {
-    switch (fetch) {
-      case "all":
+    switch (location.pathname) {
+      case "/":
         db.collection("recipes")
           .orderBy("timestamp", "desc")
           .get()
@@ -37,7 +35,7 @@ const RenderRecipes = ({ fetch }) => {
             setIsLoading(false);
           });
         return;
-      case "popular":
+      case "/popular":
         db.collection("recipes")
           .orderBy("likesQuantity", "desc")
           .get()
@@ -51,7 +49,7 @@ const RenderRecipes = ({ fetch }) => {
             setIsLoading(false);
           });
         return;
-      case "my":
+      case "/my":
         db.collection("recipes")
           .where("authorId", "==", user.uid)
           .orderBy("timestamp", "desc")
@@ -66,7 +64,7 @@ const RenderRecipes = ({ fetch }) => {
             setIsLoading(false);
           });
         return;
-      case "favorite":
+      case "/favorite":
         db.collection("recipes")
           .where("likesUsers", "array-contains", `${user.uid}`)
           .orderBy("timestamp", "desc")
@@ -81,7 +79,7 @@ const RenderRecipes = ({ fetch }) => {
             setIsLoading(false);
           });
         return;
-      case "search":
+      case "/results/":
         db.collection("recipes")
           .where("tags", "array-contains", queryResult)
           .get()

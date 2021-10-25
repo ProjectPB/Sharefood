@@ -1,0 +1,10 @@
+.recipePage {
+  display: flex;
+  height: calc(100vh - 62px);
+}
+
+@media screen and (max-width: 600px) {
+  .recipePage {
+    height: calc(100vh - 105px);
+  }
+}
