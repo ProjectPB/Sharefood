@@ -39,10 +39,7 @@ const App = () => {
   ) : (
     <Router>
       <Switch>
-        <Route
-          path={["/results/:query", "/auth", "/favorite", "/my", "/popular"]}
-          exact
-        >
+        <Route path={["/results/:query", "/favorite", "/my", "/popular"]} exact>
           <Homepage />
         </Route>
         <Route path="/recipe/:recipeId">
