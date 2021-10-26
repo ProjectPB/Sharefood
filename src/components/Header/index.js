@@ -8,14 +8,11 @@ import {
   openSidebar,
   selectSidebarIsOpen,
 } from "../../redux/features/sidebarSlice";
-import {
-  openNewRecipe,
-  selectNewRecipeIsOpen,
-} from "../../redux/features/newRecipeSlice";
 import { selectUser } from "../../redux/features/userSlice";
 import ProfilePopup from "../ProfilePopup";
-import CreateRecipe from "../CreateRecipe";
+import NewRecipe from "../NewRecipe";
 import SearchBar from "../SearchBar";
+import Modal from "./../Modal";
 import { ClickAwayListener } from "@material-ui/core";
 import "./styles.css";
 
@@ -23,11 +20,21 @@ const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const sidebarIsOpen = useSelector(selectSidebarIsOpen);
-  const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
   const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
   const user = useSelector(selectUser);
-
   const [width, setWidth] = useState(window.innerWidth);
+  const [hideModal, setHideModal] = useState(true);
+
+  const toggleModal = () => setHideModal(!hideModal);
+
+  const configModal = {
+    hideModal,
+    toggleModal,
+  };
+
+  const closeModal = () => {
+    setHideModal(true);
+  };
 
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -43,12 +50,6 @@ const Header = () => {
       dispatch(closeSidebar());
     } else {
       dispatch(openSidebar());
-    }
-  };
-
-  const handleCreateRecipe = () => {
-    if (!newRecipeIsOpen) {
-      dispatch(openNewRecipe());
     }
   };
 
@@ -70,7 +71,6 @@ const Header = () => {
 
   return (
     <div className="header">
-      {newRecipeIsOpen && <CreateRecipe />}
       <div className="header__left">
         <Menu onClick={handleSidebar} fontSize="large" />
         <h2 onClick={navToMain}>ShareFood</h2>
@@ -80,9 +80,14 @@ const Header = () => {
 
       {user ? (
         <div className="header__right">
-          <button className="header__button" onClick={handleCreateRecipe}>
+          <button className="header__button" onClick={() => toggleModal()}>
             Create
           </button>
+
+          <Modal {...configModal}>
+            <NewRecipe close={() => closeModal()} />
+          </Modal>
+
           <ClickAwayListener onClickAway={handleClickAway}>
             <div className="header__profilePopup">
               <Avatar

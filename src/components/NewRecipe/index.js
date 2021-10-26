@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  closeNewRecipe,
-  selectNewRecipeIsOpen,
-} from "../../redux/features/newRecipeSlice";
+import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/features/userSlice";
 import {
   renderTags,
@@ -17,7 +13,8 @@ import { CircularProgress } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import "./styles.css";
 
-const CreateRecipe = () => {
+const NewRecipe = ({ close }) => {
+  const user = useSelector(selectUser);
   const [type, setType] = useState(null);
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -28,15 +25,6 @@ const CreateRecipe = () => {
   const [previewImage, setPreviewImage] = useState(
     "https://icon-library.com/images/placeholder-image-icon/placeholder-image-icon-7.jpg"
   );
-  const dispatch = useDispatch();
-  const newRecipeIsOpen = useSelector(selectNewRecipeIsOpen);
-  const user = useSelector(selectUser);
-
-  const closeRecipe = () => {
-    if (newRecipeIsOpen) {
-      dispatch(closeNewRecipe());
-    }
-  };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -110,24 +98,23 @@ const CreateRecipe = () => {
               portions: portions,
             });
             alert("Recipe added, Please refresh the website");
-            dispatch(closeNewRecipe());
+            close();
           });
       }
     );
   };
 
   return (
-    <div className="createRecipe__container">
+    <div className="newRecipe__container">
       {progress > 0 && progress < 100 && (
         <CircularProgress
-          className="createRecipe__processingIcon"
+          className="newRecipe__processingIcon"
           value={progress}
           size={60}
         />
       )}
-      <form className="createRecipe">
-        <Close className="createRecipe__close" onClick={closeRecipe} />
-        <div className="createRecipe__title">
+      <form className="newRecipe">
+        <div className="newRecipe__title">
           <h3>Title</h3>
           <input
             value={title}
@@ -137,7 +124,7 @@ const CreateRecipe = () => {
             spellCheck="false"
           />
         </div>
-        <div className="createRecipe__ingredientsText">
+        <div className="newRecipe__ingredientsText">
           <h3>Ingredients</h3>
           <textarea
             placeholder="Use return buttons to separate ingredients"
@@ -146,7 +133,7 @@ const CreateRecipe = () => {
             spellCheck="false"
           />
         </div>
-        <div className="createRecipe__methodText">
+        <div className="newRecipe__methodText">
           <h3>Method</h3>
           <textarea
             placeholder="Use return buttons to separate steps"
@@ -155,11 +142,11 @@ const CreateRecipe = () => {
             spellCheck="false"
           />
         </div>
-        <div className="createRecipe__types">
+        <div className="newRecipe__types">
           <h3>Type</h3>
           <select
             onChange={(e) => setType(e.target.value)}
-            className="createRecipe__options"
+            className="newRecipe__options"
           >
             <option value="" hidden>
               Type
@@ -173,7 +160,7 @@ const CreateRecipe = () => {
             <option value="other">Other</option>
           </select>
         </div>
-        <div className="createRecipe__portions">
+        <div className="newRecipe__portions">
           <h3>Portions</h3>
           <input
             value={portions}
@@ -183,20 +170,20 @@ const CreateRecipe = () => {
             min="1"
           />
         </div>
-        <div className="createRecipe__image">
+        <div className="newRecipe__image">
           <img src={previewImage} alt="image" />
           {!image && <p>For the best results, please attach 4:3 image</p>}
           {!image && <AddCircleIcon />}
           <input
             type="file"
             onChange={handleFileChange}
-            className="createRecipe__imageInput"
+            className="newRecipe__imageInput"
             accept="image/*"
           />
         </div>
         <button
           type="submit"
-          className="createRecipe__button"
+          className="newRecipe__button"
           onClick={handleCreate}
         >
           Create
@@ -206,4 +193,4 @@ const CreateRecipe = () => {
   );
 };
 
-export default CreateRecipe;
+export default NewRecipe;
