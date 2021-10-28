@@ -1,0 +1,17 @@
+.textarea__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea__label {
+  font-size: 18px;
+}
+
+.textarea {
+  resize: none;
+  outline: none;
+  height: 300px;
+  padding: 5px;
+  background-color: var(--lightgray-background);
+  border: 1px solid;
+}

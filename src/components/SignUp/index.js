@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { auth, db } from "../../firebase/firebase";
 import { login } from "../../redux/features/userSlice";
 import { InfoOutlined, Lock, Mail, Person } from "@material-ui/icons";
-import Input from "../Input";
+import AuthInput from "../AuthInput";
 import "./styles.css";
 
 const SignUp = ({ cancel }) => {
@@ -76,7 +76,7 @@ const SignUp = ({ cancel }) => {
         className="signUp__infoIcon"
         fontSize="small"
       />
-      <Input
+      <AuthInput
         Icon={Person}
         placeholder="Username"
         type="text"
@@ -86,7 +86,7 @@ const SignUp = ({ cancel }) => {
         openInfo={openInfo}
         title="Between 4 and 12 characters"
       />
-      <Input
+      <AuthInput
         Icon={Mail}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
@@ -96,7 +96,7 @@ const SignUp = ({ cancel }) => {
         title="example@example.com"
         openInfo={openInfo}
       />
-      <Input
+      <AuthInput
         Icon={Lock}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -106,7 +106,7 @@ const SignUp = ({ cancel }) => {
         openInfo={openInfo}
         title="At least 6 characters"
       />
-      <Input
+      <AuthInput
         Icon={Lock}
         value={passwordConfirm}
         onChange={(e) => setPasswordConfirm(e.target.value)}

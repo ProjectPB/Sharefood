@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Visibility } from "@material-ui/icons";
 import "./styles.css";
 
-const Input = ({
+const AuthInput = ({
   Icon,
   title,
   value,
@@ -37,9 +37,9 @@ const Input = ({
   }, [value]);
 
   return (
-    <div className="input__container">
+    <div className="authInput__container">
       <div
-        className="input"
+        className="authInput"
         style={
           isValid
             ? { border: "1px solid" }
@@ -57,7 +57,7 @@ const Input = ({
         {type === "password" && (
           <Visibility
             fontSize="small"
-            className="input__visibilityIcon"
+            className="authInput__visibilityIcon"
             onClick={changePasswordType}
           />
         )}
@@ -74,4 +74,4 @@ const Input = ({
   );
 };
 
-export default Input;
+export default AuthInput;

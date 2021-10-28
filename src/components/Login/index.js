@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { auth } from "../../firebase/firebase";
 import { login } from "../../redux/features/userSlice";
 import { Lock, Mail } from "@material-ui/icons";
-import Input from "../Input";
+import AuthInput from "../AuthInput";
 import "./styles.css";
 
 const Login = () => {
@@ -30,14 +30,14 @@ const Login = () => {
   return (
     <div className="login">
       <h3>SIGN IN</h3>
-      <Input
+      <AuthInput
         Icon={Mail}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="E-mail"
         type="email"
       />
-      <Input
+      <AuthInput
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         placeholder="Password"

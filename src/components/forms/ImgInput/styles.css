@@ -1,0 +1,64 @@
+.imgInput__container {
+  width: 400px;
+  height: 300px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  outline: 1px solid black;
+  margin: 0 auto;
+  margin-top: 15px;
+}
+
+.imgInput {
+  width: 400px;
+  height: 300px;
+  opacity: 0;
+  object-fit: cover;
+  position: absolute;
+  cursor: pointer;
+}
+
+.imgInput::-webkit-file-upload-button {
+  cursor: pointer;
+}
+
+.imgInput__container > img {
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+}
+
+.imgInput__container > p {
+  position: absolute;
+  bottom: 10%;
+  color: gray;
+}
+
+.imgInput__container > .MuiSvgIcon-root {
+  position: absolute;
+  bottom: 20%;
+  color: rgb(231, 175, 20, 0.9) !important;
+  border: 1px solid black;
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+}
+
+@media screen and (max-width: 450px) {
+  .imgInput,
+  .imgInput__container,
+  .imgInput__container > img {
+    width: 250px;
+    height: 187.5px;
+  }
+
+  .imgInput__container > p {
+    font-size: 10px;
+  }
+
+  .imgInput__container > .MuiSvgIcon-root {
+    width: 20px;
+    height: 20px;
+  }
+}

@@ -14,149 +14,20 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  outline: 1px solid black;
   padding: 20px;
 }
 
-.newRecipe__title {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-.newRecipe__title > input {
-  outline: none;
-  padding: 5px;
-  background-color: var(--lightgray-background);
-  border: 1px solid;
-}
-
-.newRecipe__ingredientsText,
-.newRecipe__methodText {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin-top: 15px;
-}
-
-.newRecipe__ingredientsText > textarea,
-.newRecipe__methodText > textarea {
-  resize: none;
-  outline: none;
-  height: 300px;
-  padding: 5px;
-  background-color: var(--lightgray-background);
-  border: 1px solid;
-}
-
-.newRecipe__types {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 15px;
-}
-
-.newRecipe__options {
-  width: 100px;
-  outline: none;
-  height: 30px;
-  background-color: var(--lightgray-background);
-  border: 1px solid;
-}
-
-.newRecipe__portions {
-  display: flex;
-  flex-direction: column;
-  width: 100px;
-  margin: 0 auto;
-  text-align: center;
-  margin-top: 15px;
-}
-
-.newRecipe__portions > input {
-  outline: none;
-  padding: 5px;
-  background-color: var(--lightgray-background);
-  border: 1px solid;
-}
-
-.newRecipe__image {
-  width: 400px;
-  height: 300px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  outline: 1px solid black;
-  margin: 0 auto;
-  margin-top: 15px;
-}
-
-.newRecipe__imageInput {
-  width: 400px;
-  height: 300px;
-  opacity: 0;
-  object-fit: cover;
-  position: absolute;
-  cursor: pointer;
-}
-
-.newRecipe__imageInput::-webkit-file-upload-button {
-  cursor: pointer;
-}
-
-.newRecipe__image > img {
-  width: 400px;
-  height: 300px;
-  object-fit: cover;
-}
-
-.newRecipe__image > p {
-  position: absolute;
-  bottom: 10%;
-  color: gray;
-}
-
-.newRecipe__image > .MuiSvgIcon-root {
-  position: absolute;
-  bottom: 20%;
-  color: rgb(231, 175, 20, 0.9) !important;
-  border: 1px solid black;
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
+.newRecipe > *,
+.newRecipe > div {
+  margin-bottom: 10px;
 }
 
 .newRecipe__button {
-  background-color: var(--color-secondary);
-  border: 1px solid black;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  outline: none;
-  cursor: pointer;
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
-  width: 75px;
-  margin-top: 15px;
-}
-
-@media screen and (max-width: 450px) {
-  .newRecipe__imageInput,
-  .newRecipe__image,
-  .newRecipe__image > img {
-    width: 250px;
-    height: 187.5px;
-  }
-
-  .newRecipe__image > p {
-    font-size: 10px;
-  }
-
-  .newRecipe__image > .MuiSvgIcon-root {
-    width: 20px;
-    height: 20px;
-  }
+  display: flex;
+  justify-content: center;
+  max-width: 80px;
 }

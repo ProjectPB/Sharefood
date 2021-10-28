@@ -6,11 +6,14 @@ import {
   capitalizeLetter,
   TextAreaToArray,
 } from "../../util/TextFormat";
-import { Close } from "@material-ui/icons";
-import { db, storage } from "../../firebase/firebase";
 import firebase from "firebase/app";
+import { db, storage } from "../../firebase/firebase";
 import { CircularProgress } from "@material-ui/core";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import Input from "./../forms/Input";
+import Textarea from "../forms/Textarea";
+import Select from "../forms/Select";
+import ImgInput from "../forms/ImgInput";
+import Button from "./../forms/Button";
 import "./styles.css";
 
 const NewRecipe = ({ close }) => {
@@ -22,11 +25,11 @@ const NewRecipe = ({ close }) => {
   const [portions, setPortions] = useState(1);
   const [image, setImage] = useState(null);
   const [progress, setProgress] = useState(0);
-  const [previewImage, setPreviewImage] = useState(
+  const [previewImg, setPreviewImg] = useState(
     "https://icon-library.com/images/placeholder-image-icon/placeholder-image-icon-7.jpg"
   );
 
-  const handleFileChange = (e) => {
+  const changeImgFile = (e) => {
     const file = e.target.files[0];
     const typePattern = /image-*/;
     const maxSize = 20;
@@ -39,27 +42,12 @@ const NewRecipe = ({ close }) => {
       return;
     } else {
       setImage(e.target.files[0]);
-      setPreviewImage(URL.createObjectURL(e.target.files[0]));
+      setPreviewImg(URL.createObjectURL(e.target.files[0]));
     }
-  };
-
-  const validate = () => {
-    const inputs = [type, title, ingredients, method, image, portions];
-
-    let checkedInputs =
-      inputs.every((input) => input) && portions > 0 && portions <= 99;
-
-    return checkedInputs;
   };
 
   const handleCreate = (e) => {
     e.preventDefault();
-
-    validate();
-
-    if (!validate()) {
-      return alert("Please make sure that all fields are filled properly.");
-    }
 
     const imageName = new Date().getTime() + image.name;
 
@@ -104,6 +92,95 @@ const NewRecipe = ({ close }) => {
     );
   };
 
+  const titleConfig = {
+    value: title,
+    handleChange: (e) => setTitle(e.target.value),
+    type: "text",
+    required: true,
+    spellCheck: false,
+    label: "Title",
+  };
+
+  const ingredientsConfig = {
+    value: ingredients,
+    placeholder: "Use return buttons to separate ingredients",
+    handleChange: (e) => setIngredients(e.target.value),
+    spellCheck: false,
+    label: "Ingredients",
+    required: true,
+  };
+
+  const methodConfig = {
+    value: method,
+    placeholder: "Use return buttons to separate steps",
+    handleChange: (e) => setMethod(e.target.value),
+    spellCheck: false,
+    label: "Method",
+    required: true,
+  };
+
+  const portionsConfig = {
+    value: portions,
+    handleChange: (e) => setPortions(e.target.value),
+    type: "number",
+    min: "1",
+    max: "20",
+    required: true,
+    label: "Portions",
+  };
+
+  const typeOptions = [
+    {
+      value: "",
+      name: "Type",
+      hidden: true,
+    },
+    {
+      value: "breakfast",
+      name: "Breakfast",
+    },
+    {
+      value: "appetizer",
+      name: "Appetizer",
+    },
+    {
+      value: "soup",
+      name: "Soup",
+    },
+    {
+      value: "main",
+      name: "Main",
+    },
+    {
+      value: "dessert",
+      name: "Dessert",
+    },
+    {
+      value: "drink",
+      name: "Drink",
+    },
+    {
+      value: "other",
+      name: "Other",
+    },
+  ];
+
+  const typeConfig = {
+    handleChange: (e) => setType(e.target.value),
+    label: "Type",
+    options: typeOptions,
+    required: true,
+  };
+
+  const imgInputConfig = {
+    image: image,
+    previewImg: previewImg,
+    handleChange: changeImgFile,
+    type: "file",
+    accept: "image/*",
+    required: true,
+  };
+
   return (
     <div className="newRecipe__container">
       {progress > 0 && progress < 100 && (
@@ -113,81 +190,16 @@ const NewRecipe = ({ close }) => {
           size={60}
         />
       )}
-      <form className="newRecipe">
-        <div className="newRecipe__title">
-          <h3>Title</h3>
-          <input
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            type="text"
-            required
-            spellCheck="false"
-          />
+      <form className="newRecipe" onSubmit={handleCreate}>
+        <Input {...titleConfig} />
+        <Textarea {...ingredientsConfig} />
+        <Textarea {...methodConfig} />
+        <Select {...typeConfig} />
+        <Input {...portionsConfig} />
+        <ImgInput {...imgInputConfig} />
+        <div className="newRecipe__button">
+          <Button type="submit">Create</Button>
         </div>
-        <div className="newRecipe__ingredientsText">
-          <h3>Ingredients</h3>
-          <textarea
-            placeholder="Use return buttons to separate ingredients"
-            value={ingredients}
-            onChange={(e) => setIngredients(e.target.value)}
-            spellCheck="false"
-          />
-        </div>
-        <div className="newRecipe__methodText">
-          <h3>Method</h3>
-          <textarea
-            placeholder="Use return buttons to separate steps"
-            value={method}
-            onChange={(e) => setMethod(e.target.value)}
-            spellCheck="false"
-          />
-        </div>
-        <div className="newRecipe__types">
-          <h3>Type</h3>
-          <select
-            onChange={(e) => setType(e.target.value)}
-            className="newRecipe__options"
-          >
-            <option value="" hidden>
-              Type
-            </option>
-            <option value="breakfast">Breakfast</option>
-            <option value="appetizer">Appetizer</option>
-            <option value="soup">Soup</option>
-            <option value="main">Main</option>
-            <option value="dessert">Dessert</option>
-            <option value="drink">Drink</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div className="newRecipe__portions">
-          <h3>Portions</h3>
-          <input
-            value={portions}
-            onChange={(e) => setPortions(e.target.value)}
-            type="number"
-            required
-            min="1"
-          />
-        </div>
-        <div className="newRecipe__image">
-          <img src={previewImage} alt="image" />
-          {!image && <p>For the best results, please attach 4:3 image</p>}
-          {!image && <AddCircleIcon />}
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="newRecipe__imageInput"
-            accept="image/*"
-          />
-        </div>
-        <button
-          type="submit"
-          className="newRecipe__button"
-          onClick={handleCreate}
-        >
-          Create
-        </button>
       </form>
     </div>
   );
