@@ -25,17 +25,6 @@
   user-select: none;
 }
 
-.header__button {
-  background-color: var(--color-secondary);
-  border: 1px solid black;
-  padding: 10px;
-  border-radius: 5px;
-  font-size: 14px;
-  outline: none;
-  cursor: pointer;
-  width: 75px;
-}
-
 .header__right {
   display: flex;
   align-items: center;

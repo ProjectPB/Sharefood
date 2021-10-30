@@ -13,6 +13,7 @@ import ProfilePopup from "../ProfilePopup";
 import NewRecipe from "../NewRecipe";
 import SearchBar from "../SearchBar";
 import Modal from "./../Modal";
+import Button from "./../forms/Button";
 import { ClickAwayListener } from "@material-ui/core";
 import "./styles.css";
 
@@ -80,9 +81,7 @@ const Header = () => {
 
       {user ? (
         <div className="header__right">
-          <button className="header__button" onClick={() => toggleModal()}>
-            Create
-          </button>
+          <Button onClick={() => toggleModal()}>Create</Button>
 
           <Modal {...configModal}>
             <NewRecipe close={() => closeModal()} />
@@ -101,9 +100,7 @@ const Header = () => {
         </div>
       ) : (
         <div className="header__right">
-          <button className="header__button" onClick={navToAuth}>
-            Login
-          </button>
+          <Button onClick={navToAuth}>Login</Button>
         </div>
       )}
     </div>
