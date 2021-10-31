@@ -1,14 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { auth, db } from "../../firebase/firebase";
-import { login } from "../../redux/features/userSlice";
+import { signUpUserStart } from "./../../redux/User/user.actions";
 import { InfoOutlined, Lock, Mail, Person } from "@material-ui/icons";
 import AuthInput from "../AuthInput";
 import "./styles.css";
 
 const SignUp = ({ cancel }) => {
   const dispatch = useDispatch();
-  const [username, setUsername] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -29,43 +28,26 @@ const SignUp = ({ cancel }) => {
   const register = (e) => {
     e.preventDefault();
 
-    if (!username) {
-      return alert("Please enter a username.");
+    if (!displayName) {
+      return alert("Please enter a displayName.");
     }
 
-    if (username.length > 12 || username.length < 4) {
-      return alert("Username does not match requirements.");
+    if (displayName.length > 12 || displayName.length < 4) {
+      return alert("displayName does not match requirements.");
     }
 
     if (!checkPasswords()) {
       return alert("Your passwords do not match.");
     }
 
-    auth
-      .createUserWithEmailAndPassword(email, password)
-      .then((userAuth) => {
-        userAuth.user
-          .updateProfile({
-            displayName: username,
-          })
-          .then(() => {
-            dispatch(
-              login({
-                email: userAuth.user.email,
-                uid: userAuth.user.uid,
-                displayName: userAuth.user.displayName,
-                profilePic: userAuth.user.photoURL,
-              })
-            ) &&
-              db.collection("users").doc(userAuth.user.uid).set({
-                email: userAuth.user.email,
-                uid: userAuth.user.uid,
-                displayName: userAuth.user.displayName,
-                profilePic: userAuth.user.photoURL,
-              });
-          });
+    dispatch(
+      signUpUserStart({
+        displayName,
+        email,
+        password,
+        passwordConfirm,
       })
-      .catch((error) => alert(error.message));
+    );
   };
 
   return (
@@ -80,8 +62,8 @@ const SignUp = ({ cancel }) => {
         Icon={Person}
         placeholder="Username"
         type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
+        value={displayName}
+        onChange={(e) => setDisplayName(e.target.value)}
         pattern="^.{4,12}$"
         openInfo={openInfo}
         title="Between 4 and 12 characters"

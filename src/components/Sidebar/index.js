@@ -1,15 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { selectSidebarIsOpen } from "../../redux/features/sidebarSlice";
 import SidebarOption from "../SidebarOption";
 import { Favorite, Home, MenuBook, Whatshot } from "@material-ui/icons";
-import { selectUser } from "../../redux/features/userSlice";
 import "./styles.css";
 
+const mapState = ({ user, ui }) => ({
+  currentUser: user.currentUser,
+  sidebarIsOpen: ui.sidebarOpen,
+});
+
 const Sidebar = () => {
-  const sidebarIsOpen = useSelector(selectSidebarIsOpen);
-  const user = useSelector(selectUser);
+  const { currentUser, sidebarIsOpen } = useSelector(mapState);
 
   return (
     <div className={sidebarIsOpen ? "sidebar" : "sidebar--hidden"}>
@@ -21,12 +23,12 @@ const Sidebar = () => {
         <SidebarOption Icon={Whatshot} title="POPULAR" />
       </NavLink>
 
-      {user && (
+      {currentUser && (
         <NavLink to="/my" activeClassName="selected">
           <SidebarOption Icon={MenuBook} title="MY RECIPES" />
         </NavLink>
       )}
-      {user && (
+      {currentUser && (
         <NavLink to="/favorite" activeClassName="selected">
           <SidebarOption Icon={Favorite} title="FAVORITE" />
         </NavLink>

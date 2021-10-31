@@ -1,13 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  closeSidebar,
-  selectSidebarIsOpen,
-} from "../../redux/features/sidebarSlice";
+import { closeSidebar } from "./../../redux/UI/ui.actions";
 import "./styles.css";
 
+const mapState = ({ ui }) => ({
+  sidebarIsOpen: ui.sidebarOpen,
+});
+
 const SidebarOption = ({ Icon, title }) => {
-  const sidebarIsOpen = useSelector(selectSidebarIsOpen);
+  const { sidebarIsOpen } = useSelector(mapState);
   const dispatch = useDispatch();
 
   const minimalizeSidebar = () => {

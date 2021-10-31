@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router";
+import { useLocation } from "react-router";
 import { useSelector } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
-import { selectUser } from "../../redux/features/userSlice";
-import { selectSidebarIsOpen } from "../../redux/features/sidebarSlice";
-import { db } from "../../firebase/firebase";
+import { db } from "../../firebase/utils";
 import { useQuery } from "./../../hooks";
 import Card from "../Card";
 import NoData from "../NoData";
 import "./styles.css";
 
+const mapState = ({ user, ui }) => ({
+  currentUser: user.currentUser,
+  sidebarIsOpen: ui.sidebarIsOpen,
+});
+
 const RenderRecipes = () => {
-  const user = useSelector(selectUser);
-  const sidebarIsOpen = useSelector(selectSidebarIsOpen);
+  const { currentUser, sidebarIsOpen } = useSelector(mapState);
   const query = useQuery().get("q");
   const location = useLocation();
   const [recipes, setRecipes] = useState([]);
@@ -64,7 +66,7 @@ const RenderRecipes = () => {
           break;
         case "/my":
           db.collection("recipes")
-            .where("authorId", "==", user.uid)
+            .where("authorId", "==", currentUser?.uid)
             .orderBy("timestamp", "desc")
             .get()
             .then((querySnapshot) => {
@@ -79,7 +81,7 @@ const RenderRecipes = () => {
           break;
         case "/favorite":
           db.collection("recipes")
-            .where("likesUsers", "array-contains", `${user.uid}`)
+            .where("likesUsers", "array-contains", `${currentUser?.uid}`)
             .orderBy("timestamp", "desc")
             .get()
             .then((querySnapshot) => {
@@ -102,7 +104,7 @@ const RenderRecipes = () => {
       setIsLoading(true);
       setRecipes([]);
     };
-  }, [location.pathname, query]);
+  }, [location.pathname, query, currentUser?.uid]);
 
   const fillWithHiddenCards = () => {
     if (recipes.length === 1) {

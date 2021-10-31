@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/features/userSlice";
 import {
   renderTags,
   capitalizeLetter,
   TextAreaToArray,
 } from "../../util/TextFormat";
 import firebase from "firebase/app";
-import { db, storage } from "../../firebase/firebase";
+import { db, storage } from "../../firebase/utils";
 import { CircularProgress } from "@material-ui/core";
 import Input from "./../forms/Input";
 import Textarea from "../forms/Textarea";
@@ -16,8 +15,12 @@ import ImgInput from "../forms/ImgInput";
 import Button from "./../forms/Button";
 import "./styles.css";
 
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
 const NewRecipe = ({ close }) => {
-  const user = useSelector(selectUser);
+  const { currentUser } = useSelector(mapState);
   const [type, setType] = useState(null);
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -71,13 +74,18 @@ const NewRecipe = ({ close }) => {
           .getDownloadURL()
           .then((url) => {
             db.collection("recipes").add({
-              authorId: user.uid,
-              authorProfilePic: user.profilePic,
-              authorName: user.displayName,
+              authorId: currentUser.uid,
+              authorProfilePic: currentUser.profilePic,
+              authorName: currentUser.displayName,
               type: type,
               title: capitalizeLetter(title),
               image: url,
-              tags: renderTags(title, ingredients, type, user.displayName),
+              tags: renderTags(
+                title,
+                ingredients,
+                type,
+                currentUser.displayName
+              ),
               ingredients: TextAreaToArray(ingredients),
               method: TextAreaToArray(method),
               timestamp: firebase.firestore.FieldValue.serverTimestamp(),

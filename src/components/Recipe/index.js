@@ -8,18 +8,21 @@ import {
   LocalDining,
 } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { db, storage } from "../../firebase/firebase";
+import { db, storage } from "../../firebase/utils";
 import { useHistory, useLocation } from "react-router";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/features/userSlice";
 import firebase from "firebase/app";
 import NoData from "../NoData";
 import Moment from "react-moment";
 import { capitalizeLetter } from "../../util/TextFormat";
 import "./styles.css";
 
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
 const Recipe = () => {
-  const user = useSelector(selectUser);
+  const { currentUser } = useSelector(mapState);
   const location = useLocation();
   const history = useHistory();
   const recipeId = location.pathname.substring(8);
@@ -34,16 +37,18 @@ const Recipe = () => {
         setRecipeData(doc.data());
         setIsLoading(false);
       });
-  }, []);
+  }, [recipeId]);
 
   const likeRecipe = (e) => {
     e.preventDefault();
 
-    if (user) {
+    if (currentUser) {
       db.collection("recipes")
         .doc(recipeId)
         .update({
-          likesUsers: firebase.firestore.FieldValue.arrayUnion(user?.uid),
+          likesUsers: firebase.firestore.FieldValue.arrayUnion(
+            currentUser?.uid
+          ),
           likesQuantity: firebase.firestore.FieldValue.increment(1),
         });
     } else {
@@ -57,7 +62,7 @@ const Recipe = () => {
     db.collection("recipes")
       .doc(recipeId)
       .update({
-        likesUsers: firebase.firestore.FieldValue.arrayRemove(user?.uid),
+        likesUsers: firebase.firestore.FieldValue.arrayRemove(currentUser?.uid),
         likesQuantity: firebase.firestore.FieldValue.increment(-1),
       });
   };
@@ -113,7 +118,7 @@ const Recipe = () => {
                   />
                   <p>{recipeData?.authorName}</p>
                 </div>
-                {recipeData?.authorId === user?.uid && (
+                {recipeData?.authorId === currentUser?.uid && (
                   <div className="recipe__delete" onClick={deleteRecipe}>
                     <DeleteOutlined fontSize="large" />
                     <p>Delete recipe</p>
@@ -126,7 +131,7 @@ const Recipe = () => {
                   <p>{capitalizeLetter(recipeData?.type)}</p>
                 </div>
                 <div className="recipe__favorite">
-                  {!recipeData?.likesUsers?.includes(user?.uid) ? (
+                  {!recipeData?.likesUsers?.includes(currentUser?.uid) ? (
                     <FavoriteBorderOutlined
                       fontSize="large"
                       onClick={likeRecipe}

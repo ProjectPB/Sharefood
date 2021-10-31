@@ -3,12 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Menu } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
-import {
-  closeSidebar,
-  openSidebar,
-  selectSidebarIsOpen,
-} from "../../redux/features/sidebarSlice";
-import { selectUser } from "../../redux/features/userSlice";
+import { closeSidebar, openSidebar } from "./../../redux/UI/ui.actions";
 import ProfilePopup from "../ProfilePopup";
 import NewRecipe from "../NewRecipe";
 import SearchBar from "../SearchBar";
@@ -17,12 +12,16 @@ import Button from "./../forms/Button";
 import { ClickAwayListener } from "@material-ui/core";
 import "./styles.css";
 
+const mapState = ({ user, ui }) => ({
+  currentUser: user.currentUser,
+  sidebarIsOpen: ui.sidebarOpen,
+});
+
 const Header = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const sidebarIsOpen = useSelector(selectSidebarIsOpen);
   const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
-  const user = useSelector(selectUser);
+  const { currentUser, sidebarIsOpen } = useSelector(mapState);
   const [width, setWidth] = useState(window.innerWidth);
   const [hideModal, setHideModal] = useState(true);
 
@@ -44,7 +43,7 @@ const Header = () => {
     if (width < 600) {
       dispatch(closeSidebar());
     }
-  }, [width]);
+  }, [width, dispatch]);
 
   const handleSidebar = () => {
     if (sidebarIsOpen) {
@@ -79,7 +78,7 @@ const Header = () => {
 
       {width > 600 && <SearchBar onHeader />}
 
-      {user ? (
+      {currentUser ? (
         <div className="header__right">
           <Button onClick={() => toggleModal()}>Create</Button>
 
@@ -91,8 +90,8 @@ const Header = () => {
             <div className="header__profilePopup">
               <Avatar
                 onClick={handleProfileMenu}
-                src={user?.profilePic}
-                alt={user?.displayName}
+                src={currentUser?.profilePic}
+                alt={currentUser?.displayName}
               />
               {profileMenuIsOpen ? <ProfilePopup /> : null}
             </div>

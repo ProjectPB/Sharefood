@@ -1,34 +1,41 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { auth } from "../../firebase/firebase";
-import { login } from "../../redux/features/userSlice";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { Lock, Mail } from "@material-ui/icons";
+import { emailSignInStart } from "./../../redux/User/user.actions";
 import AuthInput from "../AuthInput";
 import "./styles.css";
 
+const mapState = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
 const Login = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { currentUser } = useSelector(mapState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const signIn = () => {
-    auth
-      .signInWithEmailAndPassword(email, password)
-      .then((userAuth) => {
-        dispatch(
-          login({
-            email: userAuth.user.email,
-            uid: userAuth.user.uid,
-            displayName: userAuth.user.displayName,
-            profilePic: userAuth.user.photoURL,
-          })
-        );
-      })
-      .catch((error) => console.log(error.message));
+  useEffect(() => {
+    if (currentUser) {
+      resetForm();
+      history.push("/");
+    }
+  }, [currentUser, history]);
+
+  const resetForm = () => {
+    setEmail("");
+    setPassword("");
+  };
+
+  const signIn = (e) => {
+    e.preventDefault();
+    dispatch(emailSignInStart({ email, password }));
   };
 
   return (
-    <div className="login">
+    <form className="login">
       <h3>SIGN IN</h3>
       <AuthInput
         Icon={Mail}
@@ -47,7 +54,7 @@ const Login = () => {
       <button type="submit" onClick={signIn}>
         SIGN IN
       </button>
-    </div>
+    </form>
   );
 };
 
