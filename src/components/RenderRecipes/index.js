@@ -1,98 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
-import { db } from "../../firebase/utils";
 import { useQuery } from "./../../hooks";
 import Card from "../Card";
 import NoData from "../NoData";
 import "./styles.css";
+import { fetchRecipesStart } from "../../redux/Recipes/recipes.actions";
 
-const mapState = ({ user, ui }) => ({
+const mapState = ({ user, ui, recipes }) => ({
   currentUser: user.currentUser,
   sidebarIsOpen: ui.sidebarIsOpen,
+  recipes: recipes.recipes,
 });
 
 const RenderRecipes = () => {
-  const { currentUser, sidebarIsOpen } = useSelector(mapState);
+  const { currentUser, sidebarIsOpen, recipes } = useSelector(mapState);
   const query = useQuery().get("q");
+  const queryFilter = useQuery().get("q");
+  const authorFilter = currentUser?.uid;
+  const favoriteFilter = currentUser?.uid;
   const location = useLocation();
-  const [recipes, setRecipes] = useState([]);
+  const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (query) {
-      db.collection("recipes")
-        .where("tags", "array-contains", query)
-        .get()
-        .then((querySnapshot) => {
-          setRecipes(
-            querySnapshot.docs.map((doc) => ({
-              id: doc.id,
-              data: doc.data(),
-            }))
-          );
-          setIsLoading(false);
-        });
+      dispatch(fetchRecipesStart({ queryFilter }));
+      setIsLoading(false);
     } else {
       switch (location.pathname) {
         case "/":
-          db.collection("recipes")
-            .orderBy("timestamp", "desc")
-            .get()
-            .then((querySnapshot) => {
-              setRecipes(
-                querySnapshot.docs.map((doc) => ({
-                  id: doc.id,
-                  data: doc.data(),
-                }))
-              );
-              setIsLoading(false);
-            });
+          dispatch(fetchRecipesStart());
+          setIsLoading(false);
           break;
         case "/popular":
-          db.collection("recipes")
-            .orderBy("likesQuantity", "desc")
-            .get()
-            .then((querySnapshot) => {
-              setRecipes(
-                querySnapshot.docs.map((doc) => ({
-                  id: doc.id,
-                  data: doc.data(),
-                }))
-              );
-              setIsLoading(false);
-            });
+          dispatch(fetchRecipesStart({ popularFilter: true }));
+          setIsLoading(false);
           break;
         case "/my":
-          db.collection("recipes")
-            .where("authorId", "==", currentUser?.uid)
-            .orderBy("timestamp", "desc")
-            .get()
-            .then((querySnapshot) => {
-              setRecipes(
-                querySnapshot.docs.map((doc) => ({
-                  id: doc.id,
-                  data: doc.data(),
-                }))
-              );
-              setIsLoading(false);
-            });
+          dispatch(fetchRecipesStart({ authorFilter }));
+          setIsLoading(false);
           break;
         case "/favorite":
-          db.collection("recipes")
-            .where("likesUsers", "array-contains", `${currentUser?.uid}`)
-            .orderBy("timestamp", "desc")
-            .get()
-            .then((querySnapshot) => {
-              setRecipes(
-                querySnapshot.docs.map((doc) => ({
-                  id: doc.id,
-                  data: doc.data(),
-                }))
-              );
-              setIsLoading(false);
-            });
+          dispatch(fetchRecipesStart({ favoriteFilter }));
+          setIsLoading(false);
           break;
         default:
           setIsLoading(false);
@@ -102,9 +54,15 @@ const RenderRecipes = () => {
 
     return () => {
       setIsLoading(true);
-      setRecipes([]);
     };
-  }, [location.pathname, query, currentUser?.uid]);
+  }, [
+    location.pathname,
+    query,
+    authorFilter,
+    dispatch,
+    favoriteFilter,
+    queryFilter,
+  ]);
 
   const fillWithHiddenCards = () => {
     if (recipes.length === 1) {
