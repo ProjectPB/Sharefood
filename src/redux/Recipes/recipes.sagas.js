@@ -1,6 +1,6 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { setRecipes, setRecipeData } from "./recipes.actions";
-import { handleFetchRecipes, handleFetchRecipeData } from "./recipes.helpers";
+import { setRecipes } from "./recipes.actions";
+import { handleFetchRecipes } from "./recipes.helpers";
 import recipesTypes from "./recipes.types";
 
 export function* fetchRecipes({ payload }) {

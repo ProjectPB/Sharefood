@@ -1,4 +1,5 @@
-import { db } from "./../../firebase/utils";
+import { db, storage } from "./../../firebase/utils";
+import firebase from "firebase/app";
 
 export const handleFetchRecipes = ({
   authorFilter,
@@ -45,4 +46,27 @@ export const handleFetchRecipes = ({
         reject(err);
       });
   });
+};
+
+export const handleLikeRecipe = (userId, recipeId) => {
+  db.collection("recipes")
+    .doc(recipeId)
+    .update({
+      likesUsers: firebase.firestore.FieldValue.arrayUnion(userId),
+      likesQuantity: firebase.firestore.FieldValue.increment(1),
+    });
+};
+
+export const handleDislikeRecipe = (userId, recipeId) => {
+  db.collection("recipes")
+    .doc(recipeId)
+    .update({
+      likesUsers: firebase.firestore.FieldValue.arrayRemove(userId),
+      likesQuantity: firebase.firestore.FieldValue.increment(-1),
+    });
+};
+
+export const handleDeleteRecipe = (storageRef, recipeId) => {
+  db.collection("recipes").doc(recipeId).delete();
+  storage.refFromURL(storageRef).delete();
 };

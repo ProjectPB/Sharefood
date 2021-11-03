@@ -9,13 +9,18 @@ import {
 } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
 import { db, storage } from "../../firebase/utils";
-import { useHistory, useLocation } from "react-router";
+import { useHistory, useParams } from "react-router";
 import { useSelector } from "react-redux";
 import firebase from "firebase/app";
 import NoData from "../NoData";
 import Moment from "react-moment";
 import { capitalizeLetter } from "../../util/TextFormat";
 import "./styles.css";
+import {
+  handleDeleteRecipe,
+  handleDislikeRecipe,
+  handleLikeRecipe,
+} from "../../redux/Recipes/recipes.helpers";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -23,9 +28,8 @@ const mapState = ({ user }) => ({
 
 const Recipe = () => {
   const { currentUser } = useSelector(mapState);
-  const location = useLocation();
   const history = useHistory();
-  const recipeId = location.pathname.substring(8);
+  const { recipeId } = useParams();
   const [recipeData, setRecipeData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -37,20 +41,18 @@ const Recipe = () => {
         setRecipeData(doc.data());
         setIsLoading(false);
       });
+
+    return () => {
+      setRecipeData([]);
+      setIsLoading(true);
+    };
   }, [recipeId]);
 
   const likeRecipe = (e) => {
     e.preventDefault();
 
     if (currentUser) {
-      db.collection("recipes")
-        .doc(recipeId)
-        .update({
-          likesUsers: firebase.firestore.FieldValue.arrayUnion(
-            currentUser?.uid
-          ),
-          likesQuantity: firebase.firestore.FieldValue.increment(1),
-        });
+      handleLikeRecipe(currentUser?.uid, recipeId);
     } else {
       return alert("Please Sign In to like a recipe");
     }
@@ -59,12 +61,7 @@ const Recipe = () => {
   const dislikeRecipe = (e) => {
     e.preventDefault();
 
-    db.collection("recipes")
-      .doc(recipeId)
-      .update({
-        likesUsers: firebase.firestore.FieldValue.arrayRemove(currentUser?.uid),
-        likesQuantity: firebase.firestore.FieldValue.increment(-1),
-      });
+    handleDislikeRecipe(currentUser?.uid, recipeId);
   };
 
   const deleteRecipe = (e) => {
@@ -75,8 +72,7 @@ const Recipe = () => {
     );
 
     if (answer) {
-      db.collection("recipes").doc(recipeId).delete();
-      storage.refFromURL(recipeData?.image).delete();
+      handleDeleteRecipe(recipeData?.image, recipeId);
       alert("Recipe deleted");
       history.push("/");
     } else {
