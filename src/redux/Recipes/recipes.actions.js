@@ -9,3 +9,8 @@ export const setRecipes = (recipes) => ({
   type: recipesTypes.SET_RECIPES,
   payload: recipes,
 });
+
+export const createRecipeStart = (data) => ({
+  type: recipesTypes.CREATE_RECIPE,
+  payload: data,
+});

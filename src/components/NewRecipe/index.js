@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   renderTags,
   capitalizeLetter,
   TextAreaToArray,
 } from "../../util/TextFormat";
 import firebase from "firebase/app";
-import { db, storage } from "../../firebase/utils";
-import { CircularProgress } from "@material-ui/core";
 import Input from "./../forms/Input";
 import Textarea from "../forms/Textarea";
 import Select from "../forms/Select";
 import ImgInput from "../forms/ImgInput";
 import Button from "./../forms/Button";
+import { createRecipeStart } from "../../redux/Recipes/recipes.actions";
+import { CircularProgress } from "@material-ui/core";
 import "./styles.css";
+import { useHistory } from "react-router";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -21,16 +22,28 @@ const mapState = ({ user }) => ({
 
 const NewRecipe = ({ close }) => {
   const { currentUser } = useSelector(mapState);
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [type, setType] = useState(null);
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [method, setMethod] = useState("");
   const [portions, setPortions] = useState(1);
   const [image, setImage] = useState(null);
-  const [progress, setProgress] = useState(0);
   const [previewImg, setPreviewImg] = useState(
     "https://icon-library.com/images/placeholder-image-icon/placeholder-image-icon-7.jpg"
   );
+  const [progress, setProgress] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (progress === 100) {
+      setLoading(false);
+      close();
+      alert("Recipe added");
+      history.push("/");
+    }
+  }, [progress]);
 
   const changeImgFile = (e) => {
     const file = e.target.files[0];
@@ -51,52 +64,24 @@ const NewRecipe = ({ close }) => {
 
   const handleCreate = (e) => {
     e.preventDefault();
-
-    const imageName = new Date().getTime() + image.name;
-
-    const uploadTask = storage.ref(`recipeImages/${imageName}`).put(image);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progress);
-      },
-      (error) => {
-        alert(error.message);
-      },
-      () => {
-        storage
-          .ref("recipeImages")
-          .child(imageName)
-          .getDownloadURL()
-          .then((url) => {
-            db.collection("recipes").add({
-              authorId: currentUser.uid,
-              authorProfilePic: currentUser.profilePic,
-              authorName: currentUser.displayName,
-              type: type,
-              title: capitalizeLetter(title),
-              image: url,
-              tags: renderTags(
-                title,
-                ingredients,
-                type,
-                currentUser.displayName
-              ),
-              ingredients: TextAreaToArray(ingredients),
-              method: TextAreaToArray(method),
-              timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-              likesUsers: [],
-              likesQuantity: 0,
-              portions: portions,
-            });
-            alert("Recipe added, Please refresh the website");
-            close();
-          });
-      }
+    setLoading(true);
+    dispatch(
+      createRecipeStart({
+        authorId: currentUser.uid,
+        authorProfilePic: currentUser.profilePic,
+        authorName: currentUser.displayName,
+        type: type,
+        title: capitalizeLetter(title),
+        tags: renderTags(title, ingredients, type, currentUser.displayName),
+        ingredients: TextAreaToArray(ingredients),
+        method: TextAreaToArray(method),
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        likesUsers: [],
+        likesQuantity: 0,
+        portions: portions,
+        img: image,
+        handleProgress: (val) => setProgress(val),
+      })
     );
   };
 
@@ -191,7 +176,7 @@ const NewRecipe = ({ close }) => {
 
   return (
     <div className="newRecipe__container">
-      {progress > 0 && progress < 100 && (
+      {loading && (
         <CircularProgress
           className="newRecipe__processingIcon"
           value={progress}

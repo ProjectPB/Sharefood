@@ -70,3 +70,65 @@ export const handleDeleteRecipe = (storageRef, recipeId) => {
   db.collection("recipes").doc(recipeId).delete();
   storage.refFromURL(storageRef).delete();
 };
+
+export const handleCreateRecipe = ({ payload }) => {
+  return new Promise((resolve, reject) => {
+    const {
+      authorId,
+      authorProfilePic,
+      authorName,
+      type,
+      title,
+      tags,
+      ingredients,
+      method,
+      timestamp,
+      likesUsers,
+      likesQuantity,
+      portions,
+      img,
+      handleProgress,
+    } = payload;
+    const imageName = new Date().getTime() + img.name;
+
+    storage
+      .ref(`recipeImages/${imageName}`)
+      .put(img)
+      .on(
+        "state_changed",
+        (snapshot) => {
+          const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          );
+          handleProgress(progress);
+        },
+        (error) => {
+          alert(error.message);
+        },
+        () => {
+          storage
+            .ref("recipeImages")
+            .child(imageName)
+            .getDownloadURL()
+            .then((url) => {
+              db.collection("recipes").add({
+                authorId: authorId,
+                authorProfilePic: authorProfilePic,
+                authorName: authorName,
+                type: type,
+                title: title,
+                tags: tags,
+                ingredients: ingredients,
+                method: method,
+                timestamp: timestamp,
+                likesUsers: likesUsers,
+                likesQuantity: likesQuantity,
+                portions: portions,
+                image: url,
+              });
+              resolve(true);
+            });
+        }
+      );
+  });
+};
