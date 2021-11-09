@@ -4,15 +4,6 @@
   background-color: var(--darkgray-background);
 }
 
-.renderRecipes__processing {
-  position: relative;
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  background-color: var(--darkgray-background);
-}
-
 .renderRecipes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));

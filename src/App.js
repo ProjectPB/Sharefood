@@ -1,14 +1,19 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { checkUserSession } from "./redux/User/user.actions";
 import Authpage from "./pages/Authpage";
 import Recipepage from "./pages/Recipepage";
 import Homepage from "./pages/Homepage";
-import "./App.css";
+import Loadingpage from "./pages/Loadingpage";
+
+const mapState = ({ loading }) => ({
+  loaded: loading.homepageLoaded,
+});
 
 const App = () => {
   const dispatch = useDispatch();
+  const { loaded } = useSelector(mapState);
 
   useEffect(() => {
     dispatch(checkUserSession());
@@ -16,20 +21,27 @@ const App = () => {
 
   return (
     <Router>
-      <Switch>
-        <Route path={["/results/:query", "/favorite", "/my", "/popular"]} exact>
-          <Homepage />
-        </Route>
-        <Route path="/recipe/:recipeId">
-          <Recipepage />
-        </Route>
-        <Route path="/auth">
-          <Authpage />
-        </Route>
-        <Route path="/">
-          <Homepage />
-        </Route>
-      </Switch>
+      {!loaded ? (
+        <Loadingpage />
+      ) : (
+        <Switch>
+          <Route
+            path={["/results/:query", "/favorite", "/my", "/popular"]}
+            exact
+          >
+            <Homepage />
+          </Route>
+          <Route path="/recipe/:recipeId">
+            <Recipepage />
+          </Route>
+          <Route path="/auth">
+            <Authpage />
+          </Route>
+          <Route path="/">
+            <Homepage />
+          </Route>
+        </Switch>
+      )}
     </Router>
   );
 };

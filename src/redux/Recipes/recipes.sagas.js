@@ -1,12 +1,14 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
 import { fetchRecipesStart, setRecipes } from "./recipes.actions";
 import { handleCreateRecipe, handleFetchRecipes } from "./recipes.helpers";
+import { loadRecipes } from "../Loading/loading.actions";
 import recipesTypes from "./recipes.types";
 
 export function* fetchRecipes({ payload }) {
   try {
     const recipes = yield handleFetchRecipes(payload);
     yield put(setRecipes(recipes));
+    yield put(loadRecipes(true));
   } catch (err) {
     console.log(err.message);
   }

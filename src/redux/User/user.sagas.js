@@ -2,6 +2,7 @@ import { takeLatest, call, all, put } from "redux-saga/effects";
 import { auth, GoogleProvider } from "./../../firebase/utils";
 import { handleUserProfile, getCurrentUser } from "./user.helpers";
 import { signInSuccess, signOutUserSuccess } from "./user.actions";
+import { loadHomepage } from "./../Loading/loading.actions";
 import userTypes from "./user.types";
 
 export function* getSnapshotFromUserAuth(user, additionalData) {
@@ -38,8 +39,8 @@ export function* onEmailSignInStart() {
 export function* isUserAuthenticated() {
   try {
     const userAuth = yield getCurrentUser();
-    if (!userAuth) return;
     yield getSnapshotFromUserAuth(userAuth);
+    yield put(loadHomepage());
   } catch (err) {
     // console.log(err);
   }
