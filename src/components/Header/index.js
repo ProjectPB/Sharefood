@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { useWidth } from "../../hooks";
 import { Menu } from "@material-ui/icons";
-import Avatar from "@material-ui/core/Avatar";
+import { ClickAwayListener } from "@material-ui/core";
 import { closeSidebar, openSidebar } from "./../../redux/UI/ui.actions";
+import Avatar from "@material-ui/core/Avatar";
 import ProfilePopup from "../ProfilePopup";
 import NewRecipe from "../NewRecipe";
 import SearchBar from "../SearchBar";
 import Modal from "./../Modal";
 import Button from "./../forms/Button";
-import { ClickAwayListener } from "@material-ui/core";
-import { useWidth } from "../../hooks";
+import Logo from "../Logo";
 import "./styles.css";
 
 const mapState = ({ user, ui }) => ({
@@ -55,10 +56,6 @@ const Header = () => {
     setProfileMenuIsOpen(!profileMenuIsOpen);
   };
 
-  const navToMain = () => {
-    history.push("/");
-  };
-
   const navToAuth = () => {
     history.push("/auth");
   };
@@ -71,7 +68,9 @@ const Header = () => {
     <div className="header">
       <div className="header__left">
         <Menu onClick={handleSidebar} fontSize="large" />
-        <h2 onClick={navToMain}>ShareFood</h2>
+        <div className="header__logo">
+          <Logo />
+        </div>
       </div>
 
       {width > 600 && <SearchBar onHeader />}

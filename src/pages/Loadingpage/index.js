@@ -1,5 +1,6 @@
 import React from "react";
 import Loading from "./../../components/Loading";
+import Logo from "./../../components/Logo";
 import "./styles.css";
 
 const Loadingpage = () => {
@@ -8,7 +9,9 @@ const Loadingpage = () => {
       <div className="loadingPage__loading">
         <Loading />
       </div>
-      <h1 className="loadingPage__logo">Sharefood</h1>
+      <div className="loadingPage__logo">
+        <Logo />
+      </div>
     </div>
   );
 };
