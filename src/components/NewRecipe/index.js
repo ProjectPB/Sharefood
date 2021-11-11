@@ -43,7 +43,7 @@ const NewRecipe = ({ close }) => {
       alert("Recipe added");
       history.push("/");
     }
-  }, [progress]);
+  }, [progress, close, history]);
 
   const changeImgFile = (e) => {
     const file = e.target.files[0];

@@ -5,7 +5,7 @@ import "./styles.css";
 const Loading = () => {
   return (
     <div className="loading">
-      <CircularProgress size={60} color="black" />
+      <CircularProgress size={60} color="inherit" />
     </div>
   );
 };

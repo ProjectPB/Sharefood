@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Header from "../../components/Header";
 import RenderRecipes from "../../components/RenderRecipes";
 import SearchBar from "../../components/SearchBar";
 import Sidebar from "../../components/Sidebar";
+import { useWidth } from "../../hooks";
 import "./styles.css";
 
 const Homepage = () => {
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWidth(window.innerWidth);
-    });
-  }, []);
+  const width = useWidth();
 
   return (
     <div className="homepage__container">

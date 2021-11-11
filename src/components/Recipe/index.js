@@ -1,4 +1,4 @@
-import { Avatar, CircularProgress } from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 import {
   DeleteOutlined,
   Favorite,
@@ -48,7 +48,7 @@ const Recipe = () => {
       setRecipeData([]);
       dispatch(loadRecipeData(false));
     };
-  }, [recipeId]);
+  }, [recipeId, dispatch]);
 
   const likeRecipe = (e) => {
     e.preventDefault();

@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeSidebar } from "./../../redux/UI/ui.actions";
+import useWidth from "./../../hooks/useWidth";
 import "./styles.css";
 
 const mapState = ({ ui }) => ({
@@ -9,10 +10,11 @@ const mapState = ({ ui }) => ({
 
 const SidebarOption = ({ Icon, title }) => {
   const { sidebarIsOpen } = useSelector(mapState);
+  const width = useWidth();
   const dispatch = useDispatch();
 
   const minimalizeSidebar = () => {
-    if (sidebarIsOpen && window.innerWidth < 600) {
+    if (sidebarIsOpen && width < 600) {
       dispatch(closeSidebar());
     }
   };

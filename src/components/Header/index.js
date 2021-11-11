@@ -10,6 +10,7 @@ import SearchBar from "../SearchBar";
 import Modal from "./../Modal";
 import Button from "./../forms/Button";
 import { ClickAwayListener } from "@material-ui/core";
+import { useWidth } from "../../hooks";
 import "./styles.css";
 
 const mapState = ({ user, ui }) => ({
@@ -22,7 +23,7 @@ const Header = () => {
   const history = useHistory();
   const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
   const { currentUser, sidebarIsOpen } = useSelector(mapState);
-  const [width, setWidth] = useState(window.innerWidth);
+  const width = useWidth();
   const [hideModal, setHideModal] = useState(true);
 
   const toggleModal = () => setHideModal(!hideModal);
@@ -37,9 +38,6 @@ const Header = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      setWidth(window.innerWidth);
-    });
     if (width < 600) {
       dispatch(closeSidebar());
     }

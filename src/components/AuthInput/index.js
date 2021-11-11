@@ -34,7 +34,7 @@ const AuthInput = ({
     } else {
       setIsValid(true);
     }
-  }, [value]);
+  }, [value, pattern]);
 
   return (
     <div className="authInput__container">
