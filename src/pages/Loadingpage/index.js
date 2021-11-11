@@ -5,7 +5,9 @@ import "./styles.css";
 const Loadingpage = () => {
   return (
     <div className="loadingPage">
-      <Loading />
+      <div className="loadingPage__loading">
+        <Loading />
+      </div>
       <h1 className="loadingPage__logo">Sharefood</h1>
     </div>
   );

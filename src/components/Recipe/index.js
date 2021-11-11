@@ -8,30 +8,32 @@ import {
   LocalDining,
 } from "@material-ui/icons";
 import React, { useEffect, useState } from "react";
-import { db, storage } from "../../firebase/utils";
+import { db } from "../../firebase/utils";
 import { useHistory, useParams } from "react-router";
-import { useSelector } from "react-redux";
-import firebase from "firebase/app";
+import { useDispatch, useSelector } from "react-redux";
 import NoData from "../NoData";
 import Moment from "react-moment";
 import { capitalizeLetter } from "../../util/TextFormat";
-import "./styles.css";
 import {
   handleDeleteRecipe,
   handleDislikeRecipe,
   handleLikeRecipe,
 } from "../../redux/Recipes/recipes.helpers";
+import { loadRecipeData } from "./../../redux/Loading/loading.actions";
+import Loading from "./../Loading";
+import "./styles.css";
 
-const mapState = ({ user }) => ({
+const mapState = ({ user, loading }) => ({
   currentUser: user.currentUser,
+  loaded: loading.recipeDataLoaded,
 });
 
 const Recipe = () => {
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, loaded } = useSelector(mapState);
   const history = useHistory();
+  const dispatch = useDispatch();
   const { recipeId } = useParams();
   const [recipeData, setRecipeData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
@@ -39,12 +41,12 @@ const Recipe = () => {
       .doc(recipeId)
       .onSnapshot((doc) => {
         setRecipeData(doc.data());
-        setIsLoading(false);
+        dispatch(loadRecipeData(true));
       });
 
     return () => {
       setRecipeData([]);
-      setIsLoading(true);
+      dispatch(loadRecipeData(false));
     };
   }, [recipeId]);
 
@@ -80,9 +82,9 @@ const Recipe = () => {
     }
   };
 
-  return isLoading ? (
-    <div className="recipe__processing">
-      <CircularProgress size={60} />
+  return !loaded ? (
+    <div className="recipe__container">
+      <Loading />
     </div>
   ) : (
     <div className="recipe__container">
@@ -124,7 +126,9 @@ const Recipe = () => {
               <div className="recipe__right">
                 <div className="recipe__type">
                   <LocalDining fontSize="large" />
-                  <p>{capitalizeLetter(recipeData?.type)}</p>
+                  <p>
+                    {recipeData?.type && capitalizeLetter(recipeData?.type)}
+                  </p>
                 </div>
                 <div className="recipe__favorite">
                   {!recipeData?.likesUsers?.includes(currentUser?.uid) ? (

@@ -3,6 +3,7 @@ import loadingTypes from "./loading.types";
 const INITIAL_STATE = {
   homepageLoaded: false,
   recipesLoaded: false,
+  recipeDataLoaded: false,
 };
 
 const loadingReducer = (state = INITIAL_STATE, action) => {
@@ -16,6 +17,11 @@ const loadingReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         recipesLoaded: action.payload,
+      };
+    case loadingTypes.LOAD_RECIPE_DATA:
+      return {
+        ...state,
+        recipeDataLoaded: action.payload,
       };
     default:
       return state;

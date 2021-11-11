@@ -8,3 +8,8 @@ export const loadRecipes = (state) => ({
   type: loadingTypes.LOAD_RECIPES,
   payload: state,
 });
+
+export const loadRecipeData = (state) => ({
+  type: loadingTypes.LOAD_RECIPE_DATA,
+  payload: state,
+});

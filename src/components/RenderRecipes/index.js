@@ -73,10 +73,9 @@ const RenderRecipes = () => {
     }
   };
 
-  return !loaded ? (
-    <Loading />
-  ) : (
+  return (
     <div className="renderRecipes__container">
+      {!loaded && <Loading />}
       {query && (
         <h3 className="renderRecipes__text">
           Search results for {query} ({recipes.length})
