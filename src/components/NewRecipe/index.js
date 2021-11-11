@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import {
   renderTags,
   capitalizeLetter,
@@ -11,10 +12,9 @@ import Textarea from "../forms/Textarea";
 import Select from "../forms/Select";
 import ImgInput from "../forms/ImgInput";
 import Button from "./../forms/Button";
+import Loading from "./../Loading";
 import { createRecipeStart } from "../../redux/Recipes/recipes.actions";
-import { CircularProgress } from "@material-ui/core";
 import "./styles.css";
-import { useHistory } from "react-router";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
@@ -176,13 +176,6 @@ const NewRecipe = ({ close }) => {
 
   return (
     <div className="newRecipe__container">
-      {loading && (
-        <CircularProgress
-          className="newRecipe__processingIcon"
-          value={progress}
-          size={60}
-        />
-      )}
       <form className="newRecipe" onSubmit={handleCreate}>
         <Input {...titleConfig} />
         <Textarea {...ingredientsConfig} />
@@ -190,6 +183,7 @@ const NewRecipe = ({ close }) => {
         <Select {...typeConfig} />
         <Input {...portionsConfig} />
         <ImgInput {...imgInputConfig} />
+        {loading && <Loading />}
         <div className="newRecipe__button">
           <Button type="submit">Create</Button>
         </div>
