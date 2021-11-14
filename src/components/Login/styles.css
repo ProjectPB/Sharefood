@@ -15,13 +15,3 @@
   font-size: 18px;
   font-weight: 600;
 }
-
-.login > button {
-  border-radius: 2px;
-  padding: 11px 8px;
-  cursor: pointer;
-  outline: none;
-  border: thin solid;
-  font-size: 14px;
-  background-color: var(--color-secondary);
-}

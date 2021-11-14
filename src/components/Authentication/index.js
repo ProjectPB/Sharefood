@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { googleSignInStart } from "../../redux/User/user.actions";
 import Login from "../Login";
 import SignUp from "../SignUp";
-import { useDispatch, useSelector } from "react-redux";
-import { ArrowBack } from "@material-ui/icons";
-import { Link } from "react-router-dom";
-import { googleSignInStart } from "../../redux/User/user.actions";
+import Logo from "./../Logo";
+import GoogleButton from "../forms/GoogleButton";
 import "./styles.css";
 
 const mapState = ({ user }) => ({
@@ -31,6 +31,9 @@ const Authentication = () => {
   return (
     <div className="authentication__container">
       <div className="authentication">
+        <div className="authentication__logo">
+          <Logo />
+        </div>
         {newAccount ? <SignUp cancel={handleAccount} /> : <Login />}
 
         {!newAccount && (
@@ -42,27 +45,7 @@ const Authentication = () => {
           </p>
         )}
 
-        {!newAccount && (
-          <div className="authentication__google">
-            <img
-              src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-              alt="google"
-            />
-            <button
-              className="authentication__googleButton"
-              onClick={handleGoogleSignIn}
-            >
-              SIGN IN WITH GOOGLE
-            </button>
-          </div>
-        )}
-
-        <Link to="/">
-          <div className="authentication__back">
-            <ArrowBack />
-            <p>Back to homepage</p>
-          </div>
-        </Link>
+        {!newAccount && <GoogleButton handleClick={handleGoogleSignIn} />}
       </div>
     </div>
   );

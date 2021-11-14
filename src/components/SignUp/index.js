@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signUpUserStart } from "./../../redux/User/user.actions";
 import { InfoOutlined, Lock, Mail, Person } from "@material-ui/icons";
+import Button from "./../forms/Button";
 import AuthInput from "../AuthInput";
 import "./styles.css";
 
@@ -29,7 +30,7 @@ const SignUp = ({ cancel }) => {
     e.preventDefault();
 
     if (!displayName) {
-      return alert("Please enter a displayName.");
+      return alert("Please enter a username.");
     }
 
     if (displayName.length > 12 || displayName.length < 4) {
@@ -50,6 +51,53 @@ const SignUp = ({ cancel }) => {
     );
   };
 
+  const usernameConfig = {
+    Icon: Person,
+    placeholder: "Username",
+    type: "text",
+    value: displayName,
+    handleChange: (e) => setDisplayName(e.target.value),
+    pattern: "^.{4,12}$",
+    info: ["Between 4 and 12 characters"],
+    openInfo: openInfo,
+  };
+
+  const emailConfig = {
+    Icon: Mail,
+    placeholder: "E-mail",
+    type: "email",
+    value: email,
+    handleChange: (e) => setEmail(e.target.value),
+    pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
+    info: ["example@example.com"],
+    openInfo: openInfo,
+  };
+
+  const passwordConfig = {
+    Icon: Lock,
+    value: password,
+    handleChange: (e) => setPassword(e.target.value),
+    placeholder: "Password",
+    type: "password",
+    pattern: new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/),
+    openInfo: openInfo,
+    info: [
+      "At least 8 characters",
+      "At least 1 numeric character",
+      "At least 1 lowercase letter",
+      "At least 1 uppercase letter",
+    ],
+  };
+
+  const passwordConfirmConfig = {
+    Icon: Lock,
+    value: passwordConfirm,
+    handleChange: (e) => setPasswordConfirm(e.target.value),
+    placeholder: "Confirm Password",
+    type: "password",
+    pattern: new RegExp(`^${password}$`),
+  };
+
   return (
     <div className="signUp">
       <h3>SIGN UP</h3>
@@ -58,64 +106,18 @@ const SignUp = ({ cancel }) => {
         className="signUp__infoIcon"
         fontSize="small"
       />
-      <AuthInput
-        Icon={Person}
-        placeholder="Username"
-        type="text"
-        value={displayName}
-        onChange={(e) => setDisplayName(e.target.value)}
-        pattern="^.{4,12}$"
-        openInfo={openInfo}
-        title="Between 4 and 12 characters"
-      />
-      <AuthInput
-        Icon={Mail}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="E-mail"
-        type="email"
-        pattern="^[^\s@]+@[^\s@]+\.[^\s@]{2,}$"
-        title="example@example.com"
-        openInfo={openInfo}
-      />
-      <AuthInput
-        Icon={Lock}
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        type="password"
-        pattern=".{6,}"
-        openInfo={openInfo}
-        title="At least 6 characters"
-      />
-      <AuthInput
-        Icon={Lock}
-        value={passwordConfirm}
-        onChange={(e) => setPasswordConfirm(e.target.value)}
-        placeholder="Confirm Password"
-        type="password"
-        pattern={new RegExp(`^${password}$`)}
-      />
+      <AuthInput {...usernameConfig} />
+      <AuthInput {...emailConfig} />
+      <AuthInput {...passwordConfig} />
+      <AuthInput {...passwordConfirmConfig} />
 
       <div className="signUp__buttons">
-        <button
-          style={{
-            color: "var(--color-secondary)",
-            backgroundColor: "white",
-          }}
-          onClick={cancel}
-        >
+        <Button onClick={cancel} secondary>
           CANCEL
-        </button>
-        <button
-          style={{
-            backgroundColor: "var(--color-secondary)",
-          }}
-          type="submit"
-          onClick={register}
-        >
+        </Button>
+        <Button type="submit" onClick={register}>
           SIGN UP
-        </button>
+        </Button>
       </div>
     </div>
   );

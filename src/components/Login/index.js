@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { Lock, Mail } from "@material-ui/icons";
 import { emailSignInStart } from "./../../redux/User/user.actions";
 import AuthInput from "../AuthInput";
+import Button from "./../forms/Button";
 import "./styles.css";
 
 const mapState = ({ user }) => ({
@@ -34,26 +35,30 @@ const Login = () => {
     dispatch(emailSignInStart({ email, password }));
   };
 
+  const emailConfig = {
+    Icon: Mail,
+    value: email,
+    handleChange: (e) => setEmail(e.target.value),
+    placeholder: "E-mail",
+    type: "email",
+  };
+
+  const passwordConfig = {
+    Icon: Lock,
+    value: password,
+    handleChange: (e) => setPassword(e.target.value),
+    placeholder: "Password",
+    type: "password",
+  };
+
   return (
     <form className="login">
       <h3>SIGN IN</h3>
-      <AuthInput
-        Icon={Mail}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        placeholder="E-mail"
-        type="email"
-      />
-      <AuthInput
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        placeholder="Password"
-        type="password"
-        Icon={Lock}
-      />
-      <button type="submit" onClick={signIn}>
+      <AuthInput {...emailConfig} />
+      <AuthInput {...passwordConfig} />
+      <Button type="submit" onClick={signIn}>
         SIGN IN
-      </button>
+      </Button>
     </form>
   );
 };

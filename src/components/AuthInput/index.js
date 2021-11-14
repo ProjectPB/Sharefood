@@ -4,9 +4,9 @@ import "./styles.css";
 
 const AuthInput = ({
   Icon,
-  title,
+  info,
   value,
-  onChange,
+  handleChange,
   placeholder,
   type,
   pattern,
@@ -41,15 +41,13 @@ const AuthInput = ({
       <div
         className="authInput"
         style={
-          isValid
-            ? { border: "1px solid" }
-            : { border: "2px solid red", margin: "-1px" }
+          isValid ? { outline: "1px solid" } : { outline: "2px solid red" }
         }
       >
         <Icon fontSize="small" />
         <input
           value={value}
-          onChange={onChange}
+          onChange={handleChange}
           placeholder={placeholder}
           type={newType}
           pattern={pattern}
@@ -62,14 +60,15 @@ const AuthInput = ({
           />
         )}
       </div>
-      {openInfo && (
-        <p
-          style={isValid ? { color: "gray" } : { color: "red" }}
-          className="signUp__inputInfo"
-        >
-          {title}
-        </p>
-      )}
+      {openInfo &&
+        info.map((i) => (
+          <p
+            style={isValid ? { color: "gray" } : { color: "red" }}
+            className="signUp__inputInfo"
+          >
+            {i}
+          </p>
+        ))}
     </div>
   );
 };

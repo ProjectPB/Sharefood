@@ -2,13 +2,20 @@
   display: block;
   width: 100%;
   padding: 12px 16px;
-  background-color: var(--color-secondary);
   border-radius: 5px;
   font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
   border: 1px solid black;
   cursor: pointer;
+}
+
+.button--secondary {
+  background-color: whitesmoke;
+}
+
+.button--primary {
+  background-color: var(--color-secondary);
 }
 
 .button:hover {

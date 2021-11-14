@@ -18,38 +18,12 @@
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
 }
 
-.authentication__google {
-  display: flex;
-  align-items: center;
-  margin-top: 15px;
-  cursor: pointer;
-  border-radius: 2px;
-  box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.25);
-  padding: 11px 8px;
-}
-
-.authentication__google:hover {
-  box-shadow: 1px 1px 4px 2px #888;
-}
-
-.authentication__google:hover .authentication__googleButton {
-  color: rgb(0, 0, 0, 0.75);
-}
-
-.authentication__google > img {
-  object-fit: contain;
-  width: 18px;
-}
-
-.authentication__googleButton {
-  cursor: pointer;
-  outline: none;
-  border: none;
-  font-size: 14px;
-  color: rgb(0, 0, 0, 0.54);
-  background-color: transparent;
-  padding: 0 24px;
-  font-family: "Roboto", sans-serif;
+.authentication__logo {
+  margin-bottom: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid lightgray;
+  width: 100%;
+  text-align: center;
 }
 
 .authentication__signUp {
@@ -60,50 +34,4 @@
 
 .authentication > p {
   margin-top: 5px;
-}
-
-.authentication__test {
-  margin-top: 10px;
-  width: 100%;
-}
-
-.authentication__test > button {
-  margin-top: 10px;
-  padding: 11px 8px;
-  cursor: pointer;
-  outline: none;
-  border: thin solid;
-  font-size: 14px;
-  border-radius: 2px;
-  background-color: var(--color-secondary);
-  width: 100%;
-}
-
-a {
-  width: 100%;
-}
-
-.authentication__back {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 10px;
-  border: 1px solid lightgray;
-  color: gray;
-  padding: 8px 5px;
-  border-radius: 5px;
-}
-
-.authentication__back > p {
-  display: block;
-  flex: 1;
-  margin-left: 25px;
-  text-transform: uppercase;
-  font-weight: 400;
-  font-size: 14px;
-}
-
-.authentication__back:hover {
-  border: 1px solid black;
-  color: black;
 }

@@ -82,7 +82,7 @@ export function* googleSignIn() {
     const { user } = yield auth.signInWithPopup(GoogleProvider);
     yield getSnapshotFromUserAuth(user);
   } catch (error) {
-    alert(error.message);
+    console.log(error.message);
   }
 }
 
