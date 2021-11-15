@@ -14,7 +14,7 @@ const SearchBar = ({ onHeader }) => {
 
     const trimmedInput = loweredInput.trim();
 
-    input && history.push(`/results/?q=${trimmedInput}`);
+    input && trimmedInput && history.push(`/results/?q=${trimmedInput}`);
 
     setInput("");
   };
