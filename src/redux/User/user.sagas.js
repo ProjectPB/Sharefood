@@ -1,7 +1,7 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
 import { auth, GoogleProvider } from "./../../firebase/utils";
 import { handleUserProfile, getCurrentUser } from "./user.helpers";
-import { signInSuccess, signOutUserSuccess } from "./user.actions";
+import { signInSuccess, signOutUserSuccess, signUpError } from "./user.actions";
 import { loadHomepage } from "./../Loading/loading.actions";
 import userTypes from "./user.types";
 
@@ -24,11 +24,13 @@ export function* getSnapshotFromUserAuth(user, additionalData) {
 }
 
 export function* emailSignIn({ payload: { email, password } }) {
+  const errors = [];
   try {
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
     yield getSnapshotFromUserAuth(user);
-  } catch (error) {
-    alert(error.message);
+  } catch (err) {
+    errors.push(err.message);
+    yield put(signUpError(errors));
   }
 }
 
@@ -63,13 +65,41 @@ export function* onSignOutUserStart() {
   yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUser);
 }
 
-export function* signUpUser({ payload: { displayName, email, password } }) {
+export function* signUpUser({
+  payload: { displayName, email, password, passwordConfirm },
+}) {
+  const errors = [];
+  if (displayName.length > 12 || displayName.length < 4) {
+    errors.push("Username does not match requirements.");
+    yield put(signUpError(errors));
+  }
+  if (!email.match("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")) {
+    errors.push("Invalid email.");
+    yield put(signUpError(errors));
+  }
+  if (
+    !password.match(new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))
+  ) {
+    errors.push("Password does not match requirements.");
+    yield put(signUpError(errors));
+  }
+  if (password !== passwordConfirm) {
+    errors.push("Passwords do not match.");
+    yield put(signUpError(errors));
+  }
+
   try {
-    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
-    const additionalData = { displayName };
-    yield getSnapshotFromUserAuth(user, additionalData);
-  } catch (error) {
-    alert(error.message);
+    if (errors.length === 0) {
+      const { user } = yield auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      const additionalData = { displayName };
+      yield getSnapshotFromUserAuth(user, additionalData);
+    }
+  } catch (err) {
+    errors.push(err.message);
+    yield put(signUpError(errors));
   }
 }
 

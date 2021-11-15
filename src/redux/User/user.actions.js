@@ -34,3 +34,8 @@ export const resetUserState = () => ({
 export const googleSignInStart = () => ({
   type: userTypes.GOOGLE_SIGN_IN_START,
 });
+
+export const signUpError = (error) => ({
+  type: userTypes.SIGN_UP_ERROR,
+  payload: error,
+});

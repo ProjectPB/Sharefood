@@ -35,3 +35,14 @@
 .authentication > p {
   margin-top: 5px;
 }
+
+.authentication__errors {
+  list-style-type: none;
+  margin-top: 5px;
+}
+
+.authentication__error {
+  color: red;
+  margin-top: 5px;
+  font-size: 14px;
+}

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { googleSignInStart } from "../../redux/User/user.actions";
+import { googleSignInStart, signUpError } from "../../redux/User/user.actions";
 import Login from "../Login";
 import SignUp from "../SignUp";
 import Logo from "./../Logo";
@@ -10,17 +10,25 @@ import "./styles.css";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
+  errors: user.signUpErrors,
 });
 
 const Authentication = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [newAccount, setNewAccount] = useState(false);
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, errors } = useSelector(mapState);
 
   const handleAccount = () => {
     setNewAccount(!newAccount);
+    dispatch(signUpError([]));
   };
+
+  useEffect(() => {
+    return () => {
+      dispatch(signUpError([]));
+    };
+  }, [dispatch]);
 
   const handleGoogleSignIn = () => {
     dispatch(googleSignInStart());
@@ -46,6 +54,16 @@ const Authentication = () => {
         )}
 
         {!newAccount && <GoogleButton handleClick={handleGoogleSignIn} />}
+
+        {errors && (
+          <ul className="authentication__errors">
+            {errors.map((err, i) => (
+              <li className="authentication__error" key={i}>
+                {err}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

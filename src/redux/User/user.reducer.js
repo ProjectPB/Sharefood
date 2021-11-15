@@ -2,6 +2,7 @@ import userTypes from "./user.types";
 
 const INITIAL_STATE = {
   currentUser: null,
+  signUpErrors: [],
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -16,6 +17,11 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         ...INITIAL_STATE,
+      };
+    case userTypes.SIGN_UP_ERROR:
+      return {
+        ...state,
+        signUpErrors: action.payload,
       };
     default:
       return state;

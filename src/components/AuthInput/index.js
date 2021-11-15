@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Visibility } from "@material-ui/icons";
+import { useSelector } from "react-redux";
 import "./styles.css";
+
+const mapState = ({ user }) => ({
+  errors: user.signUpErrors,
+});
 
 const AuthInput = ({
   Icon,
@@ -14,6 +19,7 @@ const AuthInput = ({
 }) => {
   const [newType, setNewType] = useState(type);
   const [isValid, setIsValid] = useState(true);
+  const { errors } = useSelector(mapState);
 
   const changePasswordType = () => {
     if (newType === "password") {
@@ -25,7 +31,7 @@ const AuthInput = ({
   };
 
   useEffect(() => {
-    if (value !== "") {
+    if (errors?.length > 0) {
       if (!value.match(pattern)) {
         setIsValid(false);
       } else {
@@ -34,7 +40,7 @@ const AuthInput = ({
     } else {
       setIsValid(true);
     }
-  }, [value, pattern]);
+  }, [value, pattern, errors.length]);
 
   return (
     <div className="authInput__container">

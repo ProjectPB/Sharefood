@@ -41,6 +41,7 @@ const Login = () => {
     handleChange: (e) => setEmail(e.target.value),
     placeholder: "E-mail",
     type: "email",
+    pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
   };
 
   const passwordConfig = {

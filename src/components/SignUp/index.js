@@ -14,32 +14,12 @@ const SignUp = ({ cancel }) => {
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [openInfo, setOpenInfo] = useState(false);
 
-  const checkPasswords = () => {
-    if (password === passwordConfirm) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
   const handleInfo = () => {
     setOpenInfo(!openInfo);
   };
 
   const register = (e) => {
     e.preventDefault();
-
-    if (!displayName) {
-      return alert("Please enter a username.");
-    }
-
-    if (displayName.length > 12 || displayName.length < 4) {
-      return alert("displayName does not match requirements.");
-    }
-
-    if (!checkPasswords()) {
-      return alert("Your passwords do not match.");
-    }
 
     dispatch(
       signUpUserStart({
