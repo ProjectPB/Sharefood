@@ -4,9 +4,11 @@ import "./styles.css";
 
 const NoData = () => {
   return (
-    <div className="noData">
-      <ErrorOutlineIcon />
-      <h4>Could not find recipes which match your criteria</h4>
+    <div className="noData__container">
+      <div className="noData">
+        <ErrorOutlineIcon />
+        <h4>Could not find recipes which match your criteria</h4>
+      </div>
     </div>
   );
 };

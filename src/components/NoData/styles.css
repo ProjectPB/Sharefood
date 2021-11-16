@@ -1,24 +1,28 @@
+.noData__container {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  margin: -35px 0;
+}
+
 .noData {
-  position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
   padding: 20px;
   background-color: var(--color-primary);
   border: 1px solid;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50%;
 }
 
 .noData > .MuiSvgIcon-root {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   margin-bottom: 10px;
 }
 
 .noData > h4 {
   text-align: center;
+  font-weight: 500;
 }

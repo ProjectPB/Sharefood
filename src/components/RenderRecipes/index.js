@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery } from "./../../hooks";
@@ -11,13 +11,13 @@ import "./styles.css";
 
 const mapState = ({ user, ui, recipes, loading }) => ({
   currentUser: user.currentUser,
-  sidebarIsOpen: ui.sidebarIsOpen,
+  sidebarOpen: ui.sidebarOpen,
   recipes: recipes.recipes,
   loaded: loading.recipesLoaded,
 });
 
 const RenderRecipes = () => {
-  const { currentUser, sidebarIsOpen, recipes, loaded } = useSelector(mapState);
+  const { currentUser, sidebarOpen, recipes, loaded } = useSelector(mapState);
   const query = useQuery().get("q");
   const queryFilter = useQuery().get("q");
   const authorFilter = currentUser?.uid;
@@ -28,7 +28,6 @@ const RenderRecipes = () => {
   useEffect(() => {
     if (query) {
       dispatch(fetchRecipesStart({ queryFilter }));
-      dispatch(loadRecipes(false));
     } else {
       switch (location.pathname) {
         case "/":
@@ -44,6 +43,7 @@ const RenderRecipes = () => {
           dispatch(fetchRecipesStart({ favoriteFilter }));
           break;
         default:
+          dispatch(loadRecipes(true));
           break;
       }
     }
@@ -81,9 +81,9 @@ const RenderRecipes = () => {
           Search results for {query} ({recipes.length})
         </h3>
       )}
-      {recipes.length === 0 && <NoData />}
+      {loaded && recipes.length === 0 && <NoData />}
       <div
-        className={`renderRecipes ${sidebarIsOpen && "renderRecipes--narrow"}`}
+        className={`renderRecipes ${sidebarOpen && "renderRecipes--narrow"}`}
       >
         {recipes.map(({ id, data }) => (
           <Card
