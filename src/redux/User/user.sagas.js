@@ -2,7 +2,7 @@ import { takeLatest, call, all, put } from "redux-saga/effects";
 import { auth, GoogleProvider } from "./../../firebase/utils";
 import { handleUserProfile, getCurrentUser } from "./user.helpers";
 import { signInSuccess, signOutUserSuccess, signUpError } from "./user.actions";
-import { loadHomepage } from "./../Loading/loading.actions";
+import { loadAuth, loadHomepage } from "./../Loading/loading.actions";
 import userTypes from "./user.types";
 
 export function* getSnapshotFromUserAuth(user, additionalData) {
@@ -26,10 +26,13 @@ export function* getSnapshotFromUserAuth(user, additionalData) {
 export function* emailSignIn({ payload: { email, password } }) {
   const errors = [];
   try {
+    yield put(loadAuth(true));
     const { user } = yield auth.signInWithEmailAndPassword(email, password);
     yield getSnapshotFromUserAuth(user);
+    yield put(loadAuth(false));
   } catch (err) {
     errors.push(err.message);
+    yield put(loadAuth(false));
     yield put(signUpError(errors));
   }
 }
@@ -94,8 +97,10 @@ export function* signUpUser({
         email,
         password
       );
+      yield put(loadAuth(true));
       const additionalData = { displayName };
       yield getSnapshotFromUserAuth(user, additionalData);
+      yield put(loadAuth(false));
     }
   } catch (err) {
     errors.push(err.message);
@@ -111,8 +116,8 @@ export function* googleSignIn() {
   try {
     const { user } = yield auth.signInWithPopup(GoogleProvider);
     yield getSnapshotFromUserAuth(user);
-  } catch (error) {
-    console.log(error.message);
+  } catch (err) {
+    // console.log(err.message);
   }
 }
 

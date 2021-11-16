@@ -2,22 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { googleSignInStart, signUpError } from "../../redux/User/user.actions";
+import { loadAuth } from "./../../redux/Loading/loading.actions";
 import Login from "../Login";
 import SignUp from "../SignUp";
 import Logo from "./../Logo";
 import GoogleButton from "../forms/GoogleButton";
+import Loading from "./../Loading";
 import "./styles.css";
 
-const mapState = ({ user }) => ({
+const mapState = ({ user, loading }) => ({
   currentUser: user.currentUser,
   errors: user.signUpErrors,
+  loading: loading.authLoading,
 });
 
 const Authentication = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [newAccount, setNewAccount] = useState(false);
-  const { currentUser, errors } = useSelector(mapState);
+  const { currentUser, errors, loading } = useSelector(mapState);
 
   const handleAccount = () => {
     setNewAccount(!newAccount);
@@ -27,6 +30,7 @@ const Authentication = () => {
   useEffect(() => {
     return () => {
       dispatch(signUpError([]));
+      dispatch(loadAuth(false));
     };
   }, [dispatch]);
 
@@ -64,6 +68,8 @@ const Authentication = () => {
             ))}
           </ul>
         )}
+
+        <div className="authentication__loading">{loading && <Loading />}</div>
       </div>
     </div>
   );

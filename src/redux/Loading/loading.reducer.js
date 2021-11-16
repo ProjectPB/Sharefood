@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   homepageLoaded: false,
   recipesLoaded: false,
   recipeDataLoaded: false,
+  authLoading: false,
 };
 
 const loadingReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +23,11 @@ const loadingReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         recipeDataLoaded: action.payload,
+      };
+    case loadingTypes.LOAD_AUTH:
+      return {
+        ...state,
+        authLoading: action.payload,
       };
     default:
       return state;

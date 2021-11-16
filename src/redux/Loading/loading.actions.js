@@ -13,3 +13,8 @@ export const loadRecipeData = (state) => ({
   type: loadingTypes.LOAD_RECIPE_DATA,
   payload: state,
 });
+
+export const loadAuth = (state) => ({
+  type: loadingTypes.LOAD_AUTH,
+  payload: state,
+});

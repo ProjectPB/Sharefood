@@ -46,3 +46,7 @@
   margin-top: 5px;
   font-size: 14px;
 }
+
+.authentication__loading {
+  margin-top: 10px;
+}
