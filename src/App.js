@@ -6,6 +6,7 @@ import Authpage from "./pages/Authpage";
 import Recipepage from "./pages/Recipepage";
 import Homepage from "./pages/Homepage";
 import Loadingpage from "./pages/Loadingpage";
+import NewPasswordpage from "./pages/NewPasswordpage";
 
 const mapState = ({ loading }) => ({
   loaded: loading.homepageLoaded,
@@ -36,6 +37,9 @@ const App = () => {
           </Route>
           <Route path="/auth">
             <Authpage />
+          </Route>
+          <Route path="/reset">
+            <NewPasswordpage />
           </Route>
           <Route path="/">
             <Homepage />

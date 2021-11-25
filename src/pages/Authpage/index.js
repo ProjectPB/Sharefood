@@ -3,7 +3,11 @@ import Authentication from "./../../components/Authentication";
 import "./styles.css";
 
 const Authpage = () => {
-  return <Authentication />;
+  return (
+    <div className="authpage">
+      <Authentication />
+    </div>
+  );
 };
 
 export default Authpage;

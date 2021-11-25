@@ -1,7 +1,17 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
 import { auth, GoogleProvider } from "./../../firebase/utils";
-import { handleUserProfile, getCurrentUser } from "./user.helpers";
-import { signInSuccess, signOutUserSuccess, signUpError } from "./user.actions";
+import {
+  handleUserProfile,
+  getCurrentUser,
+  handleResetPasswordAPI,
+} from "./user.helpers";
+import {
+  resetPasswordError,
+  resetPasswordSuccess,
+  signInSuccess,
+  signOutUserSuccess,
+  signUpError,
+} from "./user.actions";
 import { loadAuth, loadHomepage } from "./../Loading/loading.actions";
 import userTypes from "./user.types";
 
@@ -125,12 +135,26 @@ export function* onGoogleSignInStart() {
   yield takeLatest(userTypes.GOOGLE_SIGN_IN_START, googleSignIn);
 }
 
+export function* resetPassword({ payload: { email } }) {
+  try {
+    yield call(handleResetPasswordAPI, email);
+    yield put(resetPasswordSuccess());
+  } catch (err) {
+    yield put(resetPasswordError(err));
+  }
+}
+
+export function* onResetPasswordStart() {
+  yield takeLatest(userTypes.RESET_PASSWORD_START, resetPassword);
+}
+
 export default function* userSagas() {
   yield all([
     call(onEmailSignInStart),
     call(onCheckUserSession),
     call(onSignOutUserStart),
     call(onSignUpUserStart),
+    call(onResetPasswordStart),
     call(onGoogleSignInStart),
   ]);
 }

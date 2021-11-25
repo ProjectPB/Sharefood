@@ -1,11 +1,3 @@
-.authentication__container {
-  height: 100vh;
-  width: 100vw;
-  background-color: var(--color-primary);
-  display: grid;
-  place-items: center;
-}
-
 .authentication {
   display: flex;
   flex-direction: column;
@@ -49,4 +41,9 @@
 
 .authentication__loading {
   margin-top: 10px;
+}
+
+.authentication__reset {
+  color: darkred;
+  text-decoration: underline;
 }
