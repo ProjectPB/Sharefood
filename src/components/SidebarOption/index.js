@@ -8,7 +8,7 @@ const mapState = ({ ui }) => ({
   sidebarIsOpen: ui.sidebarOpen,
 });
 
-const SidebarOption = ({ Icon, title }) => {
+const SidebarOption = ({ Icon, title, hidden }) => {
   const { sidebarIsOpen } = useSelector(mapState);
   const width = useWidth();
   const dispatch = useDispatch();
@@ -22,7 +22,9 @@ const SidebarOption = ({ Icon, title }) => {
   return (
     <div
       onClick={minimalizeSidebar}
-      className={sidebarIsOpen ? "sidebar__option" : "sidebar__option--hidden"}
+      className={`${
+        sidebarIsOpen ? `sidebar__option` : `sidebar__option--narrow`
+      } ${hidden ? `sidebar__option--hidden` : ``}`}
     >
       <Icon fontSize="large" />
       <h2>{title}</h2>

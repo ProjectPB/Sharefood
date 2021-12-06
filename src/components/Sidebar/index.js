@@ -23,14 +23,23 @@ const Sidebar = () => {
         <SidebarOption Icon={Whatshot} title="POPULAR" />
       </NavLink>
 
-      {currentUser && (
+      {currentUser ? (
         <NavLink to="/my" activeClassName="selected">
           <SidebarOption Icon={MenuBook} title="MY RECIPES" />
         </NavLink>
+      ) : (
+        <NavLink to="/auth" activeClassName="selected">
+          <SidebarOption Icon={MenuBook} title="MY RECIPES" hidden />
+        </NavLink>
       )}
-      {currentUser && (
+
+      {currentUser ? (
         <NavLink to="/favorite" activeClassName="selected">
           <SidebarOption Icon={Favorite} title="FAVORITE" />
+        </NavLink>
+      ) : (
+        <NavLink to="/auth" activeClassName="selected">
+          <SidebarOption Icon={Favorite} title="FAVORITE" hidden />
         </NavLink>
       )}
     </div>

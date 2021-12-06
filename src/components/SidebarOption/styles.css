@@ -5,7 +5,7 @@
   background-color: inherit;
 }
 
-.sidebar__option--hidden {
+.sidebar__option--narrow {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -14,12 +14,12 @@
   justify-content: center;
 }
 
-.sidebar__option--hidden > h2 {
+.sidebar__option--narrow > h2 {
   font-size: 10px;
   font-weight: 500;
 }
 
-.sidebar__option--hidden > .MuiSvgIcon-root {
+.sidebar__option--narrow > .MuiSvgIcon-root {
   width: 25px;
   object-fit: contain;
 }
@@ -29,20 +29,20 @@ a {
   color: inherit;
 }
 
-.selected .sidebar__option--hidden,
+.selected .sidebar__option--narrow,
 .selected .sidebar__option {
   background-color: var(--color-secondary);
 }
 
 .sidebar__option:hover,
-.sidebar__option--hidden:hover {
+.sidebar__option--narrow:hover {
   cursor: pointer;
   background-color: var(--color-hover);
   transition: 0.3s ease-in-out;
 }
 
 .selected .sidebar__option:hover,
-.selected .sidebar__option--hidden:hover {
+.selected .sidebar__option--narrow:hover {
   background-color: var(--color-secondary);
 }
 
@@ -50,6 +50,11 @@ a {
   font-size: 16px;
   font-weight: 500;
   padding-left: 10px;
+}
+
+.sidebar__option--hidden {
+  opacity: 0.8;
+  color: rgb(170, 170, 170);
 }
 
 @media screen and (max-width: 600px) {

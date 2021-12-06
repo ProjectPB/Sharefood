@@ -56,7 +56,7 @@ const Recipe = () => {
     if (currentUser) {
       handleLikeRecipe(currentUser?.uid, recipeId);
     } else {
-      return alert("Please Sign In to like a recipe");
+      history.push("/auth");
     }
   };
 
