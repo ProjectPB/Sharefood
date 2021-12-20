@@ -6,7 +6,7 @@
 
 .renderRecipes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
+  grid-template-columns: repeat(auto-fit, minmax(25%, max-content));
   margin: 20px 0px 0px 20px;
   justify-content: flex-start;
 }
@@ -18,13 +18,19 @@
   font-weight: 600;
 }
 
-@media screen and (max-width: 1050px) {
+@media screen and (max-width: 1200px) {
+  .renderRecipes {
+    grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
+  }
+}
+
+@media screen and (max-width: 992px) {
   .renderRecipes {
     grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
   .renderRecipes--narrow {
     grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
   }

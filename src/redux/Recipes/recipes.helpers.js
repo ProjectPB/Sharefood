@@ -6,6 +6,9 @@ export const handleFetchRecipes = ({
   queryFilter,
   favoriteFilter,
   popularFilter,
+  counter,
+  startAfterDoc,
+  persistProducts = [],
 }) => {
   return new Promise((resolve, reject) => {
     let ref = db.collection("recipes");
@@ -28,10 +31,16 @@ export const handleFetchRecipes = ({
       ref = ref.where("likesUsers", "array-contains", favoriteFilter);
     }
 
+    if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
+
     ref
+      .limit(counter)
       .get()
       .then((snapshot) => {
+        const totalCount = snapshot.size;
+
         const data = [
+          ...persistProducts,
           ...snapshot.docs.map((doc) => {
             return {
               id: doc.id,
@@ -40,7 +49,11 @@ export const handleFetchRecipes = ({
           }),
         ];
 
-        resolve(data);
+        resolve({
+          data,
+          queryDoc: snapshot.docs[totalCount - 1],
+          isLastPage: totalCount < counter,
+        });
       })
       .catch((err) => {
         reject(err);

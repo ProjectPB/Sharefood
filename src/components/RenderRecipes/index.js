@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { useQuery } from "./../../hooks";
+import { useQuery, useWidth } from "./../../hooks";
 import Card from "../Card";
 import NoData from "../NoData";
 import { fetchRecipesStart } from "../../redux/Recipes/recipes.actions";
@@ -18,6 +18,10 @@ const mapState = ({ user, ui, recipes, loading }) => ({
 
 const RenderRecipes = () => {
   const { currentUser, sidebarOpen, recipes, loaded } = useSelector(mapState);
+  const { data, queryDoc, isLastPage } = recipes;
+  const recipesRef = useRef();
+  const [counter, setCounter] = useState(8);
+  const width = useWidth();
   const query = useQuery().get("q");
   const queryFilter = useQuery().get("q");
   const authorFilter = currentUser?.uid;
@@ -26,21 +30,29 @@ const RenderRecipes = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (width <= 1200 && width > 992) {
+      setCounter(9);
+    } else {
+      setCounter(8);
+    }
+  }, [width]);
+
+  useEffect(() => {
     if (query) {
       dispatch(fetchRecipesStart({ queryFilter }));
     } else {
       switch (location.pathname) {
         case "/":
-          dispatch(fetchRecipesStart());
+          dispatch(fetchRecipesStart({ counter }));
           break;
         case "/popular":
-          dispatch(fetchRecipesStart({ popularFilter: true }));
+          dispatch(fetchRecipesStart({ popularFilter: true, counter }));
           break;
         case "/my":
-          dispatch(fetchRecipesStart({ authorFilter }));
+          dispatch(fetchRecipesStart({ authorFilter, counter }));
           break;
         case "/favorite":
-          dispatch(fetchRecipesStart({ favoriteFilter }));
+          dispatch(fetchRecipesStart({ favoriteFilter, counter }));
           break;
         default:
           dispatch(loadRecipes(true));
@@ -58,7 +70,68 @@ const RenderRecipes = () => {
     dispatch,
     favoriteFilter,
     queryFilter,
+    counter,
   ]);
+
+  const handleScroll = () => {
+    if (recipesRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = recipesRef.current;
+      console.log(`${Math.ceil(scrollTop + clientHeight)} === ${scrollHeight}`);
+      if (
+        Math.ceil(scrollTop + clientHeight) === scrollHeight ||
+        Math.ceil(scrollTop + clientHeight) - 1 === scrollHeight
+      ) {
+        !isLastPage && handleLoadMoreRecipes();
+      }
+    }
+  };
+
+  const handleLoadMoreRecipes = () => {
+    switch (location.pathname) {
+      case "/":
+        dispatch(
+          fetchRecipesStart({
+            counter,
+            startAfterDoc: queryDoc,
+            persistProducts: data,
+          })
+        );
+        break;
+      case "/popular":
+        dispatch(
+          fetchRecipesStart({
+            popularFilter: true,
+            counter,
+            startAfterDoc: queryDoc,
+            persistProducts: data,
+          })
+        );
+        break;
+      case "/my":
+        dispatch(
+          fetchRecipesStart({
+            authorFilter,
+            counter,
+            startAfterDoc: queryDoc,
+            persistProducts: data,
+          })
+        );
+        break;
+      case "/favorite":
+        dispatch(
+          fetchRecipesStart({
+            favoriteFilter,
+            counter,
+            startAfterDoc: queryDoc,
+            persistProducts: data,
+          })
+        );
+        break;
+      default:
+        dispatch(loadRecipes(true));
+        break;
+    }
+  };
 
   const fillWithHiddenCards = () => {
     if (recipes.length === 1) {
@@ -74,18 +147,22 @@ const RenderRecipes = () => {
   };
 
   return (
-    <div className="renderRecipes__container">
+    <div
+      className="renderRecipes__container"
+      onScroll={handleScroll}
+      ref={recipesRef}
+    >
       {!loaded && <Loading />}
       {query && (
         <h3 className="renderRecipes__text">
-          Search results for {query} ({recipes.length})
+          Search results for {query} ({data?.length})
         </h3>
       )}
-      {loaded && recipes.length === 0 && <NoData />}
+      {loaded && data?.length === 0 && <NoData />}
       <div
         className={`renderRecipes ${sidebarOpen && "renderRecipes--narrow"}`}
       >
-        {recipes.map(({ id, data }) => (
+        {data?.map(({ id, data }) => (
           <Card
             key={id}
             id={id}
