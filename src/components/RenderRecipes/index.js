@@ -76,7 +76,6 @@ const RenderRecipes = () => {
   const handleScroll = () => {
     if (recipesRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = recipesRef.current;
-      console.log(`${Math.ceil(scrollTop + clientHeight)} === ${scrollHeight}`);
       if (
         Math.ceil(scrollTop + clientHeight) === scrollHeight ||
         Math.ceil(scrollTop + clientHeight) - 1 === scrollHeight

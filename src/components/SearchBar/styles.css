@@ -34,3 +34,7 @@
 .searchIcon {
   font-size: 18px !important;
 }
+
+.searchIcon__container:hover {
+  opacity: 0.8;
+}

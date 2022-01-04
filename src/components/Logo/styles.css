@@ -5,3 +5,7 @@
   cursor: pointer;
   user-select: none;
 }
+
+.logo:hover {
+  opacity: 0.8;
+}

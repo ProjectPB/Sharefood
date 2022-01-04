@@ -89,6 +89,7 @@ const Header = () => {
                 onClick={handleProfileMenu}
                 src={currentUser?.profilePic}
                 alt={currentUser?.displayName}
+                className="header__avatarIcon"
               />
               {profileMenuIsOpen ? <ProfilePopup /> : null}
             </div>

@@ -42,4 +42,9 @@
   right: 20px;
   top: 10px;
   outline: 1px solid black;
+  background-color: var(--color-secondary);
+}
+
+.modal__close:hover {
+  opacity: 0.8;
 }
