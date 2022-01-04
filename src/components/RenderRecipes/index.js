@@ -134,15 +134,27 @@ const RenderRecipes = () => {
   };
 
   const fillWithHiddenCards = () => {
-    if (recipes.length === 1) {
+    if (data?.length === 1) {
+      return (
+        <>
+          <Card hidden />
+          <Card hidden />
+          <Card hidden />
+        </>
+      );
+    } else if (data?.length === 2) {
       return (
         <>
           <Card hidden />
           <Card hidden />
         </>
       );
-    } else if (recipes.length === 2) {
-      return <Card hidden />;
+    } else if (data?.length === 3) {
+      return (
+        <>
+          <Card hidden />
+        </>
+      );
     }
   };
 
