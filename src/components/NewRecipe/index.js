@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import Resizer from "react-image-file-resizer";
+
 import {
   renderTags,
   capitalizeLetter,
   TextAreaToArray,
 } from "../../util/TextFormat";
+import { createRecipeStart } from "../../redux/Recipes/recipes.actions";
+
 import firebase from "firebase/app";
 import Input from "./../forms/Input";
 import Textarea from "../forms/Textarea";
@@ -13,7 +17,7 @@ import Select from "../forms/Select";
 import ImgInput from "../forms/ImgInput";
 import Button from "./../forms/Button";
 import Loading from "./../Loading";
-import { createRecipeStart } from "../../redux/Recipes/recipes.actions";
+
 import "./styles.css";
 
 const mapState = ({ user }) => ({
@@ -45,20 +49,31 @@ const NewRecipe = ({ close }) => {
     }
   }, [progress, close, history]);
 
-  const changeImgFile = (e) => {
-    const file = e.target.files[0];
-    const typePattern = /image-*/;
-    const maxSize = 20;
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        400,
+        400,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          resolve(uri);
+        },
+        "file"
+      );
+    });
 
-    if (!file?.type.match(typePattern)) {
-      alert("Invalid format");
-      return;
-    } else if (file.size / (1024 * 1024) > maxSize) {
-      alert(`Please attach an image with a size below ${maxSize}MB`);
-      return;
-    } else {
-      setImage(e.target.files[0]);
-      setPreviewImg(URL.createObjectURL(e.target.files[0]));
+  const changeImgFile = async (e) => {
+    try {
+      const file = e.target.files[0];
+      const resizedImg = await resizeFile(file);
+
+      setImage(resizedImg);
+      setPreviewImg(URL.createObjectURL(resizedImg));
+    } catch (err) {
+      alert(err.message);
     }
   };
 

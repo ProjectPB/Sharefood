@@ -5,10 +5,12 @@
 }
 
 .renderRecipes {
+  justify-content: flex-start;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25%, max-content));
-  margin: 20px 0px 0px 20px;
-  justify-content: flex-start;
+  padding: 20px 0 0 20px;
+  margin: 0 auto;
+  max-width: 2000px;
 }
 
 .renderRecipes__text {
