@@ -105,7 +105,7 @@ export const handleCreateRecipe = ({ payload }) => {
     const imageName = new Date().getTime() + img.name;
 
     storage
-      .ref(`recipeImages/${imageName}`)
+      .ref(`recipeImages/${authorId}/${title}/${imageName}`)
       .put(img)
       .on(
         "state_changed",
@@ -120,7 +120,7 @@ export const handleCreateRecipe = ({ payload }) => {
         },
         () => {
           storage
-            .ref("recipeImages")
+            .ref(`recipeImages/${authorId}/${title}`)
             .child(imageName)
             .getDownloadURL()
             .then((url) => {
