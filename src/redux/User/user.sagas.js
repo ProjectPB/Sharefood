@@ -13,7 +13,7 @@ import {
   signUpError,
 } from "./user.actions";
 import { loadAuth, loadHomepage } from "./../Loading/loading.actions";
-import userTypes from "./user.types";
+import userTypes from "./user.types.tsx";
 
 export function* getSnapshotFromUserAuth(user, additionalData) {
   try {

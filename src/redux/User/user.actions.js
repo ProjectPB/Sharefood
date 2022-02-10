@@ -1,4 +1,4 @@
-import userTypes from "./user.types";
+import userTypes from "./user.types.tsx";
 
 export const emailSignInStart = (userCredentials) => ({
   type: userTypes.EMAIL_SIGN_IN_START,

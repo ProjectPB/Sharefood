@@ -1,4 +1,4 @@
-import userTypes from "./user.types";
+import userTypes from "./user.types.tsx";
 
 const INITIAL_STATE = {
   currentUser: null,

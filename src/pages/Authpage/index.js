@@ -1,5 +1,5 @@
 import React from "react";
-import Authentication from "./../../components/Authentication";
+import Authentication from "./../../components/Authentication/index.tsx";
 import "./styles.css";
 
 const Authpage = () => {

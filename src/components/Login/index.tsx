@@ -2,16 +2,16 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { Lock, Mail } from "@material-ui/icons";
-import { emailSignInStart } from "./../../redux/User/user.actions";
+import { emailSignInStart } from "../../redux/User/user.actions";
 import AuthInput from "../AuthInput";
-import Button from "./../forms/Button";
+import Button from "../forms/Button";
 import "./styles.css";
 
 const mapState = ({ user }) => ({
   currentUser: user.currentUser,
 });
 
-const Login = () => {
+const Login: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { currentUser } = useSelector(mapState);

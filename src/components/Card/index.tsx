@@ -1,12 +1,26 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Moment from "react-moment";
+
 import { AccessTimeOutlined, Favorite, LocalDining } from "@material-ui/icons";
 import { Avatar } from "@material-ui/core";
 import { capitalizeLetter } from "../../util/TextFormat";
+
 import "./styles.css";
 
-const Card = ({
+interface Data {
+  id?: string;
+  authorName?: string;
+  authorProfilePic?: string;
+  image?: string;
+  timestamp?: any;
+  title?: string;
+  type?: string;
+  likesQuantity?: number;
+  hidden?: boolean;
+}
+
+const Card: React.FC<Data> = ({
   id,
   authorName,
   authorProfilePic,

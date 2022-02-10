@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { googleSignInStart, signUpError } from "../../redux/User/user.actions";
-import { loadAuth } from "./../../redux/Loading/loading.actions";
+import { loadAuth } from "../../redux/Loading/loading.actions";
+
 import Login from "../Login";
 import SignUp from "../SignUp";
-import Logo from "./../Logo";
+import Logo from "../Logo";
 import GoogleButton from "../forms/GoogleButton";
-import Loading from "./../Loading";
+import Loading from "../Loading";
+
 import "./styles.css";
-import { Link } from "react-router-dom";
 
 const mapState = ({ user, loading }) => ({
   currentUser: user.currentUser,
@@ -17,7 +20,7 @@ const mapState = ({ user, loading }) => ({
   loading: loading.authLoading,
 });
 
-const Authentication = () => {
+const Authentication: React.FC = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [newAccount, setNewAccount] = useState(false);
