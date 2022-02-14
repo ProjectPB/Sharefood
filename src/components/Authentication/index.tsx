@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { googleSignInStart, signUpError } from "../../redux/User/user.actions";
 import { loadAuth } from "../../redux/Loading/loading.actions";
 

@@ -2,11 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery, useWidth } from "../../hooks";
-import Card from "../Card";
-import NoData from "../NoData";
 import { fetchRecipesStart } from "../../redux/Recipes/recipes.actions";
 import { loadRecipes } from "../../redux/Loading/loading.actions";
+
+import Card from "../Card";
+import NoData from "../NoData";
 import Loading from "../Loading";
+
 import "./styles.css";
 
 const mapState = ({ user, ui, recipes, loading }) => ({
@@ -16,7 +18,7 @@ const mapState = ({ user, ui, recipes, loading }) => ({
   loaded: loading.recipesLoaded,
 });
 
-const RenderRecipes = () => {
+const RenderRecipes: React.FC = () => {
   const { currentUser, sidebarOpen, recipes, loaded } = useSelector(mapState);
   const { data, queryDoc, isLastPage } = recipes;
   const recipesRef = useRef<HTMLDivElement>(null);
@@ -99,10 +101,10 @@ const RenderRecipes = () => {
       case "/popular":
         dispatch(
           fetchRecipesStart({
-            popularFilter: true,
             counter,
             startAfterDoc: queryDoc,
             persistProducts: data,
+            popularFilter: true,
           })
         );
         break;

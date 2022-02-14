@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import Moment from "react-moment";
-
+import { useHistory } from "react-router-dom";
 import { AccessTimeOutlined, Favorite, LocalDining } from "@material-ui/icons";
 import { Avatar } from "@material-ui/core";
-import { capitalizeLetter } from "../../util/TextFormat";
+import { capitalizeLetter } from "../../util/formatText";
 
 import "./styles.css";
 
@@ -45,10 +44,12 @@ const Card: React.FC<Data> = ({
   return (
     <div onClick={navToRecipe} className={hidden ? "hidden" : "card"}>
       <img
-        style={imgLoaded ? {} : { visibility: "none" }}
+        style={{
+          visibility: imgLoaded === true ? "visible" : "hidden",
+        }}
         onLoad={() => setImgLoaded(true)}
         src={image}
-        alt=""
+        alt="recipe"
       />
       <div className="card__info">
         <h1 className="card__title">{title}</h1>

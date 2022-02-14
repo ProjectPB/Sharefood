@@ -1,13 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { Visibility } from "@material-ui/icons";
 import { useSelector } from "react-redux";
+import { Visibility, SvgIconComponent } from "@material-ui/icons";
+
 import "./styles.css";
 
 const mapState = ({ user }) => ({
   errors: user.signUpErrors,
 });
 
-const AuthInput = ({
+interface Props {
+  Icon: SvgIconComponent;
+  value: string;
+  handleChange: {
+    (e: { target: { value: React.SetStateAction<string> } }): void;
+  };
+  placeholder: string;
+  type: string;
+  pattern?: any;
+  openInfo?: boolean;
+  info?: string[];
+}
+
+const AuthInput: React.FC<Props> = ({
   Icon,
   info,
   value,
@@ -67,7 +81,7 @@ const AuthInput = ({
         )}
       </div>
       {openInfo &&
-        info.map((i) => (
+        info?.map((i) => (
           <p
             style={isValid ? { color: "gray" } : { color: "red" }}
             className="signUp__inputInfo"
