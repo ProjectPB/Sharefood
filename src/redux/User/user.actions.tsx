@@ -1,11 +1,12 @@
 import userTypes from "./user.types";
+import { CurrentUser, Credentials } from "../../shared/types";
 
-export const emailSignInStart = (userCredentials) => ({
+export const emailSignInStart = (userCredentials: Credentials) => ({
   type: userTypes.EMAIL_SIGN_IN_START,
   payload: userCredentials,
 });
 
-export const signInSuccess = (user) => ({
+export const signInSuccess = (user: CurrentUser) => ({
   type: userTypes.SIGN_IN_SUCCESS,
   payload: user,
 });
@@ -22,17 +23,17 @@ export const signOutUserSuccess = () => ({
   type: userTypes.SIGN_OUT_USER_SUCCESS,
 });
 
-export const signUpUserStart = (userCredentials) => ({
+export const signUpUserStart = (userCredentials: Credentials) => ({
   type: userTypes.SIGN_UP_USER_START,
   payload: userCredentials,
 });
 
-export const resetPasswordError = (err) => ({
+export const resetPasswordError = (error: {}) => ({
   type: userTypes.RESET_PASSWORD_ERRORS,
-  payload: err,
+  payload: error,
 });
 
-export const resetPasswordStart = (userCredentials) => ({
+export const resetPasswordStart = (userCredentials: Credentials) => ({
   type: userTypes.RESET_PASSWORD_START,
   payload: userCredentials,
 });
@@ -50,7 +51,7 @@ export const googleSignInStart = () => ({
   type: userTypes.GOOGLE_SIGN_IN_START,
 });
 
-export const signUpError = (error) => ({
+export const signUpError = (error: string[]) => ({
   type: userTypes.SIGN_UP_ERROR,
   payload: error,
 });

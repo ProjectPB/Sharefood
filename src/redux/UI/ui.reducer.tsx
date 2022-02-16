@@ -1,10 +1,11 @@
 import uiTypes from "./ui.types";
+import { State } from "../../shared/types";
 
-const INITIAL_STATE = {
+const INITIAL_STATE: State["ui"] = {
   sidebarOpen: true,
 };
 
-const uiReducer = (state = INITIAL_STATE, action) => {
+const uiReducer = (state = INITIAL_STATE, action: { type: string }) => {
   switch (action.type) {
     case uiTypes.OPEN_SIDEBAR:
       return {

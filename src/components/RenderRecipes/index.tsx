@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useQuery, useWidth } from "../../hooks";
 import { fetchRecipesStart } from "../../redux/Recipes/recipes.actions";
 import { loadRecipes } from "../../redux/Loading/loading.actions";
+import { State } from "../../shared/types";
 
 import Card from "../Card";
 import NoData from "../NoData";

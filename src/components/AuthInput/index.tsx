@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Visibility, SvgIconComponent } from "@material-ui/icons";
+import { Handler, State } from "../../shared/types";
 
 import "./styles.css";
 
-const mapState = ({ user }) => ({
+const mapState = ({ user }: State) => ({
   errors: user.signUpErrors,
 });
 
@@ -12,7 +13,7 @@ interface Props {
   Icon: SvgIconComponent;
   value: string;
   handleChange: {
-    (e: { target: { value: React.SetStateAction<string> } }): void;
+    (e: Handler["string"]): void;
   };
   placeholder: string;
   type: string;

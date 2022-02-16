@@ -2,12 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Favorite, Home, MenuBook, Whatshot } from "@material-ui/icons";
+import { State } from "../../shared/types";
 
 import SidebarOption from "../SidebarOption";
 
 import "./styles.css";
 
-const mapState = ({ user, ui }) => ({
+const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,
   sidebarIsOpen: ui.sidebarOpen,
 });

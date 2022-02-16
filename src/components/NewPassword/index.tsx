@@ -7,13 +7,14 @@ import {
   resetUserState,
 } from "../../redux/User/user.actions";
 import { Mail } from "@material-ui/icons";
+import { Handler, State } from "../../shared/types";
 
 import Button from "../forms/Button";
 import AuthInput from "../AuthInput";
 
 import "./styles.css";
 
-const mapState = ({ user }) => ({
+const mapState = ({ user }: State) => ({
   resetPasswordSuccess: user.resetPasswordSuccess,
   resetPasswordErrors: user.resetPasswordErrors,
 });
@@ -45,7 +46,7 @@ const NewPassword: React.FC = () => {
     }
   }, [resetPasswordErrors]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: Handler["form"]) => {
     e.preventDefault();
     dispatch(resetPasswordStart({ email }));
   };
@@ -53,7 +54,7 @@ const NewPassword: React.FC = () => {
   const emailConfig = {
     Icon: Mail,
     value: email,
-    handleChange: (e) => setEmail(e.target.value),
+    handleChange: (e: Handler["string"]) => setEmail(e.target.value),
     placeholder: "E-mail",
     type: "email",
     name: "email",
@@ -83,7 +84,7 @@ const NewPassword: React.FC = () => {
 
         {errors && (
           <ul className="newPassword__errors">
-            {errors.map((err, i) => (
+            {errors.map((err: string, i: number) => (
               <li className="newPassword__error" key={i}>
                 {err}
               </li>

@@ -1,4 +1,4 @@
-export const TextAreaToArray = (str) => {
+export const TextAreaToArray = (str: string) => {
   const splitStr = str.split(/\n/g);
   const trimmedStr = splitStr.map((i) => i.trim());
   const filteredStr = trimmedStr.filter((i) => {
@@ -8,27 +8,22 @@ export const TextAreaToArray = (str) => {
 };
 
 export const renderTags = (
-  strTitle,
-  strIngredients,
-  strType,
-  strAuthorName
+  title: string,
+  ingredients: string,
+  type: string,
+  authorName: string
 ) => {
   let tags = [];
-  const titleWords = strTitle.split(" ");
+  const titleWords = title.split(" ");
   const titleTags = [];
 
-  const ingredientsNoReturns = strIngredients
+  const ingredientsNoReturns = ingredients
     .replace(/[&\\#,+()$~%.'":*?<>{}]/g, ",")
     .split(/,|\n/);
-  const basicArray = [
-    strTitle,
-    ingredientsNoReturns,
-    strType,
-    strAuthorName,
-  ].join(" ");
+  const basicArray = [title, ingredientsNoReturns, type, authorName].join(" ");
   const arrNoCommas = basicArray.replace(/,/g, " ");
   const splitStr = arrNoCommas.split(" ");
-  splitStr.push(strAuthorName);
+  splitStr.push(authorName);
   const trimmedStr = splitStr.map((i) => i.trim());
   const noNumbers = trimmedStr.filter((i) => {
     return !/\d/.test(i) && i !== "" && i.length >= 3;

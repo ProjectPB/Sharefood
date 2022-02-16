@@ -9,6 +9,7 @@ import {
   TextAreaToArray,
 } from "../../util/formatText";
 import { createRecipeStart } from "../../redux/Recipes/recipes.actions";
+import { Handler, State } from "../../shared/types";
 
 import Input from "../forms/Input";
 import Textarea from "../forms/Textarea";
@@ -19,7 +20,7 @@ import Loading from "../Loading";
 
 import "./styles.css";
 
-const mapState = ({ user }) => ({
+const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,
 });
 
@@ -68,7 +69,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       );
     });
 
-  const changeImgFile = async (e) => {
+  const changeImgFile = async (e: Handler["file"]) => {
     try {
       const file = e.target.files[0];
       const resizedImg: any = await resizeFile(file);
@@ -80,7 +81,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
     }
   };
 
-  const handleCreate = (e) => {
+  const handleCreate = (e: Handler["form"]) => {
     e.preventDefault();
     setLoading(true);
     dispatch(
@@ -105,7 +106,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
 
   const titleConfig = {
     value: title,
-    handleChange: (e) => setTitle(e.target.value),
+    handleChange: (e: Handler["string"]) => setTitle(e.target.value),
     type: "text",
     required: true,
     spellCheck: false,
@@ -115,7 +116,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const ingredientsConfig = {
     value: ingredients,
     placeholder: "Use return buttons to separate ingredients",
-    handleChange: (e) => setIngredients(e.target.value),
+    handleChange: (e: Handler["string"]) => setIngredients(e.target.value),
     spellCheck: false,
     label: "Ingredients",
     required: true,
@@ -124,7 +125,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const methodConfig = {
     value: method,
     placeholder: "Use return buttons to separate steps",
-    handleChange: (e) => setMethod(e.target.value),
+    handleChange: (e: Handler["string"]) => setMethod(e.target.value),
     spellCheck: false,
     label: "Method",
     required: true,
@@ -132,7 +133,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
 
   const portionsConfig = {
     value: portions,
-    handleChange: (e) => setPortions(e.target.value),
+    handleChange: (e: Handler["number"]) => setPortions(e.target.value),
     type: "number",
     min: "1",
     max: "20",
@@ -184,7 +185,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   ];
 
   const typeConfig = {
-    handleChange: (e) => setType(e.target.value),
+    handleChange: (e: Handler["string"]) => setType(e.target.value),
     label: "Type",
     options: typeOptions,
     required: true,

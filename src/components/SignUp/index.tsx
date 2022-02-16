@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signUpUserStart } from "../../redux/User/user.actions";
 import { InfoOutlined, Lock, Mail, Person } from "@material-ui/icons";
+import { Handler } from "../../shared/types";
 
 import Button from "../forms/Button";
 import AuthInput from "../AuthInput";
@@ -11,8 +12,6 @@ import "./styles.css";
 interface Props {
   cancel: () => void;
 }
-
-type ETarget = { target: { value: React.SetStateAction<string> } };
 
 const SignUp: React.FC<Props> = ({ cancel }) => {
   const dispatch = useDispatch();
@@ -26,7 +25,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
     setOpenInfo(!openInfo);
   };
 
-  const register = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const register = (e: Handler["change"]) => {
     e.preventDefault();
 
     dispatch(
@@ -44,7 +43,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
     placeholder: "Username",
     type: "text",
     value: displayName,
-    handleChange: (e: ETarget) => setDisplayName(e.target.value),
+    handleChange: (e: Handler["string"]) => setDisplayName(e.target.value),
     pattern: "^.{4,12}$",
     info: ["Between 4 and 12 characters"],
     openInfo: openInfo,
@@ -55,7 +54,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
     placeholder: "E-mail",
     type: "email",
     value: email,
-    handleChange: (e: ETarget) => setEmail(e.target.value),
+    handleChange: (e: Handler["string"]) => setEmail(e.target.value),
     pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
     info: ["example@example.com"],
     openInfo: openInfo,
@@ -64,7 +63,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
   const passwordConfig = {
     Icon: Lock,
     value: password,
-    handleChange: (e: ETarget) => setPassword(e.target.value),
+    handleChange: (e: Handler["string"]) => setPassword(e.target.value),
     placeholder: "Password",
     type: "password",
     pattern: new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/),
@@ -80,7 +79,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
   const passwordConfirmConfig = {
     Icon: Lock,
     value: passwordConfirm,
-    handleChange: (e: ETarget) => setPasswordConfirm(e.target.value),
+    handleChange: (e: Handler["string"]) => setPasswordConfirm(e.target.value),
     placeholder: "Confirm Password",
     type: "password",
     pattern: new RegExp(`^${password}$`),

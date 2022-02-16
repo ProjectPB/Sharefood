@@ -3,10 +3,11 @@ import { Avatar } from "@material-ui/core";
 import { ExitToApp } from "@material-ui/icons";
 import { signOutUserStart } from "../../redux/User/user.actions";
 import { useDispatch, useSelector } from "react-redux";
+import { State } from "../../shared/types";
 
 import "./styles.css";
 
-const mapState = ({ user }) => ({
+const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,
 });
 

@@ -72,7 +72,7 @@ const Authentication: React.FC = () => {
 
       {errors && (
         <ul className="authentication__errors">
-          {errors.map((err, i) => (
+          {errors.map((err: string, i: number) => (
             <li className="authentication__error" key={i}>
               {err}
             </li>

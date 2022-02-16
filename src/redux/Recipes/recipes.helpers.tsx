@@ -73,7 +73,7 @@ export const handleFetchRecipes = (filters: Filters) => {
   });
 };
 
-export const handleLikeRecipe = (userId, recipeId) => {
+export const handleLikeRecipe = (userId: string, recipeId: string) => {
   db.collection("recipes")
     .doc(recipeId)
     .update({
@@ -82,7 +82,7 @@ export const handleLikeRecipe = (userId, recipeId) => {
     });
 };
 
-export const handleDislikeRecipe = (userId, recipeId) => {
+export const handleDislikeRecipe = (userId: string, recipeId: string) => {
   db.collection("recipes")
     .doc(recipeId)
     .update({

@@ -19,13 +19,14 @@ import {
 } from "../../redux/Recipes/recipes.helpers";
 import { loadRecipeData } from "../../redux/Loading/loading.actions";
 import { capitalizeLetter } from "../../util/formatText";
+import { Handler, State } from "../../shared/types";
 
 import Loading from "../Loading";
 import NoData from "../NoData";
 
 import "./styles.css";
 
-const mapState = ({ user, loading }) => ({
+const mapState = ({ user, loading }: State) => ({
   currentUser: user.currentUser,
   loaded: loading.recipeDataLoaded,
 });
@@ -52,7 +53,7 @@ const Recipe: React.FC = () => {
     };
   }, [recipeId, dispatch]);
 
-  const likeRecipe = (e) => {
+  const likeRecipe = (e: Handler["void"]) => {
     e.preventDefault();
 
     if (currentUser) {
@@ -62,13 +63,13 @@ const Recipe: React.FC = () => {
     }
   };
 
-  const dislikeRecipe = (e) => {
+  const dislikeRecipe = (e: Handler["void"]) => {
     e.preventDefault();
 
     handleDislikeRecipe(currentUser?.uid, recipeId);
   };
 
-  const deleteRecipe = (e) => {
+  const deleteRecipe = (e: Handler["void"]) => {
     e.preventDefault();
 
     const answer = window.confirm(
@@ -157,15 +158,17 @@ const Recipe: React.FC = () => {
                   </div>
                 </div>
                 <ul className="recipe__ingredientsList">
-                  {recipeData?.ingredients?.map((ingredient, index) => (
-                    <li key={index}>{ingredient}</li>
-                  ))}
+                  {recipeData?.ingredients?.map(
+                    (ingredient: string, index: number) => (
+                      <li key={index}>{ingredient}</li>
+                    )
+                  )}
                 </ul>
               </div>
               <div className="recipe__method">
                 <h2>Method</h2>
                 <ul className="recipe__steps">
-                  {recipeData?.method?.map((step, index) => (
+                  {recipeData?.method?.map((step: string, index: number) => (
                     <li className="recipe__step" key={index}>
                       {step}
                     </li>

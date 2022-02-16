@@ -6,6 +6,7 @@ import { Menu } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 import { closeSidebar, openSidebar } from "../../redux/UI/ui.actions";
 import { useWidth } from "../../hooks";
+import { State } from "../../shared/types";
 
 import ProfilePopup from "../ProfilePopup";
 import NewRecipe from "../NewRecipe";
@@ -16,7 +17,7 @@ import Logo from "../Logo";
 
 import "./styles.css";
 
-const mapState = ({ user, ui }) => ({
+const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,
   sidebarIsOpen: ui.sidebarOpen,
 });
