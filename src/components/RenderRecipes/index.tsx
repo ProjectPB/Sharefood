@@ -12,7 +12,7 @@ import Loading from "../Loading";
 
 import "./styles.css";
 
-const mapState = ({ user, ui, recipes, loading }) => ({
+const mapState = ({ user, ui, recipes, loading }: State) => ({
   currentUser: user.currentUser,
   sidebarOpen: ui.sidebarOpen,
   recipes: recipes.recipes,

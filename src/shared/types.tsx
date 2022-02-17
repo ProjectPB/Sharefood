@@ -1,11 +1,4 @@
-export interface Handler {
-  form: React.FormEvent<HTMLFormElement>;
-  change: React.ChangeEvent<HTMLInputElement>;
-  file: { target: { files: any[] } };
-  string: { target: { value: React.SetStateAction<string> } };
-  number: { target: { value: React.SetStateAction<number> } };
-  void: { preventDefault: () => void };
-}
+import firebase from "firebase";
 
 export interface CurrentUser {
   uid: string;
@@ -29,6 +22,48 @@ export interface Loading {
   authLoading: boolean;
 }
 
+export interface RecipeData {
+  authorId: string;
+  authorName: string;
+  authorProfilePic: string;
+  image: string;
+  ingredients: string[];
+  likesQuantity: number;
+  likesUsers: string[];
+  method: string[];
+  portions: number;
+  tags: string[];
+  timestamp: any;
+  title: string;
+  type: string;
+}
+
+export interface NewRecipeData extends RecipeData {
+  handleProgress: (val: number) => void;
+  imgFile: any;
+}
+
+export interface Filters {
+  queryFilter?: string;
+  counter?: number;
+  popularFilter?: boolean;
+  authorFilter?: string;
+  favoriteFilter?: string;
+  startAfterDoc?: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
+  persistProducts?: Recipe[];
+}
+
+export interface Recipe {
+  id: string;
+  data: RecipeData;
+}
+
+export interface Recipes {
+  data: Recipe[];
+  queryDoc: firebase.firestore.QueryDocumentSnapshot;
+  isLastPage: boolean;
+}
+
 export interface State {
   user: {
     currentUser: CurrentUser;
@@ -39,6 +74,18 @@ export interface State {
   ui: {
     sidebarOpen: boolean;
   };
-  recipes: {};
+  recipes: {
+    recipes: Recipes;
+  };
   loading: Loading;
+}
+
+export interface Handler {
+  form: React.FormEvent<HTMLFormElement>;
+  change: React.ChangeEvent<HTMLInputElement>;
+  input: React.InputHTMLAttributes<HTMLInputElement>;
+  file: { target: { files: any[] } };
+  string: { target: { value: React.SetStateAction<string> } };
+  number: { target: { value: React.SetStateAction<number> } };
+  void: { preventDefault: () => void };
 }

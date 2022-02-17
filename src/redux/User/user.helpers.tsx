@@ -1,7 +1,9 @@
 import { auth, db } from "../../firebase/utils";
 
-export const handleUserProfile = async ({ userAuth, additionalData }) => {
+export const handleUserProfile = async ({ userAuth, additionalData }: any) => {
   if (!userAuth) return;
+  console.log(userAuth);
+  console.log(additionalData);
   const { uid } = userAuth;
 
   const userRef = db.doc(`users/${uid}`);

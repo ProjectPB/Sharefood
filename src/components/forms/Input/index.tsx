@@ -1,9 +1,12 @@
 import React from "react";
+import { Handler } from "../../../shared/types";
 
 import "./styles.css";
 
 interface Props {
-  handleChange: (e) => void;
+  handleChange: (
+    e: React.ChangeEvent<HTMLInputElement> | Handler["number"]
+  ) => void;
   label: string;
 }
 

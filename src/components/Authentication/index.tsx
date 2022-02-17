@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { googleSignInStart, signUpError } from "../../redux/User/user.actions";
 import { loadAuth } from "../../redux/Loading/loading.actions";
+import { State } from "../../shared/types";
 
 import Login from "../Login";
 import SignUp from "../SignUp";
@@ -13,7 +14,7 @@ import Loading from "../Loading";
 
 import "./styles.css";
 
-const mapState = ({ user, loading }) => ({
+const mapState = ({ user, loading }: State) => ({
   currentUser: user.currentUser,
   errors: user.signUpErrors,
   loading: loading.authLoading,

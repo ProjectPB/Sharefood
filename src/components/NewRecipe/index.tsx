@@ -98,15 +98,17 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         likesUsers: [],
         likesQuantity: 0,
         portions: portions,
-        img: image,
+        imgFile: image,
         handleProgress: (val: number) => setProgress(val),
+        image: "",
       })
     );
   };
 
   const titleConfig = {
     value: title,
-    handleChange: (e: Handler["string"]) => setTitle(e.target.value),
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) =>
+      setTitle(e.target.value),
     type: "text",
     required: true,
     spellCheck: false,
@@ -116,7 +118,8 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const ingredientsConfig = {
     value: ingredients,
     placeholder: "Use return buttons to separate ingredients",
-    handleChange: (e: Handler["string"]) => setIngredients(e.target.value),
+    handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+      setIngredients(e.target.value),
     spellCheck: false,
     label: "Ingredients",
     required: true,
@@ -125,7 +128,8 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const methodConfig = {
     value: method,
     placeholder: "Use return buttons to separate steps",
-    handleChange: (e: Handler["string"]) => setMethod(e.target.value),
+    handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+      setMethod(e.target.value),
     spellCheck: false,
     label: "Method",
     required: true,
@@ -135,8 +139,8 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
     value: portions,
     handleChange: (e: Handler["number"]) => setPortions(e.target.value),
     type: "number",
-    min: "1",
-    max: "20",
+    min: 1,
+    max: 20,
     required: true,
     label: "Portions",
   };
@@ -185,7 +189,8 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   ];
 
   const typeConfig = {
-    handleChange: (e: Handler["string"]) => setType(e.target.value),
+    handleChange: (e: React.ChangeEvent<HTMLSelectElement>) =>
+      setType(e.target.value),
     label: "Type",
     options: typeOptions,
     required: true,

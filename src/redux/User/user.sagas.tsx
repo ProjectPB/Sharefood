@@ -21,7 +21,7 @@ import userTypes from "./user.types";
 export function* getSnapshotFromUserAuth(
   user: {},
   additionalData?: { displayName: string }
-) {
+): any {
   try {
     const userRef = yield call(handleUserProfile, {
       userAuth: user,
@@ -59,9 +59,9 @@ export function* onEmailSignInStart() {
   yield takeLatest(userTypes.EMAIL_SIGN_IN_START, emailSignIn);
 }
 
-export function* isUserAuthenticated() {
+export function* isUserAuthenticated(): any {
   try {
-    const userAuth = yield getCurrentUser();
+    const userAuth: any = yield getCurrentUser();
     yield getSnapshotFromUserAuth(userAuth);
     yield put(loadHomepage());
   } catch (err) {

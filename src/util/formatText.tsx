@@ -13,7 +13,7 @@ export const renderTags = (
   type: string,
   authorName: string
 ) => {
-  let tags = [];
+  let tags: string[] = [];
   const titleWords = title.split(" ");
   const titleTags = [];
 
@@ -41,8 +41,8 @@ export const renderTags = (
   return tags;
 };
 
-export const capitalizeLetter = (str) => {
+export const capitalizeLetter = (str: string) => {
   const capitalStr = str[0].toUpperCase() + str.substring(1);
-  const formatStr = capitalStr.trim(" ");
+  const formatStr = capitalStr.trim();
   return formatStr;
 };

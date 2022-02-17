@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeSidebar } from "../../redux/UI/ui.actions";
 import { SvgIconComponent } from "@material-ui/icons";
 import useWidth from "../../hooks/useWidth";
+import { State } from "../../shared/types";
 
 import "./styles.css";
 
-const mapState = ({ ui }) => ({
+const mapState = ({ ui }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,
 });
 

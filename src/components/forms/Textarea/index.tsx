@@ -3,7 +3,7 @@ import React from "react";
 import "./styles.css";
 
 interface Props {
-  handleChange: (e) => void;
+  handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   label: string;
 }
 

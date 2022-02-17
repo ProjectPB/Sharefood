@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router";
 import { Search } from "@material-ui/icons";
+import { Handler } from "../../shared/types";
 
 import "./styles.css";
 
@@ -12,7 +13,7 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
   const [input, setInput] = useState("");
   const history = useHistory();
 
-  const navToSearchResult = (e) => {
+  const navToSearchResult = (e: Handler["void"]) => {
     e.preventDefault();
 
     const loweredInput = input[0]?.toLowerCase() + input.substring(1);

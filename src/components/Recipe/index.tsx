@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import firebase from "firebase";
 import Moment from "react-moment";
 import { useHistory, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,7 +20,7 @@ import {
 } from "../../redux/Recipes/recipes.helpers";
 import { loadRecipeData } from "../../redux/Loading/loading.actions";
 import { capitalizeLetter } from "../../util/formatText";
-import { Handler, State } from "../../shared/types";
+import { Handler, RecipeData, State } from "../../shared/types";
 
 import Loading from "../Loading";
 import NoData from "../NoData";
@@ -36,7 +37,9 @@ const Recipe: React.FC = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { recipeId } = useParams<{ recipeId: string }>();
-  const [recipeData, setRecipeData] = useState<any>([]);
+  const [recipeData, setRecipeData] = useState<
+    RecipeData | firebase.firestore.DocumentData
+  >(undefined);
   const [imgLoaded, setImgLoaded] = useState(false);
 
   useEffect(() => {
@@ -48,7 +51,7 @@ const Recipe: React.FC = () => {
       });
 
     return () => {
-      setRecipeData([]);
+      setRecipeData(undefined);
       dispatch(loadRecipeData(false));
     };
   }, [recipeId, dispatch]);

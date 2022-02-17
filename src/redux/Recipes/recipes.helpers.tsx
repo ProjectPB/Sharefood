@@ -1,16 +1,8 @@
 import firebase from "firebase/app";
 import { db, storage } from "../../firebase/utils";
 import { Query } from "@firebase/firestore-types";
-
-interface Filters {
-  authorFilter: string;
-  queryFilter: string;
-  favoriteFilter: string;
-  popularFilter: true;
-  counter: number;
-  startAfterDoc: any;
-  persistProducts?: any[];
-}
+import { Filters } from "../../shared/types";
+import { createRecipeStart } from "./recipes.actions";
 
 export const handleFetchRecipes = (filters: Filters) => {
   return new Promise((resolve, reject) => {
@@ -96,7 +88,7 @@ export const handleDeleteRecipe = (storageRef: string, recipeId: string) => {
   storage.refFromURL(storageRef).delete();
 };
 
-export const handleCreateRecipe = ({ payload }) => {
+export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
   return new Promise((resolve, reject) => {
     const {
       authorId,
@@ -111,14 +103,14 @@ export const handleCreateRecipe = ({ payload }) => {
       likesUsers,
       likesQuantity,
       portions,
-      img,
+      imgFile,
       handleProgress,
     } = payload;
-    const imageName = new Date().getTime() + img.name;
+    const imageName = new Date().getTime() + imgFile.name;
 
     storage
       .ref(`recipeImages/${authorId}/${title}/${imageName}`)
-      .put(img)
+      .put(imgFile)
       .on(
         "state_changed",
         (snapshot) => {

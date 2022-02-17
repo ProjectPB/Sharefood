@@ -1,10 +1,13 @@
 import React from "react";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
+import { Handler } from "../../../shared/types";
 
 import "./styles.css";
 
 interface Props {
-  handleChange: (e) => Promise<void>;
+  handleChange: (
+    e: Handler["input"] | Handler["change"] | Handler["file"]
+  ) => Promise<void>;
   image: string;
   previewImg: string;
 }

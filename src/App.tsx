@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserSession } from "./redux/User/user.actions";
+import { State } from "./shared/types";
+
 import Authpage from "./pages/Authpage";
 import Recipepage from "./pages/Recipepage";
 import Homepage from "./pages/Homepage";
 import Loadingpage from "./pages/Loadingpage";
 import NewPasswordpage from "./pages/NewPasswordpage";
 
-const mapState = ({ loading }) => ({
+const mapState = ({ loading }: State) => ({
   loaded: loading.homepageLoaded,
 });
 

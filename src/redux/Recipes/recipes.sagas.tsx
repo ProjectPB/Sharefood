@@ -1,14 +1,15 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { fetchRecipesStart, setRecipes } from "./recipes.actions";
+import { createRecipeStart, fetchRecipesStart, setRecipes } from "./recipes.actions";
 import { handleCreateRecipe, handleFetchRecipes } from "./recipes.helpers";
 import { loadRecipes } from "../Loading/loading.actions";
+import { NewRecipeData, State } from "../../shared/types";
 import recipesTypes from "./recipes.types";
 
 export function* fetchRecipes({
   payload,
 }: ReturnType<typeof fetchRecipesStart>) {
   try {
-    const recipes = yield handleFetchRecipes(payload);
+    const recipes: State['recipes'] = yield handleFetchRecipes(payload);
     yield put(setRecipes(recipes));
     yield put(loadRecipes(true));
   } catch (err) {
@@ -20,9 +21,9 @@ export function* onFetchRecipesStart() {
   yield takeLatest(recipesTypes.FETCH_RECIPES, fetchRecipes);
 }
 
-export function* createRecipe(payload) {
+export function* createRecipe(payload: ReturnType<typeof createRecipeStart>) {
   try {
-    const resolve = yield handleCreateRecipe(payload);
+    const resolve: NewRecipeData = yield handleCreateRecipe(payload);
     if (resolve) {
       yield put(fetchRecipesStart({}));
     }
