@@ -1,0 +1,85 @@
+import React, { useState } from "react";
+import Moment from "react-moment";
+import { useHistory } from "react-router-dom";
+import { AccessTimeOutlined, Favorite, LocalDining } from "@material-ui/icons";
+import { Avatar } from "@material-ui/core";
+import { capitalizeLetter } from "../../util/formatText";
+
+import "./styles.css";
+
+interface Data {
+  id?: string;
+  authorName?: string;
+  authorProfilePic?: string;
+  image?: string;
+  timestamp?: any;
+  title?: string;
+  type?: string;
+  likesQuantity?: number;
+  hidden?: boolean;
+}
+
+const Card: React.FC<Data> = ({
+  id,
+  authorName,
+  authorProfilePic,
+  image,
+  timestamp,
+  title,
+  type,
+  likesQuantity,
+  hidden,
+}) => {
+  const history = useHistory();
+  const [imgLoaded, setImgLoaded] = useState(false);
+
+  const navToRecipe = () => {
+    if (!hidden) {
+      history.push({
+        pathname: `/recipe/${id}`,
+      });
+    }
+  };
+
+  return (
+    <div onClick={navToRecipe} className={hidden ? "hidden" : "card"}>
+      <img
+        style={{
+          visibility: imgLoaded === true ? "visible" : "hidden",
+        }}
+        onLoad={() => setImgLoaded(true)}
+        src={image}
+        alt="recipe"
+      />
+      <div className="card__info">
+        <h1 className="card__title">{title}</h1>
+        <div className="card__data">
+          <div className="card__dataLeft">
+            <div className="card__time">
+              <AccessTimeOutlined />
+              <Moment fromNow className="card__timestamp">
+                {timestamp?.toDate()}
+              </Moment>
+            </div>
+            <div className="card__user">
+              <Avatar src={authorProfilePic} />
+              <p>{authorName}</p>
+            </div>
+          </div>
+          <div className="card__dataRight">
+            <div className="card__type">
+              <LocalDining fontSize="small" />
+              <p>{type && capitalizeLetter(type)}</p>
+            </div>
+            <div className="card__likes">
+              <Favorite fontSize="small" />
+              <p>{likesQuantity}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Card;
