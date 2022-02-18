@@ -208,6 +208,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
 
   const submitButtonConfig = {
     type: "submit",
+    disabled: loading,
   };
 
   return (
