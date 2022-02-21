@@ -50,6 +50,7 @@ const Card: React.FC<Data> = ({
         onLoad={() => setImgLoaded(true)}
         src={image}
         alt="recipe"
+        loading="lazy"
       />
       <div className="card__info">
         <h1 className="card__title">{title}</h1>

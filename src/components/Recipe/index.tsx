@@ -80,13 +80,12 @@ const Recipe: React.FC = () => {
     );
 
     if (answer) {
-      handleDeleteRecipe(recipeData?.image, recipeId);
+      handleDeleteRecipe(recipeData?.image, recipeId)
       alert("Recipe deleted");
-      history.push("/");
     } else {
       return;
     }
-  };
+  }
 
   return !loaded ? (
     <div className="recipe__container">

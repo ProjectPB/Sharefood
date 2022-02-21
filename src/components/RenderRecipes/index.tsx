@@ -22,15 +22,17 @@ const mapState = ({ user, ui, recipes, loading }: State) => ({
 const RenderRecipes: React.FC = () => {
   const { currentUser, sidebarOpen, recipes, loaded } = useSelector(mapState);
   const { data, queryDoc, isLastPage } = recipes;
+  const location = useLocation();
+  const dispatch = useDispatch();
   const recipesRef = useRef<HTMLDivElement>(null);
+  const topRef = useRef<HTMLDivElement>(null);
   const [counter, setCounter] = useState(8);
   const width = useWidth();
   const query = useQuery().get("q");
   const queryFilter = useQuery().get("q");
   const authorFilter = currentUser?.uid;
   const favoriteFilter = currentUser?.uid;
-  const location = useLocation();
-  const dispatch = useDispatch();
+  const [loadMore, setLoadMore] = useState(false)
 
   useEffect(() => {
     if (width <= 1200 && width > 992) {
@@ -59,6 +61,7 @@ const RenderRecipes: React.FC = () => {
           break;
         default:
           dispatch(loadRecipes(true));
+          setLoadMore(false);
           break;
       }
     }
@@ -76,6 +79,10 @@ const RenderRecipes: React.FC = () => {
     counter,
   ]);
 
+  useEffect(() => {
+    topRef.current.scrollIntoView();
+  }, [location.pathname])
+
   const handleScroll = () => {
     if (recipesRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = recipesRef.current;
@@ -89,6 +96,7 @@ const RenderRecipes: React.FC = () => {
   };
 
   const handleLoadMoreRecipes = () => {
+    setLoadMore(true);
     switch (location.pathname) {
       case "/":
         dispatch(
@@ -160,6 +168,16 @@ const RenderRecipes: React.FC = () => {
     }
   };
 
+  const loadMoreRecipes = () => {
+    if (loadMore && !isLastPage && !query) {
+      return (
+        <div className="renderRecipes__loading">
+          <Loading />
+        </div>
+      )
+    }
+  }
+
   return (
     <div
       className="renderRecipes__container"
@@ -173,6 +191,7 @@ const RenderRecipes: React.FC = () => {
         </h3>
       )}
       {loaded && data?.length === 0 && <NoData />}
+      <div ref={topRef} />
       <div
         className={`renderRecipes ${sidebarOpen && "renderRecipes--narrow"}`}
       >
@@ -191,6 +210,7 @@ const RenderRecipes: React.FC = () => {
         ))}
         {fillWithHiddenCards()}
       </div>
+      {loadMoreRecipes()}
     </div>
   );
 };
