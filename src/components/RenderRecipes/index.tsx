@@ -136,7 +136,6 @@ const RenderRecipes: React.FC = () => {
         );
         break;
       default:
-        dispatch(loadRecipes(true));
         break;
     }
   };
@@ -183,13 +182,13 @@ const RenderRecipes: React.FC = () => {
       ref={recipesRef}
     >
       {!loaded && <Loading />}
+      <div ref={topRef} />
       {queryFilter && (
         <h3 className="renderRecipes__text">
           Search results for {queryFilter} ({data?.length})
         </h3>
       )}
       {loaded && data?.length === 0 && <NoData />}
-      <div ref={topRef} />
       <div
         className={`renderRecipes ${sidebarOpen && "renderRecipes--narrow"}`}
       >
