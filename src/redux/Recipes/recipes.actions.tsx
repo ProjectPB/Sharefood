@@ -1,12 +1,12 @@
 import recipesTypes from "./recipes.types";
-import { Filters, NewRecipeData, State } from "../../shared/types";
+import { Filters, NewRecipeData, Recipes } from "../../shared/types";
 
 export const fetchRecipesStart = (filters: Filters) => ({
   type: recipesTypes.FETCH_RECIPES,
   payload: filters,
 });
 
-export const setRecipes = (recipes: State["recipes"]) => ({
+export const setRecipes = (recipes: Recipes) => ({
   type: recipesTypes.SET_RECIPES,
   payload: recipes,
 });

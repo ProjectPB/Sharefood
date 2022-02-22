@@ -74,9 +74,7 @@ export interface State {
   ui: {
     sidebarOpen: boolean;
   };
-  recipes: {
-    recipes: Recipes;
-  };
+  recipes: Recipes;
   loading: Loading;
 }
 

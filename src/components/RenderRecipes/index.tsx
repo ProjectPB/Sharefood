@@ -15,7 +15,7 @@ import "./styles.css";
 const mapState = ({ user, ui, recipes, loading }: State) => ({
   currentUser: user.currentUser,
   sidebarOpen: ui.sidebarOpen,
-  recipes: recipes.recipes,
+  recipes: recipes,
   loaded: loading.recipesLoaded,
 });
 
@@ -28,7 +28,6 @@ const RenderRecipes: React.FC = () => {
   const topRef = useRef<HTMLDivElement>(null);
   const [counter, setCounter] = useState(8);
   const width = useWidth();
-  const query = useQuery().get("q");
   const queryFilter = useQuery().get("q");
   const authorFilter = currentUser?.uid;
   const favoriteFilter = currentUser?.uid;
@@ -43,7 +42,7 @@ const RenderRecipes: React.FC = () => {
   }, [width]);
 
   useEffect(() => {
-    if (query) {
+    if (queryFilter) {
       dispatch(fetchRecipesStart({ queryFilter }));
     } else {
       switch (location.pathname) {
@@ -71,7 +70,6 @@ const RenderRecipes: React.FC = () => {
     };
   }, [
     location.pathname,
-    query,
     authorFilter,
     dispatch,
     favoriteFilter,
@@ -91,12 +89,12 @@ const RenderRecipes: React.FC = () => {
         Math.ceil(scrollTop + clientHeight) - 1 === scrollHeight
       ) {
         !isLastPage && handleLoadMoreRecipes();
+        setLoadMore(true);
       }
     }
   };
 
   const handleLoadMoreRecipes = () => {
-    setLoadMore(true);
     switch (location.pathname) {
       case "/":
         dispatch(
@@ -169,7 +167,7 @@ const RenderRecipes: React.FC = () => {
   };
 
   const loadMoreRecipes = () => {
-    if (loadMore && !isLastPage && !query) {
+    if (loadMore && !isLastPage && !queryFilter) {
       return (
         <div className="renderRecipes__loading">
           <Loading />
@@ -185,9 +183,9 @@ const RenderRecipes: React.FC = () => {
       ref={recipesRef}
     >
       {!loaded && <Loading />}
-      {query && (
+      {queryFilter && (
         <h3 className="renderRecipes__text">
-          Search results for {query} ({data?.length})
+          Search results for {queryFilter} ({data?.length})
         </h3>
       )}
       {loaded && data?.length === 0 && <NoData />}
