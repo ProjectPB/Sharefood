@@ -95,6 +95,10 @@ const RenderRecipes: React.FC = () => {
   };
 
   const handleLoadMoreRecipes = () => {
+    if (recipes.data.length === 0) {
+      return;
+    }
+
     switch (location.pathname) {
       case "/":
         dispatch(
