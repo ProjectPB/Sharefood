@@ -41,6 +41,7 @@ const Recipe: React.FC = () => {
     RecipeData | firebase.firestore.DocumentData
   >(undefined);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     db.collection("recipes")
@@ -72,7 +73,7 @@ const Recipe: React.FC = () => {
     handleDislikeRecipe(currentUser?.uid, recipeId);
   };
 
-  const deleteRecipe = (e: Handler["void"]) => {
+  const deleteRecipe = async (e: Handler["void"]) => {
     e.preventDefault();
 
     const answer = window.confirm(
@@ -80,14 +81,21 @@ const Recipe: React.FC = () => {
     );
 
     if (answer) {
-      handleDeleteRecipe(recipeData?.image, recipeId)
-      alert("Recipe deleted");
+      setDeleting(true)
+      const resolve: boolean | unknown = await handleDeleteRecipe(recipeData?.image, recipeId)
+      if (resolve === true) {
+        setDeleting(false);
+        alert("Recipe deleted");
+        history.push('/');
+      } else {
+        return;
+      }
     } else {
       return;
     }
   }
 
-  return !loaded ? (
+  return !loaded || deleting ? (
     <div className="recipe__container">
       <Loading />
     </div>

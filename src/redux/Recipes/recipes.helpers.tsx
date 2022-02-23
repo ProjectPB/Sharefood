@@ -99,8 +99,19 @@ export const handleDislikeRecipe = (userId: string, recipeId: string) => {
 };
 
 export const handleDeleteRecipe = (storageRef: string, recipeId: string) => {
-  db.collection("recipes").doc(recipeId).delete();
-  storage.refFromURL(storageRef).delete();
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes").doc(recipeId).delete()
+        .then(() => {
+          storage.refFromURL(storageRef).delete()
+            .then(() => {
+              resolve(true)
+            })
+        })
+    } catch (err) {
+      reject(err.message)
+    }
+  })
 };
 
 export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
