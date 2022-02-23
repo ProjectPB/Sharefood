@@ -24,8 +24,10 @@ export interface Loading {
 
 export interface RecipeData {
   authorId: string;
-  authorName: string;
-  authorProfilePic: string;
+  authorName?: string;
+  username?: string;
+  authorProfilePic?: string;
+  profilePic?: string;
   image: string;
   ingredients: string[];
   likesQuantity: number;

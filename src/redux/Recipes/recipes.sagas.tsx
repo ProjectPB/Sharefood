@@ -13,7 +13,7 @@ export function* fetchRecipes({
     yield put(setRecipes(recipes));
     yield put(loadRecipes(true));
   } catch (err) {
-    console.log(err.message);
+    // console.log(err.message);
   }
 }
 

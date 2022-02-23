@@ -4,6 +4,17 @@ import { Query } from "@firebase/firestore-types";
 import { Filters } from "../../shared/types";
 import { createRecipeStart } from "./recipes.actions";
 
+export const handleGetUserData = (userId: string): Promise<{ profilePic: string, username: string }> => {
+  return new Promise((resolve, reject) => {
+    db.collection('users').doc(userId).get().then((doc) => {
+      resolve({ profilePic: doc.data().profilePic, username: doc.data().displayName })
+    })
+      .catch(err => {
+        reject(err.message);
+      })
+  })
+}
+
 export const handleFetchRecipes = (filters: Filters) => {
   return new Promise((resolve, reject) => {
     let ref: Query = db.collection("recipes");
@@ -42,27 +53,31 @@ export const handleFetchRecipes = (filters: Filters) => {
       .get()
       .then((snapshot) => {
         const totalCount = snapshot.size;
+        const queryDoc = snapshot.docs[totalCount - 1];
+        const isLastPage = totalCount < counter;
 
         const data = [
           ...persistProducts,
-          ...snapshot.docs.map((doc) => {
+          ...snapshot.docs.map(async (doc) => {
+            let { profilePic, username } = await handleGetUserData(doc.data().authorId);
             return {
               id: doc.id,
-              data: doc.data(),
-            };
-          }),
+              data: { ...doc.data(), profilePic, username },
+            }
+          })
         ];
 
-        resolve({
-          data,
-          queryDoc: snapshot.docs[totalCount - 1],
-          isLastPage: totalCount < counter,
-        });
+        Promise.all(data).then((value) => resolve({
+          data: value,
+          queryDoc,
+          isLastPage,
+        }));
       })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+      .catch(err => {
+        reject(err.message);
+      })
+  }
+  )
 };
 
 export const handleLikeRecipe = (userId: string, recipeId: string) => {
@@ -92,9 +107,9 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
   return new Promise((resolve, reject) => {
     const {
       authorId,
+      type,
       authorProfilePic,
       authorName,
-      type,
       title,
       tags,
       ingredients,
