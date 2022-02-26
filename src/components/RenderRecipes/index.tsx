@@ -15,7 +15,7 @@ import "./styles.css";
 const mapState = ({ user, ui, recipes, loading }: State) => ({
   currentUser: user.currentUser,
   sidebarOpen: ui.sidebarOpen,
-  recipes: recipes,
+  recipes: recipes.recipes,
   loaded: loading.recipesLoaded,
 });
 
