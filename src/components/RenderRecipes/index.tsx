@@ -78,7 +78,8 @@ const RenderRecipes: React.FC = () => {
   ]);
 
   useEffect(() => {
-    topRef.current.scrollIntoView();
+    topRef.current.scrollIntoView(false)
+
   }, [location.pathname])
 
   const handleScroll = () => {
@@ -185,8 +186,8 @@ const RenderRecipes: React.FC = () => {
       onScroll={handleScroll}
       ref={recipesRef}
     >
-      {!loaded && <Loading />}
       <div ref={topRef} />
+      {!loaded && <Loading />}
       {queryFilter && (
         <h3 className="renderRecipes__text">
           Search results for {queryFilter} ({data?.length})
