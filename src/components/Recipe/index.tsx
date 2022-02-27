@@ -102,10 +102,10 @@ const Recipe: React.FC = () => {
                 </div>
                 <div className="recipe__author">
                   <Avatar
-                    src={recipeData?.authorProfilePic}
-                    alt={recipeData?.authorName}
+                    src={recipeData?.profilePic}
+                    alt={recipeData?.username}
                   />
-                  <p>{recipeData?.authorName}</p>
+                  <p>{recipeData?.username}</p>
                 </div>
                 {recipeData?.authorId === currentUser?.uid && (
                   <div className="recipe__delete" onClick={deleteRecipe}>

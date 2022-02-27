@@ -201,7 +201,7 @@ const RenderRecipes: React.FC = () => {
           <Card
             key={id}
             id={id}
-            authorName={data?.username}
+            username={data?.username}
             profilePic={data?.profilePic}
             image={data?.image}
             timestamp={data?.timestamp}

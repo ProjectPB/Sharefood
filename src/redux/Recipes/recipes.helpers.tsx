@@ -168,8 +168,6 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
     const {
       authorId,
       type,
-      authorProfilePic,
-      authorName,
       title,
       tags,
       ingredients,
@@ -205,8 +203,6 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
             .then((url) => {
               db.collection("recipes").add({
                 authorId: authorId,
-                authorProfilePic: authorProfilePic,
-                authorName: authorName,
                 type: type,
                 title: title,
                 tags: tags,
