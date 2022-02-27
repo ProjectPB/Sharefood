@@ -24,12 +24,13 @@ export interface Loading {
 
 export interface RecipeData {
   authorId: string;
-  authorName: string;
-  authorProfilePic: string;
-  image: string;
+  username?: string;
+  profilePic?: string;
+  image?: string;
   ingredients: string[];
   likesQuantity: number;
   likesUsers: string[];
+  liked?: boolean;
   method: string[];
   portions: number;
   tags: string[];
@@ -59,9 +60,12 @@ export interface Recipe {
 }
 
 export interface Recipes {
-  data: Recipe[];
-  queryDoc: firebase.firestore.QueryDocumentSnapshot;
-  isLastPage: boolean;
+  recipes: {
+    data: Recipe[];
+    queryDoc: firebase.firestore.QueryDocumentSnapshot;
+    isLastPage: boolean;
+  }
+  recipeData: RecipeData,
 }
 
 export interface State {
@@ -74,9 +78,7 @@ export interface State {
   ui: {
     sidebarOpen: boolean;
   };
-  recipes: {
-    recipes: Recipes;
-  };
+  recipes: Recipes;
   loading: Loading;
 }
 

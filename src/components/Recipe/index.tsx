@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import firebase from "firebase";
 import Moment from "react-moment";
 import { useHistory, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { db } from "../../firebase/utils";
 import { Avatar } from "@material-ui/core";
 import {
   DeleteOutlined,
@@ -13,82 +11,67 @@ import {
   Group,
   LocalDining,
 } from "@material-ui/icons";
-import {
-  handleDeleteRecipe,
-  handleDislikeRecipe,
-  handleLikeRecipe,
-} from "../../redux/Recipes/recipes.helpers";
 import { loadRecipeData } from "../../redux/Loading/loading.actions";
 import { capitalizeLetter } from "../../util/formatText";
-import { Handler, RecipeData, State } from "../../shared/types";
+import { State } from "../../shared/types";
+import { dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart } from "../../redux/Recipes/recipes.actions";
+import { handleDeleteRecipe } from "../../redux/Recipes/recipes.helpers";
 
 import Loading from "../Loading";
 import NoData from "../NoData";
 
 import "./styles.css";
 
-const mapState = ({ user, loading }: State) => ({
+const mapState = ({ user, loading, recipes }: State) => ({
   currentUser: user.currentUser,
   loaded: loading.recipeDataLoaded,
+  recipeData: recipes.recipeData,
 });
 
 const Recipe: React.FC = () => {
-  const { currentUser, loaded } = useSelector(mapState);
+  const { currentUser, loaded, recipeData } = useSelector(mapState);
   const history = useHistory();
   const dispatch = useDispatch();
   const { recipeId } = useParams<{ recipeId: string }>();
-  const [recipeData, setRecipeData] = useState<
-    RecipeData | firebase.firestore.DocumentData
-  >(undefined);
   const [imgLoaded, setImgLoaded] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    db.collection("recipes")
-      .doc(recipeId)
-      .onSnapshot((doc) => {
-        setRecipeData(doc.data());
-        dispatch(loadRecipeData(true));
-      });
+    dispatch(fetchRecipeDataStart({ recipeId: recipeId, userId: currentUser?.uid }));
 
     return () => {
-      setRecipeData(undefined);
       dispatch(loadRecipeData(false));
     };
-  }, [recipeId, dispatch]);
+  }, [recipeId, currentUser?.uid, dispatch]);
 
-  const likeRecipe = (e: Handler["void"]) => {
-    e.preventDefault();
-
-    if (currentUser) {
-      handleLikeRecipe(currentUser?.uid, recipeId);
-    } else {
+  const handleLikes = () => {
+    if (!currentUser) {
       history.push("/auth");
     }
-  };
+    if (!recipeData.liked) {
+      dispatch(likeRecipeStart({ userId: currentUser?.uid, recipeId: recipeId, data: recipeData }));
+    } else {
+      dispatch(dislikeRecipeStart({ userId: currentUser?.uid, recipeId: recipeId, data: recipeData }));
+    }
+  }
 
-  const dislikeRecipe = (e: Handler["void"]) => {
-    e.preventDefault();
-
-    handleDislikeRecipe(currentUser?.uid, recipeId);
-  };
-
-  const deleteRecipe = (e: Handler["void"]) => {
-    e.preventDefault();
-
+  const deleteRecipe = async () => {
     const answer = window.confirm(
       "Are you sure you want to delete this recipe?"
     );
 
     if (answer) {
-      handleDeleteRecipe(recipeData?.image, recipeId);
-      alert("Recipe deleted");
-      history.push("/");
-    } else {
-      return;
+      setIsDeleting(true)
+      const resolve = await handleDeleteRecipe(recipeData?.image, recipeId);
+      if (resolve) {
+        alert("Recipe deleted");
+        setIsDeleting(false)
+        history.push('/');
+      }
     }
-  };
+  }
 
-  return !loaded ? (
+  return !loaded || isDeleting ? (
     <div className="recipe__container">
       <Loading />
     </div>
@@ -119,10 +102,10 @@ const Recipe: React.FC = () => {
                 </div>
                 <div className="recipe__author">
                   <Avatar
-                    src={recipeData?.authorProfilePic}
-                    alt={recipeData?.authorName}
+                    src={recipeData?.profilePic}
+                    alt={recipeData?.username}
                   />
-                  <p>{recipeData?.authorName}</p>
+                  <p>{recipeData?.username}</p>
                 </div>
                 {recipeData?.authorId === currentUser?.uid && (
                   <div className="recipe__delete" onClick={deleteRecipe}>
@@ -139,13 +122,13 @@ const Recipe: React.FC = () => {
                   </p>
                 </div>
                 <div className="recipe__favorite">
-                  {!recipeData?.likesUsers?.includes(currentUser?.uid) ? (
+                  {!recipeData?.liked ? (
                     <FavoriteBorderOutlined
                       fontSize="large"
-                      onClick={likeRecipe}
+                      onClick={handleLikes}
                     />
                   ) : (
-                    <Favorite fontSize="large" onClick={dislikeRecipe} />
+                    <Favorite fontSize="large" onClick={handleLikes} />
                   )}
                   <p>{recipeData?.likesQuantity}</p>
                 </div>

@@ -4,6 +4,32 @@ import { Query } from "@firebase/firestore-types";
 import { Filters } from "../../shared/types";
 import { createRecipeStart } from "./recipes.actions";
 
+export const handleGetUserData = (userId: string): Promise<{ profilePic: string, username: string }> => {
+  return new Promise((resolve, reject) => {
+    db.collection('users').doc(userId).get().then((doc) => {
+      resolve({ profilePic: doc.data().profilePic, username: doc.data().displayName })
+    })
+      .catch(err => {
+        reject(err.message);
+      })
+  })
+}
+
+export const checkIfLiked = (userId: string, data: firebase.firestore.DocumentData) => {
+  return new Promise<boolean>((resolve, reject) => {
+    try {
+      if (data?.likesUsers?.includes(userId)) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    } catch (error) {
+      reject(error.message)
+    }
+
+  })
+}
+
 export const handleFetchRecipes = (filters: Filters) => {
   return new Promise((resolve, reject) => {
     let ref: Query = db.collection("recipes");
@@ -42,58 +68,105 @@ export const handleFetchRecipes = (filters: Filters) => {
       .get()
       .then((snapshot) => {
         const totalCount = snapshot.size;
+        const queryDoc = snapshot.docs[totalCount - 1];
+        const isLastPage = totalCount < counter;
 
         const data = [
           ...persistProducts,
-          ...snapshot.docs.map((doc) => {
+          ...snapshot.docs.map(async (doc) => {
+            let { profilePic, username } = await handleGetUserData(doc.data().authorId);
             return {
               id: doc.id,
-              data: doc.data(),
-            };
-          }),
+              data: { ...doc.data(), profilePic, username },
+            }
+          })
         ];
 
-        resolve({
-          data,
-          queryDoc: snapshot.docs[totalCount - 1],
-          isLastPage: totalCount < counter,
-        });
+        Promise.all(data).then((value) => resolve({
+          data: value,
+          queryDoc,
+          isLastPage,
+        }));
       })
-      .catch((err) => {
-        reject(err);
-      });
-  });
+      .catch(err => {
+        reject(err.message);
+      })
+  })
 };
 
+export const handleFetchRecipeData = (recipeId: string, userId?: string) => {
+  return new Promise((resolve, reject) => {
+    db.collection("recipes")
+      .doc(recipeId)
+      .get()
+      .then(async (doc) => {
+        if (doc.data()) {
+          let { profilePic, username } = await handleGetUserData(doc.data()?.authorId);
+          let liked = await checkIfLiked(userId, doc.data());
+          resolve({ ...doc.data(), profilePic, username, liked });
+        }
+        else {
+          resolve(null);
+        }
+      })
+      .catch(err => {
+        reject(err.message)
+      })
+  })
+}
+
 export const handleLikeRecipe = (userId: string, recipeId: string) => {
-  db.collection("recipes")
-    .doc(recipeId)
-    .update({
-      likesUsers: firebase.firestore.FieldValue.arrayUnion(userId),
-      likesQuantity: firebase.firestore.FieldValue.increment(1),
-    });
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes")
+        .doc(recipeId)
+        .update({
+          likesUsers: firebase.firestore.FieldValue.arrayUnion(userId),
+          likesQuantity: firebase.firestore.FieldValue.increment(1),
+        });
+      resolve(true);
+    } catch (err) {
+      reject(err.message)
+    }
+  })
 };
 
 export const handleDislikeRecipe = (userId: string, recipeId: string) => {
-  db.collection("recipes")
-    .doc(recipeId)
-    .update({
-      likesUsers: firebase.firestore.FieldValue.arrayRemove(userId),
-      likesQuantity: firebase.firestore.FieldValue.increment(-1),
-    });
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes")
+        .doc(recipeId)
+        .update({
+          likesUsers: firebase.firestore.FieldValue.arrayRemove(userId),
+          likesQuantity: firebase.firestore.FieldValue.increment(-1),
+        })
+      resolve(true);
+    } catch (err) {
+      reject(err.message)
+    }
+  })
 };
 
 export const handleDeleteRecipe = (storageRef: string, recipeId: string) => {
-  db.collection("recipes").doc(recipeId).delete();
-  storage.refFromURL(storageRef).delete();
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes").doc(recipeId).delete()
+        .then(() => {
+          storage.refFromURL(storageRef).delete()
+            .then(() => {
+              resolve(true)
+            })
+        })
+    } catch (err) {
+      reject(err.message);
+    }
+  })
 };
 
 export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
   return new Promise((resolve, reject) => {
     const {
       authorId,
-      authorProfilePic,
-      authorName,
       type,
       title,
       tags,
@@ -130,8 +203,6 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
             .then((url) => {
               db.collection("recipes").add({
                 authorId: authorId,
-                authorProfilePic: authorProfilePic,
-                authorName: authorName,
                 type: type,
                 title: title,
                 tags: tags,
@@ -144,8 +215,9 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
                 image: url,
               });
               resolve(true);
-            });
-        }
-      );
+            }).catch(err => {
+              reject(err.message);
+            })
+        })
   });
 };

@@ -9,8 +9,8 @@ import "./styles.css";
 
 interface Data {
   id?: string;
-  authorName?: string;
-  authorProfilePic?: string;
+  username?: string;
+  profilePic?: string;
   image?: string;
   timestamp?: any;
   title?: string;
@@ -21,8 +21,8 @@ interface Data {
 
 const Card: React.FC<Data> = ({
   id,
-  authorName,
-  authorProfilePic,
+  username,
+  profilePic,
   image,
   timestamp,
   title,
@@ -50,6 +50,7 @@ const Card: React.FC<Data> = ({
         onLoad={() => setImgLoaded(true)}
         src={image}
         alt="recipe"
+        loading="lazy"
       />
       <div className="card__info">
         <h1 className="card__title">{title}</h1>
@@ -62,8 +63,8 @@ const Card: React.FC<Data> = ({
               </Moment>
             </div>
             <div className="card__user">
-              <Avatar src={authorProfilePic} />
-              <p>{authorName}</p>
+              <Avatar src={profilePic} />
+              <p>{username}</p>
             </div>
           </div>
           <div className="card__dataRight">

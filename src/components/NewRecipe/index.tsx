@@ -87,8 +87,6 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
     dispatch(
       createRecipeStart({
         authorId: currentUser.uid,
-        authorProfilePic: currentUser.profilePic,
-        authorName: currentUser.displayName,
         type: type,
         title: capitalizeLetter(title),
         tags: renderTags(title, ingredients, type, currentUser.displayName),
@@ -100,7 +98,6 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         portions: portions,
         imgFile: image,
         handleProgress: (val: number) => setProgress(val),
-        image: "",
       })
     );
   };

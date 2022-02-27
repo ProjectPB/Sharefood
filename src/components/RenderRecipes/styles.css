@@ -20,6 +20,12 @@
   font-weight: 600;
 }
 
+.renderRecipes__loading {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
+}
+
 @media screen and (max-width: 1200px) {
   .renderRecipes {
     grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
