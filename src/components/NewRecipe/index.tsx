@@ -1,23 +1,26 @@
 import React, { useEffect, useState } from "react";
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import Resizer from "react-image-file-resizer";
 import {
   renderTags,
   capitalizeLetter,
   TextAreaToArray,
 } from "../../util/formatText";
 import { createRecipeStart } from "../../redux/Recipes/recipes.actions";
+import { resizeFile } from '../../shared/functions'
 import { Handler, State } from "../../shared/types";
 
-import Input from "../forms/Input";
-import Textarea from "../forms/Textarea";
-import Select from "../forms/Select";
-import ImgInput from "../forms/ImgInput";
 import Button from "../forms/Button";
 import Loading from "../Loading";
+import Title from './Title';
+import Type from './Type';
+import Ingredients from './Ingredients';
+import Method from './Method';
+import Portions from './Portions';
+import Picture from './Picture';
 
+import "cropperjs/dist/cropper.css";
 import "./styles.css";
 
 const mapState = ({ user }: State) => ({
@@ -32,15 +35,15 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const { currentUser } = useSelector(mapState);
   const dispatch = useDispatch();
   const history = useHistory();
-  const [type, setType] = useState("");
   const [title, setTitle] = useState("");
+  const [type, setType] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [method, setMethod] = useState("");
   const [portions, setPortions] = useState(1);
   const [image, setImage] = useState(null);
-  const [previewImg, setPreviewImg] = useState(
-    "https://icon-library.com/images/placeholder-image-icon/placeholder-image-icon-7.jpg"
-  );
+  const [cropper, setCropper] = useState<any>();
+  const [cropperImg, setCropperImg] = useState("");
+  const [cropData, setCropData] = useState("");
   const [progress, setProgress] = useState(0);
   const [loading, setLoading] = useState(false);
 
@@ -53,33 +56,34 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
     }
   }, [progress, close, history]);
 
-  const resizeFile = (file: Blob): Promise<string | unknown> =>
-    new Promise((resolve) => {
-      Resizer.imageFileResizer(
-        file,
-        400,
-        400,
-        "JPEG",
-        100,
-        0,
-        (uri) => {
-          resolve(uri);
-        },
-        "file"
-      );
-    });
-
   const changeImgFile = async (e: Handler["file"]) => {
-    try {
-      const file = e.target.files[0];
-      const resizedImg: any = await resizeFile(file);
+    const file = e.target.files[0];
+    setCropperImg(URL.createObjectURL(file));
+  };
 
-      setImage(resizedImg);
-      setPreviewImg(URL.createObjectURL(resizedImg));
-    } catch (err) {
-      alert(err.message);
+  const acceptCropData = (e: Handler['void']) => {
+    e.preventDefault();
+    if (typeof cropper !== "undefined") {
+      setLoading(true);
+      cropper.getCroppedCanvas().toBlob(async function (blob: Blob) {
+        const file = new File([blob], currentUser.uid + title);
+        const resizedFile: any = await resizeFile(file);
+        setImage(resizedFile);
+        setCropData(URL.createObjectURL(resizedFile));
+        setLoading(false);
+      }, 'image/jpg');
     }
   };
+
+  const rotateCrop = (e: Handler['void']) => {
+    e.preventDefault();
+    cropper.rotate(90);
+  }
+
+  const removeCrop = (e: Handler['void']) => {
+    e.preventDefault();
+    setCropperImg('');
+  }
 
   const handleCreate = (e: Handler["form"]) => {
     e.preventDefault();
@@ -102,127 +106,58 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
     );
   };
 
-  const titleConfig = {
-    value: title,
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) =>
-      setTitle(e.target.value),
-    type: "text",
-    required: true,
-    spellCheck: false,
-    label: "Title",
-  };
-
-  const ingredientsConfig = {
-    value: ingredients,
-    placeholder: "Use return buttons to separate ingredients",
-    handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-      setIngredients(e.target.value),
-    spellCheck: false,
-    label: "Ingredients",
-    required: true,
-  };
-
-  const methodConfig = {
-    value: method,
-    placeholder: "Use return buttons to separate steps",
-    handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-      setMethod(e.target.value),
-    spellCheck: false,
-    label: "Method",
-    required: true,
-  };
-
-  const portionsConfig = {
-    value: portions,
-    handleChange: (e: Handler["number"]) => setPortions(e.target.value),
-    type: "number",
-    min: 1,
-    max: 20,
-    required: true,
-    label: "Portions",
-  };
-
-  const typeOptions = [
-    {
-      value: "",
-      name: "Type",
-      hidden: true,
+  const config = {
+    title: {
+      handler: (e: React.ChangeEvent<HTMLInputElement>) =>
+        setTitle(e.target.value), value: title
     },
-    {
-      value: "breakfast",
-      name: "Breakfast",
-      hidden: false,
+    ingredients: {
+      handler: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+        setIngredients(e.target.value), value: ingredients
     },
-    {
-      value: "appetizer",
-      name: "Appetizer",
-      hidden: false,
+    method: {
+      handler: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+        setMethod(e.target.value), value: method
     },
-    {
-      value: "soup",
-      name: "Soup",
-      hidden: false,
+    type: {
+      handler: (e: React.ChangeEvent<HTMLSelectElement>) =>
+        setType(e.target.value), value: type,
     },
-    {
-      value: "main",
-      name: "Main",
-      hidden: false,
+    portions: {
+      handler: (e: Handler["number"]) => setPortions(e.target.value), value: portions
     },
-    {
-      value: "dessert",
-      name: "Dessert",
-      hidden: false,
+    picture: {
+      cropperImg: cropperImg,
+      cropData: cropData,
+      changeImgFile: changeImgFile,
+      initCropper: (instance: any) => {
+        setCropper(instance);
+      },
+      acceptCropData: acceptCropData,
+      rotateCrop: rotateCrop,
+      removeCrop: removeCrop,
     },
-    {
-      value: "drink",
-      name: "Drink",
-      hidden: false,
-    },
-    {
-      value: "other",
-      name: "Other",
-      hidden: false,
-    },
-  ];
-
-  const typeConfig = {
-    handleChange: (e: React.ChangeEvent<HTMLSelectElement>) =>
-      setType(e.target.value),
-    label: "Type",
-    options: typeOptions,
-    required: true,
-    defaultValue: type,
-  };
-
-  const imgInputConfig = {
-    image: image,
-    previewImg: previewImg,
-    handleChange: changeImgFile,
-    type: "file",
-    accept: "image/*",
-    required: true,
-  };
-
-  const submitButtonConfig = {
-    type: "submit",
-    disabled: loading,
-  };
+    submitButton: {
+      type: "submit",
+      disabled: loading || (!image && cropperImg),
+    }
+  }
 
   return (
     <div className="newRecipe__container">
       <form className="newRecipe" onSubmit={handleCreate}>
-        <Input {...titleConfig} />
-        <Textarea {...ingredientsConfig} />
-        <Textarea {...methodConfig} />
-        <Select {...typeConfig} />
-        <Input {...portionsConfig} />
-        <ImgInput {...imgInputConfig} />
+        <Title {...config.title} />
+        <Ingredients {...config.ingredients} />
+        <Method {...config.method} />
+        <Type {...config.type} />
+        <Portions {...config.portions} />
+        <Picture {...config.picture} />
         {loading && <Loading />}
         <div className="newRecipe__button">
-          <Button {...submitButtonConfig}>Create</Button>
+          <Button {...config.submitButton}>Create</Button>
         </div>
-      </form>
-    </div>
+      </form >
+    </div >
   );
 };
 

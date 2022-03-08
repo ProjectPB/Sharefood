@@ -39,7 +39,7 @@ export const getCurrentUser = () => {
 
 export const handleResetPasswordAPI = (email: string) => {
   const config = {
-    url: "http://localhost:3000/auth",
+    url: "https://pb-sharefood.web.app/auth",
   };
 
   return new Promise<void>((resolve, reject) => {
@@ -53,4 +53,34 @@ export const handleResetPasswordAPI = (email: string) => {
         reject(err);
       });
   });
-};  
+};
+
+export const validateRegister = (displayName: string, email: string, password: string, passwordConfirm: string) => {
+  let errors = [];
+  if (displayName.length > 12 || displayName.length < 4) {
+    errors.push("Username does not match requirements.");
+  }
+  if (!email.match("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")) {
+    errors.push("Invalid email.");
+  }
+  if (
+    !password.match(new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))
+  ) {
+    errors.push("Password does not match requirements.");
+  }
+  if (password !== passwordConfirm) {
+    errors.push("Passwords do not match.");
+  }
+  return errors;
+}
+
+export const validateLogin = (email: string, password: string) => {
+  let errors = []
+  if (!email.match("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")) {
+    errors.push('Invalid email');
+  }
+  if (!password) {
+    errors.push("Invalid password")
+  }
+  return errors;
+}
