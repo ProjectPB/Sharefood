@@ -11,6 +11,7 @@
 # production
 /build
 .firebase/*
+.vscode/*
 /src/firebase/config.tsx
 
 # misc
