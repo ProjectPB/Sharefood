@@ -15,7 +15,7 @@ import "./styles.css";
 const mapState = ({ user, ui, recipes, loading }: State) => ({
   currentUser: user.currentUser,
   sidebarOpen: ui.sidebarOpen,
-  recipes: recipes,
+  recipes: recipes.recipes,
   loaded: loading.recipesLoaded,
 });
 
@@ -78,7 +78,8 @@ const RenderRecipes: React.FC = () => {
   ]);
 
   useEffect(() => {
-    topRef.current.scrollIntoView();
+    topRef.current.scrollIntoView(false)
+
   }, [location.pathname])
 
   const handleScroll = () => {
@@ -95,6 +96,10 @@ const RenderRecipes: React.FC = () => {
   };
 
   const handleLoadMoreRecipes = () => {
+    if (recipes.data.length === 0) {
+      return;
+    }
+
     switch (location.pathname) {
       case "/":
         dispatch(
@@ -181,8 +186,8 @@ const RenderRecipes: React.FC = () => {
       onScroll={handleScroll}
       ref={recipesRef}
     >
-      {!loaded && <Loading />}
       <div ref={topRef} />
+      {!loaded && <Loading />}
       {queryFilter && (
         <h3 className="renderRecipes__text">
           Search results for {queryFilter} ({data?.length})
@@ -196,7 +201,7 @@ const RenderRecipes: React.FC = () => {
           <Card
             key={id}
             id={id}
-            authorName={data?.username}
+            username={data?.username}
             profilePic={data?.profilePic}
             image={data?.image}
             timestamp={data?.timestamp}

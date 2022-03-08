@@ -9,7 +9,7 @@ import "./styles.css";
 
 interface Data {
   id?: string;
-  authorName?: string;
+  username?: string;
   profilePic?: string;
   image?: string;
   timestamp?: any;
@@ -21,7 +21,7 @@ interface Data {
 
 const Card: React.FC<Data> = ({
   id,
-  authorName,
+  username,
   profilePic,
   image,
   timestamp,
@@ -64,7 +64,7 @@ const Card: React.FC<Data> = ({
             </div>
             <div className="card__user">
               <Avatar src={profilePic} />
-              <p>{authorName}</p>
+              <p>{username}</p>
             </div>
           </div>
           <div className="card__dataRight">

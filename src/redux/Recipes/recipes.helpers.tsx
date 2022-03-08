@@ -15,6 +15,21 @@ export const handleGetUserData = (userId: string): Promise<{ profilePic: string,
   })
 }
 
+export const checkIfLiked = (userId: string, data: firebase.firestore.DocumentData) => {
+  return new Promise<boolean>((resolve, reject) => {
+    try {
+      if (data?.likesUsers?.includes(userId)) {
+        resolve(true);
+      } else {
+        resolve(false);
+      }
+    } catch (error) {
+      reject(error.message)
+    }
+
+  })
+}
+
 export const handleFetchRecipes = (filters: Filters) => {
   return new Promise((resolve, reject) => {
     let ref: Query = db.collection("recipes");
@@ -76,31 +91,76 @@ export const handleFetchRecipes = (filters: Filters) => {
       .catch(err => {
         reject(err.message);
       })
-  }
-  )
+  })
 };
 
+export const handleFetchRecipeData = (recipeId: string, userId?: string) => {
+  return new Promise((resolve, reject) => {
+    db.collection("recipes")
+      .doc(recipeId)
+      .get()
+      .then(async (doc) => {
+        if (doc.data()) {
+          let { profilePic, username } = await handleGetUserData(doc.data()?.authorId);
+          let liked = await checkIfLiked(userId, doc.data());
+          resolve({ ...doc.data(), profilePic, username, liked });
+        }
+        else {
+          resolve(null);
+        }
+      })
+      .catch(err => {
+        reject(err.message)
+      })
+  })
+}
+
 export const handleLikeRecipe = (userId: string, recipeId: string) => {
-  db.collection("recipes")
-    .doc(recipeId)
-    .update({
-      likesUsers: firebase.firestore.FieldValue.arrayUnion(userId),
-      likesQuantity: firebase.firestore.FieldValue.increment(1),
-    });
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes")
+        .doc(recipeId)
+        .update({
+          likesUsers: firebase.firestore.FieldValue.arrayUnion(userId),
+          likesQuantity: firebase.firestore.FieldValue.increment(1),
+        });
+      resolve(true);
+    } catch (err) {
+      reject(err.message)
+    }
+  })
 };
 
 export const handleDislikeRecipe = (userId: string, recipeId: string) => {
-  db.collection("recipes")
-    .doc(recipeId)
-    .update({
-      likesUsers: firebase.firestore.FieldValue.arrayRemove(userId),
-      likesQuantity: firebase.firestore.FieldValue.increment(-1),
-    });
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes")
+        .doc(recipeId)
+        .update({
+          likesUsers: firebase.firestore.FieldValue.arrayRemove(userId),
+          likesQuantity: firebase.firestore.FieldValue.increment(-1),
+        })
+      resolve(true);
+    } catch (err) {
+      reject(err.message)
+    }
+  })
 };
 
 export const handleDeleteRecipe = (storageRef: string, recipeId: string) => {
-  db.collection("recipes").doc(recipeId).delete();
-  storage.refFromURL(storageRef).delete();
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes").doc(recipeId).delete()
+        .then(() => {
+          storage.refFromURL(storageRef).delete()
+            .then(() => {
+              resolve(true)
+            })
+        })
+    } catch (err) {
+      reject(err.message);
+    }
+  })
 };
 
 export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
@@ -108,8 +168,6 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
     const {
       authorId,
       type,
-      authorProfilePic,
-      authorName,
       title,
       tags,
       ingredients,
@@ -145,8 +203,6 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
             .then((url) => {
               db.collection("recipes").add({
                 authorId: authorId,
-                authorProfilePic: authorProfilePic,
-                authorName: authorName,
                 type: type,
                 title: title,
                 tags: tags,
@@ -159,8 +215,9 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
                 image: url,
               });
               resolve(true);
-            });
-        }
-      );
+            }).catch(err => {
+              reject(err.message);
+            })
+        })
   });
 };

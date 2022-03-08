@@ -8,21 +8,17 @@ interface Props {
   handleChange: (
     e: Handler["input"] | Handler["change"] | Handler["file"]
   ) => Promise<void>;
-  image: string;
-  previewImg: string;
 }
 
 const ImgInput: React.FC<Props> = ({
   handleChange,
-  image,
-  previewImg,
   ...otherProps
 }) => {
   return (
     <div className="imgInput__container">
-      <img src={previewImg} alt="Recipe attachment" />
-      {!image && <p>For the best results, please attach 4:3 image</p>}
-      {!image && <AddCircleIcon />}
+      <img src="https://icon-library.com/images/placeholder-image-icon/placeholder-image-icon-7.jpg" alt="Recipe attachment" />
+      <AddCircleIcon />
+      <p>Click to upload an image</p>
       <input onChange={handleChange} {...otherProps} className="imgInput" />
     </div>
   );
