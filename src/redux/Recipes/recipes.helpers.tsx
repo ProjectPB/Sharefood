@@ -1,4 +1,4 @@
-import firebase from "firebase/app";
+import firebase from "firebase/compat/app";
 import { db, storage } from "../../firebase/utils";
 import { Query } from "@firebase/firestore-types";
 import { Filters } from "../../shared/types";

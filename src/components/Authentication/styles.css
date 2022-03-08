@@ -31,6 +31,8 @@
 .authentication__errors {
   list-style-type: none;
   margin-top: 5px;
+  padding: 0 5px;
+  width: 100%;
 }
 
 .authentication__error {

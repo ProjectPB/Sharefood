@@ -53,6 +53,7 @@ const Login: React.FC = () => {
     handleChange: (e: Handler["string"]) => setPassword(e.target.value),
     placeholder: "Password",
     type: "password",
+    pattern: new RegExp(/^(?!\s*$).+/),
   };
 
   const buttonConfig = {

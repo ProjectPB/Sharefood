@@ -4,6 +4,8 @@ import {
   handleUserProfile,
   getCurrentUser,
   handleResetPasswordAPI,
+  validateLogin,
+  validateRegister,
 } from "./user.helpers";
 import {
   emailSignInStart,
@@ -42,12 +44,15 @@ export function* getSnapshotFromUserAuth(
 export function* emailSignIn({
   payload: { email, password },
 }: ReturnType<typeof emailSignInStart>) {
-  const errors = [];
+  const errors: string[] = validateLogin(email, password);
+  yield put(signUpError(errors));
   try {
-    yield put(loadAuth(true));
-    const { user } = yield auth.signInWithEmailAndPassword(email, password);
-    yield getSnapshotFromUserAuth(user);
-    yield put(loadAuth(false));
+    if (errors.length === 0) {
+      yield put(loadAuth(true));
+      const { user } = yield auth.signInWithEmailAndPassword(email, password);
+      yield getSnapshotFromUserAuth(user);
+      yield put(loadAuth(false));
+    }
   } catch (err) {
     errors.push(err.message);
     yield put(loadAuth(false));
@@ -89,33 +94,16 @@ export function* onSignOutUserStart() {
 export function* signUpUser({
   payload: { displayName, email, password, passwordConfirm },
 }: ReturnType<typeof signUpUserStart>) {
-  const errors = [];
-  if (displayName.length > 12 || displayName.length < 4) {
-    errors.push("Username does not match requirements.");
-    yield put(signUpError(errors));
-  }
-  if (!email.match("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")) {
-    errors.push("Invalid email.");
-    yield put(signUpError(errors));
-  }
-  if (
-    !password.match(new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))
-  ) {
-    errors.push("Password does not match requirements.");
-    yield put(signUpError(errors));
-  }
-  if (password !== passwordConfirm) {
-    errors.push("Passwords do not match.");
-    yield put(signUpError(errors));
-  }
+  const errors: string[] = validateRegister(displayName, email, password, passwordConfirm);
+  yield put(signUpError(errors));
 
   try {
     if (errors.length === 0) {
+      yield put(loadAuth(true));
       const { user } = yield auth.createUserWithEmailAndPassword(
         email,
         password
       );
-      yield put(loadAuth(true));
       const additionalData = { displayName };
       yield getSnapshotFromUserAuth(user, additionalData);
       yield put(loadAuth(false));
@@ -123,6 +111,7 @@ export function* signUpUser({
   } catch (err) {
     errors.push(err.message);
     yield put(signUpError(errors));
+    yield put(loadAuth(false));
   }
 }
 
