@@ -2,7 +2,6 @@ import loadingTypes from "./loading.types";
 import { Loading } from "../../shared/types";
 
 const INITIAL_STATE: Loading = {
-  homepageLoaded: false,
   recipesLoaded: false,
   recipeDataLoaded: false,
   authLoading: false,
@@ -13,11 +12,6 @@ const loadingReducer = (
   action: { type: string; payload: boolean }
 ) => {
   switch (action.type) {
-    case loadingTypes.LOAD_HOMEPAGE:
-      return {
-        ...state,
-        homepageLoaded: true,
-      };
     case loadingTypes.LOAD_RECIPES:
       return {
         ...state,

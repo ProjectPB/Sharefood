@@ -16,7 +16,6 @@ export interface Credentials {
 }
 
 export interface Loading {
-  homepageLoaded: boolean;
   recipesLoaded: boolean;
   recipeDataLoaded: boolean;
   authLoading: boolean;
