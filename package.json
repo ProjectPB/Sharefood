@@ -13,8 +13,6 @@
     "@types/node": "^17.0.18",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.11",
-    "@types/react-router": "^5.1.18",
-    "@types/react-router-dom": "^5.3.3",
     "firebase": "^9.6.8",
     "react": "^17.0.1",
     "react-cropper": "^2.1.8",
@@ -34,7 +32,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && npm run delete-maps",
+    "delete-maps": "npm run delete-map-files && npm run delete-references-to-map-files",
+    "delete-map-files": "find ./build -name '*.map' -delete",
+    "delete-references-to-map-files": "find ./build -regex '.*\\.\\(js\\|css\\)' -exec sed -i -E '\\/[\\*\\/]#\\ssourceMappingURL=main(\\.[0-9a-f]+)?\\.(css|js)\\.map(\\*\\/)?/g' {} +",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
