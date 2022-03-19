@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import {
   renderTags,
   capitalizeLetter,
@@ -34,7 +34,7 @@ interface Props {
 const NewRecipe: React.FC<Props> = ({ close }) => {
   const { currentUser } = useSelector(mapState);
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
   const [ingredients, setIngredients] = useState("");
@@ -52,9 +52,9 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       setLoading(false);
       close();
       alert("Recipe added");
-      history.push("/");
+      navigate("/");
     }
-  }, [progress, close, history]);
+  }, [progress, close, navigate]);
 
   const changeImgFile = async (e: Handler["file"]) => {
     const file = e.target.files[0];

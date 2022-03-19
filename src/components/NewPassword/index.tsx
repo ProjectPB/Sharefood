@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetPasswordError,
@@ -20,7 +20,7 @@ const mapState = ({ user }: State) => ({
 });
 
 const NewPassword: React.FC = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const { resetPasswordSuccess, resetPasswordErrors } = useSelector(mapState);
@@ -30,9 +30,9 @@ const NewPassword: React.FC = () => {
     if (resetPasswordSuccess) {
       dispatch(resetUserState());
       alert("E-mail sent.");
-      history.push("/auth");
+      navigate("/auth");
     }
-  }, [resetPasswordSuccess, history, dispatch]);
+  }, [resetPasswordSuccess, navigate, dispatch]);
 
   useEffect(() => {
     return () => {
@@ -62,7 +62,7 @@ const NewPassword: React.FC = () => {
 
   const cancelButtonConfig = {
     secondary: true,
-    onClick: () => history.push("/auth"),
+    onClick: () => navigate("/auth"),
   };
 
   const submitButtonConfig = {

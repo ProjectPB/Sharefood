@@ -1,36 +1,39 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Authpage from "./pages/Authpage";
-import Recipepage from "./pages/Recipepage";
-import Homepage from "./pages/Homepage";
-import NewPasswordpage from "./pages/NewPasswordpage";
+import FullscreenLayout from './layouts/FullscreenLayout';
+import MainLayout from './layouts/MainLayout';
+
+import RenderRecipes from "./components/RenderRecipes";
+import Authentication from "./components/Authentication";
+import NewPassword from "./components/NewPassword";
+import Recipe from "./components/Recipe";
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Switch>
-        <Route
-          path={["/results/:query", "/favorite", "/my", "/popular"]}
-          exact
-        >
-          <Homepage />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" >
+          <Route element={<MainLayout />}>
+            <Route index element={<RenderRecipes />} />
+            <Route path="favorite" element={<RenderRecipes />} />
+            <Route path="my" element={<RenderRecipes />} />
+            <Route path="popular" element={<RenderRecipes />} />
+            <Route path="results" element={<RenderRecipes />}>
+              <Route path=":query" element={<RenderRecipes />} />
+            </Route>
+            <Route path="recipe/:recipeId" element={<Recipe />}>
+            </Route>
+            <Route path="*" element={<RenderRecipes />} />
+          </Route>
+          <Route element={<FullscreenLayout />}>
+            <Route path="auth" element={<Authentication />} />
+            <Route path="reset" element={<NewPassword />} />
+          </Route>
         </Route>
-        <Route path="/recipe/:recipeId">
-          <Recipepage />
-        </Route>
-        <Route path="/auth">
-          <Authpage />
-        </Route>
-        <Route path="/reset">
-          <NewPasswordpage />
-        </Route>
-        <Route path="/">
-          <Homepage />
-        </Route>
-      </Switch>
-    </Router>
+      </Routes>
+    </BrowserRouter >
   );
 };
 
-export default App;
+export default App; 

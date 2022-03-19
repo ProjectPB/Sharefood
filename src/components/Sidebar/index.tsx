@@ -18,30 +18,30 @@ const Sidebar: React.FC = () => {
 
   return (
     <div className={sidebarIsOpen ? "sidebar" : "sidebar--hidden"}>
-      <NavLink to="/" exact activeClassName="selected">
+      <NavLink to="/" className={(navData) => navData.isActive ? "active" : ""}>
         <SidebarOption Icon={Home} title="MAIN" />
       </NavLink>
 
-      <NavLink to="/popular" activeClassName="selected">
+      <NavLink to="/popular" className={(navData) => navData.isActive ? "active" : ""}>
         <SidebarOption Icon={Whatshot} title="POPULAR" />
       </NavLink>
 
       {currentUser ? (
-        <NavLink to="/my" activeClassName="selected">
+        <NavLink to="/my" className={(navData) => navData.isActive ? "active" : ""}>
           <SidebarOption Icon={MenuBook} title="MY RECIPES" />
         </NavLink>
       ) : (
-        <NavLink to="/auth" activeClassName="selected">
+        <NavLink to="/auth" className={(navData) => navData.isActive ? "active" : ""}>
           <SidebarOption Icon={MenuBook} title="MY RECIPES" hidden />
         </NavLink>
       )}
 
       {currentUser ? (
-        <NavLink to="/favorite" activeClassName="selected">
+        <NavLink to="/favorite" className={(navData) => navData.isActive ? "active" : ""}>
           <SidebarOption Icon={Favorite} title="FAVORITE" />
         </NavLink>
       ) : (
-        <NavLink to="/auth" activeClassName="selected">
+        <NavLink to="/auth" className={(navData) => navData.isActive ? "active" : ""}>
           <SidebarOption Icon={Favorite} title="FAVORITE" hidden />
         </NavLink>
       )}

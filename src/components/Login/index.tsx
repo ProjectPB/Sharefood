@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { Lock, Mail } from "@material-ui/icons";
 import { emailSignInStart } from "../../redux/User/user.actions";
 import { Handler, State } from "../../shared/types";
@@ -16,7 +16,7 @@ const mapState = ({ user }: State) => ({
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const { currentUser } = useSelector(mapState);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,9 +24,9 @@ const Login: React.FC = () => {
   useEffect(() => {
     if (currentUser) {
       resetForm();
-      history.push("/");
+      navigate("/");
     }
-  }, [currentUser, history]);
+  }, [currentUser, navigate]);
 
   const resetForm = () => {
     setEmail("");

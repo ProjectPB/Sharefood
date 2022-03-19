@@ -29,8 +29,8 @@ a {
   color: inherit;
 }
 
-.selected .sidebar__option--narrow,
-.selected .sidebar__option {
+.active .sidebar__option--narrow,
+.active .sidebar__option {
   background-color: var(--color-secondary);
 }
 
@@ -41,8 +41,8 @@ a {
   transition: 0.3s ease-in-out;
 }
 
-.selected .sidebar__option:hover,
-.selected .sidebar__option--narrow:hover {
+.active .sidebar__option:hover,
+.active .sidebar__option--narrow:hover {
   background-color: var(--color-secondary);
 }
 

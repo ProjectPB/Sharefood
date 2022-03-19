@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ClickAwayListener } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
@@ -24,7 +24,7 @@ const mapState = ({ user, ui }: State) => ({
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const width = useWidth();
   const { currentUser, sidebarIsOpen } = useSelector(mapState);
   const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
@@ -60,7 +60,7 @@ const Header: React.FC = () => {
   };
 
   const navToAuth = (): void => {
-    history.push("/auth");
+    navigate("/auth");
   };
 
   const handleClickAway = () => {

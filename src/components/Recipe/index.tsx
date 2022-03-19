@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Moment from "react-moment";
-import { useHistory, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "@material-ui/core";
 import {
@@ -30,7 +30,7 @@ const mapState = ({ user, loading, recipes }: State) => ({
 
 const Recipe: React.FC = () => {
   const { currentUser, loaded, recipeData } = useSelector(mapState);
-  const history = useHistory();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { recipeId } = useParams<{ recipeId: string }>();
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -46,7 +46,7 @@ const Recipe: React.FC = () => {
 
   const handleLikes = () => {
     if (!currentUser) {
-      history.push("/auth");
+      navigate("/auth");
     }
     if (!recipeData.liked) {
       dispatch(likeRecipeStart({ userId: currentUser?.uid, recipeId: recipeId, data: recipeData }));
@@ -66,7 +66,7 @@ const Recipe: React.FC = () => {
       if (resolve) {
         alert("Recipe deleted");
         setIsDeleting(false)
-        history.push('/');
+        navigate('/');
       }
     }
   }

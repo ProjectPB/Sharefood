@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { Search } from "@material-ui/icons";
 import { Handler } from "../../shared/types";
 
@@ -11,7 +11,7 @@ interface Props {
 
 const SearchBar: React.FC<Props> = ({ onHeader }) => {
   const [input, setInput] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const navToSearchResult = (e: Handler["void"]) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
 
     const trimmedInput = loweredInput.trim();
 
-    input && trimmedInput && history.push(`/results/?q=${trimmedInput}`);
+    input && trimmedInput && navigate(`/results/?q=${trimmedInput}`);
 
     setInput("");
   };

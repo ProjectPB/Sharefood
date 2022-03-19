@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { googleSignInStart, signUpError } from "../../redux/User/user.actions";
@@ -22,7 +22,7 @@ const mapState = ({ user, loading }: State) => ({
 
 const Authentication: React.FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
   const [newAccount, setNewAccount] = useState(false);
   const { currentUser, errors, loading } = useSelector(mapState);
 
@@ -42,7 +42,7 @@ const Authentication: React.FC = () => {
     dispatch(googleSignInStart());
   };
 
-  currentUser && history.push("/");
+  currentUser && navigate("/");
 
   return (
     <div className="authentication">

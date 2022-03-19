@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Moment from "react-moment";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AccessTimeOutlined, Favorite, LocalDining } from "@material-ui/icons";
 import { Avatar } from "@material-ui/core";
 import { capitalizeLetter } from "../../util/formatText";
@@ -30,12 +30,12 @@ const Card: React.FC<Data> = ({
   likesQuantity,
   hidden,
 }) => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [imgLoaded, setImgLoaded] = useState(false);
 
   const navToRecipe = () => {
     if (!hidden) {
-      history.push({
+      navigate({
         pathname: `/recipe/${id}`,
       });
     }
