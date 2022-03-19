@@ -33,7 +33,6 @@ const Recipe: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { recipeId } = useParams<{ recipeId: string }>();
-  const [imgLoaded, setImgLoaded] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
@@ -87,10 +86,6 @@ const Recipe: React.FC = () => {
               className="recipe__image"
               src={recipeData?.image}
               alt=""
-              style={{
-                visibility: imgLoaded === true ? "visible" : "hidden",
-              }}
-              onLoad={() => setImgLoaded(true)}
             />
             <div className="recipe__info">
               <div className="recipe__left">

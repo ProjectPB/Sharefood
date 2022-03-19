@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
 import { AccessTimeOutlined, Favorite, LocalDining } from "@material-ui/icons";
@@ -31,7 +31,6 @@ const Card: React.FC<Data> = ({
   hidden,
 }) => {
   const navigate = useNavigate();
-  const [imgLoaded, setImgLoaded] = useState(false);
 
   const navToRecipe = () => {
     if (!hidden) {
@@ -44,13 +43,8 @@ const Card: React.FC<Data> = ({
   return (
     <div onClick={navToRecipe} className={hidden ? "hidden" : "card"}>
       <img
-        style={{
-          visibility: imgLoaded === true ? "visible" : "hidden",
-        }}
-        onLoad={() => setImgLoaded(true)}
         src={image}
         alt="recipe"
-        loading="lazy"
       />
       <div className="card__info">
         <h1 className="card__title">{title}</h1>
