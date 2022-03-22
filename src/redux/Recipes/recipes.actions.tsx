@@ -1,5 +1,5 @@
 import recipesTypes from "./recipes.types";
-import { Filters, NewRecipeData, RecipeData, Recipes } from "../../shared/types";
+import { Filters, NewRecipeData, RecipeData, SingleRecipes } from "../../shared/types";
 
 export const createRecipeStart = (data: NewRecipeData) => ({
   type: recipesTypes.CREATE_RECIPE,
@@ -11,8 +11,28 @@ export const fetchRecipesStart = (filters: Filters) => ({
   payload: filters,
 });
 
-export const setRecipes = (recipes: Recipes) => ({
-  type: recipesTypes.SET_RECIPES,
+export const setQueryRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_QUERY_RECIPES,
+  payload: recipes,
+});
+
+export const setMainRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_MAIN_RECIPES,
+  payload: recipes,
+});
+
+export const setPopularRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_POPULAR_RECIPES,
+  payload: recipes,
+});
+
+export const setMyRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_MY_RECIPES,
+  payload: recipes,
+});
+
+export const setFavoriteRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_FAVORITE_RECIPES,
   payload: recipes,
 });
 

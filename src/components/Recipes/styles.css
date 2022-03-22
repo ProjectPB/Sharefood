@@ -1,10 +1,10 @@
-.renderRecipes__container {
+.recipes__container {
   overflow-y: scroll;
   flex: 1;
   background-color: var(--darkgray-background);
 }
 
-.renderRecipes {
+.recipes {
   justify-content: flex-start;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(25%, max-content));
@@ -13,39 +13,39 @@
   max-width: 2000px;
 }
 
-.renderRecipes__text {
+.recipes__text {
   text-align: center;
   margin-top: 10px;
   font-size: 18px;
   font-weight: 600;
 }
 
-.renderRecipes__loading {
+.recipes__loading {
   width: 100%;
   margin: 0 auto;
   padding: 20px 0;
 }
 
 @media screen and (max-width: 1200px) {
-  .renderRecipes {
+  .recipes {
     grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
   }
 }
 
 @media screen and (max-width: 992px) {
-  .renderRecipes {
+  .recipes {
     grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
   }
 }
 
 @media screen and (max-width: 768px) {
-  .renderRecipes--narrow {
+  .recipes--narrow {
     grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
   }
 }
 
 @media screen and (max-width: 600px) {
-  .renderRecipes {
+  .recipes {
     grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
   }
 }

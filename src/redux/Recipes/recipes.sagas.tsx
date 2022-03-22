@@ -1,19 +1,48 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { createRecipeStart, dislikeRecipeStart, fetchRecipeDataStart, fetchRecipesStart, likeRecipeStart, setRecipeData, setRecipes } from "./recipes.actions";
+import { createRecipeStart, dislikeRecipeStart, fetchRecipeDataStart, fetchRecipesStart, likeRecipeStart, setFavoriteRecipes, setMainRecipes, setMyRecipes, setPopularRecipes, setQueryRecipes, setRecipeData } from "./recipes.actions";
 import { handleCreateRecipe, handleDislikeRecipe, handleFetchRecipeData, handleFetchRecipes, handleLikeRecipe } from "./recipes.helpers";
 import { loadRecipeData, loadRecipes } from "../Loading/loading.actions";
-import { NewRecipeData, RecipeData, Recipes } from "../../shared/types";
+import { NewRecipeData, RecipeData, SingleRecipes } from "../../shared/types";
 import recipesTypes from "./recipes.types";
 
 export function* fetchRecipes({
   payload,
 }: ReturnType<typeof fetchRecipesStart>) {
   try {
-    const recipes: Recipes = yield handleFetchRecipes(payload);
-    yield put(setRecipes(recipes));
+    const store = payload.store;
+    const recipes: SingleRecipes = yield handleFetchRecipes(payload);
+    switch (store) {
+      case "query": {
+        if (payload.queryFilter) {
+          yield put(setQueryRecipes(recipes));
+        }
+        break;
+      }
+      case "main": {
+        yield put(setMainRecipes(recipes));
+        break;
+      }
+      case "popular": {
+        yield put(setPopularRecipes(recipes));
+        break;
+      }
+      case "my": {
+        yield put(setMyRecipes(recipes));
+        break;
+      }
+      case "favorite": {
+        yield put(setFavoriteRecipes(recipes));
+        break;
+      }
+      default: {
+        yield put(loadRecipes(true))
+        break;
+      }
+    }
     yield put(loadRecipes(true));
   } catch (err) {
-    // console.log(err.message);
+    console.log(err.message);
+    alert(err.message);
   }
 }
 

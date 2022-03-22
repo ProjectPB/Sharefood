@@ -15,16 +15,14 @@ const App: React.FC = () => {
       <Routes>
         <Route path="/" >
           <Route element={<MainLayout />}>
-            <Route index element={<RenderRecipes />} />
-            <Route path="favorite" element={<RenderRecipes />} />
-            <Route path="my" element={<RenderRecipes />} />
-            <Route path="popular" element={<RenderRecipes />} />
-            <Route path="results" element={<RenderRecipes />}>
-              <Route path=":query" element={<RenderRecipes />} />
-            </Route>
+            <Route index element={<RenderRecipes store="main" />} />
+            <Route path="popular" element={<RenderRecipes store="popular" />} />
+            <Route path="favorite" element={<RenderRecipes store="favorite" />} />
+            <Route path="my" element={<RenderRecipes store="my" />} />
+            <Route path="results" element={<RenderRecipes store="query" />} />
             <Route path="recipe/:recipeId" element={<Recipe />}>
             </Route>
-            <Route path="*" element={<RenderRecipes />} />
+            <Route path="*" element={<RenderRecipes store="" />} />
           </Route>
           <Route element={<FullscreenLayout />}>
             <Route path="auth" element={<Authentication />} />

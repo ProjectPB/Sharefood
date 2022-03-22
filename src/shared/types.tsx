@@ -51,6 +51,7 @@ export interface Filters {
   favoriteFilter?: string;
   startAfterDoc?: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
   persistProducts?: Recipe[];
+  store?: string,
 }
 
 export interface Recipe {
@@ -58,11 +59,19 @@ export interface Recipe {
   data: RecipeData;
 }
 
+export interface SingleRecipes {
+  data: Recipe[] | [];
+  queryDoc: firebase.firestore.QueryDocumentSnapshot | undefined;
+  isLastPage: boolean;
+}
+
 export interface Recipes {
   recipes: {
-    data: Recipe[];
-    queryDoc: firebase.firestore.QueryDocumentSnapshot;
-    isLastPage: boolean;
+    queryRecipes: SingleRecipes,
+    mainRecipes: SingleRecipes,
+    popularRecipes: SingleRecipes,
+    myRecipes: SingleRecipes,
+    favoriteRecipes: SingleRecipes,
   }
   recipeData: RecipeData,
 }
