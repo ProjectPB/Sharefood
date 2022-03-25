@@ -5,6 +5,7 @@ import { State } from "../../shared/types";
 
 import Recipes from './../Recipes';
 import NoData from "../NoData";
+import WithAuth from './../../hoc/WithAuth';
 
 const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,
@@ -53,8 +54,14 @@ const RenderRecipes: React.FC<Props> = ({ store }) => {
           'query': <Recipes filters={queryFilters} />,
           'main': <Recipes filters={mainFilters} />,
           'popular': <Recipes filters={popularFilters} />,
-          'my': <Recipes filters={myFilters} />,
-          'favorite': <Recipes filters={favoriteFilters} />,
+          'my':
+            <WithAuth>
+              <Recipes filters={myFilters} />
+            </WithAuth>,
+          'favorite':
+            <WithAuth>
+              <Recipes filters={favoriteFilters} />
+            </WithAuth>,
           '': <div className="recipes__container">
             <NoData />
           </div>
