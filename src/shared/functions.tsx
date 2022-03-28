@@ -15,3 +15,11 @@ export const resizeFile = (file: Blob): Promise<string | unknown> =>
       "file"
     );
   });
+
+export const getRecipesCounter = (width: number) => {
+  if (width <= 1200 && width > 992) {
+    return 9;
+  } else {
+    return 8;
+  }
+}

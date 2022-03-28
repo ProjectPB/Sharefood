@@ -48,7 +48,7 @@ const Recipes: React.FC<Props> = ({ filters }) => {
         Math.ceil(scrollTop + clientHeight) === scrollHeight ||
         Math.ceil(scrollTop + clientHeight) - 1 === scrollHeight
       ) {
-        !isLastPage && handleLoadMoreRecipes();
+        (!isLastPage && data.length !== 0) && handleLoadMoreRecipes();
         setLoadMore(true);
       }
     }
@@ -58,7 +58,7 @@ const Recipes: React.FC<Props> = ({ filters }) => {
     dispatch(
       fetchRecipesStart({
         ...filters, startAfterDoc: queryDoc,
-        persistProducts: data,
+        persistProducts: data
       })
     );
   }

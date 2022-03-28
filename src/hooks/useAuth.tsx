@@ -16,10 +16,10 @@ const useAuth = (props: any) => {
   useEffect(() => {
     if (!currentUser) {
       navigate("/auth");
+      dispatch(setMyRecipes({ data: [], queryDoc: undefined, isLastPage: true }))
+      dispatch(setFavoriteRecipes({ data: [], queryDoc: undefined, isLastPage: true }))
     }
 
-    dispatch(setMyRecipes({ data: [], queryDoc: undefined, isLastPage: true }))
-    dispatch(setFavoriteRecipes({ data: [], queryDoc: undefined, isLastPage: true }))
   }, [currentUser, navigate, dispatch]);
 
   return currentUser;
