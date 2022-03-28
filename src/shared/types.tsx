@@ -52,6 +52,7 @@ export interface Filters {
   startAfterDoc?: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
   persistProducts?: Recipe[];
   store?: string,
+  rendered?: boolean;
 }
 
 export interface Recipe {
@@ -63,6 +64,7 @@ export interface SingleRecipes {
   data: Recipe[] | [];
   queryDoc: firebase.firestore.QueryDocumentSnapshot | undefined;
   isLastPage: boolean;
+  rendered: boolean;
 }
 
 export interface Recipes {

@@ -25,11 +25,7 @@ const useRecipeType = (store: string) => {
       return (recipes.favoriteRecipes)
     }
     default: {
-      return ({
-        data: [],
-        queryDoc: undefined,
-        isLastPage: true
-      });
+      return;
     }
   }
 }

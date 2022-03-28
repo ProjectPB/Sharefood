@@ -25,19 +25,19 @@ const RenderRecipes: React.FC<Props> = ({ store }) => {
   const favoriteFilter = currentUser?.uid;
 
   const mainFilters = {
-    store: "main", counter
+    store: "main", counter, rendered: true
   }
   const popularFilters = {
-    popularFilter: true, store: 'popular', counter
+    popularFilter: true, store: 'popular', counter, rendered: true
   }
   const myFilters = {
-    authorFilter, store: 'my', counter
+    authorFilter, store: 'my', counter, rendered: true
   }
   const favoriteFilters = {
-    favoriteFilter, store: 'favorite', counter
+    favoriteFilter, store: 'favorite', counter, rendered: true
   }
   const queryFilters = {
-    queryFilter, store: "query", counter
+    queryFilter, store: "query", counter, rendered: true
   }
 
   return (

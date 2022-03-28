@@ -29,17 +29,19 @@ const mapState = ({ loading, ui }: State) => ({
 
 const Recipes: React.FC<Props> = ({ filters }) => {
   const dispatch = useDispatch();
+  const topRef = useRef<HTMLDivElement>(null);
   const { loaded, sidebarOpen } = useSelector(mapState);
   const [loadMore, setLoadMore] = useState(false);
-  const { data, queryDoc, isLastPage } = useRecipeData(filters.store);
+  const { data, queryDoc, isLastPage, rendered } = useRecipeData(filters.store);
   const recipesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (data.length === 0 || filters.queryFilter) {
+    topRef.current.scrollIntoView(false)
+    if (!rendered || filters.queryFilter) {
       dispatch(loadRecipes(false));
       dispatch(fetchRecipesStart(filters));
     }
-  }, [data.length, filters.queryFilter, dispatch])
+  }, [rendered, filters.queryFilter, dispatch])
 
   const handleScroll = () => {
     if (recipesRef.current) {
@@ -48,8 +50,10 @@ const Recipes: React.FC<Props> = ({ filters }) => {
         Math.ceil(scrollTop + clientHeight) === scrollHeight ||
         Math.ceil(scrollTop + clientHeight) - 1 === scrollHeight
       ) {
-        (!isLastPage && data.length !== 0) && handleLoadMoreRecipes();
-        setLoadMore(true);
+        if (!isLastPage && data.length !== 0) {
+          handleLoadMoreRecipes();
+          setLoadMore(true);
+        }
       }
     }
   };
@@ -104,6 +108,7 @@ const Recipes: React.FC<Props> = ({ filters }) => {
       onScroll={handleScroll}
       ref={recipesRef}
     >
+      <div ref={topRef} />
       {
         filters.queryFilter && (
           <h3 className="recipes__text">

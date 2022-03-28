@@ -10,28 +10,30 @@ export function* fetchRecipes({
 }: ReturnType<typeof fetchRecipesStart>) {
   try {
     const store = payload.store;
-    const recipes: SingleRecipes = yield handleFetchRecipes(payload);
+    const rendered = payload.rendered;
+    const fetchedRecipes: SingleRecipes = yield handleFetchRecipes(payload);
+    const renderedRecipes = { ...fetchedRecipes, rendered: rendered }
     switch (store) {
       case "query": {
         if (payload.queryFilter) {
-          yield put(setQueryRecipes(recipes));
+          yield put(setQueryRecipes(renderedRecipes));
         }
         break;
       }
       case "main": {
-        yield put(setMainRecipes(recipes));
+        yield put(setMainRecipes(renderedRecipes));
         break;
       }
       case "popular": {
-        yield put(setPopularRecipes(recipes));
+        yield put(setPopularRecipes(renderedRecipes));
         break;
       }
       case "my": {
-        yield put(setMyRecipes(recipes));
+        yield put(setMyRecipes(renderedRecipes));
         break;
       }
       case "favorite": {
-        yield put(setFavoriteRecipes(recipes));
+        yield put(setFavoriteRecipes(renderedRecipes));
         break;
       }
       default: {
