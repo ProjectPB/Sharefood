@@ -104,6 +104,37 @@ export function* onDislikeRecipeStart() {
   yield takeLatest(recipesTypes.DISLIKE_RECIPE, dislikeRecipe);
 }
 
+export function* resetRecipes() {
+  try {
+    yield put(setMainRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+    yield put(setPopularRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+    yield put(setMyRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+    yield put(setFavoriteRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+  } catch (error) {
+    console.log(error.message);
+  }
+}
+
+export function* onResetRecipesStart() {
+  yield takeLatest(recipesTypes.RESET_RECIPES, resetRecipes);
+}
+
 export default function* recipesSagas() {
-  yield all([call(onFetchRecipesStart), call(onCreateRecipeStart), call(onFetchRecipeDataStart), call(onLikeRecipeStart), call(onDislikeRecipeStart)]);
+  yield all([call(onFetchRecipesStart), call(onCreateRecipeStart), call(onFetchRecipeDataStart), call(onLikeRecipeStart), call(onDislikeRecipeStart), call(onResetRecipesStart)]);
 }

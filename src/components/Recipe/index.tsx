@@ -14,7 +14,7 @@ import {
 import { loadRecipeData } from "../../redux/Loading/loading.actions";
 import { capitalizeLetter } from "../../util/formatText";
 import { State } from "../../shared/types";
-import { dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart } from "../../redux/Recipes/recipes.actions";
+import { dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart, resetRecipes } from "../../redux/Recipes/recipes.actions";
 import { handleDeleteRecipe } from "../../redux/Recipes/recipes.helpers";
 
 import Loading from "../Loading";
@@ -63,8 +63,9 @@ const Recipe: React.FC = () => {
       setIsDeleting(true)
       const resolve = await handleDeleteRecipe(recipeData?.image, recipeId);
       if (resolve) {
+        dispatch(resetRecipes());
         alert("Recipe deleted");
-        setIsDeleting(false)
+        setIsDeleting(false);
         navigate('/');
       }
     }

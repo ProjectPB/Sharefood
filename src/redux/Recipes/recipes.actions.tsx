@@ -55,3 +55,7 @@ export const dislikeRecipeStart = (ID: { userId: string, recipeId: string, data:
   type: recipesTypes.DISLIKE_RECIPE,
   payload: ID,
 })
+
+export const resetRecipes = () => ({
+  type: recipesTypes.RESET_RECIPES,
+})
