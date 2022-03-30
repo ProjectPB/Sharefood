@@ -10,9 +10,7 @@ export function* fetchRecipes({
 }: ReturnType<typeof fetchRecipesStart>) {
   try {
     const store = payload.store;
-    const rendered = payload.rendered;
-    const fetchedRecipes: SingleRecipes = yield handleFetchRecipes(payload);
-    const renderedRecipes = { ...fetchedRecipes, rendered: rendered }
+    const renderedRecipes: SingleRecipes = yield handleFetchRecipes(payload);
     switch (store) {
       case "query": {
         if (payload.queryFilter) {
@@ -37,7 +35,6 @@ export function* fetchRecipes({
         break;
       }
       default: {
-        yield put(loadRecipes(true))
         break;
       }
     }

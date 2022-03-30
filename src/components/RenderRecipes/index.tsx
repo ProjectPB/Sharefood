@@ -1,12 +1,12 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useQuery, useWidth } from "../../hooks";
 import { State } from "../../shared/types";
+import { getRecipesCounter } from "../../shared/functions";
 
 import Recipes from './../Recipes';
 import NoData from "../NoData";
 import WithAuth from './../../hoc/WithAuth';
-import { getRecipesCounter } from "../../shared/functions";
 
 const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,
@@ -17,27 +17,31 @@ interface Props {
 }
 
 const RenderRecipes: React.FC<Props> = ({ store }) => {
-  const width = useWidth();
-  const [counter] = useState(() => getRecipesCounter(width));
   const { currentUser } = useSelector(mapState);
   const queryFilter = useQuery().get("q");
   const authorFilter = currentUser?.uid;
   const favoriteFilter = currentUser?.uid;
+  const width = useWidth();
+  const [counter, setCounter] = useState(() => getRecipesCounter(width));
+
+  useEffect(() => {
+    setCounter(getRecipesCounter(width))
+  }, [width]);
 
   const mainFilters = {
-    store: "main", counter, rendered: true
+    store: "main", counter: counter
   }
   const popularFilters = {
-    popularFilter: true, store: 'popular', counter, rendered: true
+    popularFilter: true, store: 'popular', counter: counter
   }
   const myFilters = {
-    authorFilter, store: 'my', counter, rendered: true
+    authorFilter, store: 'my', counter: counter
   }
   const favoriteFilters = {
-    favoriteFilter, store: 'favorite', counter, rendered: true
+    favoriteFilter, store: 'favorite', counter: counter
   }
   const queryFilters = {
-    queryFilter, store: "query", counter, rendered: true
+    queryFilter, store: "query"
   }
 
   return (

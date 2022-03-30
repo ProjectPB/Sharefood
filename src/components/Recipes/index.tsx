@@ -29,19 +29,42 @@ const mapState = ({ loading, ui }: State) => ({
 
 const Recipes: React.FC<Props> = ({ filters }) => {
   const dispatch = useDispatch();
-  const topRef = useRef<HTMLDivElement>(null);
   const { loaded, sidebarOpen } = useSelector(mapState);
-  const [loadMore, setLoadMore] = useState(false);
-  const { data, queryDoc, isLastPage, rendered } = useRecipeData(filters.store);
+  const topRef = useRef<HTMLDivElement>(null);
   const recipesRef = useRef<HTMLDivElement>(null);
+  const [loadMore, setLoadMore] = useState(false);
+  const { data, queryDoc, isLastPage } = useRecipeData(filters.store);
+  const [widthChanged, setWidthChanged] = useState(false);
+  const [rendered, setRendered] = useState(false);
 
   useEffect(() => {
-    topRef.current.scrollIntoView(false)
-    if (!rendered || filters.queryFilter) {
+    if (data.length === 0 || filters.queryFilter) {
       dispatch(loadRecipes(false));
       dispatch(fetchRecipesStart(filters));
     }
-  }, [rendered, filters.queryFilter, dispatch])
+
+    if (widthChanged) {
+      dispatch(loadRecipes(false));
+      dispatch(fetchRecipesStart(filters));
+      setWidthChanged(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data.length, filters.queryFilter, dispatch, widthChanged])
+
+  useEffect(() => {
+    setRendered(true);
+    if (rendered) {
+      setWidthChanged(true);
+    }
+    return () => {
+      setRendered(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters.counter]);
+
+  useEffect(() => {
+    topRef.current.scrollIntoView(false)
+  }, [filters.store])
 
   const handleScroll = () => {
     if (recipesRef.current) {
@@ -51,21 +74,17 @@ const Recipes: React.FC<Props> = ({ filters }) => {
         Math.ceil(scrollTop + clientHeight) - 1 === scrollHeight
       ) {
         if (!isLastPage && data.length !== 0) {
-          handleLoadMoreRecipes();
           setLoadMore(true);
+          dispatch(
+            fetchRecipesStart({
+              ...filters, startAfterDoc: queryDoc,
+              persistProducts: data
+            })
+          );
         }
       }
     }
   };
-
-  const handleLoadMoreRecipes = () => {
-    dispatch(
-      fetchRecipesStart({
-        ...filters, startAfterDoc: queryDoc,
-        persistProducts: data
-      })
-    );
-  }
 
   const fillWithHiddenCards = () => {
     if (data?.length === 1) {
@@ -91,16 +110,6 @@ const Recipes: React.FC<Props> = ({ filters }) => {
       );
     }
   };
-
-  const loadMoreRecipes = () => {
-    if (loadMore && !isLastPage && !filters.queryFilter) {
-      return (
-        <div className="recipes__loading">
-          <Loading />
-        </div>
-      )
-    }
-  }
 
   return (
     <div
@@ -131,12 +140,14 @@ const Recipes: React.FC<Props> = ({ filters }) => {
             timestamp={data?.timestamp}
             title={data?.title}
             type={data?.type}
-            likesQuantity={data?.likesQuantity}
           />
         ))}
         {fillWithHiddenCards()}
       </div>
-      {loadMoreRecipes()}
+      {(loadMore && !isLastPage && !filters.queryFilter) &&
+        <div className="recipes__loading">
+          <Loading />
+        </div>}
     </div>
   )
 }

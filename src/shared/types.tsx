@@ -64,7 +64,6 @@ export interface SingleRecipes {
   data: Recipe[] | [];
   queryDoc: firebase.firestore.QueryDocumentSnapshot | undefined;
   isLastPage: boolean;
-  rendered: boolean;
 }
 
 export interface Recipes {

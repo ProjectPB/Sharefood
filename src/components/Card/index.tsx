@@ -66,10 +66,6 @@ const Card: React.FC<Data> = ({
               <LocalDining fontSize="small" />
               <p>{type && capitalizeLetter(type)}</p>
             </div>
-            <div className="card__likes">
-              <Favorite fontSize="small" />
-              <p>{likesQuantity}</p>
-            </div>
           </div>
         </div>
       </div>
