@@ -5,6 +5,7 @@ import FullscreenLayout from './layouts/FullscreenLayout';
 import MainLayout from './layouts/MainLayout';
 
 import RenderRecipes from "./components/RenderRecipes";
+import QueryRecipes from "./components/QueryRecipes";
 import Authentication from "./components/Authentication";
 import NewPassword from "./components/NewPassword";
 import Recipe from "./components/Recipe";
@@ -19,7 +20,7 @@ const App: React.FC = () => {
             <Route path="popular" element={<RenderRecipes store="popular" />} />
             <Route path="favorite" element={<RenderRecipes store="favorite" />} />
             <Route path="my" element={<RenderRecipes store="my" />} />
-            <Route path="results" element={<RenderRecipes store="query" />} />
+            <Route path="results" element={<QueryRecipes />} />
             <Route path="recipe/:recipeId" element={<Recipe />}>
             </Route>
             <Route path="*" element={<RenderRecipes store="" />} />

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useQuery, useWidth } from "../../hooks";
+import { useWidth } from "../../hooks";
 import { State } from "../../shared/types";
 import { getRecipesCounter } from "../../shared/functions";
 
@@ -18,7 +18,6 @@ interface Props {
 
 const RenderRecipes: React.FC<Props> = ({ store }) => {
   const { currentUser } = useSelector(mapState);
-  const queryFilter = useQuery().get("q");
   const authorFilter = currentUser?.uid;
   const favoriteFilter = currentUser?.uid;
   const width = useWidth();
@@ -40,15 +39,11 @@ const RenderRecipes: React.FC<Props> = ({ store }) => {
   const favoriteFilters = {
     favoriteFilter, store: 'favorite', counter: counter
   }
-  const queryFilters = {
-    queryFilter, store: "query"
-  }
 
   return (
     <Fragment>
       {
         {
-          'query': <Recipes filters={queryFilters} />,
           'main': <Recipes filters={mainFilters} />,
           'popular': <Recipes filters={popularFilters} />,
           'my':

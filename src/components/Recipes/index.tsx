@@ -4,6 +4,7 @@ import { State } from "../../shared/types";
 import { fetchRecipesStart } from "../../redux/Recipes/recipes.actions";
 import { loadRecipes } from '../../redux/Loading/loading.actions';
 import { useRecipeData } from '../../hooks';
+import { fillWithHiddenCards } from '../../shared/functions';
 
 import Card from '../Card';
 import Loading from '../Loading';
@@ -15,7 +16,6 @@ interface Props {
   filters: {
     counter?: number,
     store?: string,
-    queryFilter?: string,
     popularFilter?: boolean;
     authorFilter?: string;
     favoriteFilter?: string;
@@ -38,7 +38,7 @@ const Recipes: React.FC<Props> = ({ filters }) => {
   const [rendered, setRendered] = useState(false);
 
   useEffect(() => {
-    if (data.length === 0 || filters.queryFilter) {
+    if (data.length === 0) {
       dispatch(loadRecipes(false));
       dispatch(fetchRecipesStart(filters));
     }
@@ -49,7 +49,7 @@ const Recipes: React.FC<Props> = ({ filters }) => {
       setWidthChanged(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.length, filters.queryFilter, dispatch, widthChanged])
+  }, [data.length, dispatch, widthChanged])
 
   useEffect(() => {
     setRendered(true);
@@ -86,31 +86,6 @@ const Recipes: React.FC<Props> = ({ filters }) => {
     }
   };
 
-  const fillWithHiddenCards = () => {
-    if (data?.length === 1) {
-      return (
-        <>
-          <Card hidden />
-          <Card hidden />
-          <Card hidden />
-        </>
-      );
-    } else if (data?.length === 2) {
-      return (
-        <>
-          <Card hidden />
-          <Card hidden />
-        </>
-      );
-    } else if (data?.length === 3) {
-      return (
-        <>
-          <Card hidden />
-        </>
-      );
-    }
-  };
-
   return (
     <div
       className="recipes__container"
@@ -118,13 +93,6 @@ const Recipes: React.FC<Props> = ({ filters }) => {
       ref={recipesRef}
     >
       <div ref={topRef} />
-      {
-        filters.queryFilter && (
-          <h3 className="recipes__text">
-            Search results for {filters.queryFilter}{loaded ? ` (${data?.length})` : '...'}
-          </h3>
-        )
-      }
       {!loaded && <Loading />}
       {loaded && data?.length === 0 && <NoData />}
       <div
@@ -142,9 +110,9 @@ const Recipes: React.FC<Props> = ({ filters }) => {
             type={data?.type}
           />
         ))}
-        {fillWithHiddenCards()}
+        {fillWithHiddenCards(data)}
       </div>
-      {(loadMore && !isLastPage && !filters.queryFilter) &&
+      {(loadMore && !isLastPage) &&
         <div className="recipes__loading">
           <Loading />
         </div>}

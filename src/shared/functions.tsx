@@ -1,4 +1,7 @@
+import React from "react";
 import Resizer from "react-image-file-resizer";
+import Card from "../components/Card";
+import { Recipe } from "./types";
 
 export const resizeFile = (file: Blob): Promise<string | unknown> =>
   new Promise((resolve) => {
@@ -23,3 +26,29 @@ export const getRecipesCounter = (width: number) => {
     return 8;
   }
 }
+
+
+export const fillWithHiddenCards = (data: Recipe[] | []) => {
+  if (data?.length === 1) {
+    return (
+      <>
+        <Card hidden />
+        <Card hidden />
+        <Card hidden />
+      </>
+    );
+  } else if (data?.length === 2) {
+    return (
+      <>
+        <Card hidden />
+        <Card hidden />
+      </>
+    );
+  } else if (data?.length === 3) {
+    return (
+      <>
+        <Card hidden />
+      </>
+    );
+  }
+};
