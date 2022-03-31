@@ -52,3 +52,15 @@ export const fillWithHiddenCards = (data: Recipe[] | []) => {
     );
   }
 };
+
+export const invokeOnBottom = (ref: React.MutableRefObject<HTMLDivElement>, action: () => void) => {
+  if (ref.current) {
+    const { scrollTop, scrollHeight, clientHeight } = ref.current;
+    if (
+      Math.ceil(scrollTop + clientHeight) === scrollHeight ||
+      Math.ceil(scrollTop + clientHeight) - 1 === scrollHeight
+    ) {
+      action();
+    }
+  }
+};

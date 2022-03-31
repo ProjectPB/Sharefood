@@ -4,7 +4,7 @@ import { State } from "../../shared/types";
 import { fetchRecipesStart } from "../../redux/Recipes/recipes.actions";
 import { loadRecipes } from '../../redux/Loading/loading.actions';
 import { useRecipeData } from '../../hooks';
-import { fillWithHiddenCards } from '../../shared/functions';
+import { fillWithHiddenCards, invokeOnBottom } from '../../shared/functions';
 
 import Card from '../Card';
 import Loading from '../Loading';
@@ -31,11 +31,23 @@ const Recipes: React.FC<Props> = ({ filters }) => {
   const dispatch = useDispatch();
   const { loaded, sidebarOpen } = useSelector(mapState);
   const topRef = useRef<HTMLDivElement>(null);
+  const recipesContainerRef = useRef<HTMLDivElement>(null);
   const recipesRef = useRef<HTMLDivElement>(null);
   const [loadMore, setLoadMore] = useState(false);
   const { data, queryDoc, isLastPage } = useRecipeData(filters.store);
   const [widthChanged, setWidthChanged] = useState(false);
   const [rendered, setRendered] = useState(false);
+
+  useEffect(() => {
+    setRendered(true);
+    if (rendered) {
+      setWidthChanged(true);
+    }
+    return () => {
+      setRendered(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filters.counter]);
 
   useEffect(() => {
     if (data.length === 0) {
@@ -52,50 +64,42 @@ const Recipes: React.FC<Props> = ({ filters }) => {
   }, [data.length, dispatch, widthChanged])
 
   useEffect(() => {
-    setRendered(true);
-    if (rendered) {
-      setWidthChanged(true);
-    }
-    return () => {
-      setRendered(false);
+    if (data?.length !== 0) {
+      const { clientHeight } = recipesContainerRef.current;
+      const { scrollHeight } = recipesRef.current
+      if (scrollHeight < clientHeight) {
+        fetchMoreRecipes();
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.counter]);
+  }, [data, recipesContainerRef.current?.clientHeight, recipesRef.current?.scrollHeight])
 
   useEffect(() => {
     topRef.current.scrollIntoView(false)
   }, [filters.store])
 
-  const handleScroll = () => {
-    if (recipesRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = recipesRef.current;
-      if (
-        Math.ceil(scrollTop + clientHeight) === scrollHeight ||
-        Math.ceil(scrollTop + clientHeight) - 1 === scrollHeight
-      ) {
-        if (!isLastPage && data.length !== 0) {
-          setLoadMore(true);
-          dispatch(
-            fetchRecipesStart({
-              ...filters, startAfterDoc: queryDoc,
-              persistProducts: data
-            })
-          );
-        }
-      }
+  const fetchMoreRecipes = () => {
+    if (!isLastPage && data.length !== 0) {
+      setLoadMore(true);
+      dispatch(
+        fetchRecipesStart({
+          ...filters, startAfterDoc: queryDoc,
+          persistProducts: data
+        })
+      );
     }
-  };
+  }
 
   return (
     <div
       className="recipes__container"
-      onScroll={handleScroll}
-      ref={recipesRef}
+      onScroll={() => invokeOnBottom(recipesContainerRef, fetchMoreRecipes)}
+      ref={recipesContainerRef}
     >
       <div ref={topRef} />
       {!loaded && <Loading />}
       {loaded && data?.length === 0 && <NoData />}
-      <div
+      <div ref={recipesRef}
         className={`recipes ${sidebarOpen && "recipes--narrow"}`}
       >
         {data?.map(({ id, data }) => (

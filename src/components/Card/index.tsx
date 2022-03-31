@@ -1,7 +1,7 @@
 import React from "react";
 import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
-import { AccessTimeOutlined, Favorite, LocalDining } from "@material-ui/icons";
+import { AccessTimeOutlined, LocalDining } from "@material-ui/icons";
 import { Avatar } from "@material-ui/core";
 import { capitalizeLetter } from "../../util/formatText";
 
@@ -27,7 +27,6 @@ const Card: React.FC<Data> = ({
   timestamp,
   title,
   type,
-  likesQuantity,
   hidden,
 }) => {
   const navigate = useNavigate();
