@@ -66,7 +66,7 @@ export function* createRecipe(payload: ReturnType<typeof createRecipeStart>) {
   try {
     const resolve: NewRecipeData = yield handleCreateRecipe(payload);
     if (resolve) {
-      yield put(fetchRecipesStart({}));
+      yield resetRecipes();
     }
   } catch (err) {
     // console.log(err.message);
