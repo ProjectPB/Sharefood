@@ -17,6 +17,7 @@ interface Data {
   type?: string;
   likesQuantity?: number;
   hidden?: boolean;
+  keepScrollHeight?: () => void;
 }
 
 const Card: React.FC<Data> = ({
@@ -28,10 +29,12 @@ const Card: React.FC<Data> = ({
   title,
   type,
   hidden,
+  keepScrollHeight,
 }) => {
   const navigate = useNavigate();
 
   const navToRecipe = () => {
+    keepScrollHeight && keepScrollHeight();
     if (!hidden) {
       navigate({
         pathname: `/recipe/${id}`,

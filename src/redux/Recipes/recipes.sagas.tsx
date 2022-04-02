@@ -1,5 +1,5 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { createRecipeStart, dislikeRecipeStart, fetchRecipeDataStart, fetchRecipesStart, likeRecipeStart, setFavoriteRecipes, setMainRecipes, setMyRecipes, setPopularRecipes, setQueryRecipes, setRecipeData } from "./recipes.actions";
+import { createRecipeStart, dislikeRecipeStart, fetchRecipeDataStart, fetchRecipesStart, likeRecipeStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setPopularRecipes, setPopularScrollDistance, setQueryRecipes, setRecipeData, setScrollDistanceStart } from "./recipes.actions";
 import { handleCreateRecipe, handleDislikeRecipe, handleFetchRecipeData, handleFetchRecipes, handleLikeRecipe } from "./recipes.helpers";
 import { loadRecipeData, loadRecipes } from "../Loading/loading.actions";
 import { NewRecipeData, RecipeData, SingleRecipes } from "../../shared/types";
@@ -9,9 +9,8 @@ export function* fetchRecipes({
   payload,
 }: ReturnType<typeof fetchRecipesStart>) {
   try {
-    const store = payload.store;
     const renderedRecipes: SingleRecipes = yield handleFetchRecipes(payload);
-    switch (store) {
+    switch (payload.store) {
       case "query": {
         if (payload.queryFilter) {
           yield put(setQueryRecipes(renderedRecipes));
@@ -135,6 +134,63 @@ export function* onResetRecipesStart() {
   yield takeLatest(recipesTypes.RESET_RECIPES, resetRecipes);
 }
 
+export function* setScrollDistance({ payload }: ReturnType<typeof setScrollDistanceStart>) {
+  try {
+    const { store, distance } = payload
+    switch (store) {
+      case "main": {
+        yield put(setMainScrollDistance(distance));
+        break;
+      }
+      case "popular": {
+        yield put(setPopularScrollDistance(distance));
+        break;
+      }
+      case "my": {
+        yield put(setMyScrollDistance(distance));
+        break;
+      }
+      case "favorite": {
+        yield put(setFavoriteScrollDistance(distance));
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+export function* onSetScrollDistanceStart() {
+  yield takeLatest(recipesTypes.SET_SCROLL_DISTANCE, setScrollDistance);
+}
+
+export function* resetScrollDistances() {
+  try {
+    yield put(setMainScrollDistance(0));
+    yield put(setPopularScrollDistance(0));
+    yield put(setMyScrollDistance(0));
+    yield put(setFavoriteScrollDistance(0));
+  } catch (error) {
+    alert(error.message);
+  }
+}
+
+export function* onResetScrollDistancesStart() {
+  yield takeLatest(recipesTypes.RESET_SCROLL_DISTANCES, resetScrollDistances);
+}
+
 export default function* recipesSagas() {
-  yield all([call(onFetchRecipesStart), call(onCreateRecipeStart), call(onFetchRecipeDataStart), call(onLikeRecipeStart), call(onDislikeRecipeStart), call(onResetRecipesStart)]);
+  yield all([
+    call(onFetchRecipesStart),
+    call(onCreateRecipeStart),
+    call(onFetchRecipeDataStart),
+    call(onLikeRecipeStart),
+    call(onDislikeRecipeStart),
+    call(onResetRecipesStart),
+    call(onSetScrollDistanceStart),
+    call(onResetScrollDistancesStart),
+  ]);
 }

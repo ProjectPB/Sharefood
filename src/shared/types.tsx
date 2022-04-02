@@ -75,6 +75,12 @@ export interface Recipes {
     favoriteRecipes: SingleRecipes,
   }
   recipeData: RecipeData,
+  scrollDistance: {
+    main: number;
+    popular: number;
+    my: number;
+    favorite: number;
+  }
 }
 
 export interface State {

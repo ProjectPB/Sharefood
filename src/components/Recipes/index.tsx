@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from "../../shared/types";
-import { fetchRecipesStart } from "../../redux/Recipes/recipes.actions";
+import { fetchRecipesStart, setScrollDistanceStart } from "../../redux/Recipes/recipes.actions";
 import { loadRecipes } from '../../redux/Loading/loading.actions';
 import { useRecipeData } from '../../hooks';
 import { fillWithHiddenCards, invokeOnBottom } from '../../shared/functions';
@@ -34,9 +34,10 @@ const Recipes: React.FC<Props> = ({ filters }) => {
   const recipesContainerRef = useRef<HTMLDivElement>(null);
   const recipesRef = useRef<HTMLDivElement>(null);
   const [loadMore, setLoadMore] = useState(false);
-  const { data, queryDoc, isLastPage } = useRecipeData(filters.store);
+  const { data, queryDoc, isLastPage, scrollDistance } = useRecipeData(filters.store);
   const [widthChanged, setWidthChanged] = useState(false);
   const [rendered, setRendered] = useState(false);
+  const [distance, setDistance] = useState(0);
 
   useEffect(() => {
     setRendered(true);
@@ -75,8 +76,9 @@ const Recipes: React.FC<Props> = ({ filters }) => {
   }, [data, recipesContainerRef.current?.clientHeight, recipesRef.current?.scrollHeight])
 
   useEffect(() => {
-    topRef.current.scrollIntoView(false)
-  }, [filters.store])
+    recipesContainerRef.current.scrollTo(0, scrollDistance);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const fetchMoreRecipes = () => {
     if (!isLastPage && data.length !== 0) {
@@ -90,10 +92,15 @@ const Recipes: React.FC<Props> = ({ filters }) => {
     }
   }
 
+  const handleScroll = () => {
+    invokeOnBottom(recipesContainerRef, fetchMoreRecipes);
+    setDistance(recipesContainerRef.current?.scrollTop)
+  }
+
   return (
     <div
       className="recipes__container"
-      onScroll={() => invokeOnBottom(recipesContainerRef, fetchMoreRecipes)}
+      onScroll={handleScroll}
       ref={recipesContainerRef}
     >
       <div ref={topRef} />
@@ -112,15 +119,18 @@ const Recipes: React.FC<Props> = ({ filters }) => {
             timestamp={data?.timestamp}
             title={data?.title}
             type={data?.type}
+            keepScrollHeight={() => dispatch(setScrollDistanceStart({ distance: distance, store: filters.store }))}
           />
         ))}
         {fillWithHiddenCards(data)}
       </div>
-      {(loadMore && !isLastPage) &&
+      {
+        (loadMore && !isLastPage) &&
         <div className="recipes__loading">
           <Loading />
-        </div>}
-    </div>
+        </div>
+      }
+    </div >
   )
 }
 

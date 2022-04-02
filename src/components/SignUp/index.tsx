@@ -5,7 +5,7 @@ import { InfoOutlined, Lock, Mail, Person } from "@material-ui/icons";
 import { Handler } from "../../shared/types";
 
 import Button from "../forms/Button";
-import AuthInput from "../AuthInput";
+import AuthInput from "../forms/AuthInput";
 
 import "./styles.css";
 

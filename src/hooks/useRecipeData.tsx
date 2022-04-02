@@ -3,26 +3,33 @@ import { State } from '../shared/types'
 
 const mapState = ({ recipes }: State) => ({
   recipes: recipes.recipes,
+  scrollDistance: recipes.scrollDistance,
 });
 
-const useRecipeType = (store: string) => {
-  const { recipes } = useSelector(mapState);
+const useRecipeData = (store: string) => {
+  const { recipes, scrollDistance } = useSelector(mapState);
 
   switch (store) {
     case "main": {
-      return (recipes.mainRecipes);
+      return ({ ...recipes.mainRecipes, scrollDistance: scrollDistance.main });
     }
     case "query": {
-      return (recipes.queryRecipes)
+      return ({ ...recipes.queryRecipes, scrollDistance: null })
     }
     case "popular": {
-      return (recipes.popularRecipes)
+      return ({
+        ...recipes.popularRecipes, scrollDistance: scrollDistance.popular
+      })
     }
     case "my": {
-      return (recipes.myRecipes)
+      return ({
+        ...recipes.myRecipes, scrollDistance: scrollDistance.my
+      })
     }
     case "favorite": {
-      return (recipes.favoriteRecipes)
+      return ({
+        ...recipes.favoriteRecipes, scrollDistance: scrollDistance.favorite
+      })
     }
     default: {
       return;
@@ -30,4 +37,4 @@ const useRecipeType = (store: string) => {
   }
 }
 
-export default useRecipeType;
+export default useRecipeData;

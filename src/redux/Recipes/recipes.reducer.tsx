@@ -30,6 +30,12 @@ const INITIAL_STATE: Recipes = {
     },
   },
   recipeData: undefined,
+  scrollDistance: {
+    main: 0,
+    popular: 0,
+    my: 0,
+    favorite: 0,
+  }
 };
 
 const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: Recipes }) => {
@@ -63,6 +69,26 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
       return {
         ...state,
         recipeData: action.payload
+      }
+    case recipesTypes.SET_MAIN_SCROLL_DISTANCE:
+      return {
+        ...state,
+        scrollDistance: { ...state.scrollDistance, main: action.payload }
+      }
+    case recipesTypes.SET_POPULAR_SCROLL_DISTANCE:
+      return {
+        ...state,
+        scrollDistance: { ...state.scrollDistance, popular: action.payload }
+      }
+    case recipesTypes.SET_MY_SCROLL_DISTANCE:
+      return {
+        ...state,
+        scrollDistance: { ...state.scrollDistance, my: action.payload }
+      }
+    case recipesTypes.SET_FAVORITE_SCROLL_DISTANCE:
+      return {
+        ...state,
+        scrollDistance: { ...state.scrollDistance, favorite: action.payload }
       }
     default:
       return state;

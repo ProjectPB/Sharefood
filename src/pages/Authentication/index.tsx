@@ -6,11 +6,11 @@ import { googleSignInStart, signUpError } from "../../redux/User/user.actions";
 import { loadAuth } from "../../redux/Loading/loading.actions";
 import { State } from "../../shared/types";
 
-import Login from "../Login";
-import SignUp from "../SignUp";
-import Logo from "../Logo";
-import GoogleButton from "../forms/GoogleButton";
-import Loading from "../Loading";
+import Login from "./../../components/Login";
+import SignUp from "./../../components/SignUp";
+import Logo from "./../../components/Logo";
+import GoogleButton from './../../components/forms/GoogleButton';
+import Loading from "./../../components/Loading";
 
 import "./styles.css";
 
@@ -20,7 +20,7 @@ const mapState = ({ user, loading }: State) => ({
   loading: loading.authLoading,
 });
 
-const Authentication: React.FC = () => {
+const AuthPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [newAccount, setNewAccount] = useState(false);
@@ -86,4 +86,4 @@ const Authentication: React.FC = () => {
   );
 };
 
-export default Authentication;
+export default AuthPage;

@@ -6,9 +6,9 @@ import { loadRecipes } from '../../redux/Loading/loading.actions';
 import { useQuery, useRecipeData } from '../../hooks';
 import { fillWithHiddenCards } from '../../shared/functions';
 
-import Card from '../Card';
-import Loading from '../Loading';
-import NoData from '../NoData';
+import Card from './../../components/Card';
+import Loading from './../../components/Loading';
+import NoData from './../../components/NoData';
 
 import './styles.css';
 

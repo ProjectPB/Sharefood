@@ -5,7 +5,7 @@ import { Lock, Mail } from "@material-ui/icons";
 import { emailSignInStart } from "../../redux/User/user.actions";
 import { Handler, State } from "../../shared/types";
 
-import AuthInput from "../AuthInput";
+import AuthInput from '../forms/AuthInput'
 import Button from "../forms/Button";
 
 import "./styles.css";

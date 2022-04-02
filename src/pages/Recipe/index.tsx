@@ -14,11 +14,11 @@ import {
 import { loadRecipeData } from "../../redux/Loading/loading.actions";
 import { capitalizeLetter } from "../../util/formatText";
 import { State } from "../../shared/types";
-import { dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart, resetRecipes } from "../../redux/Recipes/recipes.actions";
+import { dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart, resetRecipes, resetScrollDistancesStart } from "../../redux/Recipes/recipes.actions";
 import { handleDeleteRecipe } from "../../redux/Recipes/recipes.helpers";
 
-import Loading from "../Loading";
-import NoData from "../NoData";
+import Loading from "../../components/Loading";
+import NoData from "../../components/NoData";
 
 import "./styles.css";
 
@@ -28,7 +28,7 @@ const mapState = ({ user, loading, recipes }: State) => ({
   recipeData: recipes.recipeData,
 });
 
-const Recipe: React.FC = () => {
+const RecipePage: React.FC = () => {
   const { currentUser, loaded, recipeData } = useSelector(mapState);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -40,6 +40,7 @@ const Recipe: React.FC = () => {
 
     return () => {
       dispatch(loadRecipeData(false));
+      dispatch(resetScrollDistancesStart());
     };
   }, [recipeId, currentUser?.uid, dispatch]);
 
@@ -165,4 +166,4 @@ const Recipe: React.FC = () => {
   );
 };
 
-export default Recipe;
+export default RecipePage;

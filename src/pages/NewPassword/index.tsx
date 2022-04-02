@@ -9,8 +9,8 @@ import {
 import { Mail } from "@material-ui/icons";
 import { Handler, State } from "../../shared/types";
 
-import Button from "../forms/Button";
-import AuthInput from "../AuthInput";
+import Button from "../../components/forms/Button";
+import AuthInput from "../../components/forms/AuthInput";
 
 import "./styles.css";
 
@@ -19,7 +19,7 @@ const mapState = ({ user }: State) => ({
   resetPasswordErrors: user.resetPasswordErrors,
 });
 
-const NewPassword: React.FC = () => {
+const NewPasswordPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
@@ -101,4 +101,4 @@ const NewPassword: React.FC = () => {
   );
 };
 
-export default NewPassword;
+export default NewPasswordPage;

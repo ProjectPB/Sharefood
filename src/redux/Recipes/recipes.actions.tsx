@@ -59,3 +59,32 @@ export const dislikeRecipeStart = (ID: { userId: string, recipeId: string, data:
 export const resetRecipes = () => ({
   type: recipesTypes.RESET_RECIPES,
 })
+
+export const setScrollDistanceStart = (data: { distance: number, store: string }) => ({
+  type: recipesTypes.SET_SCROLL_DISTANCE,
+  payload: data,
+})
+
+export const setMainScrollDistance = (distance: number) => ({
+  type: recipesTypes.SET_MAIN_SCROLL_DISTANCE,
+  payload: distance
+})
+
+export const setPopularScrollDistance = (distance: number) => ({
+  type: recipesTypes.SET_POPULAR_SCROLL_DISTANCE,
+  payload: distance
+})
+
+export const setMyScrollDistance = (distance: number) => ({
+  type: recipesTypes.SET_MY_SCROLL_DISTANCE,
+  payload: distance
+})
+
+export const setFavoriteScrollDistance = (distance: number) => ({
+  type: recipesTypes.SET_FAVORITE_SCROLL_DISTANCE,
+  payload: distance
+})
+
+export const resetScrollDistancesStart = () => ({
+  type: recipesTypes.RESET_SCROLL_DISTANCES,
+})
