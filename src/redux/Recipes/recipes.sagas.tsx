@@ -81,6 +81,11 @@ export function* likeRecipe({ payload }: ReturnType<typeof likeRecipeStart>) {
   try {
     yield handleLikeRecipe(payload.userId, payload.recipeId);
     yield put(setRecipeData({ ...payload.data, likesQuantity: payload.data.likesQuantity += 1, liked: true, }))
+    yield put(setFavoriteRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
   } catch (error) {
     console.log(error.message)
   }
@@ -93,7 +98,12 @@ export function* onLikeRecipeStart() {
 export function* dislikeRecipe({ payload }: ReturnType<typeof dislikeRecipeStart>) {
   try {
     handleDislikeRecipe(payload.userId, payload.recipeId);
-    yield put(setRecipeData({ ...payload.data, likesQuantity: payload.data.likesQuantity -= 1, liked: false, }))
+    yield put(setRecipeData({ ...payload.data, likesQuantity: payload.data.likesQuantity -= 1, liked: false, }));
+    yield put(setFavoriteRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
   } catch (error) {
     console.log(error.message)
   }
