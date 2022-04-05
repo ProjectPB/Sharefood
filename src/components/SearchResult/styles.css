@@ -1,0 +1,12 @@
+.searchResult {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  gap: 5px;
+  border-bottom: 1px solid lightgray;
+}
+
+.searchResult__img {
+  height: 50px;
+  aspect-ratio: 4 / 3;
+}

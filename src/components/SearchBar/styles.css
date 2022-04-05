@@ -1,5 +1,7 @@
 .searchBar {
   display: flex;
+  flex-direction: column;
+  position: relative;
   background-color: var(--color-primary);
   border-bottom: 1px solid;
   padding: 5px;
@@ -7,16 +9,16 @@
 
 .searchBar__onHeader {
   display: flex;
+  flex-direction: column;
   flex: 1;
   max-width: 500px;
+  position: relative;
 }
 
-.searchInput {
-  border: 1px solid black;
+.searchBar__container {
+  display: flex;
+  align-items: center;
   width: 100%;
-  padding: 10px;
-  outline: none;
-  background-color: var(--lightgray-background);
 }
 
 .searchIcon__container {
@@ -29,6 +31,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 38px;
 }
 
 .searchIcon {

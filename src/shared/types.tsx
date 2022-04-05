@@ -22,6 +22,7 @@ export interface Loading {
 }
 
 export interface RecipeData {
+  objectID?: string;
   authorId: string;
   username?: string;
   profilePic?: string;
