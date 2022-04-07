@@ -24,16 +24,16 @@ const connectWithQuery = createConnector({
   },
 });
 
-const SearchInput = ({ currentRefinement, refine }: any) => (
-  <input
-    type="input"
-    value={currentRefinement}
-    onChange={e => refine(e.currentTarget.value)}
-    className="searchInput"
-    placeholder="Find the recipe..."
-  />
-);
+const SearchInput = connectWithQuery(({ currentRefinement, refine }: any) => {
+  return (
+    <input
+      type="input"
+      value={currentRefinement}
+      onChange={e => refine(e.currentTarget.value)}
+      className="searchInput"
+      placeholder="Find the recipe..."
+    />
+  )
+});
 
-const ConnectedSearchInput = connectWithQuery(SearchInput);
-
-export default ConnectedSearchInput;
+export default SearchInput;

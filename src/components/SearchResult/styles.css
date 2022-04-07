@@ -10,3 +10,7 @@
   height: 50px;
   aspect-ratio: 4 / 3;
 }
+
+.searchResult:hover {
+  background-color: whitesmoke;
+}
