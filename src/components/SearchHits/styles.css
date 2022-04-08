@@ -1,4 +1,4 @@
-.searchResult {
+.searchHit {
   display: flex;
   align-items: center;
   padding: 5px 0;
@@ -6,11 +6,11 @@
   border-bottom: 1px solid lightgray;
 }
 
-.searchResult__img {
+.searchHit__img {
   height: 50px;
   aspect-ratio: 4 / 3;
 }
 
-.searchResult:hover {
+.searchHit:hover {
   background-color: whitesmoke;
 }

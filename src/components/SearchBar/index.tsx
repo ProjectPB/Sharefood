@@ -1,8 +1,9 @@
+import React, { useRef, useState } from "react";
 import { Search } from "@material-ui/icons";
-import React, { useEffect, useRef, useState } from "react";
 import { InstantSearch } from "react-instantsearch-dom";
 import { searchClient } from "../../firebase/config";
 import { useClickOutside } from "../../hooks";
+import { Configure } from 'react-instantsearch-dom';
 
 import SearchResults from "../SearchResults";
 import SearchInput from './../SearchInput';
@@ -31,6 +32,10 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
             <Search className="searchIcon" />
           </div>
         </div>
+        <Configure
+          hitsPerPage={8}
+        />
+
         {showResults && <SearchResults {...resultsConfig} />}
       </InstantSearch >
     </div >

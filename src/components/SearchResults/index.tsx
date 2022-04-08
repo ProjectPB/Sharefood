@@ -1,17 +1,22 @@
 import React from 'react';
-import { connectHits } from 'react-instantsearch-dom';
-import { RecipeData } from '../../shared/types';
+import { connectStateResults } from 'react-instantsearch-dom';
 
-import SearchResult from './../SearchResult';
+import SearchHits from '../SearchHits';
 
 import './styles.css';
 
-const SearchResults = connectHits(({ hits, hideResults }: any) => {
+const SearchResults = connectStateResults(({ searchState, hideResults }: any) => {
+  const validQuery = searchState.query?.length >= 1;
+
+  const config = {
+    hideResults: hideResults,
+  }
+
   return (
     <div className="searchResults">
-      {hits.map((hit: RecipeData) => (
-        <SearchResult data={hit} hideResults={hideResults} />
-      ))}
+      {validQuery &&
+        <SearchHits {...config} />
+      }
     </div >
   )
 });

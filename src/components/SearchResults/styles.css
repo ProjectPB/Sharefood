@@ -1,7 +1,7 @@
 .searchResults {
   top: 38px;
   background-color: white;
-  padding: 0 10px;
+  padding: 0 10px 10px;
   z-index: 99;
   position: absolute;
   left: 0;
