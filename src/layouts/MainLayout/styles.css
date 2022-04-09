@@ -1,6 +1,19 @@
 .main {
   display: flex;
-  height: calc(100vh - 61px);
+  height: calc(100vh - 62px);
+}
+
+.main__container {
+  height: inherit;
+  overflow: hidden;
+  flex: 1;
+  background-color: var(--darkgray-background);
+}
+
+.main__refresh {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
 }
 
 @media screen and (max-width: 600px) {
