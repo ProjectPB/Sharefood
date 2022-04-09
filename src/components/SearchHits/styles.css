@@ -14,3 +14,7 @@
 .searchHit:hover {
   background-color: whitesmoke;
 }
+
+.searchHits__button {
+  padding: 5px 0;
+}

@@ -3,30 +3,29 @@
   flex-direction: column;
   position: relative;
   background-color: var(--color-primary);
-  border-bottom: 1px solid;
+  outline: 1px solid black;
   padding: 5px;
+  z-index: 2;
 }
 
 .searchBar__onHeader {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  max-width: 500px;
   position: relative;
+  outline: 1px solid black;
+  flex: 1;
+  max-width: 480px;
 }
 
 .searchBar__container {
   display: flex;
   align-items: center;
   width: 100%;
+  background-color: var(--lightgray-background);
 }
 
 .searchIcon__container {
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border: 1px solid black;
-  background-color: var(--color-secondary);
-  cursor: pointer;
+  background-color: var(--lightgray-background);
   width: 40px;
   display: flex;
   justify-content: center;
@@ -38,6 +37,9 @@
   font-size: 18px !important;
 }
 
-.searchIcon__container:hover {
-  opacity: 0.8;
+@media (max-width: 600px) {
+  .searchBar__container {
+    outline: 1px solid;
+    border-radius: 2.5px;
+  }
 }

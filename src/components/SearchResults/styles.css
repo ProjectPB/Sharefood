@@ -1,7 +1,7 @@
 .searchResults {
   top: 38px;
-  background-color: white;
-  padding: 0 10px 10px;
+  background-color: var(--lightgray-background);
+  padding: 0 10px;
   z-index: 99;
   position: absolute;
   left: 0;
@@ -10,4 +10,13 @@
   overflow-y: scroll;
   overflow-x: hidden;
   width: 100%;
+  outline: 1px solid black;
+}
+
+@media (max-width: 600px) {
+  .searchResults {
+    top: 48px;
+    max-height: none;
+    height: calc(100vh - 110px);
+  }
 }

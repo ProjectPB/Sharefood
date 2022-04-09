@@ -13,19 +13,25 @@ const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore
   }
   return (
     <div className="searchHits">
-      {hits.map((hit: RecipeData) => (
-        <Link to={`/recipe/${hit?.objectID}`}>
-          <div className="searchHit" onClick={hideResults}>
-            <img alt={hit?.title} src={hit?.image} className="searchHit__img" />
-            <div className="searchHit__data">
-              <p>{hit?.title}</p>
-              <p>{hit?.type}</p>
+      <div className="searchHits__container">
+        {hits.map((hit: RecipeData) => (
+          <Link to={`/recipe/${hit?.objectID}`}>
+            <div className="searchHit" onClick={hideResults}>
+              <img alt={hit?.title} src={hit?.image} className="searchHit__img" />
+              <div className="searchHit__data">
+                <p>{hit?.title}</p>
+                <p>{hit?.type}</p>
+              </div>
             </div>
-          </div>
-        </Link>
-      ))
+          </Link>
+        ))
+        }
+      </div>
+      {hasMore &&
+        <div className="searchHits__button">
+          <Button {...loadMoreConfig}>Load more</Button>
+        </div>
       }
-      {hasMore && <Button {...loadMoreConfig}>Load more</Button>}
     </div>
   )
 });

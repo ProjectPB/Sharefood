@@ -1,7 +1,7 @@
 .searchInput {
-  border: 1px solid black;
   width: 100%;
   padding: 10px;
   outline: none;
+  border: none;
   background-color: var(--lightgray-background);
 }

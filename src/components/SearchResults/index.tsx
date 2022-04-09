@@ -5,7 +5,7 @@ import SearchHits from '../SearchHits';
 
 import './styles.css';
 
-const SearchResults = connectStateResults(({ searchState, hideResults }: any) => {
+const SearchResults = connectStateResults(({ searchState, searchResults, hideResults }: any) => {
   const validQuery = searchState.query?.length >= 1;
 
   const config = {
@@ -13,10 +13,9 @@ const SearchResults = connectStateResults(({ searchState, hideResults }: any) =>
   }
 
   return (
+    validQuery && searchResults?.hits.length > 0 &&
     <div className="searchResults">
-      {validQuery &&
-        <SearchHits {...config} />
-      }
+      <SearchHits {...config} />
     </div >
   )
 });

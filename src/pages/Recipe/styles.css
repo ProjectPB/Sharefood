@@ -200,7 +200,7 @@
 
 @media screen and (max-width: 600px) {
   .recipe__container {
-    height: calc(100vh - 105px);
+    height: calc(100vh - 110px);
   }
 
   .recipe__container::-webkit-scrollbar {
