@@ -11,6 +11,7 @@ const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore
   const loadMoreConfig = {
     onClick: refineNext,
   }
+
   return (
     <div className="searchHits">
       <div className="searchHits__container">
@@ -19,20 +20,19 @@ const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore
             <div className="searchHit" onClick={hideResults}>
               <img alt={hit?.title} src={hit?.image} className="searchHit__img" />
               <div className="searchHit__data">
-                <p>{hit?.title}</p>
-                <p>{hit?.type}</p>
+                <h2 className="searchHit__title">{hit?.title}</h2>
+                <h3 className="searchHit__type">{hit?.type}</h3>
               </div>
             </div>
           </Link>
-        ))
-        }
+        ))}
       </div>
+
       {hasMore &&
         <div className="searchHits__button">
           <Button {...loadMoreConfig}>Load more</Button>
-        </div>
-      }
-    </div>
+        </div>}
+    </div >
   )
 });
 

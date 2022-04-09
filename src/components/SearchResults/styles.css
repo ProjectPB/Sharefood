@@ -1,7 +1,6 @@
 .searchResults {
   top: 38px;
   background-color: var(--lightgray-background);
-  padding: 0 10px;
   z-index: 99;
   position: absolute;
   left: 0;
