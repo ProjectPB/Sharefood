@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import Moment from "react-moment";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Avatar } from "@material-ui/core";
 import {
   DeleteOutlined,
@@ -11,8 +13,6 @@ import {
 } from "@material-ui/icons";
 import { capitalizeLetter } from "../../util/formatText";
 import { RecipeData, State } from '../../shared/types';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
 import { handleDeleteRecipe } from '../../redux/Recipes/recipes.helpers';
 import { dislikeRecipeStart, likeRecipeStart, resetRecipes } from '../../redux/Recipes/recipes.actions';
 
@@ -147,4 +147,4 @@ const Recipe: React.FC<Props> = ({ data }) => {
   )
 }
 
-export default Recipe
+export default Recipe;

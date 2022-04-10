@@ -13,7 +13,6 @@ import NewRecipe from "../NewRecipe";
 import SearchBar from "../SearchBar";
 import Modal from "../Modal";
 import Button from "../forms/Button";
-import SearchResults from './../SearchResults';
 import Logo from "../Logo";
 
 import "./styles.css";

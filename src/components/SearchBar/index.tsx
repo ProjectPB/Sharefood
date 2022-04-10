@@ -1,9 +1,9 @@
 import React, { useRef, useState } from "react";
-import { Search } from "@material-ui/icons";
 import { InstantSearch } from "react-instantsearch-dom";
+import { Configure } from 'react-instantsearch-dom';
+import { Search } from "@material-ui/icons";
 import { searchClient } from "../../firebase/config";
 import { useClickOutside } from "../../hooks";
-import { Configure } from 'react-instantsearch-dom';
 
 import SearchResults from "../SearchResults";
 import SearchInput from './../SearchInput';

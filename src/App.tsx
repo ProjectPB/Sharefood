@@ -4,10 +4,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FullscreenLayout from './layouts/FullscreenLayout';
 import MainLayout from './layouts/MainLayout';
 
-import QueryRecipesPage from "./pages/QueryRecipes";
 import AuthenticationPage from "./pages/Authentication";
 import NewPasswordPage from "./pages/NewPassword";
-import RecipePage from "./pages/Recipe";
+import RecipePage from "./pages/RecipePage";
 import EmptyPage from "./pages/Empty";
 import MainPage from './pages/Main';
 import PopularRecipesPage from './pages/Popular';
@@ -24,7 +23,6 @@ const App: React.FC = () => {
             <Route path="popular" element={<PopularRecipesPage />} />
             <Route path="favorite" element={<FavoriteRecipesPage />} />
             <Route path="my" element={<MyRecipesPage />} />
-            <Route path="results" element={<QueryRecipesPage />} />
             <Route path="recipe/:recipeId" element={<RecipePage />}>
             </Route>
             <Route path="*" element={<EmptyPage />} />

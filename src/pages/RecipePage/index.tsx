@@ -1,3 +1,5 @@
+/* eslint-disable import/first */
+
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,7 +9,7 @@ import { fetchRecipeDataStart, resetScrollDistancesStart } from "../../redux/Rec
 
 import Loading from "../../components/Loading";
 import NoData from "../../components/NoData";
-import Recipe from '../../components/Recipe';
+import Recipe from "../../components/Recipe";
 
 import "./styles.css";
 
