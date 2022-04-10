@@ -140,6 +140,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       acceptCropData: acceptCropData,
       rotateCrop: rotateCrop,
       removeCrop: removeCrop,
+      loadingPicture: loading
     },
     submitButton: {
       type: "submit",

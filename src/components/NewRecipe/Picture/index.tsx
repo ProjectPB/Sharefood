@@ -16,9 +16,10 @@ interface Props {
   rotateCrop: (e: Handler['void']) => void;
   removeCrop: (e: Handler['void']) => void;
   changeImgFile: (e: Handler["file"]) => Promise<void>;
+  loadingPicture: boolean;
 }
 
-const Picture: React.FC<Props> = ({ cropperImg, initCropper, acceptCropData, rotateCrop, removeCrop, cropData, changeImgFile }) => {
+const Picture: React.FC<Props> = ({ cropperImg, initCropper, acceptCropData, rotateCrop, removeCrop, cropData, changeImgFile, loadingPicture }) => {
   const acceptButtonConfig = {
     onClick: acceptCropData,
     secondary: false
@@ -53,7 +54,7 @@ const Picture: React.FC<Props> = ({ cropperImg, initCropper, acceptCropData, rot
             onInitialized={initCropper}
           />
 
-          <div className="picture__settings">
+          {!loadingPicture && <div className="picture__settings">
             <div className="picture__rotateIcon">
               <RotateRight onClick={rotateCrop} />
             </div>
@@ -61,7 +62,7 @@ const Picture: React.FC<Props> = ({ cropperImg, initCropper, acceptCropData, rot
               <Button {...removeButtonConfig}>Remove</Button>
               <Button {...acceptButtonConfig}>Accept</Button>
             </div>
-          </div>
+          </div>}
         </div>
       }
       {cropData && <img className="picture__preview" src={cropData} alt="recipe preview" />}
