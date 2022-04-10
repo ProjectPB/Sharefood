@@ -33,18 +33,21 @@ const MainLayout: React.FC = () => {
       <div className="main">
         <Sidebar />
         <div className="main__container">
-          <PullToRefresh
-            onRefresh={handleRefresh}
-            pullingContent=""
-            refreshingContent={
-              <div className="main__refresh">
-                <RefreshOutlined fontSize="large" />
-              </div>}>
+          {width <= 600 ?
+            <PullToRefresh
+              onRefresh={handleRefresh}
+              pullingContent=""
+              refreshingContent={
+                <div className="main__refresh">
+                  <RefreshOutlined fontSize="large" />
+                </div>}>
+              <Outlet />
+            </PullToRefresh>
+            :
             <Outlet />
-          </PullToRefresh>
+          }
         </div>
       </div >
-
     </div >
   );
 };
