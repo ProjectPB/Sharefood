@@ -40,21 +40,22 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const [ingredients, setIngredients] = useState("");
   const [method, setMethod] = useState("");
   const [portions, setPortions] = useState(1);
-  const [image, setImage] = useState(null);
+  const [imageHigh, setImageHigh] = useState(null);
+  const [imageLow, setImageLow] = useState(null);
   const [cropper, setCropper] = useState<any>();
   const [cropperImg, setCropperImg] = useState("");
   const [cropData, setCropData] = useState("");
-  const [progress, setProgress] = useState(0);
+  const [added, setAdded] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (progress === 100) {
+    if (added) {
       setLoading(false);
       close();
       alert("Recipe added");
       navigate("/");
     }
-  }, [progress, close, navigate]);
+  }, [added, close, navigate]);
 
   const changeImgFile = async (e: Handler["file"]) => {
     const file = e.target.files[0];
@@ -67,9 +68,11 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       setLoading(true);
       cropper.getCroppedCanvas().toBlob(async function (blob: Blob) {
         const file = new File([blob], currentUser.uid + title);
-        const resizedFile: any = await resizeFile(file);
-        setImage(resizedFile);
-        setCropData(URL.createObjectURL(resizedFile));
+        const resizedFileHigh: any = await resizeFile(file, 400, 400);
+        const resizedFileLow: any = await resizeFile(file, 100, 100);
+        setImageHigh(resizedFileHigh);
+        setImageLow(resizedFileLow);
+        setCropData(URL.createObjectURL(resizedFileHigh));
         setLoading(false);
       }, 'image/jpg');
     }
@@ -100,8 +103,9 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         likesUsers: [],
         likesQuantity: 0,
         portions: portions,
-        imgFile: image,
-        handleProgress: (val: number) => setProgress(val),
+        imgFileHigh: imageHigh,
+        imgFileLow: imageLow,
+        handleAdd: (val: boolean) => setAdded(val),
       })
     );
   };
@@ -139,7 +143,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
     },
     submitButton: {
       type: "submit",
-      disabled: loading || (!image && cropperImg),
+      disabled: loading || (!imageHigh && cropperImg),
     }
   }
 

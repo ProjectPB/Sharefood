@@ -27,6 +27,7 @@ export interface RecipeData {
   username?: string;
   profilePic?: string;
   image?: string;
+  imageLow?: string;
   ingredients: string[];
   likesQuantity: number;
   likesUsers: string[];
@@ -40,8 +41,9 @@ export interface RecipeData {
 }
 
 export interface NewRecipeData extends RecipeData {
-  handleProgress: (val: number) => void;
-  imgFile: any;
+  handleAdd: (val: boolean) => void;
+  imgFileHigh: any;
+  imgFileLow: any;
 }
 
 export interface Filters {

@@ -147,12 +147,13 @@ export const handleDislikeRecipe = (userId: string, recipeId: string) => {
   })
 };
 
-export const handleDeleteRecipe = (storageRef: string, recipeId: string) => {
+export const handleDeleteRecipe = (imageRef: string, imageLowRef: string, recipeId: string) => {
   return new Promise((resolve, reject) => {
     try {
       db.collection("recipes").doc(recipeId).delete()
         .then(() => {
-          storage.refFromURL(storageRef).delete()
+          storage.refFromURL(imageRef).delete()
+          storage.refFromURL(imageLowRef).delete()
             .then(() => {
               resolve(true)
             })
@@ -162,6 +163,17 @@ export const handleDeleteRecipe = (storageRef: string, recipeId: string) => {
     }
   })
 };
+
+const putImgToStorage = (file: any, refString: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      let ref = storage.ref(refString)
+      ref.put(file).then(() => resolve(ref.getDownloadURL()))
+    } catch (error) {
+      reject(error.message)
+    }
+  })
+}
 
 export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
   return new Promise((resolve, reject) => {
@@ -176,48 +188,41 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
       likesUsers,
       likesQuantity,
       portions,
-      imgFile,
-      handleProgress,
+      imgFileHigh,
+      imgFileLow,
+      handleAdd,
     } = payload;
-    const imageName = new Date().getTime() + imgFile.name;
+    const imageName_highRes: string = new Date().getTime() + imgFileHigh.name + '_HIGH';
+    const imageName_lowRes: string = new Date().getTime() + imgFileLow.name + "_LOW";
 
-    storage
-      .ref(`recipeImages/${authorId}/${title}/${imageName}`)
-      .put(imgFile)
-      .on(
-        "state_changed",
-        (snapshot) => {
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-          handleProgress(progress);
-        },
-        (error) => {
-          alert(error.message);
-        },
-        () => {
-          storage
-            .ref(`recipeImages/${authorId}/${title}`)
-            .child(imageName)
-            .getDownloadURL()
-            .then((url) => {
-              db.collection("recipes").add({
-                authorId: authorId,
-                type: type,
-                title: title,
-                tags: tags,
-                ingredients: ingredients,
-                method: method,
-                timestamp: timestamp,
-                likesUsers: likesUsers,
-                likesQuantity: likesQuantity,
-                portions: portions,
-                image: url,
-              });
-              resolve(true);
-            }).catch(err => {
-              reject(err.message);
-            })
-        })
+    const urls: { highResImg: string, lowResImg: string } = {
+      highResImg: "", lowResImg: ""
+    };
+    const putHighResImg = putImgToStorage(imgFileHigh, `recipeImages/${authorId}/${title}/${imageName_highRes}`).then((res: string) => (urls.highResImg = res));
+    const putLowResImg = putImgToStorage(imgFileLow, `recipeImages/${authorId}/${title}/${imageName_lowRes}`).then((res: string) => (urls.lowResImg = res));
+
+    Promise.all([putHighResImg, putLowResImg])
+      .then(() => {
+        handleAdd(true);
+      })
+      .then(() => {
+        db.collection('recipes').add({
+          authorId: authorId,
+          type: type,
+          title: title,
+          tags: tags,
+          ingredients: ingredients,
+          method: method,
+          timestamp: timestamp,
+          likesUsers: likesUsers,
+          likesQuantity: likesQuantity,
+          portions: portions,
+          image: urls.highResImg,
+          imageLow: urls.lowResImg,
+        });
+        resolve(true);
+      }).catch(err => {
+        reject(err.message);
+      });
   });
 };

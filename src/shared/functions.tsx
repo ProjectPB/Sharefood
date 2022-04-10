@@ -3,12 +3,12 @@ import Resizer from "react-image-file-resizer";
 import Card from "../components/Card";
 import { Recipe } from "./types";
 
-export const resizeFile = (file: Blob): Promise<string | unknown> =>
+export const resizeFile = (file: Blob, maxWidth: number, maxHeight: number): Promise<string | unknown> =>
   new Promise((resolve) => {
     Resizer.imageFileResizer(
       file,
-      400,
-      400,
+      maxWidth,
+      maxHeight,
       "JPEG",
       100,
       0,

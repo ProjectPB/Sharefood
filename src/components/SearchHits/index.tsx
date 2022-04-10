@@ -18,11 +18,11 @@ const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore
         {hits.map((hit: RecipeData) => (
           <Link to={`/recipe/${hit?.objectID}`}>
             <div className="searchHit" onClick={hideResults}>
-              <img alt={hit?.title} src={hit?.image} className="searchHit__img" />
               <div className="searchHit__data">
                 <h2 className="searchHit__title">{hit?.title}</h2>
                 <h3 className="searchHit__type">{hit?.type}</h3>
               </div>
+              <img alt={hit?.title} src={hit?.imageLow ? hit?.imageLow : hit?.image} className="searchHit__img" />
             </div>
           </Link>
         ))}
