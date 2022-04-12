@@ -1,7 +1,7 @@
 .card {
   position: relative;
-  outline: 1px solid;
   cursor: pointer;
+  outline: 1px solid gray;
   display: flex;
   flex-direction: column;
   margin: 0px 20px 20px 0px;
@@ -15,8 +15,8 @@
   transition: ease-in 0.2s;
 }
 
-.hidden > *,
-.hidden > div {
+.card--hidden > *,
+.card--hidden > div {
   display: none;
 }
 
@@ -24,6 +24,14 @@
   object-fit: cover;
   aspect-ratio: 4 / 3;
   width: 100%;
+}
+
+.cardImg--loading__overlay {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  z-index: 2;
+  background-color: var(--darkgray-background);
+  position: absolute;
 }
 
 .card__body {
@@ -34,6 +42,7 @@
   border-top: 1px solid;
   padding: 5px;
   height: 110px;
+  position: relative;
 }
 
 .card__title {
@@ -43,6 +52,44 @@
   text-align: center;
   overflow: hidden;
   margin: auto;
+}
+
+.cardBody--loading__overlay {
+  height: 110px;
+  position: relative;
+  background-color: var(--lightgray-background);
+}
+
+.cardTitle--loading__overlay {
+  width: 80%;
+  background-color: var(--darkgray-background);
+  z-index: 2;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  right: 50%;
+  transform: translate(-50%, -50%);
+  height: 25px;
+}
+
+.cardAvatar--loading__overlay {
+  background-color: var(--darkgray-background);
+  height: 20px;
+  width: 35%;
+  z-index: 2;
+  position: absolute;
+  bottom: 35px;
+  left: 5px;
+}
+
+.cardInfo--loading__overlay {
+  background-color: var(--darkgray-background);
+  height: 20px;
+  width: 60%;
+  z-index: 2;
+  position: absolute;
+  bottom: 10px;
+  left: 5px;
 }
 
 .card__dataContainer {
@@ -55,6 +102,7 @@
 .card__data {
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .card__infoContainer {

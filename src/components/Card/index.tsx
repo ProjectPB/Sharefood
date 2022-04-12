@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Moment from "react-moment";
 import { useNavigate } from "react-router-dom";
 import { AccessTimeOutlined, LocalDining } from "@material-ui/icons";
@@ -31,6 +31,7 @@ const Card: React.FC<Data> = ({
   hidden,
   keepScrollHeight,
 }) => {
+  const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
 
   const navToRecipe = () => {
@@ -43,12 +44,22 @@ const Card: React.FC<Data> = ({
   };
 
   return (
-    <div onClick={navToRecipe} className={hidden ? "hidden" : "card"}>
+    <div onClick={navToRecipe} className={`${hidden ? "card--hidden" : "card"}`}>
+      {!loaded && <div className='cardImg--loading__overlay' />}
       <img
         src={image}
+        onLoad={() => setLoaded(true)}
         alt="recipe"
       />
-      <div className="card__body">
+
+      {!loaded &&
+        <div className="cardBody--loading__overlay">
+          <div className="cardTitle--loading__overlay" />
+          <div className="cardAvatar--loading__overlay" />
+          <div className="cardInfo--loading__overlay" />
+        </div >}
+
+      {loaded && <div className="card__body">
         <h1 className="card__title">{title}</h1>
         <div className="card__dataContainer">
           <div className="card__data">
@@ -71,6 +82,7 @@ const Card: React.FC<Data> = ({
           </div>
         </div>
       </div>
+      }
     </div >
   );
 };
