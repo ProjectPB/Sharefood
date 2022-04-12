@@ -39,7 +39,7 @@
   justify-content: space-between;
   flex-direction: column;
   background-color: whitesmoke;
-  border-top: 1px solid;
+  border-top: 1px solid gray;
   padding: 5px;
   height: 110px;
   position: relative;
