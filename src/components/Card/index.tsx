@@ -48,30 +48,30 @@ const Card: React.FC<Data> = ({
         src={image}
         alt="recipe"
       />
-      <div className="card__info">
+      <div className="card__body">
         <h1 className="card__title">{title}</h1>
-        <div className="card__data">
-          <div className="card__dataLeft">
-            <div className="card__time">
-              <AccessTimeOutlined />
-              <Moment fromNow className="card__timestamp">
-                {timestamp?.toDate()}
-              </Moment>
-            </div>
-            <div className="card__user">
-              <Avatar src={profilePic} />
-              <p>{username}</p>
+        <div className="card__dataContainer">
+          <div className="card__data">
+            <div className="card__infoContainer">
+              <Avatar className="card__icon" src={profilePic} />
+              <p className="card__text">{username}</p>
             </div>
           </div>
-          <div className="card__dataRight">
-            <div className="card__type">
-              <LocalDining fontSize="small" />
-              <p>{type && capitalizeLetter(type)}</p>
+          <div className="card__data">
+            <div className="card__infoContainer">
+              <LocalDining className="card__icon" />
+              <p className="card__text">{type && capitalizeLetter(type)}</p>
+            </div>
+            <div className="card__infoContainer card__timestamp">
+              <AccessTimeOutlined className="card__icon" />
+              <Moment fromNow className="card__text">
+                {timestamp?.toDate()}
+              </Moment>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

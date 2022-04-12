@@ -7,22 +7,23 @@ import { getRecipesCounter } from "../../shared/functions";
 import Recipes from './../../components/Recipes';
 import WithAuth from './../../hoc/WithAuth';
 
-const mapState = ({ user }: State) => ({
+const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,
+  sidebarIsOpen: ui.sidebarOpen,
 });
 
 const MyPage: React.FC = () => {
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, sidebarIsOpen } = useSelector(mapState);
   const authorFilter = currentUser?.uid;
   const width = useWidth();
-  const [counter, setCounter] = useState(() => getRecipesCounter(width));
+  const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
   const filters = {
     authorFilter, store: 'my', counter: counter
   }
 
   useEffect(() => {
-    setCounter(getRecipesCounter(width))
-  }, [width]);
+    setCounter(getRecipesCounter(width, sidebarIsOpen))
+  }, [width, sidebarIsOpen]);
 
   return (
     <Fragment>

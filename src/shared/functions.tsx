@@ -19,11 +19,23 @@ export const resizeFile = (file: Blob, maxWidth: number, maxHeight: number): Pro
     );
   });
 
-export const getRecipesCounter = (width: number) => {
-  if (width <= 1200 && width > 992) {
-    return 9;
-  } else {
-    return 8;
+export const getRecipesCounter = (width: number, sidebarIsOpen: boolean) => {
+  // narrow
+  if (sidebarIsOpen) {
+    if (width <= 1366 && width > 1200) {
+      return 9;
+    } else {
+      return 8;
+    }
+  }
+
+  //wide
+  if (!sidebarIsOpen) {
+    if (width <= 1200 && width > 992) {
+      return 9;
+    } else {
+      return 8;
+    }
   }
 }
 

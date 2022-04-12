@@ -107,7 +107,7 @@ const Recipes: React.FC<Props> = ({ filters }) => {
       {!loaded && <Loading />}
       {loaded && data?.length === 0 && <NoData />}
       <div ref={recipesRef}
-        className={`recipes ${sidebarOpen && "recipes--narrow"}`}
+        className={`recipes ${sidebarOpen ? "recipes--narrow" : "recipes--wide"}`}
       >
         {data?.map(({ id, data }) => (
           <Card
