@@ -5,13 +5,15 @@ import draftToHtml from 'draftjs-to-html';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './styles.css';
 
-const EditorXD = () => {
+const TextEditor = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+  const [content, setContent] = useState("")
 
-  const updateTextDescription = (state: React.SetStateAction<EditorState>) => {
+  const updateTextDescription = (state: React.SetStateAction<EditorState> | any) => {
     setEditorState(state);
+    setContent(draftToHtml(convertToRaw(state.getCurrentContent())));
   };
 
   return (
@@ -21,6 +23,7 @@ const EditorXD = () => {
         toolbarClassName="editor__toolbar"
         wrapperClassName="wrapperClassName"
         editorClassName="editor__textarea"
+        handlePastedText={() => false}
         onEditorStateChange={updateTextDescription}
         toolbar={{
           options: ['inline', 'link', 'list', 'textAlign'],
@@ -33,15 +36,15 @@ const EditorXD = () => {
           link: {
             options: ['link'],
           },
+          textAlign: {
+            options: ['left', 'center', 'right']
+          }
         }}
       />
-      <div className="editor__value">
-        <p>
-          {draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-        </p>
+      <div className="editor__value" dangerouslySetInnerHTML={{ __html: content }}>
       </div>
     </div>
   )
 }
 
-export default EditorXD;
+export default TextEditor;

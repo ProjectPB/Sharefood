@@ -12,7 +12,7 @@ import MainPage from './pages/Main';
 import PopularRecipesPage from './pages/Popular';
 import FavoriteRecipesPage from './pages/Favorite';
 import MyRecipesPage from './pages/My';
-import Edit from './pages/Edit';
+import TextEditor from "./pages/TextEditor";
 
 const App: React.FC = () => {
   return (
@@ -24,7 +24,7 @@ const App: React.FC = () => {
             <Route path="popular" element={<PopularRecipesPage />} />
             <Route path="favorite" element={<FavoriteRecipesPage />} />
             <Route path="my" element={<MyRecipesPage />} />
-            <Route path="edit" element={<Edit />} />
+            <Route path="edit" element={<TextEditor />} />
             <Route path="recipe/:recipeId" element={<RecipePage />}>
             </Route>
             <Route path="*" element={<EmptyPage />} />
