@@ -28,13 +28,12 @@ export interface RecipeData {
   profilePic?: string;
   image?: string;
   imageLow?: string;
-  ingredients: string[];
+  ingredients: string;
   likesQuantity: number;
   likesUsers: string[];
   liked?: boolean;
-  method: string[];
+  method: string;
   portions: number;
-  tags: string[];
   timestamp: any;
   title: string;
   type: string;

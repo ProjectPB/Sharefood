@@ -1,26 +1,28 @@
 .editor__container {
   width: 100%;
-  max-width: 600px;
-  margin: 0 10px;
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
-  background-color: white;
+}
+
+.editor__label {
+  font-size: 18px;
+}
+
+.editor__wrapper {
   outline: 1px solid black;
-  overflow: scroll;
 }
 
 .editor__toolbar {
   width: 100%;
-  border-right: 1px solid gray;
-  background-color: whitesmoke;
+  background-color: var(--color-secondary);
   margin: 0;
   padding: 5px 0;
+  border: none;
 }
 
 .editor__textarea {
-  height: 100%;
-  border-right: 1px solid gray;
+  height: 300px;
+  background-color: var(--lightgray-background);
   padding: 5px;
   width: 100%;
 }
@@ -34,7 +36,6 @@
 
 .rdw-option-wrapper {
   border: none;
-  outline: 1px solid lightgray;
   padding: 15px 10px;
 }
 
@@ -64,33 +65,15 @@
   text-align: inherit;
 }
 
+.public-DraftStyleDefault-orderedListItem {
+  list-style-type: decimal;
+}
+
+.public-DraftStyleDefault-unorderedListItem {
+  list-style-type: circle;
+}
+
 .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-listLTR:before {
   left: -30px;
-}
-
-.editor__value {
-  height: 400px;
-  width: 100%;
-  border-top: 1px solid darkblue;
-  background-color: azure;
-  overflow-y: scroll;
-  list-style-position: inside;
-  padding: 0 10px;
-}
-
-.editor__value > p {
-  margin-top: 8px;
-}
-
-.editor__value > p:empty {
-  margin: 20px;
-}
-
-.editor__value > * > li {
-  padding: 2px 0;
-}
-
-.editor__value > ul,
-ol {
-  margin-top: 5px;
+  display: none;
 }

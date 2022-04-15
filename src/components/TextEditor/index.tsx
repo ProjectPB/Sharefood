@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Editor } from 'react-draft-wysiwyg';
-import { EditorState, convertToRaw } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
+import { EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './styles.css';
 
-const TextEditor = () => {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
-  const [content, setContent] = useState("")
+interface Props {
+  label: string,
+  editor: EditorState;
+  content: string;
+  update: (state: React.SetStateAction<EditorState> | any) => void;
+}
 
-  const updateTextDescription = (state: React.SetStateAction<EditorState> | any) => {
-    setEditorState(state);
-    setContent(draftToHtml(convertToRaw(state.getCurrentContent())));
-  };
-
+const TextEditor: React.FC<Props> = ({ label, editor, content, update }) => {
   return (
     <div className="editor__container">
+      {label && <label className="editor__label">{label}</label>}
+
       <Editor
-        editorState={editorState}
+        editorState={editor}
         toolbarClassName="editor__toolbar"
-        wrapperClassName="wrapperClassName"
+        wrapperClassName="editor__wrapper"
         editorClassName="editor__textarea"
         handlePastedText={() => false}
-        onEditorStateChange={updateTextDescription}
+        onEditorStateChange={update}
         toolbar={{
           options: ['inline', 'link', 'list', 'textAlign'],
           inline: {
@@ -41,8 +39,6 @@ const TextEditor = () => {
           }
         }}
       />
-      <div className="editor__value" dangerouslySetInnerHTML={{ __html: content }}>
-      </div>
     </div>
   )
 }

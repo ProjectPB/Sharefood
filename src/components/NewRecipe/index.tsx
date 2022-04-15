@@ -2,23 +2,19 @@ import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import {
-  renderTags,
-  capitalizeLetter,
-  TextAreaToArray,
-} from "../../util/formatText";
 import { createRecipeStart } from "../../redux/Recipes/recipes.actions";
-import { resizeFile } from '../../shared/functions'
+import { capitalizeLetter, resizeFile } from '../../shared/functions'
 import { Handler, State } from "../../shared/types";
+import draftToHtml from "draftjs-to-html";
+import { EditorState, convertToRaw } from "draft-js";
 
 import Button from "../forms/Button";
 import Loading from "../Loading";
 import Title from './Title';
 import Type from './Type';
-import Ingredients from './Ingredients';
-import Method from './Method';
 import Portions from './Portions';
 import Picture from './Picture';
+import TextEditor from "../TextEditor";
 
 import "cropperjs/dist/cropper.css";
 import "./styles.css";
@@ -37,8 +33,6 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [method, setMethod] = useState("");
   const [portions, setPortions] = useState(1);
   const [imageHigh, setImageHigh] = useState(null);
   const [imageLow, setImageLow] = useState(null);
@@ -47,6 +41,14 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const [cropData, setCropData] = useState("");
   const [added, setAdded] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [ingEditor, setIngEditor] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const [ingredients, setIngredients] = useState("");
+  const [methodEditor, setMethodEditor] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const [method, setMethod] = useState("");
 
   useEffect(() => {
     if (added) {
@@ -90,15 +92,23 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
 
   const handleCreate = (e: Handler["form"]) => {
     e.preventDefault();
+    if (ingredients.trim() === "<p></p>" || !ingredients) {
+      alert('Please enter ingredients');
+      return
+    };
+    if (method.trim() === "<p></p>" || !method) {
+      alert('Please enter a method');
+      return
+    };
+
     setLoading(true);
     dispatch(
       createRecipeStart({
         authorId: currentUser.uid,
         type: type,
         title: capitalizeLetter(title),
-        tags: renderTags(title, ingredients, type, currentUser.displayName),
-        ingredients: TextAreaToArray(ingredients),
-        method: TextAreaToArray(method),
+        ingredients: ingredients,
+        method: method,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         likesUsers: [],
         likesQuantity: 0,
@@ -115,14 +125,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       handler: (e: React.ChangeEvent<HTMLInputElement>) =>
         setTitle(e.target.value), value: title
     },
-    ingredients: {
-      handler: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-        setIngredients(e.target.value), value: ingredients
-    },
-    method: {
-      handler: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
-        setMethod(e.target.value), value: method
-    },
+
     type: {
       handler: (e: React.ChangeEvent<HTMLSelectElement>) =>
         setType(e.target.value), value: type,
@@ -142,6 +145,24 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       removeCrop: removeCrop,
       loadingPicture: loading
     },
+    ingredients: {
+      label: "Ingredients",
+      editor: ingEditor,
+      content: ingredients,
+      update: (state: React.SetStateAction<EditorState> | any) => {
+        setIngEditor(state);
+        setIngredients(draftToHtml(convertToRaw(state.getCurrentContent())));
+      },
+    },
+    method: {
+      label: "Method",
+      editor: methodEditor,
+      content: method,
+      update: (state: React.SetStateAction<EditorState> | any) => {
+        setMethodEditor(state);
+        setMethod(draftToHtml(convertToRaw(state.getCurrentContent())));
+      },
+    },
     submitButton: {
       type: "submit",
       disabled: loading || (!imageHigh && cropperImg),
@@ -152,8 +173,8 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
     <div className="newRecipe__container">
       <form className="newRecipe" onSubmit={handleCreate}>
         <Title {...config.title} />
-        <Ingredients {...config.ingredients} />
-        <Method {...config.method} />
+        <TextEditor {...config.ingredients} />
+        <TextEditor {...config.method} />
         <Type {...config.type} />
         <Portions {...config.portions} />
         <Picture {...config.picture} />

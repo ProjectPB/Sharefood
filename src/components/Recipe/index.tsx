@@ -11,10 +11,10 @@ import {
   Group,
   LocalDining,
 } from "@material-ui/icons";
-import { capitalizeLetter } from "../../util/formatText";
 import { RecipeData, State } from '../../shared/types';
 import { handleDeleteRecipe } from '../../redux/Recipes/recipes.helpers';
 import { dislikeRecipeStart, likeRecipeStart, resetRecipes } from '../../redux/Recipes/recipes.actions';
+import { capitalizeLetter } from '../../shared/functions';
 
 import Loading from '../Loading';
 
@@ -30,10 +30,10 @@ const mapState = ({ user }: State) => ({
 
 const Recipe: React.FC<Props> = ({ data }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { currentUser } = useSelector(mapState);
   const { recipeId } = useParams<{ recipeId: string }>();
   const [isDeleting, setIsDeleting] = useState(false);
-  const navigate = useNavigate();
 
   const handleLikes = () => {
     if (!currentUser) {
@@ -123,28 +123,16 @@ const Recipe: React.FC<Props> = ({ data }) => {
                 <p>{data?.portions}</p>
               </div>
             </div>
-            <ul className="recipe__ingredientsList">
-              {data?.ingredients?.map(
-                (ingredient: string, index: number) => (
-                  <li key={index}>{ingredient}</li>
-                )
-              )}
-            </ul>
+            <div className="recipe__preparation" dangerouslySetInnerHTML={{ __html: data?.ingredients }} />
           </div>
           <div className="recipe__method">
             <h2>Method</h2>
-            <ul className="recipe__steps">
-              {data?.method?.map((step: string, index: number) => (
-                <li className="recipe__step" key={index}>
-                  {step}
-                </li>
-              ))}
-            </ul>
+            <div className="recipe__preparation" dangerouslySetInnerHTML={{ __html: data?.method }} />
           </div>
         </div>
       </div>
     </div>
   )
-}
+};
 
 export default Recipe;

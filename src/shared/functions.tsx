@@ -76,3 +76,9 @@ export const invokeOnBottom = (ref: React.MutableRefObject<HTMLDivElement>, acti
     }
   }
 };
+
+export const capitalizeLetter = (str: string) => {
+  const capitalStr = str[0].toUpperCase() + str.substring(1);
+  const formatStr = capitalStr.trim();
+  return formatStr;
+};

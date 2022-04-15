@@ -35,17 +35,12 @@ export const handleFetchRecipes = (filters: Filters) => {
     let ref: Query = db.collection("recipes");
     let {
       authorFilter,
-      queryFilter,
       favoriteFilter,
       popularFilter,
       counter,
       startAfterDoc,
       persistProducts = [],
     } = filters;
-
-    if (queryFilter) {
-      ref = ref.where("tags", "array-contains", queryFilter);
-    }
 
     if (authorFilter) {
       ref = ref.where("authorId", "==", authorFilter);
@@ -181,7 +176,6 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
       authorId,
       type,
       title,
-      tags,
       ingredients,
       method,
       timestamp,
@@ -210,7 +204,6 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
           authorId: authorId,
           type: type,
           title: title,
-          tags: tags,
           ingredients: ingredients,
           method: method,
           timestamp: timestamp,
