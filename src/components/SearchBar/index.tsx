@@ -5,8 +5,9 @@ import { Search } from "@material-ui/icons";
 import { searchClient } from "../../firebase/config";
 import { useClickOutside } from "../../hooks";
 
-import SearchResults from "../SearchResults";
-import SearchInput from './../SearchInput';
+import SearchResults from "./SearchResults";
+import SearchInput from './SearchInput';
+import ClearRefinements from './ClearRefinements';
 
 import "./styles.css";
 
@@ -28,7 +29,8 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
       <InstantSearch indexName="recipes" searchClient={searchClient}>
         <div className="searchBar__container">
           <SearchInput />
-          <div className="searchIcon__container">
+          <div className="searchIcons__container">
+            <ClearRefinements clearsQuery />
             <Search className="searchIcon" />
           </div>
         </div>

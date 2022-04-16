@@ -1,9 +1,9 @@
 import React from 'react';
 import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { Link } from 'react-router-dom';
-import { RecipeData } from '../../shared/types';
+import { RecipeData } from '../../../shared/types';
 
-import Button from '../forms/Button';
+import Button from '../../forms/Button';
 
 import './styles.css';
 

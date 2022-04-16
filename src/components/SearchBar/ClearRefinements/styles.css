@@ -1,0 +1,15 @@
+.clearRefinements {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  background-color: inherit;
+  cursor: pointer;
+  padding-right: 5px;
+  border-right: 1px solid lightgray;
+}
+
+.clearRefinements__icon {
+  font-size: 18px !important;
+}
