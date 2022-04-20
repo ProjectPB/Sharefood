@@ -5,7 +5,7 @@ import { State } from "../../shared/types";
 import { getRecipesCounter } from "../../shared/functions";
 
 import WithAuth from './../../hoc/WithAuth';
-import Recipes from './../../components/Recipes';
+import RecipesRenderer from "../../components/RecipesRenderer";
 
 const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,
@@ -28,7 +28,7 @@ const FavoritePage: React.FC = () => {
   return (
     <Fragment>
       <WithAuth>
-        <Recipes filters={filters} />
+        <RecipesRenderer filters={filters} />
       </WithAuth>
     </Fragment >
   );

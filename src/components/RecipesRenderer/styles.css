@@ -1,0 +1,12 @@
+.recipes__container {
+  overflow-y: scroll;
+  flex: 1;
+  background-color: var(--darkgray-background);
+  height: 100%;
+}
+
+.recipes__loading {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
+}

@@ -4,7 +4,7 @@ import { useWidth } from "../../hooks";
 import { getRecipesCounter } from "../../shared/functions";
 import { State } from "../../shared/types";
 
-import Recipes from './../../components/Recipes';
+import RecipesRenderer from '../../components/RecipesRenderer';
 
 const mapState = ({ ui }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,
@@ -22,9 +22,10 @@ const MainPage: React.FC = () => {
   const filters = {
     store: "main", counter: counter
   }
+
   return (
     <Fragment>
-      <Recipes filters={filters} />
+      <RecipesRenderer filters={filters} />
     </Fragment >
   );
 };

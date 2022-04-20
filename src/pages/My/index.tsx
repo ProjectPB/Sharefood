@@ -4,7 +4,7 @@ import { useWidth } from "../../hooks";
 import { State } from "../../shared/types";
 import { getRecipesCounter } from "../../shared/functions";
 
-import Recipes from './../../components/Recipes';
+import RecipesRenderer from '../../components/RecipesRenderer';
 import WithAuth from './../../hoc/WithAuth';
 
 const mapState = ({ user, ui }: State) => ({
@@ -28,7 +28,7 @@ const MyPage: React.FC = () => {
   return (
     <Fragment>
       <WithAuth>
-        <Recipes filters={filters} />
+        <RecipesRenderer filters={filters} />
       </WithAuth>
     </Fragment >
   );
