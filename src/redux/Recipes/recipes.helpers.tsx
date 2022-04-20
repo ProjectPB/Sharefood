@@ -185,6 +185,7 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
       imgFileHigh,
       imgFileLow,
       handleAdd,
+      description
     } = payload;
     const imageName_highRes: string = new Date().getTime() + imgFileHigh.name + '_HIGH';
     const imageName_lowRes: string = new Date().getTime() + imgFileLow.name + "_LOW";
@@ -203,6 +204,7 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
         db.collection('recipes').add({
           authorId: authorId,
           type: type,
+          description: description,
           title: title,
           ingredients: ingredients,
           method: method,

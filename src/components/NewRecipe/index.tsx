@@ -45,6 +45,10 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
     EditorState.createEmpty()
   );
   const [ingredients, setIngredients] = useState("");
+  const [descriptionEditor, setDescriptionEditor] = useState(() =>
+    EditorState.createEmpty()
+  );
+  const [description, setDescription] = useState("");
   const [methodEditor, setMethodEditor] = useState(() =>
     EditorState.createEmpty()
   );
@@ -107,6 +111,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         authorId: currentUser.uid,
         type: type,
         title: capitalizeLetter(title),
+        description: description,
         ingredients: ingredients,
         method: method,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -145,6 +150,15 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       removeCrop: removeCrop,
       loadingPicture: loading
     },
+    description: {
+      label: "Description (optional)",
+      editor: descriptionEditor,
+      content: description,
+      update: (state: React.SetStateAction<EditorState> | any) => {
+        setDescriptionEditor(state);
+        setDescription(draftToHtml(convertToRaw(state.getCurrentContent())));
+      },
+    },
     ingredients: {
       label: "Ingredients",
       editor: ingEditor,
@@ -173,6 +187,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
     <div className="newRecipe__container">
       <form className="newRecipe" onSubmit={handleCreate}>
         <Title {...config.title} />
+        <TextEditor {...config.description} />
         <TextEditor {...config.ingredients} />
         <TextEditor {...config.method} />
         <Type {...config.type} />
