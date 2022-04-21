@@ -144,9 +144,8 @@
 }
 
 .recipe__preparation {
-  list-style-position: inside;
-  padding: 0 5px;
-  margin-top: 5px;
+  font-size: 16px;
+  padding: 5px 0;
 }
 
 .recipe__preparation > p {
@@ -158,12 +157,13 @@
 }
 
 .recipe__preparation > * > li {
-  padding: 2px 0;
+  margin: 5px 0;
 }
 
 .recipe__preparation > ul,
 ol {
   margin-top: 5px;
+  margin-left: 25px;
 }
 
 @media screen and (min-width: 1200px) {
@@ -179,6 +179,11 @@ ol {
 
   .recipe__ingredients {
     border-right: none;
+  }
+
+  .recipe__preparation > ul,
+  ol {
+    margin-left: 15px;
   }
 }
 
