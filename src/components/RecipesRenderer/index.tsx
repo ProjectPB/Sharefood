@@ -17,16 +17,19 @@ interface Props {
     counter?: number,
     store?: string,
     popularFilter?: boolean;
+    typeFilter?: string;
     authorFilter?: string;
     favoriteFilter?: string;
   }
+  typesAvailable?: boolean;
+  changeType?: (name: string) => void;
 }
 
 const mapState = ({ loading }: State) => ({
   loaded: loading.recipesLoaded,
 });
 
-const RecipesRenderer: React.FC<Props> = ({ filters }) => {
+const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType }) => {
   const dispatch = useDispatch();
   const { loaded } = useSelector(mapState);
   const topRef = useRef<HTMLDivElement>(null);
@@ -39,6 +42,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters }) => {
   const [distance, setDistance] = useState(0);
 
   useEffect(() => {
+    console.log(filters.typeFilter);
     setRendered(true);
     if (rendered) {
       setWidthChanged(true);
@@ -47,7 +51,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters }) => {
       setRendered(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.counter]);
+  }, [filters.counter, filters.typeFilter]);
 
   useEffect(() => {
     if (data.length === 0) {
@@ -61,7 +65,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters }) => {
       setWidthChanged(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.length, dispatch, widthChanged])
+  }, [data.length, dispatch, widthChanged]);
 
   useEffect(() => {
     if (data?.length !== 0) {
@@ -104,17 +108,26 @@ const RecipesRenderer: React.FC<Props> = ({ filters }) => {
 
   return (
     <div
-      className="recipes__container"
+      className="recipesRenderer__container"
       onScroll={handleScroll}
       ref={recipesContainerRef}
     >
       <div ref={topRef} />
+      {typesAvailable && <div className="recipesRenderer__filters">
+        <button className={filters.typeFilter === '' ? 'active' : undefined} onClick={() => changeType('')}>all</button>
+        <button className={filters.typeFilter === 'breakfast' ? 'active' : undefined} onClick={() => changeType('breakfast')}>breakfast</button>
+        <button className={filters.typeFilter === 'appetizer' ? 'active' : undefined} onClick={() => changeType('appetizer')}>appetizer</button>
+        <button className={filters.typeFilter === 'soup' ? 'active' : undefined} onClick={() => changeType('soup')}>soup</button>
+        <button className={filters.typeFilter === 'main' ? 'active' : undefined} onClick={() => changeType('main')}>main</button>
+        <button className={filters.typeFilter === 'dessert' ? 'active' : undefined} onClick={() => changeType('dessert')}>dessert</button>
+        <button className={filters.typeFilter === 'other' ? 'active' : undefined} onClick={() => changeType('other')}>other</button>
+      </div>}
       {!loaded && <Loading />}
       {loaded && data?.length === 0 && <NoData />}
       <Recipes {...config} />
       {
         (loadMore && !isLastPage) &&
-        <div className="recipes__loading">
+        <div className="recipesRenderer__loading">
           <Loading />
         </div>
       }

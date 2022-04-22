@@ -50,6 +50,7 @@ export interface Filters {
   queryFilter?: string;
   counter?: number;
   popularFilter?: boolean;
+  typeFilter?: string,
   authorFilter?: string;
   favoriteFilter?: string;
   startAfterDoc?: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
@@ -67,6 +68,7 @@ export interface SingleRecipes {
   data: Recipe[] | [];
   queryDoc: firebase.firestore.QueryDocumentSnapshot | undefined;
   isLastPage: boolean;
+  filter?: string,
 }
 
 export interface Recipes {
@@ -83,6 +85,9 @@ export interface Recipes {
     popular: number;
     my: number;
     favorite: number;
+  }
+  filters: {
+    popularType: string,
   }
 }
 

@@ -17,6 +17,7 @@ const INITIAL_STATE: Recipes = {
       data: [],
       queryDoc: null,
       isLastPage: false,
+      filter: '',
     },
     myRecipes: {
       data: [],
@@ -35,6 +36,9 @@ const INITIAL_STATE: Recipes = {
     popular: 0,
     my: 0,
     favorite: 0,
+  },
+  filters: {
+    popularType: ""
   }
 };
 
@@ -89,6 +93,13 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
       return {
         ...state,
         scrollDistance: { ...state.scrollDistance, favorite: action.payload }
+      }
+    case recipesTypes.SET_POPULAR_FILTER:
+      return {
+        ...state,
+        filters: {
+          ...state.filters, popularType: action.payload,
+        }
       }
     default:
       return state;

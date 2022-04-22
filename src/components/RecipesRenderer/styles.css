@@ -1,12 +1,32 @@
-.recipes__container {
+.recipesRenderer__container {
   overflow-y: scroll;
   flex: 1;
   background-color: var(--darkgray-background);
   height: 100%;
 }
 
-.recipes__loading {
+.recipesRenderer__loading {
   width: 100%;
   margin: 0 auto;
   padding: 20px 0;
+}
+
+.recipesRenderer__filters {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px 20px;
+}
+
+.recipesRenderer__filters > button {
+  cursor: pointer;
+  padding: 10px 24px;
+  text-transform: uppercase;
+  background-color: aliceblue;
+  outline: 1px solid;
+  border: none;
+}
+
+.recipesRenderer__filters > .active {
+  background-color: aqua;
 }

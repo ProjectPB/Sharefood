@@ -37,6 +37,7 @@ export const handleFetchRecipes = (filters: Filters) => {
       authorFilter,
       favoriteFilter,
       popularFilter,
+      typeFilter,
       counter,
       startAfterDoc,
       persistProducts = [],
@@ -54,6 +55,10 @@ export const handleFetchRecipes = (filters: Filters) => {
 
     if (favoriteFilter) {
       ref = ref.where("likesUsers", "array-contains", favoriteFilter);
+    }
+
+    if (typeFilter) {
+      ref = ref.where("type", "==", typeFilter);
     }
 
     if (startAfterDoc) ref = ref.startAfter(startAfterDoc);

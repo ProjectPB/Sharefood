@@ -88,3 +88,8 @@ export const setFavoriteScrollDistance = (distance: number) => ({
 export const resetScrollDistancesStart = () => ({
   type: recipesTypes.RESET_SCROLL_DISTANCES,
 })
+
+export const setPopularFilter = (filter: string,) => ({
+  type: recipesTypes.SET_POPULAR_FILTER,
+  payload: filter,
+})
