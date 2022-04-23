@@ -22,7 +22,6 @@ const MainLayout: React.FC = () => {
       } catch (err) {
         reject(err.message)
       }
-
     })
   }
 
@@ -33,19 +32,22 @@ const MainLayout: React.FC = () => {
       <div className="main">
         <Sidebar />
         <div className="main__container">
-          {width <= 600 ?
-            <PullToRefresh
-              onRefresh={handleRefresh}
-              pullingContent=""
-              refreshingContent={
-                <div className="main__refresh">
-                  <RefreshOutlined fontSize="large" />
-                </div>}>
-              <Outlet />
-            </PullToRefresh>
-            :
+          <PullToRefresh
+            pullDownThreshold={60}
+            maxPullDownDistance={60}
+            isPullable={width <= 600}
+            resistance={3}
+            onRefresh={handleRefresh}
+            pullingContent={
+              <div className="main__refresh">
+                <RefreshOutlined fontSize="large" />
+              </div>}
+            refreshingContent={
+              <div className="main__refresh">
+                <RefreshOutlined fontSize="large" />
+              </div>}>
             <Outlet />
-          }
+          </PullToRefresh>
         </div>
       </div >
     </div >
