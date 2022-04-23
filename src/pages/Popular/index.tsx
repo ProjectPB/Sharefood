@@ -17,6 +17,7 @@ const PopularPage: React.FC = () => {
   const dispatch = useDispatch();
   const { sidebarIsOpen, typeFilter } = useSelector(mapState)
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
+
   const filters = {
     popularFilter: true, store: 'popular', counter: counter, typeFilter: typeFilter
   }
@@ -29,9 +30,47 @@ const PopularPage: React.FC = () => {
     dispatch(setPopularFilter(name))
   }
 
+  const typeFilters = [
+    {
+      name: 'all',
+      value: "",
+    },
+    {
+      name: "breakfast",
+      value: "breakfast",
+    },
+    {
+      name: "appetizer",
+      value: "appetizer",
+    },
+    {
+      name: "soup",
+      value: "soup",
+    },
+    {
+      name: "main",
+      value: "main",
+    },
+    {
+      name: "dessert",
+      value: "dessert",
+    },
+    {
+      name: "other",
+      value: "other",
+    },
+  ]
+
+  const rendererConfig = {
+    typesAvailable: true,
+    filters: filters,
+    changeType: (name: string) => changeTypeFilter(name),
+    typeFilters: typeFilters
+  }
+
   return (
     <Fragment>
-      <RecipesRenderer typesAvailable={true} filters={filters} changeType={(name) => { changeTypeFilter(name) }} />
+      <RecipesRenderer {...rendererConfig} />
     </Fragment >
   );
 };

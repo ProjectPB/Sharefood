@@ -3,30 +3,50 @@
   flex: 1;
   background-color: var(--darkgray-background);
   height: 100%;
-}
-
-.recipesRenderer__loading {
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px 0;
+  position: relative;
 }
 
 .recipesRenderer__filters {
   display: flex;
   align-items: center;
   gap: 15px;
-  padding: 10px 20px;
+  padding: 10px 15px;
+  border-bottom: 1px solid gray;
+  overflow-x: auto;
+  margin: 0 5px;
 }
 
 .recipesRenderer__filters > button {
   cursor: pointer;
   padding: 10px 24px;
   text-transform: uppercase;
-  background-color: aliceblue;
+  background-color: var(--lightgray-background);
   outline: 1px solid;
+  border-radius: 5px;
   border: none;
 }
 
 .recipesRenderer__filters > .active {
-  background-color: aqua;
+  background-color: var(--color-primary);
+}
+
+.recipesRenderer__loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.recipesRenderer__noData {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.recipesRenderer__loadingMore {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 0;
 }

@@ -3,8 +3,7 @@
   place-items: center;
   height: 100%;
   width: 100%;
-  overflow: hidden;
-  margin: -35px 0;
+  padding: 0 10px;
 }
 
 .noData {

@@ -23,13 +23,14 @@ interface Props {
   }
   typesAvailable?: boolean;
   changeType?: (name: string) => void;
+  typeFilters?: { name: string, value: string }[]
 }
 
 const mapState = ({ loading }: State) => ({
   loaded: loading.recipesLoaded,
 });
 
-const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType }) => {
+const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType, typeFilters }) => {
   const dispatch = useDispatch();
   const { loaded } = useSelector(mapState);
   const topRef = useRef<HTMLDivElement>(null);
@@ -37,15 +38,14 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType 
   const recipesRef = createRef<HTMLDivElement>();
   const [loadMore, setLoadMore] = useState(false);
   const { data, queryDoc, isLastPage, scrollDistance } = useRecipeData(filters.store);
-  const [widthChanged, setWidthChanged] = useState(false);
+  const [filtersChanged, setFiltersChanged] = useState(false);
   const [rendered, setRendered] = useState(false);
   const [distance, setDistance] = useState(0);
 
   useEffect(() => {
-    console.log(filters.typeFilter);
     setRendered(true);
     if (rendered) {
-      setWidthChanged(true);
+      setFiltersChanged(true);
     }
     return () => {
       setRendered(false);
@@ -54,21 +54,21 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType 
   }, [filters.counter, filters.typeFilter]);
 
   useEffect(() => {
-    if (data.length === 0) {
+    if (data.length === 0 && !isLastPage) {
       dispatch(loadRecipes(false));
       dispatch(fetchRecipesStart(filters));
     }
 
-    if (widthChanged) {
+    if (filtersChanged) {
       dispatch(loadRecipes(false));
       dispatch(fetchRecipesStart(filters));
-      setWidthChanged(false);
+      setFiltersChanged(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data.length, dispatch, widthChanged]);
+  }, [data.length, dispatch, filtersChanged]);
 
   useEffect(() => {
-    if (data?.length !== 0) {
+    if (data?.length !== 0 && !isLastPage && recipesRef.current && recipesContainerRef.current) {
       const { clientHeight } = recipesContainerRef.current;
       const { scrollHeight } = recipesRef.current
       if (scrollHeight < clientHeight) {
@@ -100,7 +100,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType 
     setDistance(recipesContainerRef.current?.scrollTop)
   }
 
-  const config = {
+  const recipesConfig = {
     ref: recipesRef,
     data: data,
     keepScroll: () => dispatch(setScrollDistanceStart({ distance: distance, store: filters.store })),
@@ -113,21 +113,34 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType 
       ref={recipesContainerRef}
     >
       <div ref={topRef} />
-      {typesAvailable && <div className="recipesRenderer__filters">
-        <button className={filters.typeFilter === '' ? 'active' : undefined} onClick={() => changeType('')}>all</button>
-        <button className={filters.typeFilter === 'breakfast' ? 'active' : undefined} onClick={() => changeType('breakfast')}>breakfast</button>
-        <button className={filters.typeFilter === 'appetizer' ? 'active' : undefined} onClick={() => changeType('appetizer')}>appetizer</button>
-        <button className={filters.typeFilter === 'soup' ? 'active' : undefined} onClick={() => changeType('soup')}>soup</button>
-        <button className={filters.typeFilter === 'main' ? 'active' : undefined} onClick={() => changeType('main')}>main</button>
-        <button className={filters.typeFilter === 'dessert' ? 'active' : undefined} onClick={() => changeType('dessert')}>dessert</button>
-        <button className={filters.typeFilter === 'other' ? 'active' : undefined} onClick={() => changeType('other')}>other</button>
-      </div>}
-      {!loaded && <Loading />}
-      {loaded && data?.length === 0 && <NoData />}
-      <Recipes {...config} />
-      {
-        (loadMore && !isLastPage) &&
+
+      {typesAvailable &&
+        <div className="recipesRenderer__filters">
+          {typeFilters.map((({ value, name }, id) => (
+            <button
+              key={id}
+              className={filters.typeFilter === value ? "active" : undefined}
+              onClick={() => changeType(value)}
+            >
+              {name}
+            </button>
+          )))}
+        </div>
+      }
+
+      {!loaded &&
         <div className="recipesRenderer__loading">
+          <Loading />
+        </div>}
+      {loaded && data?.length === 0 &&
+        <div className="recipesRenderer__noData">
+          <NoData />
+        </div>}
+
+      {loaded && <Recipes {...recipesConfig} />}
+
+      {(loadMore && !isLastPage) &&
+        <div className="recipesRenderer__loadingMore">
           <Loading />
         </div>
       }
