@@ -1,31 +1,46 @@
 import React, { Fragment, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useWidth } from "../../hooks";
+import { setRecentFilter } from "../../redux/Recipes/recipes.actions";
 import { getRecipesCounter } from "../../shared/functions";
 import { State } from "../../shared/types";
+import { typeFilters } from './../../shared/filters';
 
 import RecipesRenderer from '../../components/RecipesRenderer';
 
-const mapState = ({ ui }: State) => ({
+const mapState = ({ ui, recipes }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,
+  typeFilter: recipes.filters.recentType
 });
 
 const MainPage: React.FC = () => {
   const width = useWidth();
-  const { sidebarIsOpen } = useSelector(mapState);
+  const dispatch = useDispatch();
+  const { sidebarIsOpen, typeFilter } = useSelector(mapState);
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
 
   useEffect(() => {
     setCounter(getRecipesCounter(width, sidebarIsOpen))
   }, [width, sidebarIsOpen]);
 
+  const changeTypeFilter = (name: string) => {
+    dispatch(setRecentFilter(name))
+  }
+
   const filters = {
-    store: "main", counter: counter
+    store: "main", counter: counter, typeFilter: typeFilter
+  }
+
+  const rendererConfig = {
+    typesAvailable: true,
+    filters: filters,
+    changeType: (name: string) => changeTypeFilter(name),
+    typeFilters: typeFilters
   }
 
   return (
     <Fragment>
-      <RecipesRenderer filters={filters} />
+      <RecipesRenderer {...rendererConfig} />
     </Fragment >
   );
 };

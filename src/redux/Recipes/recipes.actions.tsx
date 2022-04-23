@@ -89,7 +89,12 @@ export const resetScrollDistancesStart = () => ({
   type: recipesTypes.RESET_SCROLL_DISTANCES,
 })
 
-export const setPopularFilter = (filter: string,) => ({
+export const setPopularFilter = (filter: string) => ({
   type: recipesTypes.SET_POPULAR_FILTER,
+  payload: filter,
+})
+
+export const setRecentFilter = (filter: string) => ({
+  type: recipesTypes.SET_RECENT_FILTER,
   payload: filter,
 })

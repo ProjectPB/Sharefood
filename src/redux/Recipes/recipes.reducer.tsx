@@ -38,7 +38,8 @@ const INITIAL_STATE: Recipes = {
     favorite: 0,
   },
   filters: {
-    popularType: ""
+    popularType: "",
+    recentType: "",
   }
 };
 
@@ -99,6 +100,13 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         filters: {
           ...state.filters, popularType: action.payload,
+        }
+      }
+    case recipesTypes.SET_RECENT_FILTER:
+      return {
+        ...state,
+        filters: {
+          ...state.filters, recentType: action.payload,
         }
       }
     default:

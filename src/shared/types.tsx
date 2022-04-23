@@ -88,6 +88,7 @@ export interface Recipes {
   }
   filters: {
     popularType: string,
+    recentType: string,
   }
 }
 

@@ -4,6 +4,7 @@ import { useWidth } from "../../hooks";
 import { getRecipesCounter } from "../../shared/functions";
 import { setPopularFilter } from "../../redux/Recipes/recipes.actions";
 import { State } from "../../shared/types";
+import { typeFilters } from './../../shared/filters';
 
 import RecipesRenderer from "../../components/RecipesRenderer";
 
@@ -29,37 +30,6 @@ const PopularPage: React.FC = () => {
   const changeTypeFilter = (name: string) => {
     dispatch(setPopularFilter(name))
   }
-
-  const typeFilters = [
-    {
-      name: 'all',
-      value: "",
-    },
-    {
-      name: "breakfast",
-      value: "breakfast",
-    },
-    {
-      name: "appetizer",
-      value: "appetizer",
-    },
-    {
-      name: "soup",
-      value: "soup",
-    },
-    {
-      name: "main",
-      value: "main",
-    },
-    {
-      name: "dessert",
-      value: "dessert",
-    },
-    {
-      name: "other",
-      value: "other",
-    },
-  ]
 
   const rendererConfig = {
     typesAvailable: true,
