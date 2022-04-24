@@ -1,8 +1,8 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { NewRecipeData, RecipeData } from "../../shared/types";
-import { createRecipeStart, dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart, setRecipeData } from "./recipe.actions";
-import { handleCreateRecipe, handleDislikeRecipe, handleFetchRecipeData, handleLikeRecipe } from "./recipe.helpers";
-import { resetRecipes, setFavoriteRecipes } from './../Recipes/recipes.actions'
+import { RecipeData } from "../../shared/types";
+import { createRecipeStart, dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart, setRecipeData, viewRecipeStart } from "./recipe.actions";
+import { handleCreateRecipe, handleDislikeRecipe, handleFetchRecipeData, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
+import { setFavoriteRecipes } from './../Recipes/recipes.actions'
 import { loadRecipeData } from "../Loading/loading.actions";
 import recipeTypes from "./recipe.types";
 
@@ -22,10 +22,7 @@ export function* onFetchRecipeDataStart() {
 
 export function* createRecipe(payload: ReturnType<typeof createRecipeStart>) {
   try {
-    const resolve: NewRecipeData = yield handleCreateRecipe(payload);
-    if (resolve) {
-      yield resetRecipes();
-    }
+    yield handleCreateRecipe(payload);
   } catch (err) {
     // console.log(err.message);
   }
@@ -38,7 +35,7 @@ export function* onCreateRecipeStart() {
 export function* likeRecipe({ payload }: ReturnType<typeof likeRecipeStart>) {
   try {
     yield handleLikeRecipe(payload.userId, payload.recipeId);
-    yield put(setRecipeData({ ...payload.data, likesQuantity: payload.data.likesQuantity += 1, liked: true, }))
+    yield put(setRecipeData({ ...payload.data, liked: true, stats: { ...payload.data.stats, likesQuantity: payload.data.stats.likesQuantity += 1 } }));
     yield put(setFavoriteRecipes({
       data: [],
       queryDoc: null,
@@ -56,7 +53,7 @@ export function* onLikeRecipeStart() {
 export function* dislikeRecipe({ payload }: ReturnType<typeof dislikeRecipeStart>) {
   try {
     handleDislikeRecipe(payload.userId, payload.recipeId);
-    yield put(setRecipeData({ ...payload.data, likesQuantity: payload.data.likesQuantity -= 1, liked: false, }));
+    yield put(setRecipeData({ ...payload.data, liked: false, stats: { ...payload.data.stats, likesQuantity: payload.data.stats.likesQuantity -= 1 } }));
     yield put(setFavoriteRecipes({
       data: [],
       queryDoc: null,
@@ -71,11 +68,29 @@ export function* onDislikeRecipeStart() {
   yield takeLatest(recipeTypes.DISLIKE_RECIPE, dislikeRecipe);
 }
 
+export function* viewRecipe({ payload }: ReturnType<typeof viewRecipeStart>) {
+  try {
+    handleViewRecipe(payload.recipeId);
+    yield put(setRecipeData({
+      ...payload.data, stats: {
+        ...payload.data.stats, views: payload.data.stats.views += 1,
+      }
+    }));
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export function* onViewRecipeStart() {
+  yield takeLatest(recipeTypes.VIEW_RECIPE, viewRecipe);
+}
+
 export default function* recipeSagas() {
   yield all([
     call(onCreateRecipeStart),
     call(onFetchRecipeDataStart),
     call(onLikeRecipeStart),
     call(onDislikeRecipeStart),
+    call(onViewRecipeStart),
   ]);
 }

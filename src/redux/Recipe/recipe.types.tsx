@@ -5,6 +5,7 @@ const recipeTypes = {
   LIKE_RECIPE: 'LIKE_RECIPE',
   DISLIKE_RECIPE: 'DISLIKE_RECIPE',
   DELETE_RECIPE: 'DELETE_RECIPE',
+  VIEW_RECIPE: "VIEW_RECIPE"
 }
 
 export default recipeTypes;

@@ -89,7 +89,7 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         scrollDistance: { ...state.scrollDistance, favorite: action.payload }
       }
-    case recipesTypes.SET_POPULAR_FILTER:
+    case recipesTypes.SET_LIKES_FILTER:
       return {
         ...state,
         filters: {

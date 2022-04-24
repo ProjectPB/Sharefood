@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Moment from "react-moment";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -10,11 +10,12 @@ import {
   DateRange,
   Group,
   LocalDining,
+  Visibility,
 } from "@material-ui/icons";
 import { RecipeData, State } from '../../shared/types';
 import { handleDeleteRecipe } from '../../redux/Recipe/recipe.helpers';
 import { resetRecipes } from '../../redux/Recipes/recipes.actions';
-import { dislikeRecipeStart, likeRecipeStart } from '../../redux/Recipe/recipe.actions';
+import { dislikeRecipeStart, likeRecipeStart, viewRecipeStart } from '../../redux/Recipe/recipe.actions';
 import { capitalizeLetter } from '../../shared/functions';
 
 import Loading from '../Loading';
@@ -35,6 +36,11 @@ const Recipe: React.FC<Props> = ({ data }) => {
   const { currentUser } = useSelector(mapState);
   const { recipeId } = useParams<{ recipeId: string }>();
   const [isDeleting, setIsDeleting] = useState(false);
+
+  useEffect(() => {
+    dispatch(viewRecipeStart({ recipeId: recipeId, data: data }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, recipeId]);
 
   const handleLikes = () => {
     if (!currentUser) {
@@ -88,6 +94,10 @@ const Recipe: React.FC<Props> = ({ data }) => {
               />
               <p>{data?.username}</p>
             </div>
+            <div className="recipe__author">
+              <Visibility fontSize="large" />
+              <p>{data?.stats?.views} views</p>
+            </div>
             {data?.authorId === currentUser?.uid && (
               <div className="recipe__delete" onClick={deleteRecipe}>
                 <DeleteOutlined fontSize="large" />
@@ -111,7 +121,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
               ) : (
                 <Favorite fontSize="large" onClick={handleLikes} />
               )}
-              <p>{data?.likesQuantity}</p>
+              <p>{data?.stats?.likesQuantity}</p>
             </div>
           </div>
         </div>

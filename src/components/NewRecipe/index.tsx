@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import firebase from "firebase/compat/app";
 import draftToHtml from "draftjs-to-html";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -7,6 +6,7 @@ import { capitalizeLetter, resizeFile } from '../../shared/functions'
 import { Handler, State } from "../../shared/types";
 import { createRecipeStart } from "../../redux/Recipe/recipe.actions";
 import { EditorState, convertToRaw } from "draft-js";
+import { resetRecipes } from "../../redux/Recipes/recipes.actions";
 
 import Button from "../forms/Button";
 import Loading from "../Loading";
@@ -59,9 +59,9 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       setLoading(false);
       close();
       alert("Recipe added");
-      navigate("/");
+      dispatch(resetRecipes());
     }
-  }, [added, close, navigate]);
+  }, [added, close, navigate, dispatch]);
 
   const changeImgFile = async (e: Handler["file"]) => {
     const file = e.target.files[0];
@@ -114,9 +114,6 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         description: description,
         ingredients: ingredients,
         method: method,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        likesUsers: [],
-        likesQuantity: 0,
         portions: portions,
         imgFileHigh: imageHigh,
         imgFileLow: imageLow,

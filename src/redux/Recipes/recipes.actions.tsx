@@ -65,7 +65,7 @@ export const resetScrollDistancesStart = () => ({
 })
 
 export const setPopularFilter = (filter: string) => ({
-  type: recipesTypes.SET_POPULAR_FILTER,
+  type: recipesTypes.SET_LIKES_FILTER,
   payload: filter,
 })
 

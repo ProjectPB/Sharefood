@@ -31,7 +31,7 @@ export const handleFetchRecipes = (filters: Filters) => {
     }
 
     if (popularFilter) {
-      ref = ref.orderBy("likesQuantity", "desc");
+      ref = ref.orderBy("stats.likesQuantity", "desc");
     } else {
       ref = ref.orderBy("timestamp", "desc");
     }
@@ -72,6 +72,7 @@ export const handleFetchRecipes = (filters: Filters) => {
         }));
       })
       .catch(err => {
+        console.log(err.message);
         reject(err.message);
       })
   })

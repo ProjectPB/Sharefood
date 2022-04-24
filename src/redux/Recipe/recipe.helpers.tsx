@@ -44,8 +44,25 @@ export const handleLikeRecipe = (userId: string, recipeId: string) => {
       db.collection("recipes")
         .doc(recipeId)
         .update({
+          // eslint-disable-next-line 
+          ['stats.likesQuantity']: firebase.firestore.FieldValue.increment(1),
           likesUsers: firebase.firestore.FieldValue.arrayUnion(userId),
-          likesQuantity: firebase.firestore.FieldValue.increment(1),
+        });
+      resolve(true);
+    } catch (err) {
+      reject(err.message)
+    }
+  })
+};
+
+export const handleViewRecipe = (recipeId: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes")
+        .doc(recipeId)
+        .update({
+          // eslint-disable-next-line 
+          ['stats.views']: firebase.firestore.FieldValue.increment(1),
         });
       resolve(true);
     } catch (err) {
@@ -60,8 +77,9 @@ export const handleDislikeRecipe = (userId: string, recipeId: string) => {
       db.collection("recipes")
         .doc(recipeId)
         .update({
+          // eslint-disable-next-line 
+          ['stats.likesQuantity']: firebase.firestore.FieldValue.increment(-1),
           likesUsers: firebase.firestore.FieldValue.arrayRemove(userId),
-          likesQuantity: firebase.firestore.FieldValue.increment(-1),
         })
       resolve(true);
     } catch (err) {
@@ -107,9 +125,6 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
       title,
       ingredients,
       method,
-      timestamp,
-      likesUsers,
-      likesQuantity,
       portions,
       imgFileHigh,
       imgFileLow,
@@ -137,15 +152,19 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
           title: title,
           ingredients: ingredients,
           method: method,
-          timestamp: timestamp,
-          likesUsers: likesUsers,
-          likesQuantity: likesQuantity,
+          timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+          likesUsers: [],
           portions: portions,
           image: urls.highResImg,
           imageLow: urls.lowResImg,
+          stats: {
+            likesQuantity: 0,
+            views: 0,
+          }
         });
         resolve(true);
       }).catch(err => {
+        console.log(err.message);
         reject(err.message);
       });
   });

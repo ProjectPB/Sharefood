@@ -1,5 +1,5 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setPopularRecipes, setPopularScrollDistance, setQueryRecipes,  setScrollDistanceStart } from "./recipes.actions";
+import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setPopularRecipes, setPopularScrollDistance, setQueryRecipes, setScrollDistanceStart } from "./recipes.actions";
 import { handleFetchRecipes } from "./recipes.helpers";
 import { loadRecipes } from "../Loading/loading.actions";
 import { SingleRecipes } from "../../shared/types";
@@ -39,7 +39,6 @@ export function* fetchRecipes({
     }
     yield put(loadRecipes(true));
   } catch (err) {
-    console.log(err.message);
     alert(err.message);
   }
 }

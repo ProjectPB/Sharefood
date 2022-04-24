@@ -30,14 +30,17 @@ export interface RecipeData {
   image?: string;
   imageLow?: string;
   ingredients: string;
-  likesQuantity: number;
-  likesUsers: string[];
+  likesUsers?: string[];
   liked?: boolean;
   method: string;
   portions: number;
-  timestamp: any;
+  timestamp?: any;
   title: string;
   type: string;
+  stats?: {
+    likesQuantity: number;
+    views: number;
+  }
 }
 
 export interface NewRecipeData extends RecipeData {
