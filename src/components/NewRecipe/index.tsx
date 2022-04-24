@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import firebase from "firebase/compat/app";
+import draftToHtml from "draftjs-to-html";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { createRecipeStart } from "../../redux/Recipes/recipes.actions";
 import { capitalizeLetter, resizeFile } from '../../shared/functions'
 import { Handler, State } from "../../shared/types";
-import draftToHtml from "draftjs-to-html";
+import { createRecipeStart } from "../../redux/Recipe/recipe.actions";
 import { EditorState, convertToRaw } from "draft-js";
 
 import Button from "../forms/Button";

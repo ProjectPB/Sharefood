@@ -5,7 +5,8 @@ import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { loadRecipeData } from "../../redux/Loading/loading.actions";
 import { State } from "../../shared/types";
-import { fetchRecipeDataStart, resetScrollDistancesStart } from "../../redux/Recipes/recipes.actions";;
+import { resetScrollDistancesStart } from "../../redux/Recipes/recipes.actions";;
+import { fetchRecipeDataStart } from "../../redux/Recipe/recipe.actions";;
 
 import Loading from "../../components/Loading";
 import NoData from "../../components/NoData";
@@ -13,10 +14,10 @@ import Recipe from "../../components/Recipe";
 
 import "./styles.css";
 
-const mapState = ({ user, loading, recipes }: State) => ({
+const mapState = ({ user, loading, recipe }: State) => ({
   currentUser: user.currentUser,
   loaded: loading.recipeDataLoaded,
-  recipeData: recipes.recipeData,
+  recipeData: recipe.recipeData
 });
 
 const RecipePage: React.FC = () => {

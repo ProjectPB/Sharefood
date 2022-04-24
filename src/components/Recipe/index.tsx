@@ -12,8 +12,9 @@ import {
   LocalDining,
 } from "@material-ui/icons";
 import { RecipeData, State } from '../../shared/types';
-import { handleDeleteRecipe } from '../../redux/Recipes/recipes.helpers';
-import { dislikeRecipeStart, likeRecipeStart, resetRecipes } from '../../redux/Recipes/recipes.actions';
+import { handleDeleteRecipe } from '../../redux/Recipe/recipe.helpers';
+import { resetRecipes } from '../../redux/Recipes/recipes.actions';
+import { dislikeRecipeStart, likeRecipeStart } from '../../redux/Recipe/recipe.actions';
 import { capitalizeLetter } from '../../shared/functions';
 
 import Loading from '../Loading';

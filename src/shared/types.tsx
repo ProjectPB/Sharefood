@@ -79,7 +79,6 @@ export interface Recipes {
     myRecipes: SingleRecipes,
     favoriteRecipes: SingleRecipes,
   }
-  recipeData: RecipeData,
   scrollDistance: {
     main: number;
     popular: number;
@@ -104,6 +103,9 @@ export interface State {
   };
   recipes: Recipes;
   loading: Loading;
+  recipe: {
+    recipeData: RecipeData
+  };
 }
 
 export interface Handler {

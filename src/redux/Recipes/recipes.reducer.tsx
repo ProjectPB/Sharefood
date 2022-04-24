@@ -30,7 +30,6 @@ const INITIAL_STATE: Recipes = {
       isLastPage: false,
     },
   },
-  recipeData: undefined,
   scrollDistance: {
     main: 0,
     popular: 0,
@@ -70,11 +69,6 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         recipes: { ...state.recipes, favoriteRecipes: action.payload },
       };
-    case recipesTypes.SET_RECIPE_DATA:
-      return {
-        ...state,
-        recipeData: action.payload
-      }
     case recipesTypes.SET_MAIN_SCROLL_DISTANCE:
       return {
         ...state,
