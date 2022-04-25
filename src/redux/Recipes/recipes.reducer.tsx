@@ -38,6 +38,7 @@ const INITIAL_STATE: Recipes = {
   },
   filters: {
     popularType: "",
+    popularStats: "views",
     recentType: "",
   }
 };
@@ -89,11 +90,18 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         scrollDistance: { ...state.scrollDistance, favorite: action.payload }
       }
-    case recipesTypes.SET_LIKES_FILTER:
+    case recipesTypes.SET_POPULAR_TYPE_FILTER:
       return {
         ...state,
         filters: {
           ...state.filters, popularType: action.payload,
+        }
+      }
+    case recipesTypes.SET_POPULAR_STATS_FILTER:
+      return {
+        ...state,
+        filters: {
+          ...state.filters, popularStats: action.payload,
         }
       }
     case recipesTypes.SET_RECENT_FILTER:

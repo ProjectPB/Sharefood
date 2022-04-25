@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useWidth } from "../../hooks";
-import { setRecentFilter } from "../../redux/Recipes/recipes.actions";
+import { setRecentTypeFilter } from "../../redux/Recipes/recipes.actions";
 import { getRecipesCounter } from "../../shared/functions";
 import { State } from "../../shared/types";
 import { typeFilters } from './../../shared/filters';
@@ -24,7 +24,7 @@ const MainPage: React.FC = () => {
   }, [width, sidebarIsOpen]);
 
   const changeTypeFilter = (name: string) => {
-    dispatch(setRecentFilter(name))
+    dispatch(setRecentTypeFilter(name))
   }
 
   const filters = {

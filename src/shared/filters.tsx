@@ -28,3 +28,14 @@ export const typeFilters = [
     value: "other",
   },
 ]
+
+export const statsFilters = [
+  {
+    name: 'Order by views',
+    value: "views",
+  },
+  {
+    name: "Order by likes",
+    value: "likes",
+  },
+]

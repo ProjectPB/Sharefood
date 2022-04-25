@@ -4,9 +4,9 @@ import "./styles.css";
 
 interface Props {
   options: Option[];
-  defaultValue: string;
+  defaultValue?: string;
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  label: string;
+  label?: string;
 }
 
 type Option = {

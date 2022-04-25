@@ -52,7 +52,7 @@ export interface NewRecipeData extends RecipeData {
 export interface Filters {
   queryFilter?: string;
   counter?: number;
-  popularFilter?: boolean;
+  statsFilter?: string;
   typeFilter?: string,
   authorFilter?: string;
   favoriteFilter?: string;
@@ -90,6 +90,7 @@ export interface Recipes {
   }
   filters: {
     popularType: string,
+    popularStats: string,
     recentType: string,
   }
 }

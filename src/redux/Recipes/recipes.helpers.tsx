@@ -19,7 +19,7 @@ export const handleFetchRecipes = (filters: Filters) => {
     let {
       authorFilter,
       favoriteFilter,
-      popularFilter,
+      statsFilter,
       typeFilter,
       counter,
       startAfterDoc,
@@ -30,8 +30,10 @@ export const handleFetchRecipes = (filters: Filters) => {
       ref = ref.where("authorId", "==", authorFilter);
     }
 
-    if (popularFilter) {
+    if (statsFilter === 'likes') {
       ref = ref.orderBy("stats.likesQuantity", "desc");
+    } else if (statsFilter === 'views') {
+      ref = ref.orderBy('stats.views', 'desc')
     } else {
       ref = ref.orderBy("timestamp", "desc");
     }

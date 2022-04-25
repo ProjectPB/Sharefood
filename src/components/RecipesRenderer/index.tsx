@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { State } from "../../shared/types";
+import { Filters, State } from "../../shared/types";
 import { fetchRecipesStart, setScrollDistanceStart } from "../../redux/Recipes/recipes.actions";
 import { loadRecipes } from '../../redux/Loading/loading.actions';
 import { useRecipeData } from '../../hooks';
@@ -11,18 +11,14 @@ import Loading from '../Loading';
 import NoData from '../NoData';
 
 import "./styles.css";
+import { statsFilters } from '../../shared/filters';
 
 interface Props {
-  filters: {
-    counter?: number,
-    store?: string,
-    popularFilter?: boolean;
-    typeFilter?: string;
-    authorFilter?: string;
-    favoriteFilter?: string;
-  }
+  filters: Filters
   typesAvailable?: boolean;
+  statsAvailable?: boolean;
   changeType?: (name: string) => void;
+  changeStats?: (name: string) => void;
   typeFilters?: { name: string, value: string }[]
 }
 
@@ -30,7 +26,7 @@ const mapState = ({ loading }: State) => ({
   loaded: loading.recipesLoaded,
 });
 
-const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType, typeFilters }) => {
+const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType, typeFilters, statsAvailable, changeStats }) => {
   const dispatch = useDispatch();
   const { loaded } = useSelector(mapState);
   const topRef = useRef<HTMLDivElement>(null);
@@ -51,7 +47,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
       setRendered(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.counter, filters.typeFilter]);
+  }, [filters.counter, filters.typeFilter, filters.statsFilter]);
 
   useEffect(() => {
     if (data.length === 0 && !isLastPage) {
@@ -114,28 +110,44 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
     >
       <div ref={topRef} />
 
-      {typesAvailable &&
-        <div className="recipesRenderer__filters">
-          {typeFilters.map((({ value, name }, id) => (
-            <button
-              key={id}
-              className={filters.typeFilter === value ? "active" : undefined}
-              onClick={() => changeType(value)}
-            >
-              {name}
-            </button>
-          )))}
-        </div>
-      }
+      <div className="recipesRenderer__filters">
+        {statsAvailable &&
+          <div className="recipesRenderer__statsFilters">
+            <select onChange={(e) => changeStats(e.target.value)} defaultValue={filters.statsFilter}>
+              {statsFilters.map(({ value, name }, id) => (
+                <option key={id} value={value}>
+                  {name}
+                </option>
+              ))}
+            </select>
+          </div>
+        }
+        {typesAvailable &&
+          <div className="recipesRenderer__typeFilters">
+            {typeFilters.map((({ value, name }, id) => (
+              <button
+                key={id}
+                className={filters.typeFilter === value ? "active" : undefined}
+                onClick={() => changeType(value)}
+              >
+                {name}
+              </button>
+            )))}
+          </div>
+        }
+      </div>
 
       {!loaded &&
         <div className="recipesRenderer__loading">
           <Loading />
-        </div>}
+        </div>
+      }
+
       {loaded && data?.length === 0 &&
         <div className="recipesRenderer__noData">
           <NoData />
-        </div>}
+        </div>
+      }
 
       {loaded && <Recipes {...recipesConfig} />}
 
