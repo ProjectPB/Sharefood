@@ -5,13 +5,13 @@ import { fetchRecipesStart, setScrollDistanceStart } from "../../redux/Recipes/r
 import { loadRecipes } from '../../redux/Loading/loading.actions';
 import { useRecipeData } from '../../hooks';
 import { invokeOnBottom } from '../../shared/functions';
+import { statsFilters } from '../../shared/filters';
 
 import Recipes from '../Recipes';
 import Loading from '../Loading';
 import NoData from '../NoData';
 
 import "./styles.css";
-import { statsFilters } from '../../shared/filters';
 
 interface Props {
   filters: Filters
@@ -110,29 +110,37 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
     >
       <div ref={topRef} />
 
-      <div className="recipesRenderer__filters">
+      <div className="recipesRenderer__filtersContainer">
         {statsAvailable &&
-          <div className="recipesRenderer__statsFilters">
-            <select onChange={(e) => changeStats(e.target.value)} defaultValue={filters.statsFilter}>
-              {statsFilters.map(({ value, name }, id) => (
-                <option key={id} value={value}>
+          <div className="recipesRenderer__filters">
+            <p>Sort by:</p>
+            <div className="recipesRenderer__buttons">
+              {statsFilters.map((({ value, name }, id) => (
+                <button
+                  key={id}
+                  className={filters.statsFilter === value ? "active" : undefined}
+                  onClick={() => changeStats(value)}
+                >
                   {name}
-                </option>
-              ))}
-            </select>
+                </button>
+              )))}
+            </div>
           </div>
         }
         {typesAvailable &&
-          <div className="recipesRenderer__typeFilters">
-            {typeFilters.map((({ value, name }, id) => (
-              <button
-                key={id}
-                className={filters.typeFilter === value ? "active" : undefined}
-                onClick={() => changeType(value)}
-              >
-                {name}
-              </button>
-            )))}
+          <div className="recipesRenderer__filters">
+            <p>Type:</p>
+            <div className="recipesRenderer__buttons">
+              {typeFilters.map((({ value, name }, id) => (
+                <button
+                  key={id}
+                  className={filters.typeFilter === value ? "active" : undefined}
+                  onClick={() => changeType(value)}
+                >
+                  {name}
+                </button>
+              )))}
+            </div>
           </div>
         }
       </div>

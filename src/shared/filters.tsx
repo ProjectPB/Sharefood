@@ -31,11 +31,11 @@ export const typeFilters = [
 
 export const statsFilters = [
   {
-    name: 'Order by views',
+    name: 'Views',
     value: "views",
   },
   {
-    name: "Order by likes",
+    name: "Likes",
     value: "likes",
   },
 ]
