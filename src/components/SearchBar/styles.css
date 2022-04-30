@@ -24,6 +24,15 @@
   background-color: var(--lightgray-background);
 }
 
+.searchBar__resultsContainer {
+  position: absolute;
+  top: 36px;
+  z-index: 99;
+  left: 0;
+  right: 0;
+  outline: 1px solid black;
+}
+
 .searchIcons__container {
   background-color: inherit;
   display: flex;
@@ -41,5 +50,12 @@
   .searchBar__container {
     outline: 1px solid;
     border-radius: 2.5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .searchBar__resultsContainer {
+    top: 48px;
+    height: calc(100vh - 110px);
   }
 }

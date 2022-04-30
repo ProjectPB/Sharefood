@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { InstantSearch } from "react-instantsearch-dom";
+import { Index, InstantSearch } from "react-instantsearch-dom";
 import { Configure } from 'react-instantsearch-dom';
 import { Search } from "@material-ui/icons";
 import { searchClient } from "../../firebase/config";
@@ -20,8 +20,14 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
   const searchbarRef = useRef<HTMLDivElement>();
   useClickOutside(searchbarRef, () => setShowResults(false))
 
-  const resultsConfig = {
-    hideResults: () => setShowResults(false)
+  const usersResultsConfig = {
+    hideResults: () => setShowResults(false),
+    index: 'users',
+  }
+
+  const recipesResultsConfig = {
+    hideResults: () => setShowResults(false),
+    index: 'recipes',
   }
 
   return (
@@ -34,11 +40,21 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
             <Search className="searchIcon" />
           </div>
         </div>
-        <Configure
-          hitsPerPage={8}
-        />
 
-        {showResults && <SearchResults {...resultsConfig} />}
+        {showResults &&
+          <div className="searchBar__resultsContainer">
+            <Configure
+              hitsPerPage={5}
+            />
+            <SearchResults {...recipesResultsConfig} />
+            <Index indexName="users">
+              {showResults && <SearchResults {...usersResultsConfig} />}
+              <Configure
+                hitsPerPage={3}
+              />
+            </Index>
+          </div>
+        }
       </InstantSearch >
     </div >
   );

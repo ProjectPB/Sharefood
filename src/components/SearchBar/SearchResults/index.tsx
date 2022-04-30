@@ -5,17 +5,25 @@ import SearchHits from '../SearchHits';
 
 import './styles.css';
 
-const SearchResults = connectStateResults(({ searchState, searchResults, hideResults }: any) => {
+const SearchResults = connectStateResults(({ searchState, searchResults, hideResults, index }: any) => {
   const validQuery = searchState.query?.length >= 1;
 
-  const config = {
+  const usersConfig = {
     hideResults: hideResults,
+    index: 'users',
+  }
+
+  const recipesConfig = {
+    hideResults: hideResults,
+    index: 'recipes',
   }
 
   return (
-    validQuery && searchResults?.hits.length > 0 &&
+    validQuery &&
     <div className="searchResults">
-      <SearchHits {...config} />
+      {searchResults?.hits.length === 0 && <p>Could not find {index}</p>}
+      {index === 'recipes' && <SearchHits {...recipesConfig} />}
+      {index === 'users' && <SearchHits {...usersConfig} />}
     </div >
   )
 });

@@ -2,10 +2,16 @@ import firebase from "firebase/compat/app";
 
 export interface CurrentUser {
   uid: string;
-  profilePic: string;
   displayName: string;
+  profilePic: string;
   email: string;
   userRoles: string[];
+}
+
+export interface User {
+  objectID: string,
+  profilePic: string;
+  displayName: string;
 }
 
 export interface Credentials {

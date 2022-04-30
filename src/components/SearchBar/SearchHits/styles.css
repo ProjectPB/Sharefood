@@ -7,9 +7,15 @@
   border-bottom: 1px solid lightgray;
 }
 
-.searchHit__img {
+.searchHit__recipeImg {
   height: 50px;
   aspect-ratio: 4 / 3;
+}
+
+.searchHit__profileImg {
+  height: 50px;
+  width: auto;
+  border-radius: 100%;
 }
 
 .searchHit__title {

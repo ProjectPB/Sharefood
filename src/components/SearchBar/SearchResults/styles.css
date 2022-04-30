@@ -1,21 +1,13 @@
 .searchResults {
-  top: 36px;
   background-color: var(--lightgray-background);
-  z-index: 99;
-  position: absolute;
-  left: 0;
-  right: 0;
-  max-height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
   overflow-x: hidden;
   width: 100%;
-  outline: 1px solid black;
+  max-height: 400px;
 }
 
 @media (max-width: 600px) {
   .searchResults {
-    top: 48px;
-    max-height: none;
-    height: calc(100vh - 110px);
+    height: 100%;
   }
 }
