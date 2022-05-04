@@ -26,11 +26,10 @@
 
 .searchBar__resultsContainer {
   position: absolute;
-  top: 36px;
+  top: 37px;
   z-index: 99;
   left: 0;
   right: 0;
-  outline: 1px solid black;
 }
 
 .searchIcons__container {

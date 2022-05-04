@@ -1,3 +1,4 @@
+import { Avatar } from '@material-ui/core';
 import React from 'react';
 import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { Link } from 'react-router-dom';
@@ -7,7 +8,7 @@ import Button from '../../forms/Button';
 
 import './styles.css';
 
-const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore, index }: any) => {
+const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore, indexName }: any) => {
   const loadMoreConfig = {
     onClick: refineNext,
   }
@@ -15,7 +16,7 @@ const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore
   return (
     <div className="searchHits">
       <div className="searchHits__container">
-        {index === 'recipes' && hits.map((hit: RecipeData) => (
+        {indexName === 'recipes' && hits.map((hit: RecipeData) => (
           <Link to={`/recipe/${hit?.objectID}`}>
             <div className="searchHit" onClick={hideResults}>
               <div className="searchHit__data">
@@ -27,13 +28,13 @@ const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore
           </Link>
         ))}
 
-        {index === 'users' && hits.map((hit: User) => (
+        {indexName === 'users' && hits.map((hit: User) => (
           <Link to={`/user/${hit?.objectID}`}>
             <div className="searchHit" onClick={hideResults}>
               <div className="searchHit__data">
                 <div className="searchHit__title">{hit?.displayName}</div>
               </div>
-              {hit?.profilePic && <img src={hit?.profilePic} alt={hit?.displayName} className="searchHit__profileImg" />}
+              <Avatar src={hit?.profilePic} alt={hit?.displayName} className="searchHit__profileImg" />
             </div>
           </Link>
         ))}
