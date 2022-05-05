@@ -1,12 +1,12 @@
-import { AccountCircleOutlined, RestaurantOutlined } from '@material-ui/icons';
 import React from 'react';
 import { connectStateResults } from 'react-instantsearch-dom';
+import { AccountCircleOutlined, RestaurantOutlined } from '@material-ui/icons';
 
 import SearchHits from '../SearchHits';
 
 import './styles.css';
 
-const SearchResults = connectStateResults(({ searchState, searchResults, hideResults, indexName, handleIndexName }: any) => {
+const SearchResults = connectStateResults(({ searchState, searchResults, hideResults, indexName }: any) => {
   const validQuery = searchState.query?.length >= 1;
 
   const config = {
@@ -17,16 +17,17 @@ const SearchResults = connectStateResults(({ searchState, searchResults, hideRes
   return (
     validQuery &&
     <div className="searchResults">
-      <div className="searchResults__header">
-        <div onClick={() => handleIndexName('recipes')} className={`searchResults__headerWrapper ${indexName === 'recipes' ? 'searchResults__header--active' : 'undefined'}`}>
-          <RestaurantOutlined />
+      {indexName === 'recipes' &&
+        <div className={`searchResults__headerWrapper ${indexName === 'recipes' ? 'searchResults__header--active' : 'undefined'}`}>
           <p>Recipes</p>
-        </div>
-        <div onClick={() => handleIndexName('users')} className={`searchResults__headerWrapper ${indexName === 'users' ? 'searchResults__header--active' : 'undefined'}`}>
-          <AccountCircleOutlined />
+          <RestaurantOutlined />
+        </div>}
+
+      {indexName === 'users' &&
+        <div className={`searchResults__headerWrapper ${indexName === 'users' ? 'searchResults__header--active' : 'undefined'}`}>
           <p>Users</p>
-        </div>
-      </div>
+          <AccountCircleOutlined />
+        </div>}
 
       {searchResults?.hits.length === 0 && <p className="searchResults__none">Could not find {indexName}</p>}
       <SearchHits {...config} />

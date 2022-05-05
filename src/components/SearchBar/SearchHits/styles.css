@@ -1,8 +1,5 @@
 .searchHits {
   height: 100%;
-  overflow-y: auto;
-  overflow-x: hidden;
-  max-height: 400px;
 }
 
 .searchHits__container {

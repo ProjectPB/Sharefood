@@ -4,15 +4,9 @@ import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { Link } from 'react-router-dom';
 import { RecipeData, User } from '../../../shared/types';
 
-import Button from '../../forms/Button';
-
 import './styles.css';
 
-const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore, indexName }: any) => {
-  const loadMoreConfig = {
-    onClick: refineNext,
-  }
-
+const SearchHits = connectInfiniteHits(({ hits, hideResults, indexName }: any) => {
   return (
     <div className="searchHits">
       <div className="searchHits__container">
@@ -39,11 +33,6 @@ const SearchHits = connectInfiniteHits(({ hits, hideResults, refineNext, hasMore
           </Link>
         ))}
       </div>
-
-      {hasMore &&
-        <div className="searchHits__button">
-          <Button {...loadMoreConfig}>Load more</Button>
-        </div>}
     </div >
   )
 });

@@ -3,19 +3,13 @@
   width: 100%;
   outline: 1px solid black;
   height: 100%;
-}
-
-.searchResults__header {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  outline: 1px solid;
-  background-color: var(--lightgray-background);
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .searchResults__headerWrapper {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   padding: 5px 10px;
   width: 100%;
