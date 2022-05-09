@@ -1,4 +1,5 @@
 import firebase from "firebase/compat/app";
+import { Params } from "react-router-dom";
 
 export interface CurrentUser {
   uid: string;
@@ -59,6 +60,7 @@ export interface Filters {
   queryFilter?: string;
   counter?: number;
   statsFilter?: string;
+  userId?: string;
   typeFilter?: string,
   authorFilter?: string;
   favoriteFilter?: string;
@@ -77,7 +79,6 @@ export interface SingleRecipes {
   data: Recipe[] | [];
   queryDoc: firebase.firestore.QueryDocumentSnapshot | undefined;
   isLastPage: boolean;
-  filter?: string,
 }
 
 export interface Recipes {
@@ -87,12 +88,14 @@ export interface Recipes {
     popularRecipes: SingleRecipes,
     myRecipes: SingleRecipes,
     favoriteRecipes: SingleRecipes,
+    userRecipes: SingleRecipes,
   }
   scrollDistance: {
     main: number;
     popular: number;
     my: number;
     favorite: number;
+    user: number;
   }
   filters: {
     popularType: string,

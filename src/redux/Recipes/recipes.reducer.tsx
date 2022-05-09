@@ -17,7 +17,6 @@ const INITIAL_STATE: Recipes = {
       data: [],
       queryDoc: null,
       isLastPage: false,
-      filter: '',
     },
     myRecipes: {
       data: [],
@@ -29,12 +28,18 @@ const INITIAL_STATE: Recipes = {
       queryDoc: null,
       isLastPage: false,
     },
+    userRecipes: {
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    },
   },
   scrollDistance: {
     main: 0,
     popular: 0,
     my: 0,
     favorite: 0,
+    user: 0,
   },
   filters: {
     popularType: "",
@@ -70,6 +75,11 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         recipes: { ...state.recipes, favoriteRecipes: action.payload },
       };
+    case recipesTypes.SET_USER_RECIPES:
+      return {
+        ...state,
+        recipes: { ...state.recipes, userRecipes: action.payload },
+      };
     case recipesTypes.SET_MAIN_SCROLL_DISTANCE:
       return {
         ...state,
@@ -89,6 +99,11 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
       return {
         ...state,
         scrollDistance: { ...state.scrollDistance, favorite: action.payload }
+      }
+    case recipesTypes.SET_USER_SCROLL_DISTANCE:
+      return {
+        ...state,
+        scrollDistance: { ...state.scrollDistance, user: action.payload }
       }
     case recipesTypes.SET_POPULAR_TYPE_FILTER:
       return {

@@ -7,6 +7,7 @@ import MainLayout from './layouts/MainLayout';
 import AuthenticationPage from "./pages/Authentication";
 import NewPasswordPage from "./pages/NewPassword";
 import RecipePage from "./pages/RecipePage";
+import UserPage from "./pages/User";
 import EmptyPage from "./pages/Empty";
 import MainPage from './pages/Main';
 import PopularRecipesPage from './pages/Popular';
@@ -23,8 +24,8 @@ const App: React.FC = () => {
             <Route path="popular" element={<PopularRecipesPage />} />
             <Route path="favorite" element={<FavoriteRecipesPage />} />
             <Route path="my" element={<MyRecipesPage />} />
-            <Route path="recipe/:recipeId" element={<RecipePage />}>
-            </Route>
+            <Route path="user/:userId" element={<UserPage />} />
+            <Route path="recipe/:recipeId" element={<RecipePage />} />
             <Route path="*" element={<EmptyPage />} />
           </Route>
           <Route element={<FullscreenLayout />}>

@@ -18,6 +18,7 @@ export const handleFetchRecipes = (filters: Filters) => {
     let ref: Query = db.collection("recipes");
     let {
       authorFilter,
+      userId,
       favoriteFilter,
       statsFilter,
       typeFilter,
@@ -44,6 +45,10 @@ export const handleFetchRecipes = (filters: Filters) => {
 
     if (typeFilter) {
       ref = ref.where("type", "==", typeFilter);
+    }
+
+    if (userId) {
+      ref = ref.where('authorId', '==', userId)
     }
 
     if (startAfterDoc) ref = ref.startAfter(startAfterDoc);

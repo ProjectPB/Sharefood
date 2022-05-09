@@ -47,11 +47,12 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
       setRendered(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.counter, filters.typeFilter, filters.statsFilter]);
+  }, [filters.counter, filters.typeFilter, filters.statsFilter, filters.userId]);
 
   useEffect(() => {
     if (data.length === 0 && !isLastPage) {
       dispatch(loadRecipes(false));
+      console.log(filters);
       dispatch(fetchRecipesStart(filters));
     }
 

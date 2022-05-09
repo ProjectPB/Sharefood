@@ -1,5 +1,5 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setPopularRecipes, setPopularScrollDistance, setQueryRecipes, setScrollDistanceStart } from "./recipes.actions";
+import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setPopularRecipes, setPopularScrollDistance, setQueryRecipes, setScrollDistanceStart, setUserRecipes, setUserScrollDistance } from "./recipes.actions";
 import { handleFetchRecipes } from "./recipes.helpers";
 import { loadRecipes } from "../Loading/loading.actions";
 import { SingleRecipes } from "../../shared/types";
@@ -33,6 +33,10 @@ export function* fetchRecipes({
         yield put(setFavoriteRecipes(renderedRecipes));
         break;
       }
+      case "user": {
+        yield put(setUserRecipes(renderedRecipes));
+        break;
+      }
       default: {
         break;
       }
@@ -60,6 +64,11 @@ export function* resetRecipes() {
       isLastPage: false,
     }));
     yield put(setMyRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+    yield put(setUserRecipes({
       data: [],
       queryDoc: null,
       isLastPage: false,
@@ -98,6 +107,10 @@ export function* setScrollDistance({ payload }: ReturnType<typeof setScrollDista
         yield put(setFavoriteScrollDistance(distance));
         break;
       }
+      case "user": {
+        yield put(setUserScrollDistance(distance));
+        break;
+      }
       default: {
         break;
       }
@@ -116,6 +129,7 @@ export function* resetScrollDistances() {
     yield put(setMainScrollDistance(0));
     yield put(setPopularScrollDistance(0));
     yield put(setMyScrollDistance(0));
+    yield put(setUserScrollDistance(0));
     yield put(setFavoriteScrollDistance(0));
   } catch (error) {
     alert(error.message);

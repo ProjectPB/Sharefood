@@ -31,6 +31,11 @@ const useRecipeData = (store: string) => {
         ...recipes.favoriteRecipes, scrollDistance: scrollDistance.favorite
       })
     }
+    case 'user': {
+      return ({
+        ...recipes.userRecipes, scrollDistance: scrollDistance.user
+      })
+    }
     default: {
       return;
     }

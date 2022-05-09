@@ -26,6 +26,11 @@ export const setMyRecipes = (recipes: SingleRecipes) => ({
   payload: recipes,
 });
 
+export const setUserRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_USER_RECIPES,
+  payload: recipes,
+});
+
 export const setFavoriteRecipes = (recipes: SingleRecipes) => ({
   type: recipesTypes.SET_FAVORITE_RECIPES,
   payload: recipes,
@@ -48,6 +53,11 @@ export const setMainScrollDistance = (distance: number) => ({
 export const setPopularScrollDistance = (distance: number) => ({
   type: recipesTypes.SET_POPULAR_SCROLL_DISTANCE,
   payload: distance
+})
+
+export const setUserScrollDistance = (distance: number) => ({
+  type: recipesTypes.SET_USER_SCROLL_DISTANCE,
+  payload: distance,
 })
 
 export const setMyScrollDistance = (distance: number) => ({
