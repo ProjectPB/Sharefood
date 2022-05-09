@@ -52,7 +52,6 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
   useEffect(() => {
     if (data.length === 0 && !isLastPage) {
       dispatch(loadRecipes(false));
-      console.log(filters);
       dispatch(fetchRecipesStart(filters));
     }
 
@@ -147,6 +146,11 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
           }
         </div>
       }
+
+      {filters.userId &&
+        <h1>
+          USER: {filters.userId}
+        </h1>}
 
       {!loaded &&
         <div className="recipesRenderer__loading">

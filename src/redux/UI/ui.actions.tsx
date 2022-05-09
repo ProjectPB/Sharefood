@@ -7,3 +7,8 @@ export const openSidebar = () => ({
 export const closeSidebar = () => ({
   type: uiTypes.CLOSE_SIDEBAR,
 });
+
+export const setLastDisplayedProfile = (id: string) => ({
+  type: uiTypes.SET_LAST_DISPLAYED_PROFILE,
+  payload: id
+})

@@ -1,5 +1,4 @@
 import firebase from "firebase/compat/app";
-import { Params } from "react-router-dom";
 
 export interface CurrentUser {
   uid: string;
@@ -113,6 +112,7 @@ export interface State {
   };
   ui: {
     sidebarOpen: boolean;
+    lastDisplayedProfile: string;
   };
   recipes: Recipes;
   loading: Loading;
