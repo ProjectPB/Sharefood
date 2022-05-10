@@ -47,17 +47,25 @@
 .recipe__right > div {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  padding: 5px;
 }
 
-.recipe__author > p {
+.recipe__author > p,
+.recipe__views > p {
   margin-left: 5px;
   font-size: 16px;
 }
 
-.recipe__author > .MuiAvatar-root {
+.recipe__author > .MuiAvatar-root,
+.recipe__views > .MuiAvatar-root {
   width: 35px;
   height: 35px;
+}
+
+.recipe__author:hover {
+  background-color: var(--darkgray-background);
+  cursor: pointer;
+  border-radius: 5px;
 }
 
 .recipe__type > p {

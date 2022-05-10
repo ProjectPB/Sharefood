@@ -87,14 +87,14 @@ const Recipe: React.FC<Props> = ({ data }) => {
                 {data?.timestamp?.toDate()}
               </Moment>
             </div>
-            <div className="recipe__author">
+            <div className="recipe__author" onClick={() => navigate(`/user/${data.authorId}`)}>
               <Avatar
                 src={data?.profilePic}
                 alt={data?.username}
               />
               <p>{data?.username}</p>
             </div>
-            <div className="recipe__author">
+            <div className="recipe__views">
               <Visibility fontSize="large" />
               <p>{data?.stats?.views} views</p>
             </div>
@@ -142,7 +142,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   )
 };
 

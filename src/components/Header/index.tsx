@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { ClickAwayListener } from "@material-ui/core";
 import { Menu } from "@material-ui/icons";
-import Avatar from "@material-ui/core/Avatar";
 import { closeSidebar, openSidebar } from "../../redux/UI/ui.actions";
 import { useWidth } from "../../hooks";
 import { State } from "../../shared/types";
+import Avatar from "@material-ui/core/Avatar";
 
 import ProfilePopup from "../ProfilePopup";
 import NewRecipe from "../NewRecipe";
@@ -63,10 +62,6 @@ const Header: React.FC = () => {
     navigate("/auth");
   };
 
-  const handleClickAway = () => {
-    setProfileMenuIsOpen(false);
-  };
-
   const loginButtonConfig = {
     onClick: navToAuth,
   };
@@ -94,17 +89,15 @@ const Header: React.FC = () => {
             <NewRecipe close={() => closeModal()} />
           </Modal>
 
-          <ClickAwayListener onClickAway={handleClickAway}>
-            <div className="header__profilePopup">
-              <Avatar
-                onClick={handleProfileMenu}
-                src={currentUser?.profilePic}
-                alt={currentUser?.displayName}
-                className="header__avatarIcon"
-              />
-              {profileMenuIsOpen ? <ProfilePopup /> : null}
-            </div>
-          </ClickAwayListener>
+          <div className="header__profilePopup">
+            <Avatar
+              onClick={handleProfileMenu}
+              src={currentUser?.profilePic}
+              alt={currentUser?.displayName}
+              className="header__avatarIcon"
+            />
+            {profileMenuIsOpen ? <ProfilePopup close={() => setProfileMenuIsOpen(false)} /> : null}
+          </div>
         </div>
       ) : (
         <div className="header__right">

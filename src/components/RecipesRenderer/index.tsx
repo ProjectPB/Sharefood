@@ -10,6 +10,7 @@ import { statsFilters } from '../../shared/filters';
 import Recipes from '../Recipes';
 import Loading from '../Loading';
 import NoData from '../NoData';
+import Profile from '../Profile';
 
 import "./styles.css";
 
@@ -148,9 +149,8 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
       }
 
       {filters.userId &&
-        <h1>
-          USER: {filters.userId}
-        </h1>}
+        <Profile id={filters.userId} />
+      }
 
       {!loaded &&
         <div className="recipesRenderer__loading">
