@@ -3,7 +3,7 @@
   flex-direction: column;
   position: relative;
   background-color: var(--color-primary);
-  outline: 1px solid black;
+  outline: 1px solid;
   padding: 5px;
   z-index: 2;
 }
@@ -12,7 +12,8 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  outline: 1px solid black;
+  outline: 1px solid;
+  outline-offset: -1px;
   flex: 1;
   max-width: 480px;
 }
@@ -26,10 +27,17 @@
 
 .searchBar__resultsContainer {
   position: absolute;
-  top: 37px;
-  z-index: 99;
+  top: 34px;
+  z-index: 3;
   left: 0;
   right: 0;
+  background-color: var(--lightgray-background);
+  outline: 1px solid;
+  outline-offset: -1px;
+  max-height: 480px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: calc(100%);
 }
 
 .searchIcons__container {

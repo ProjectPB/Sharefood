@@ -18,13 +18,13 @@ const SearchResults = connectStateResults(({ searchState, searchResults, hideRes
     validQuery &&
     <div className="searchResults">
       {indexName === 'recipes' &&
-        <div className={`searchResults__headerWrapper ${indexName === 'recipes' ? 'searchResults__header--active' : 'undefined'}`}>
+        <div className="searchResults__headerWrapper">
           <p>Recipes</p>
           <RestaurantOutlined />
         </div>}
 
       {indexName === 'users' &&
-        <div className={`searchResults__headerWrapper ${indexName === 'users' ? 'searchResults__header--active' : 'undefined'}`}>
+        <div className="searchResults__headerWrapper">
           <p>Users</p>
           <AccountCircleOutlined />
         </div>}
