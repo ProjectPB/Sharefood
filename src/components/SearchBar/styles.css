@@ -37,7 +37,7 @@
   max-height: 480px;
   overflow-y: auto;
   overflow-x: hidden;
-  width: calc(100%);
+  width: 100%;
 }
 
 .searchIcons__container {
@@ -58,11 +58,22 @@
     outline: 1px solid;
     border-radius: 2.5px;
   }
+
+  .searchBar__resultsContainer {
+    top: 46px;
+    max-height: none;
+    height: calc(100vh - 105px);
+  }
 }
 
-@media (max-width: 600px) {
+@media (max-height: 600px) {
   .searchBar__resultsContainer {
-    top: 48px;
-    height: calc(100vh - 110px);
+    max-height: 360px;
+  }
+}
+
+@media (max-height: 480px) {
+  .searchBar__resultsContainer {
+    max-height: 240px;
   }
 }

@@ -16,9 +16,3 @@
 .searchResults__none {
   padding: 15px 10px;
 }
-
-@media (max-width: 600px) {
-  /* .searchResults {
-    height: 100%;
-  } */
-}

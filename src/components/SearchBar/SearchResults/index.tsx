@@ -6,16 +6,13 @@ import SearchHits from '../SearchHits';
 
 import './styles.css';
 
-const SearchResults = connectStateResults(({ searchState, searchResults, hideResults, indexName }: any) => {
-  const validQuery = searchState.query?.length >= 1;
-
+const SearchResults = connectStateResults(({ searchResults, hideResults, indexName }: any) => {
   const config = {
     hideResults: hideResults,
     indexName: indexName,
   }
 
   return (
-    validQuery &&
     <div className="searchResults">
       {indexName === 'recipes' &&
         <div className="searchResults__headerWrapper">

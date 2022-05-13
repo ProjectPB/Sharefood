@@ -10,7 +10,7 @@ const SearchInput = connectSearchBox(({ currentRefinement, refine }: any) => {
       value={currentRefinement}
       onChange={e => refine(e.currentTarget.value)}
       className="searchInput"
-      placeholder="Find the recipe..."
+      placeholder="Search..."
     />
   )
 });

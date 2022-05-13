@@ -30,13 +30,19 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
     indexName: 'users'
   }
 
+  const clearConfig = {
+    clearsQuery: true,
+    close: () => setShowResults(false),
+    visible: showResults,
+  }
+
   return (
     <div className={onHeader ? "searchBar__onHeader" : "searchBar"} onFocus={() => setShowResults(true)} ref={searchbarRef}>
       <InstantSearch indexName='recipes' searchClient={searchClient}>
         <div className="searchBar__container">
           <SearchInput />
           <div className="searchIcons__container">
-            <ClearRefinements clearsQuery />
+            <ClearRefinements {...clearConfig} />
             <Search className="searchIcon" />
           </div>
         </div>
@@ -49,6 +55,9 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
           <div className="searchBar__resultsContainer">
             <SearchResults {...recipesConfig} />
             <Index indexName="users">
+              <Configure
+                hitsPerPage={3}
+              />
               <SearchResults {...usersConfig} />
             </Index>
           </div>
