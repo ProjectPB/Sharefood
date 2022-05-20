@@ -3,7 +3,7 @@ import NoData from './../../components/NoData';
 
 const EmptyPage: React.FC = () => {
   return (
-    <div className="recipes__container">
+    <div>
       <NoData />
     </div>
   )

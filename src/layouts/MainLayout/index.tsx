@@ -8,7 +8,7 @@ import Header from "../../components/Header";
 import SearchBar from "../../components/SearchBar";
 import Sidebar from "../../components/Sidebar";
 
-import "./styles.css";
+import "./styles.scss";
 
 const MainLayout: React.FC = () => {
   const width = useWidth();
@@ -26,12 +26,12 @@ const MainLayout: React.FC = () => {
   }
 
   return (
-    <div className="mainLayout">
+    <div className="main">
       <Header />
       {width <= 600 && <SearchBar />}
-      <div className="main">
+      <div className="main__wrapper">
         <Sidebar />
-        <div className="main__container">
+        <div className="main__body">
           <PullToRefresh
             pullDownThreshold={60}
             maxPullDownDistance={60}

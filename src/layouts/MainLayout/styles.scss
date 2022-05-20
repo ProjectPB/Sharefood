@@ -1,0 +1,23 @@
+.main {
+  .main__wrapper {
+    display: flex;
+    height: calc(100vh - 62px);
+
+    .main__body {
+      height: inherit;
+      overflow: hidden;
+      flex: 1;
+      background-color: var(--darkgray-background);
+    }
+
+    .main__refresh {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    height: calc(100vh - 157px);
+  }
+}

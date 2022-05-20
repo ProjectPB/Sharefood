@@ -1,0 +1,15 @@
+.recipePage {
+  display: flex;
+  justify-content: center;
+  background-color: var(--darkgray-background);
+  height: 100%;
+  overflow-y: scroll;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (max-width: 600px) {
+    height: calc(100vh - 110px);
+  }
+}

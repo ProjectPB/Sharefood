@@ -12,7 +12,7 @@ import { Handler, State } from "../../shared/types";
 import Button from "../../components/forms/Button";
 import AuthInput from "../../components/forms/AuthInput";
 
-import "./styles.css";
+import "./styles.scss";
 
 const mapState = ({ user }: State) => ({
   resetPasswordSuccess: user.resetPasswordSuccess,
@@ -75,7 +75,7 @@ const NewPasswordPage: React.FC = () => {
         <h3>New password</h3>
       </div>
 
-      <div className="newPassword__main">
+      <div className="newPassword__body">
         <h4>
           Please provide an e-mail in order to send a message with a password
           reset
@@ -85,7 +85,7 @@ const NewPasswordPage: React.FC = () => {
         {errors && (
           <ul className="newPassword__errors">
             {errors.map((err: string, i: number) => (
-              <li className="newPassword__error" key={i}>
+              <li className="error" key={i}>
                 {err}
               </li>
             ))}

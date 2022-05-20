@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router';
 
-import "./styles.css";
+import "./styles.scss";
 
 const FullscreenLayout: React.FC = () => {
   return <div className="fullscreen"><Outlet /></div>;

@@ -12,7 +12,7 @@ import Loading from "../../components/Loading";
 import NoData from "../../components/NoData";
 import Recipe from "../../components/Recipe";
 
-import "./styles.css";
+import "./styles.scss";
 
 const mapState = ({ user, loading, recipe }: State) => ({
   currentUser: user.currentUser,
@@ -35,11 +35,11 @@ const RecipePage: React.FC = () => {
   }, [recipeId, currentUser?.uid, dispatch]);
 
   return !loaded ? (
-    <div className="recipePage__container">
+    <div className="recipePage">
       <Loading />
     </div>
   ) : (
-    <div className="recipePage__container">
+    <div className="recipePage">
       {!recipeData ? (
         <NoData />
       ) : (

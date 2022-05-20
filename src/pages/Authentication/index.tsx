@@ -12,7 +12,7 @@ import Logo from "./../../components/Logo";
 import GoogleButton from './../../components/forms/GoogleButton';
 import Loading from "./../../components/Loading";
 
-import "./styles.css";
+import "./styles.scss";
 
 const mapState = ({ user, loading }: State) => ({
   currentUser: user.currentUser,
@@ -45,43 +45,42 @@ const AuthPage: React.FC = () => {
   currentUser && navigate("/");
 
   return (
-    <div className="authentication">
-      <div className="authentication__logo">
+    <div className="auth">
+      <div className="auth__logo">
         <Logo />
       </div>
       {newAccount ? <SignUp cancel={handleAccount} /> : <Login />}
 
       {!newAccount && (
-        <p>
+        <p className="link">
           Not a member?{" "}
-          <span className="authentication__signUp" onClick={handleAccount}>
+          <span className="span" onClick={handleAccount}>
             Sign Up
           </span>
         </p>
       )}
 
       {!newAccount && (
-        <p>
+        <p className="link">
           Forgot password?{" "}
           <Link to="/reset">
-            <span className="authentication__signUp">Reset</span>
+            <span className="span">Reset</span>
           </Link>
         </p>
       )}
-
       {!newAccount && <GoogleButton handleClick={handleGoogleSignIn} />}
 
       {errors && (
-        <ul className="authentication__errors">
+        <ul className="errors">
           {errors.map((err: string, i: number) => (
-            <li className="authentication__error" key={i}>
+            <li className="error" key={i}>
               {err}
             </li>
           ))}
         </ul>
       )}
 
-      <div className="authentication__loading">{loading && <Loading />}</div>
+      <div className="loading">{loading && <Loading />}</div>
     </div>
   );
 };
