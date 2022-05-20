@@ -19,8 +19,8 @@ const ClearRefinements = connectCurrentRefinements(({ items, refine, close, visi
   }
 
   return (
-    visible &&
-    <button onClick={handleClick} className="clearRefinements">
+    (visible || items.length > 0) &&
+    <button onClick={handleClick} className="clearRefinements" >
       <Close className='clearRefinements__icon' />
     </button>
   )
