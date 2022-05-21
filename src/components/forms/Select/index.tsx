@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Props {
   options: Option[];
@@ -25,11 +25,10 @@ const Select: React.FC<Props> = ({
   if (!Array.isArray(options) || options.length < 1) return null;
 
   return (
-    <div className="select__container">
-      {label && <label className="select__label">{label}</label>}
+    <div className="select">
+      {label && <label>{label}</label>}
 
       <select
-        className="select"
         value={defaultValue}
         onChange={handleChange}
         {...otherProps}

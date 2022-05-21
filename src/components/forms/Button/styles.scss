@@ -8,6 +8,10 @@
   text-transform: uppercase;
   border: 1px solid black;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .button--secondary {
@@ -16,8 +20,4 @@
 
 .button--primary {
   background-color: var(--color-secondary);
-}
-
-.button:hover {
-  opacity: 0.8;
 }

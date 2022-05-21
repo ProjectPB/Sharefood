@@ -2,7 +2,7 @@ import React from "react";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import { Handler } from "../../../shared/types";
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Props {
   handleChange: (
@@ -15,11 +15,11 @@ const ImgInput: React.FC<Props> = ({
   ...otherProps
 }) => {
   return (
-    <div className="imgInput__container">
+    <div className="imgInput">
       <img src="https://icon-library.com/images/placeholder-image-icon/placeholder-image-icon-7.jpg" alt="Recipe attachment" />
       <AddCircleIcon />
       <p>Click to upload an image</p>
-      <input onChange={handleChange} {...otherProps} className="imgInput" />
+      <input onChange={handleChange} {...otherProps} />
     </div>
   );
 };

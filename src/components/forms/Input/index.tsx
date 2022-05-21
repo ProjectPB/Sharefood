@@ -1,7 +1,7 @@
 import React from "react";
 import { Handler } from "../../../shared/types";
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Props {
   handleChange: (
@@ -12,10 +12,10 @@ interface Props {
 
 const Input: React.FC<Props> = ({ handleChange, label, ...otherProps }) => {
   return (
-    <div className="input__container">
-      {label && <label className="input__label">{label}</label>}
+    <div className="input">
+      {label && <label>{label}</label>}
 
-      <input className="input" onChange={handleChange} {...otherProps} />
+      <input onChange={handleChange} {...otherProps} />
     </div>
   );
 };

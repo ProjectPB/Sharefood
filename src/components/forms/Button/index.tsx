@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Props {
   secondary?: boolean;
@@ -9,9 +9,8 @@ interface Props {
 const Button: React.FC<Props> = ({ children, secondary, ...otherProps }) => {
   return (
     <button
-      className={`button ${
-        secondary ? "button--secondary" : "button--primary"
-      }`}
+      className={`button ${secondary ? "button--secondary" : "button--primary"
+        }`}
       {...otherProps}
     >
       {children}

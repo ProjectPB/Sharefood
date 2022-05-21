@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Props {
   handleChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
@@ -9,10 +9,10 @@ interface Props {
 
 const Textarea: React.FC<Props> = ({ handleChange, label, ...otherProps }) => {
   return (
-    <div className="textarea__container">
-      {label && <label className="textarea__label">{label}</label>}
+    <div className="textarea">
+      {label && <label>{label}</label>}
 
-      <textarea className="textarea" onChange={handleChange} {...otherProps} />
+      <textarea onChange={handleChange} {...otherProps} />
     </div>
   );
 };

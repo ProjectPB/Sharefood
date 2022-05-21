@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Visibility, SvgIconComponent } from "@material-ui/icons";
 import { Handler, State } from "../../../shared/types";
 
-import "./styles.css";
+import "./styles.scss";
 
 const mapState = ({ user }: State) => ({
   errors: user.signUpErrors,
@@ -58,9 +58,9 @@ const AuthInput: React.FC<Props> = ({
   }, [value, pattern, errors.length]);
 
   return (
-    <div className="authInput__container">
+    <div className="authInput">
       <div
-        className="authInput"
+        className="body"
         style={
           isValid ? { outline: "1px solid" } : { outline: "2px solid red" }
         }
@@ -76,16 +76,17 @@ const AuthInput: React.FC<Props> = ({
         {type === "password" && (
           <Visibility
             fontSize="small"
-            className="authInput__visibilityIcon"
+            className="visibilityIcon"
             onClick={changePasswordType}
           />
         )}
       </div>
+
       {openInfo &&
         info?.map((i) => (
           <p
             style={isValid ? { color: "gray" } : { color: "red" }}
-            className="signUp__inputInfo"
+            className="info"
           >
             {i}
           </p>

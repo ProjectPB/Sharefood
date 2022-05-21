@@ -1,0 +1,15 @@
+.input {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-size: 18px;
+  }
+
+  input {
+    outline: none;
+    padding: 5px;
+    background-color: var(--lightgray-background);
+    border: 1px solid;
+  }
+}
