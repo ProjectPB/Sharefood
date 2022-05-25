@@ -1,0 +1,34 @@
+.sidebar {
+  width: 300px;
+  background-color: var(--color-primary);
+  border-right: 1px solid black;
+
+  @media (max-width: 600px) {
+    width: 100%;
+  }
+}
+
+.sidebar--hidden {
+  width: fit-content;
+  background-color: var(--color-primary);
+  border-right: 1px solid black;
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.active .sidebarOption--narrow,
+.active .sidebarOption {
+  background-color: var(--color-secondary);
+}
+
+.active .sidebarOption:hover,
+.active .sidebarOption--narrow:hover {
+  background-color: var(--color-secondary);
+}

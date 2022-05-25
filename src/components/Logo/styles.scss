@@ -1,0 +1,13 @@
+.logo {
+  cursor: pointer;
+  user-select: none;
+
+  .text {
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}

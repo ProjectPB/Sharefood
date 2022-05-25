@@ -1,0 +1,48 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: var(--color-primary);
+  border-bottom: 1px solid black;
+
+  .leftContainer {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    height: 20px;
+
+    .MuiSvgIcon-root {
+      cursor: pointer;
+      :hover {
+        opacity: 0.8;
+      }
+    }
+
+    .header__logo {
+      margin-left: 5px;
+      height: 100%;
+    }
+  }
+
+  .rightContainer {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+
+    .popup {
+      margin-left: 15px;
+      cursor: pointer;
+
+      .avatarIcon {
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 10px 5px;
+  }
+}

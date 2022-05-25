@@ -14,7 +14,7 @@ import Modal from "../Modal";
 import Button from "../forms/Button";
 import Logo from "../Logo";
 
-import "./styles.css";
+import "./styles.scss";
 
 const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,
@@ -72,7 +72,7 @@ const Header: React.FC = () => {
 
   return (
     <div className="header">
-      <div className="header__left">
+      <div className="leftContainer">
         <Menu onClick={handleSidebar} fontSize="large" />
         <div className="header__logo">
           <Logo />
@@ -82,25 +82,25 @@ const Header: React.FC = () => {
       {width > 600 && <SearchBar onHeader />}
 
       {currentUser ? (
-        <div className="header__right">
+        <div className="rightContainer">
           <Button {...toggleButtonConfig}>Create</Button>
 
           <Modal {...configModal}>
             <NewRecipe close={() => closeModal()} />
           </Modal>
 
-          <div className="header__profilePopup">
+          <div className="popup">
             <Avatar
               onClick={handleProfileMenu}
               src={currentUser?.profilePic}
               alt={currentUser?.displayName}
-              className="header__avatarIcon"
+              className="avatarIcon"
             />
             {profileMenuIsOpen ? <ProfilePopup close={() => setProfileMenuIsOpen(false)} /> : null}
           </div>
         </div>
       ) : (
-        <div className="header__right">
+        <div className="rightContainer">
           <Button {...loginButtonConfig}>Login</Button>
         </div>
       )}

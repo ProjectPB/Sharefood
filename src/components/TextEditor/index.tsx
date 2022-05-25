@@ -2,7 +2,7 @@ import React from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import './styles.css';
+import './styles.scss';
 
 interface Props {
   label: string,
@@ -13,14 +13,14 @@ interface Props {
 
 const TextEditor: React.FC<Props> = ({ label, editor, content, update }) => {
   return (
-    <div className="editor__container">
-      {label && <label className="editor__label">{label}</label>}
+    <div className="editor">
+      {label && <label className="label">{label}</label>}
 
       <Editor
         editorState={editor}
-        toolbarClassName="editor__toolbar"
-        wrapperClassName="editor__wrapper"
-        editorClassName="editor__textarea"
+        toolbarClassName="toolbar"
+        wrapperClassName="wrapper"
+        editorClassName="textarea"
         handlePastedText={() => false}
         onEditorStateChange={update}
         toolbar={{

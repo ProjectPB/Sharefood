@@ -6,7 +6,7 @@ import { State } from "../../shared/types";
 
 import SidebarOption from "../SidebarOption";
 
-import "./styles.css";
+import "./styles.scss";
 
 const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,

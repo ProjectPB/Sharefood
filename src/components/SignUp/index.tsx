@@ -7,7 +7,7 @@ import { Handler } from "../../shared/types";
 import Button from "../forms/Button";
 import AuthInput from "../forms/AuthInput";
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Props {
   cancel: () => void;
@@ -101,7 +101,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
       <h3>SIGN UP</h3>
       <InfoOutlined
         onClick={handleInfo}
-        className="signUp__infoIcon"
+        className="infoIcon"
         fontSize="small"
       />
       <AuthInput {...usernameConfig} />
@@ -109,7 +109,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
       <AuthInput {...passwordConfig} />
       <AuthInput {...passwordConfirmConfig} />
 
-      <div className="signUp__buttons">
+      <div className="buttons">
         <Button {...cancelButtonConfig}>CANCEL</Button>
         <Button {...submitButtonConfig}>SIGN UP</Button>
       </div>

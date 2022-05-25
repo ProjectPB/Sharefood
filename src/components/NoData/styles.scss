@@ -1,4 +1,4 @@
-.noData__container {
+.noData {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -6,22 +6,22 @@
   padding: 0 10px;
 }
 
-.noData {
+.wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   background-color: var(--color-primary);
   border: 1px solid;
-}
 
-.noData > .MuiSvgIcon-root {
-  width: 40px;
-  height: 40px;
-  margin-bottom: 10px;
-}
+  .MuiSvgIcon-root {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 10px;
+  }
 
-.noData > h4 {
-  text-align: center;
-  font-weight: 500;
+  h4 {
+    text-align: center;
+    font-weight: 500;
+  }
 }

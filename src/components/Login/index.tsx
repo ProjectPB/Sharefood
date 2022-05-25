@@ -8,7 +8,7 @@ import { Handler, State } from "../../shared/types";
 import AuthInput from '../forms/AuthInput'
 import Button from "../forms/Button";
 
-import "./styles.css";
+import "./styles.scss";
 
 const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,

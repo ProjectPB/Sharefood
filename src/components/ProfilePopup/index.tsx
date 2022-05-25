@@ -5,9 +5,9 @@ import { ExitToApp } from "@material-ui/icons";
 import { signOutUserStart } from "../../redux/User/user.actions";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types";
-
-import "./styles.css";
 import { useClickOutside } from "../../hooks";
+
+import "./styles.scss";
 
 const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,
@@ -31,13 +31,13 @@ const ProfilePopup: React.FC<Props> = ({ close }) => {
   return (
     <div className="profilePopup" ref={popupRef}>
       <Link to={`user/${currentUser.uid}`} onClick={() => close()}>
-        <div className="profilePopup__userInfo">
+        <div className="userInfo">
           <Avatar src={currentUser?.profilePic} alt={currentUser?.displayName} />
           <p>{currentUser?.displayName}</p>
         </div>
       </Link>
 
-      <div onClick={logout} className="profilePopup__logout">
+      <div onClick={logout} className="logout">
         <ExitToApp />
         <p>Logout</p>
       </div>

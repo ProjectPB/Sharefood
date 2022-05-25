@@ -5,7 +5,7 @@ import { SvgIconComponent } from "@material-ui/icons";
 import useWidth from "../../hooks/useWidth";
 import { State } from "../../shared/types";
 
-import "./styles.css";
+import "./styles.scss";
 
 const mapState = ({ ui }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,
@@ -31,9 +31,8 @@ const SidebarOption: React.FC<Props> = ({ Icon, title, hidden }) => {
   return (
     <div
       onClick={minimalizeSidebar}
-      className={`${
-        sidebarIsOpen ? `sidebar__option` : `sidebar__option--narrow`
-      } ${hidden ? `sidebar__option--hidden` : ``}`}
+      className={`${sidebarIsOpen ? `sidebarOption` : `sidebarOption--narrow`
+        } ${hidden ? `sidebarOption--hidden` : ``}`}
     >
       <Icon fontSize="large" />
       <h2>{title}</h2>
