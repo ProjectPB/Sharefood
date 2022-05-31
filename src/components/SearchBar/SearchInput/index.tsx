@@ -1,7 +1,7 @@
 import React from 'react';
 import { connectSearchBox } from 'react-instantsearch-dom';
 
-import './styles.css';
+import './styles.scss';
 
 const SearchInput = connectSearchBox(({ currentRefinement, refine }: any) => {
   return (

@@ -1,7 +1,7 @@
 import React from "react";
 import { Close } from "@material-ui/icons";
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Props {
   hideModal: boolean;
@@ -12,10 +12,10 @@ const Modal: React.FC<Props> = ({ hideModal, toggleModal, children }) => {
   if (hideModal) return null;
 
   return (
-    <div className="modal__container">
+    <div className="modal">
       <div className="modal__overlay" onClick={() => toggleModal()} />
       <div className="modal__wrap">
-        <div className="modal">
+        <div className="modal__body">
           <Close className="modal__close" onClick={() => toggleModal()} />
           {children}
         </div>

@@ -20,7 +20,7 @@ import { capitalizeLetter } from '../../shared/functions';
 
 import Loading from '../Loading';
 
-import './styles.css';
+import './styles.scss';
 
 interface Props {
   data: RecipeData;
@@ -73,20 +73,23 @@ const Recipe: React.FC<Props> = ({ data }) => {
   return isDeleting ? <Loading /> : (
     <div className="recipe">
       <h1 className="recipe__title">{data?.title}</h1>
+
       <div className="recipe__main">
         <img
           className="recipe__image"
           src={data?.image}
           alt=""
         />
+
         <div className="recipe__info">
-          <div className="recipe__left">
+          <div className="recipe__infoCol">
             <div className="recipe__time">
-              <DateRange fontSize="large" />
+              <DateRange />
               <Moment format="MMMM DD YYYY" className="recipe__date">
                 {data?.timestamp?.toDate()}
               </Moment>
             </div>
+
             <div className="recipe__author" onClick={() => navigate(`/user/${data.authorId}`)}>
               <Avatar
                 src={data?.profilePic}
@@ -94,10 +97,12 @@ const Recipe: React.FC<Props> = ({ data }) => {
               />
               <p>{data?.username}</p>
             </div>
+
             <div className="recipe__views">
               <Visibility fontSize="large" />
               <p>{data?.stats?.views} views</p>
             </div>
+
             {data?.authorId === currentUser?.uid && (
               <div className="recipe__delete" onClick={deleteRecipe}>
                 <DeleteOutlined fontSize="large" />
@@ -105,13 +110,15 @@ const Recipe: React.FC<Props> = ({ data }) => {
               </div>
             )}
           </div>
-          <div className="recipe__right">
+
+          <div className="recipe__infoCol">
             <div className="recipe__type">
               <LocalDining fontSize="large" />
               <p>
                 {data?.type && capitalizeLetter(data?.type)}
               </p>
             </div>
+
             <div className="recipe__favorite">
               {!data?.liked ? (
                 <FavoriteBorderOutlined
@@ -125,6 +132,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
             </div>
           </div>
         </div>
+
         <div className="recipe__body">
           <div className="recipe__ingredients">
             <div className="recipe__ingredientsHeader">
@@ -134,11 +142,12 @@ const Recipe: React.FC<Props> = ({ data }) => {
                 <p>{data?.portions}</p>
               </div>
             </div>
-            <div className="recipe__preparation" dangerouslySetInnerHTML={{ __html: data?.ingredients }} />
+            <div className="recipe__list" dangerouslySetInnerHTML={{ __html: data?.ingredients }} />
           </div>
+
           <div className="recipe__method">
             <h2>Method</h2>
-            <div className="recipe__preparation" dangerouslySetInnerHTML={{ __html: data?.method }} />
+            <div className="recipe__list" dangerouslySetInnerHTML={{ __html: data?.method }} />
           </div>
         </div>
       </div>

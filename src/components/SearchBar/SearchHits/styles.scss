@@ -1,0 +1,43 @@
+.searchHits {
+  height: fit-content;
+  width: 100%;
+
+  .searchHit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    gap: 5px;
+    border-bottom: 1px solid lightgray;
+
+    &:hover {
+      background-color: rgb(231, 231, 231);
+    }
+
+    .searchHit__data {
+      .searchHit__title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 2px;
+      }
+
+      .searchHit__type {
+        font-size: 14px;
+        font-weight: 300;
+        text-transform: uppercase;
+        opacity: 0.6;
+      }
+    }
+
+    .searchHit__recipeImg {
+      height: 50px;
+      aspect-ratio: 4 / 3;
+    }
+
+    .searchHit__profileImg {
+      height: 50px;
+      width: 50px;
+      border-radius: 100%;
+    }
+  }
+}

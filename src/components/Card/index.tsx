@@ -5,7 +5,7 @@ import { AccessTimeOutlined, LocalDining } from "@material-ui/icons";
 import { Avatar } from "@material-ui/core";
 import { capitalizeLetter } from "../../shared/functions";
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Data {
   id?: string;
@@ -50,6 +50,7 @@ const Card: React.FC<Data> = ({
         src={image}
         onLoad={() => setLoaded(true)}
         alt="recipe"
+        className="card__img"
       />
 
       {!loaded &&
@@ -61,6 +62,7 @@ const Card: React.FC<Data> = ({
 
       {loaded && <div className="card__body">
         <h1 className="card__title">{title}</h1>
+
         <div className="card__dataContainer">
           <div className="card__data">
             <div className="card__infoContainer">
@@ -68,6 +70,7 @@ const Card: React.FC<Data> = ({
               <p className="card__text">{username}</p>
             </div>
           </div>
+
           <div className="card__data">
             <div className="card__infoContainer">
               <LocalDining className="card__icon" />
@@ -83,7 +86,7 @@ const Card: React.FC<Data> = ({
         </div>
       </div>
       }
-    </div >
+    </div>
   );
 };
 

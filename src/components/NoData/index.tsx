@@ -6,7 +6,7 @@ import "./styles.scss";
 const NoData: React.FC = () => {
   return (
     <div className="noData">
-      <div className="wrapper">
+      <div className="noData__wrapper">
         <ErrorOutlineIcon />
         <h4>Could not find recipes which match your criteria</h4>
       </div>

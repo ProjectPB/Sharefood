@@ -4,7 +4,7 @@ import { connectInfiniteHits } from 'react-instantsearch-dom';
 import { Link } from 'react-router-dom';
 import { RecipeData, User } from '../../../shared/types';
 
-import './styles.css';
+import './styles.scss';
 
 const SearchHits = connectInfiniteHits(({ hits, hideResults, indexName }: any) => {
   return (

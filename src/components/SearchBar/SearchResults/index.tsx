@@ -4,7 +4,7 @@ import { AccountCircleOutlined, RestaurantOutlined } from '@material-ui/icons';
 
 import SearchHits from '../SearchHits';
 
-import './styles.css';
+import './styles.scss';
 
 const SearchResults = connectStateResults(({ searchResults, hideResults, indexName }: any) => {
   const config = {

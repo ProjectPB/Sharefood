@@ -5,7 +5,7 @@ import { Recipe, State } from '../../shared/types'
 
 import Card from '../Card'
 
-import './styles.css';
+import './styles.scss';
 
 interface Props {
   data: Recipe[],

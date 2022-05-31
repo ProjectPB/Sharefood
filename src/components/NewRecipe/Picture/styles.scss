@@ -1,0 +1,52 @@
+.picture {
+  display: flex;
+  justify-content: center;
+
+  .picture__cropper {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .picture__settings {
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+    margin: 5px auto 0;
+    width: 100%;
+
+    .picture__rotateIcon {
+      border: 1px solid black;
+      cursor: pointer;
+      margin: -1px;
+      background-color: var(--color-secondary);
+      border-radius: 5px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 39.6px;
+      width: 40px;
+      margin-right: 10px;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .picture__buttons {
+      display: flex;
+      width: 100%;
+      gap: 5px;
+    }
+  }
+
+  .picture__preview {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    margin: 0 auto;
+    outline: 1px solid;
+  }
+}

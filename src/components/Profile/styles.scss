@@ -7,15 +7,15 @@
   padding: 10px 0;
   border-bottom: 1px solid gray;
   height: 120px;
-}
 
-.profile__img {
-  height: 70px !important;
-  width: 70px !important;
-}
+  .profile__img {
+    height: 70px !important;
+    width: 70px !important;
+  }
 
-.profile__username {
-  font-size: 18px;
-  font-weight: 500;
-  margin-top: 10px;
+  .profile__username {
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 10px;
+  }
 }

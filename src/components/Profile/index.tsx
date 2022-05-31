@@ -1,8 +1,10 @@
-import { Avatar } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
+import { Avatar } from '@material-ui/core';
 import { handleGetUserData } from '../../redux/Recipes/recipes.helpers';
+
 import Loading from '../Loading';
-import './styles.css';
+
+import './styles.scss';
 
 interface Props {
   id: string,

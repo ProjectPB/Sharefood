@@ -109,7 +109,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
       <AuthInput {...passwordConfig} />
       <AuthInput {...passwordConfirmConfig} />
 
-      <div className="buttons">
+      <div className="signUp__buttons">
         <Button {...cancelButtonConfig}>CANCEL</Button>
         <Button {...submitButtonConfig}>SIGN UP</Button>
       </div>

@@ -12,7 +12,7 @@ import Loading from '../Loading';
 import NoData from '../NoData';
 import Profile from '../Profile';
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Props {
   filters: Filters
@@ -105,7 +105,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
 
   return (
     <div
-      className="recipesRenderer__container"
+      className="recipesRenderer"
       onScroll={handleScroll}
       ref={recipesContainerRef}
     >

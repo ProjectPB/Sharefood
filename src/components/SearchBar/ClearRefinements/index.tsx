@@ -3,7 +3,7 @@ import { Close } from '@material-ui/icons';
 import { connectCurrentRefinements } from 'react-instantsearch-dom';
 import { Refinement, RefinementValue } from 'react-instantsearch-core';
 
-import './styles.css'
+import './styles.scss'
 
 interface Props {
   items: Refinement[],

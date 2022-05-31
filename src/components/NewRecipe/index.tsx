@@ -17,7 +17,7 @@ import Picture from './Picture';
 import TextEditor from "../TextEditor";
 
 import "cropperjs/dist/cropper.css";
-import "./styles.css";
+import "./styles.scss";
 
 const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,
@@ -181,8 +181,8 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   }
 
   return (
-    <div className="newRecipe__container">
-      <form className="newRecipe" onSubmit={handleCreate}>
+    <div className="newRecipe">
+      <form className="newRecipe__body" onSubmit={handleCreate}>
         <Title {...config.title} />
         <TextEditor {...config.description} />
         <TextEditor {...config.ingredients} />

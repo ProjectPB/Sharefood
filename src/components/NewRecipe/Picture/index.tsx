@@ -6,7 +6,7 @@ import { Handler } from '../../../shared/types';
 import Button from '../../forms/Button';
 import ImgInput from '../../forms/ImgInput';
 
-import './styles.css';
+import './styles.scss';
 
 interface Props {
   cropperImg: string,

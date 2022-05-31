@@ -9,7 +9,7 @@ import SearchResults from "./SearchResults";
 import SearchInput from './SearchInput';
 import ClearRefinements from './ClearRefinements';
 
-import "./styles.css";
+import "./styles.scss";
 
 interface Props {
   onHeader?: boolean;
