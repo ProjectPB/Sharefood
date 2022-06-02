@@ -53,6 +53,7 @@ export interface NewRecipeData extends RecipeData {
   handleAdd: (val: boolean) => void;
   imgFileHigh: any;
   imgFileLow: any;
+  special: string[],
 }
 
 export interface Filters {
@@ -119,6 +120,11 @@ export interface State {
   recipe: {
     recipeData: RecipeData
   };
+}
+
+export interface Option {
+  label: string,
+  value: string,
 }
 
 export interface Handler {

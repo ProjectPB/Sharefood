@@ -1,7 +1,7 @@
 import React from "react";
 import Resizer from "react-image-file-resizer";
 import Card from "../components/Card";
-import { Recipe } from "./types";
+import { Option, Recipe } from "./types";
 
 export const resizeFile = (file: Blob, maxWidth: number, maxHeight: number): Promise<string | unknown> =>
   new Promise((resolve) => {
@@ -82,3 +82,9 @@ export const capitalizeLetter = (str: string) => {
   const formatStr = capitalStr.trim();
   return formatStr;
 };
+
+
+export const getValuesFromSelect = (array: Option[]) => {
+  let result = array.map(option => option.value);
+  return result
+}

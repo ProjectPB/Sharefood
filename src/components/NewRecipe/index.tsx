@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
-import draftToHtml from "draftjs-to-html";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import { capitalizeLetter, resizeFile } from '../../shared/functions'
-import { Handler, State } from "../../shared/types";
-import { createRecipeStart } from "../../redux/Recipe/recipe.actions";
 import { EditorState, convertToRaw } from "draft-js";
+import draftToHtml from "draftjs-to-html";
+import { capitalizeLetter, getValuesFromSelect, resizeFile } from '../../shared/functions'
+import { Handler, Option, State } from "../../shared/types";
+import { createRecipeStart } from "../../redux/Recipe/recipe.actions";
 import { resetRecipes } from "../../redux/Recipes/recipes.actions";
 
 import Button from "../forms/Button";
 import Loading from "../Loading";
 import Title from './Title';
 import Type from './Type';
+import Special from './Special';
 import Portions from './Portions';
 import Picture from './Picture';
 import TextEditor from "../TextEditor";
@@ -34,6 +35,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
   const [portions, setPortions] = useState(1);
+  const [special, setSpecial] = useState([]);
   const [imageHigh, setImageHigh] = useState(null);
   const [imageLow, setImageLow] = useState(null);
   const [cropper, setCropper] = useState<any>();
@@ -113,6 +115,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         title: capitalizeLetter(title),
         description: description,
         ingredients: ingredients,
+        special: getValuesFromSelect(special),
         method: method,
         portions: portions,
         imgFileHigh: imageHigh,
@@ -174,6 +177,12 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         setMethod(draftToHtml(convertToRaw(state.getCurrentContent())));
       },
     },
+    special: {
+      label: "Special",
+      update: (option: Option[]) => {
+        setSpecial(option);
+      },
+    },
     submitButton: {
       type: "submit",
       disabled: loading || (!imageHigh && cropperImg),
@@ -181,7 +190,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   }
 
   return (
-    <div className="newRecipe">
+    <div className="newRecipe" >
       <form className="newRecipe__body" onSubmit={handleCreate}>
         <Title {...config.title} />
         <TextEditor {...config.description} />
@@ -189,6 +198,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         <TextEditor {...config.method} />
         <Type {...config.type} />
         <Portions {...config.portions} />
+        <Special {...config.special} />
         <Picture {...config.picture} />
         {loading && <Loading />}
         <div className="newRecipe__button">

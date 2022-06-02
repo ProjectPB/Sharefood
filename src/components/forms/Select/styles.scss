@@ -1,6 +1,7 @@
 .select {
   display: flex;
   flex-direction: column;
+  min-height: 38px;
 
   label {
     font-size: 18px;
@@ -8,6 +9,7 @@
 
   select {
     outline: none;
+    min-height: 38px;
     padding: 5px 0;
     background-color: var(--lightgray-background);
     border: 1px solid;
