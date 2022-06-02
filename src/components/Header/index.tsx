@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Menu } from "@material-ui/icons";
 import { closeSidebar, openSidebar } from "../../redux/UI/ui.actions";
-import { useWidth } from "../../hooks";
+import { useClickOutside, useWidth } from "../../hooks";
 import { State } from "../../shared/types";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -22,22 +22,20 @@ const mapState = ({ user, ui }: State) => ({
 });
 
 const Header: React.FC = () => {
+  const { currentUser, sidebarIsOpen } = useSelector(mapState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const width = useWidth();
-  const { currentUser, sidebarIsOpen } = useSelector(mapState);
+  const profilePopupRef = useRef<HTMLDivElement>();
+  useClickOutside(profilePopupRef, () => setProfileMenuIsOpen(false))
   const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
-  const [hideModal, setHideModal] = useState(true);
+  const [recipeModalIsOpen, setRecipeModalIsOpen] = useState(false);
 
-  const toggleModal = () => setHideModal(!hideModal);
+  const toggleRecipeModal = () => setRecipeModalIsOpen(!recipeModalIsOpen);
 
-  const configModal = {
-    hideModal,
-    toggleModal,
-  };
-
-  const closeModal = () => {
-    setHideModal(true);
+  const configRecipeModal = {
+    modalOpened: recipeModalIsOpen,
+    toggleModal: toggleRecipeModal,
   };
 
   useEffect(() => {
@@ -54,25 +52,9 @@ const Header: React.FC = () => {
     }
   };
 
-  const handleProfileMenu = () => {
-    setProfileMenuIsOpen(!profileMenuIsOpen);
-  };
-
-  const navToAuth = (): void => {
-    navigate("/auth");
-  };
-
-  const loginButtonConfig = {
-    onClick: navToAuth,
-  };
-
-  const toggleButtonConfig = {
-    onClick: () => toggleModal(),
-  };
-
   return (
     <div className="header">
-      <div className="leftContainer">
+      <div className="header__left">
         <Menu onClick={handleSidebar} fontSize="large" />
         <div className="header__logo">
           <Logo />
@@ -82,29 +64,30 @@ const Header: React.FC = () => {
       {width > 600 && <SearchBar onHeader />}
 
       {currentUser ? (
-        <div className="rightContainer">
-          <Button {...toggleButtonConfig}>Create</Button>
+        <div className="header__right">
+          <Button handleClick={() => toggleRecipeModal()}>Create</Button>
 
-          <Modal {...configModal}>
-            <NewRecipe close={() => closeModal()} />
+          <Modal {...configRecipeModal}>
+            <NewRecipe close={() => setRecipeModalIsOpen(false)} />
           </Modal>
 
-          <div className="popup">
+          <div className="popup" ref={profilePopupRef}>
             <Avatar
-              onClick={handleProfileMenu}
+              onClick={() => setProfileMenuIsOpen(!profileMenuIsOpen)}
               src={currentUser?.profilePic}
               alt={currentUser?.displayName}
               className="avatarIcon"
             />
-            {profileMenuIsOpen ? <ProfilePopup close={() => setProfileMenuIsOpen(false)} /> : null}
+            {profileMenuIsOpen && <ProfilePopup close={() => setProfileMenuIsOpen(false)} />}
           </div>
         </div>
       ) : (
         <div className="rightContainer">
-          <Button {...loginButtonConfig}>Login</Button>
-        </div>
-      )}
-    </div>
+          <Button handleClick={() => navigate("/auth")}>Login</Button>
+        </div >
+      )
+      }
+    </div >
   );
 };
 

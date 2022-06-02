@@ -4,12 +4,12 @@ import { Close } from "@material-ui/icons";
 import "./styles.scss";
 
 interface Props {
-  hideModal: boolean;
+  modalOpened: boolean;
   toggleModal: () => void;
 }
 
-const Modal: React.FC<Props> = ({ hideModal, toggleModal, children }) => {
-  if (hideModal) return null;
+const Modal: React.FC<Props> = ({ modalOpened, toggleModal, children }) => {
+  if (!modalOpened) return null;
 
   return (
     <div className="modal">

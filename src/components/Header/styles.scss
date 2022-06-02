@@ -6,7 +6,7 @@
   background-color: var(--color-primary);
   border-bottom: 1px solid black;
 
-  .leftContainer {
+  .header__left {
     display: flex;
     align-items: center;
     margin-right: 10px;
@@ -25,7 +25,7 @@
     }
   }
 
-  .rightContainer {
+  .header__right {
     display: flex;
     align-items: center;
     margin-left: 10px;
