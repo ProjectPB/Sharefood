@@ -12,6 +12,7 @@ import NewRecipe from "../NewRecipe";
 import SearchBar from "../SearchBar";
 import Modal from "../Modal";
 import Button from "../forms/Button";
+import LangSelector from './../LangSelector';
 import Logo from "../Logo";
 
 import "./styles.scss";
@@ -27,9 +28,12 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const width = useWidth();
   const profilePopupRef = useRef<HTMLDivElement>();
+  const langMenuRef = useRef<HTMLDivElement>();
   useClickOutside(profilePopupRef, () => setProfileMenuIsOpen(false))
+  useClickOutside(langMenuRef, () => setLangMenuIsOpen(false))
   const [profileMenuIsOpen, setProfileMenuIsOpen] = useState(false);
   const [recipeModalIsOpen, setRecipeModalIsOpen] = useState(false);
+  const [langMenuIsOpen, setLangMenuIsOpen] = useState(false);
 
   const toggleRecipeModal = () => setRecipeModalIsOpen(!recipeModalIsOpen);
 
@@ -65,6 +69,12 @@ const Header: React.FC = () => {
 
       {currentUser ? (
         <div className="header__right">
+          <div className="header__language" ref={langMenuRef}>
+            <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>English</p>
+
+            {langMenuIsOpen && <LangSelector />}
+          </div>
+
           <Button handleClick={() => toggleRecipeModal()}>Create</Button>
 
           <Modal {...configRecipeModal}>
@@ -82,7 +92,13 @@ const Header: React.FC = () => {
           </div>
         </div>
       ) : (
-        <div className="rightContainer">
+        <div className="header__right">
+          <div className="header__language" ref={langMenuRef}>
+            <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>English</p>
+
+            {langMenuIsOpen && <LangSelector />}
+          </div>
+
           <Button handleClick={() => navigate("/auth")}>Login</Button>
         </div >
       )

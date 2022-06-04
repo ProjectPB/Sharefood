@@ -1,0 +1,39 @@
+.langSelector {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: var(--color-primary);
+  top: 35px;
+  right: -70px;
+  z-index: 999;
+  border: 1px solid;
+  padding: 10px;
+  border-radius: 10px;
+  min-width: 180px;
+  cursor: default;
+
+  .langSelector__text {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  .langSelector__languages {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+
+    .langSelector__language {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+
+      input {
+        cursor: pointer;
+      }
+
+      p {
+        margin-left: 5px;
+      }
+    }
+  }
+}

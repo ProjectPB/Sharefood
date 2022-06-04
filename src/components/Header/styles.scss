@@ -30,6 +30,13 @@
     align-items: center;
     margin-left: 10px;
 
+    .header__language {
+      margin-right: 15px;
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+    }
+
     .popup {
       margin-left: 15px;
       cursor: pointer;
