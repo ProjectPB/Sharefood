@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Avatar } from "@material-ui/core";
 import { ExitToApp } from "@material-ui/icons";
 import { signOutUserStart } from "../../redux/User/user.actions";
+import { useLanguage } from "../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types";
 
@@ -18,6 +19,7 @@ interface Props {
 
 const ProfilePopup: React.FC<Props> = ({ close }) => {
   const { currentUser } = useSelector(mapState);
+  const LANG = useLanguage();
   const dispatch = useDispatch();
 
   const logout = () => {
@@ -36,7 +38,7 @@ const ProfilePopup: React.FC<Props> = ({ close }) => {
 
       <div onClick={logout} className="logout">
         <ExitToApp />
-        <p>Logout</p>
+        <p>{LANG.HEADER.LOGOUT}</p>
       </div>
     </div>
   );

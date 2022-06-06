@@ -114,6 +114,7 @@ export interface State {
   ui: {
     sidebarOpen: boolean;
     lastDisplayedProfile: string;
+    language: string,
   };
   recipes: Recipes;
   loading: Loading;

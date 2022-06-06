@@ -4,6 +4,7 @@ import { State } from "../../shared/types";
 const INITIAL_STATE: State["ui"] = {
   sidebarOpen: true,
   lastDisplayedProfile: "",
+  language: 'english',
 };
 
 const uiReducer = (state = INITIAL_STATE, action: { type: string, payload: string }) => {
@@ -22,6 +23,12 @@ const uiReducer = (state = INITIAL_STATE, action: { type: string, payload: strin
       return {
         ...state,
         lastDisplayedProfile: action.payload,
+      }
+
+    case uiTypes.SET_LANGUAGE:
+      return {
+        ...state,
+        language: action.payload
       }
     default:
       return state;

@@ -10,5 +10,10 @@ export const closeSidebar = () => ({
 
 export const setLastDisplayedProfile = (id: string) => ({
   type: uiTypes.SET_LAST_DISPLAYED_PROFILE,
-  payload: id
+  payload: id,
+})
+
+export const setLanguage = (lang: string) => ({
+  type: uiTypes.SET_LANGUAGE,
+  payload: lang,
 })

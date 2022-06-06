@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Menu } from "@material-ui/icons";
 import { closeSidebar, openSidebar } from "../../redux/UI/ui.actions";
-import { useClickOutside, useWidth } from "../../hooks";
+import { useClickOutside, useLanguage, useWidth } from "../../hooks";
 import { State } from "../../shared/types";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -27,6 +27,7 @@ const Header: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const width = useWidth();
+  const lang = useLanguage();
   const profilePopupRef = useRef<HTMLDivElement>();
   const langMenuRef = useRef<HTMLDivElement>();
   useClickOutside(profilePopupRef, () => setProfileMenuIsOpen(false))
@@ -70,12 +71,12 @@ const Header: React.FC = () => {
       {currentUser ? (
         <div className="header__right">
           <div className="header__language" ref={langMenuRef}>
-            <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>English</p>
+            <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>{lang.HEADER.LANG}</p>
 
             {langMenuIsOpen && <LangSelector />}
           </div>
 
-          <Button handleClick={() => toggleRecipeModal()}>Create</Button>
+          <Button handleClick={() => toggleRecipeModal()}>{lang.HEADER.CREATE}</Button>
 
           <Modal {...configRecipeModal}>
             <NewRecipe close={() => setRecipeModalIsOpen(false)} />
@@ -94,12 +95,12 @@ const Header: React.FC = () => {
       ) : (
         <div className="header__right">
           <div className="header__language" ref={langMenuRef}>
-            <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>English</p>
+            <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>{lang.HEADER.LANG}</p>
 
             {langMenuIsOpen && <LangSelector />}
           </div>
 
-          <Button handleClick={() => navigate("/auth")}>Login</Button>
+          <Button handleClick={() => navigate("/auth")}>{lang.HEADER.LOGIN}</Button>
         </div >
       )
       }
