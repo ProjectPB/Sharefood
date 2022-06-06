@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLanguage } from "../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { EditorState, convertToRaw } from "draft-js";
@@ -31,6 +32,7 @@ interface Props {
 const NewRecipe: React.FC<Props> = ({ close }) => {
   const { currentUser } = useSelector(mapState);
   const dispatch = useDispatch();
+  const LANG = useLanguage();
   const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
@@ -99,11 +101,11 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const handleCreate = (e: Handler["form"]) => {
     e.preventDefault();
     if (ingredients.trim() === "<p></p>" || !ingredients) {
-      alert('Please enter ingredients');
+      alert(LANG.NEW_RECIPE.NO_INGREDIENTS);
       return
     };
     if (method.trim() === "<p></p>" || !method) {
-      alert('Please enter a method');
+      alert(LANG.NEW_RECIPE.NO_METHOD);
       return
     };
 
@@ -127,18 +129,24 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
 
   const config = {
     title: {
+      label: LANG.NEW_RECIPE.TITLE,
       handler: (e: React.ChangeEvent<HTMLInputElement>) =>
         setTitle(e.target.value), value: title
     },
-
     type: {
+      options: LANG.NEW_RECIPE.TYPE_OPTIONS,
+      label: LANG.NEW_RECIPE.TYPE,
       handler: (e: React.ChangeEvent<HTMLSelectElement>) =>
         setType(e.target.value), value: type,
     },
     portions: {
+      label: LANG.NEW_RECIPE.PORTIONS,
       handler: (e: Handler["number"]) => setPortions(e.target.value), value: portions
     },
     picture: {
+      label: LANG.NEW_RECIPE.IMG_PLACEHOLDER,
+      label_remove: LANG.NEW_RECIPE.REMOVE_IMG,
+      label_accept: LANG.NEW_RECIPE.ACCEPT_IMG,
       cropperImg: cropperImg,
       cropData: cropData,
       changeImgFile: changeImgFile,
@@ -151,7 +159,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       loadingPicture: loading
     },
     description: {
-      label: "Description (optional)",
+      label: LANG.NEW_RECIPE.DESCRIPTION,
       editor: descriptionEditor,
       content: description,
       update: (state: React.SetStateAction<EditorState> | any) => {
@@ -160,7 +168,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       },
     },
     ingredients: {
-      label: "Ingredients",
+      label: LANG.NEW_RECIPE.INGREDIENTS,
       editor: ingEditor,
       content: ingredients,
       update: (state: React.SetStateAction<EditorState> | any) => {
@@ -169,7 +177,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       },
     },
     method: {
-      label: "Method",
+      label: LANG.NEW_RECIPE.METHOD,
       editor: methodEditor,
       content: method,
       update: (state: React.SetStateAction<EditorState> | any) => {
@@ -178,7 +186,9 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       },
     },
     special: {
-      label: "Special",
+      options: LANG.NEW_RECIPE.SPECIAL_OPTIONS,
+      placeholder: LANG.NEW_RECIPE.SPECIAL_PLACEHOLDER,
+      label: LANG.NEW_RECIPE.SPECIAL,
       update: (option: Option[]) => {
         setSpecial(option);
       },
@@ -202,7 +212,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         <Picture {...config.picture} />
         {loading && <Loading />}
         <div className="newRecipe__button">
-          <Button {...config.submitButton}>Create</Button>
+          <Button {...config.submitButton}>{LANG.NEW_RECIPE.CREATE}</Button>
         </div>
       </form >
     </div >

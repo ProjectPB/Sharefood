@@ -5,6 +5,7 @@ import { Handler } from "../../../shared/types";
 import "./styles.scss";
 
 interface Props {
+  label: string,
   handleChange: (
     e: Handler["input"] | Handler["change"] | Handler["file"]
   ) => Promise<void>;
@@ -12,13 +13,14 @@ interface Props {
 
 const ImgInput: React.FC<Props> = ({
   handleChange,
+  label,
   ...otherProps
 }) => {
   return (
     <div className="imgInput">
       <img src="https://icon-library.com/images/placeholder-image-icon/placeholder-image-icon-7.jpg" alt="Recipe attachment" />
       <AddCircleIcon />
-      <p>Click to upload an image</p>
+      <p>{label}</p>
       <input onChange={handleChange} {...otherProps} />
     </div>
   );

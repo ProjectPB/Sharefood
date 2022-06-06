@@ -17,10 +17,11 @@
       transform: translate(-50%, 0);
       display: flex;
       justify-content: center;
-      max-width: 80px;
+      max-width: 100px;
     }
 
     .input,
+    .special,
     .editor,
     .select,
     .picture {

@@ -1,16 +1,17 @@
 import React from 'react'
 import Select from 'react-select';
 import { Option } from '../../../shared/types';
-import { options } from './config';
 
 import './styles.scss'
 
 interface Props {
+  options: Option[],
   label: string,
+  placeholder: string,
   update: (option: Option[]) => void
 }
 
-const Special: React.FC<Props> = ({ label, update }) => {
+const Special: React.FC<Props> = ({ label, options, update, placeholder }) => {
   return (
     <div className='special'>
       <label>{label}</label>
@@ -22,6 +23,7 @@ const Special: React.FC<Props> = ({ label, update }) => {
         isMulti
         name="special"
         options={options}
+        placeholder={placeholder}
       />
     </div>
   )

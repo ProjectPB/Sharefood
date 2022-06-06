@@ -9,6 +9,9 @@ import ImgInput from '../../forms/ImgInput';
 import './styles.scss';
 
 interface Props {
+  label: string,
+  label_remove: string,
+  label_accept: string,
   cropperImg: string,
   cropData: string,
   initCropper: (instance: any) => void;
@@ -19,7 +22,7 @@ interface Props {
   loadingPicture: boolean;
 }
 
-const Picture: React.FC<Props> = ({ cropperImg, initCropper, acceptCropData, rotateCrop, removeCrop, cropData, changeImgFile, loadingPicture }) => {
+const Picture: React.FC<Props> = ({ label, label_remove, label_accept, cropperImg, initCropper, acceptCropData, rotateCrop, removeCrop, cropData, changeImgFile, loadingPicture }) => {
   const acceptButtonConfig = {
     onClick: acceptCropData,
     secondary: false
@@ -35,6 +38,7 @@ const Picture: React.FC<Props> = ({ cropperImg, initCropper, acceptCropData, rot
     type: "file",
     accept: "image/*",
     required: true,
+    label: label,
   };
 
   return (
@@ -59,8 +63,8 @@ const Picture: React.FC<Props> = ({ cropperImg, initCropper, acceptCropData, rot
               <RotateRight onClick={rotateCrop} />
             </div>
             <div className="picture__buttons">
-              <Button {...removeButtonConfig}>Remove</Button>
-              <Button {...acceptButtonConfig}>Accept</Button>
+              <Button {...removeButtonConfig}>{label_remove}</Button>
+              <Button {...acceptButtonConfig}>{label_accept}</Button>
             </div>
           </div>}
         </div>

@@ -22,6 +22,10 @@ export const ENG_FILTERS = {
     value: "main",
   },
   {
+    name: "drink",
+    value: "drink",
+  },
+  {
     name: "dessert",
     value: "dessert",
   },
@@ -41,9 +45,9 @@ export const ENG_FILTERS = {
 
 export const PL_FILTERS = {
   SORT: "Sortuj według",
-  TYPE: "Typ",
+  TYPE: "Posiłek",
   typeFilters: [{
-    name: 'all',
+    name: 'Wszystkie',
     value: "",
   },
   {
@@ -61,6 +65,10 @@ export const PL_FILTERS = {
   {
     name: "danie główne",
     value: "main",
+  },
+  {
+    name: "napój",
+    value: "drink",
   },
   {
     name: "deser",
