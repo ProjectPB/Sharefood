@@ -5,12 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { googleSignInStart, signUpError } from "../../redux/User/user.actions";
 import { loadAuth } from "../../redux/Loading/loading.actions";
 import { State } from "../../shared/types";
+import { useLanguage } from "../../hooks";
 
 import Login from "./../../components/Login";
 import SignUp from "./../../components/SignUp";
 import Logo from "./../../components/Logo";
 import GoogleButton from './../../components/forms/GoogleButton';
 import Loading from "./../../components/Loading";
+import AuthError from "../../components/AuthError";
 
 import "./styles.scss";
 
@@ -23,6 +25,7 @@ const mapState = ({ user, loading }: State) => ({
 const AuthPage: React.FC = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const LANG = useLanguage();
   const [newAccount, setNewAccount] = useState(false);
   const { currentUser, errors, loading } = useSelector(mapState);
 
@@ -53,32 +56,29 @@ const AuthPage: React.FC = () => {
 
       {!newAccount && (
         <p className="link">
-          Not a member?{" "}
+          {LANG.AUTH.NO_ACCOUNT}?{" "}
           <span className="span" onClick={handleAccount}>
-            Sign Up
+            {LANG.AUTH.SIGN_UP}
           </span>
         </p>
       )}
 
       {!newAccount && (
         <p className="link">
-          Forgot password?{" "}
+          {LANG.AUTH.FORGOT_PASSWORD}?{" "}
           <Link to="/reset">
-            <span className="span">Reset</span>
+            <span className="span">{LANG.AUTH.RESET_PASSWORD}</span>
           </Link>
         </p>
       )}
+
       {!newAccount && <GoogleButton handleClick={handleGoogleSignIn} />}
 
-      {errors && (
-        <ul className="errors">
-          {errors.map((err: string, i: number) => (
-            <li className="error" key={i}>
-              {err}
-            </li>
-          ))}
-        </ul>
-      )}
+      {errors && <ul className="errors">
+        {errors.map((err: string, i: number) => (
+          <AuthError error={err} key={i} />
+        ))}
+      </ul>}
 
       <div className="loading">{loading && <Loading />}</div>
     </div>

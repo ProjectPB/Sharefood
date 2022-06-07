@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { Lock, Mail } from "@material-ui/icons";
 import { emailSignInStart } from "../../redux/User/user.actions";
 import { Handler, State } from "../../shared/types";
+import { useLanguage } from "../../hooks";
 
 import AuthInput from '../forms/AuthInput'
 import Button from "../forms/Button";
@@ -16,6 +17,7 @@ const mapState = ({ user }: State) => ({
 
 const Login: React.FC = () => {
   const dispatch = useDispatch();
+  const LANG = useLanguage();
   const navigate = useNavigate();
   const { currentUser } = useSelector(mapState);
   const [email, setEmail] = useState("");
@@ -42,7 +44,7 @@ const Login: React.FC = () => {
     Icon: Mail,
     value: email,
     handleChange: (e: Handler["string"]) => setEmail(e.target.value),
-    placeholder: "E-mail",
+    placeholder: LANG.AUTH.EMAIL,
     type: "email",
     pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
   };
@@ -51,7 +53,7 @@ const Login: React.FC = () => {
     Icon: Lock,
     value: password,
     handleChange: (e: Handler["string"]) => setPassword(e.target.value),
-    placeholder: "Password",
+    placeholder: LANG.AUTH.PASSWORD,
     type: "password",
     pattern: new RegExp(/^(?!\s*$).+/),
   };
@@ -64,10 +66,10 @@ const Login: React.FC = () => {
 
   return (
     <form className="login">
-      <h3>SIGN IN</h3>
+      <h3>{LANG.AUTH.SIGN_IN}</h3>
       <AuthInput {...emailConfig} />
       <AuthInput {...passwordConfig} />
-      <Button {...buttonConfig}>SIGN IN</Button>
+      <Button {...buttonConfig}>{LANG.AUTH.SIGN_IN}</Button>
     </form>
   );
 };

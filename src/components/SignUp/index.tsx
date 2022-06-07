@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { signUpUserStart } from "../../redux/User/user.actions";
 import { InfoOutlined, Lock, Mail, Person } from "@material-ui/icons";
 import { Handler } from "../../shared/types";
+import { useLanguage } from "../../hooks";
 
 import Button from "../forms/Button";
 import AuthInput from "../forms/AuthInput";
@@ -15,6 +16,7 @@ interface Props {
 
 const SignUp: React.FC<Props> = ({ cancel }) => {
   const dispatch = useDispatch();
+  const LANG = useLanguage();
   const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,23 +42,23 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
 
   const usernameConfig = {
     Icon: Person,
-    placeholder: "Username",
+    placeholder: LANG.AUTH.USERNAME,
     type: "text",
     value: displayName,
     handleChange: (e: Handler["string"]) => setDisplayName(e.target.value),
     pattern: "^.{4,12}$",
-    info: ["Between 4 and 12 characters"],
+    info: LANG.AUTH.USERNAME_INFO,
     openInfo: openInfo,
   };
 
   const emailConfig = {
     Icon: Mail,
-    placeholder: "E-mail",
+    placeholder: LANG.AUTH.EMAIL,
     type: "email",
     value: email,
     handleChange: (e: Handler["string"]) => setEmail(e.target.value),
     pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$",
-    info: ["example@example.com"],
+    info: LANG.AUTH.EMAIL_INFO,
     openInfo: openInfo,
   };
 
@@ -64,23 +66,18 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
     Icon: Lock,
     value: password,
     handleChange: (e: Handler["string"]) => setPassword(e.target.value),
-    placeholder: "Password",
+    placeholder: LANG.AUTH.PASSWORD,
     type: "password",
     pattern: new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/),
     openInfo: openInfo,
-    info: [
-      "At least 8 characters",
-      "At least 1 numeric character",
-      "At least 1 lowercase letter",
-      "At least 1 uppercase letter",
-    ],
+    info: LANG.AUTH.PASSWORD_INFO,
   };
 
   const passwordConfirmConfig = {
     Icon: Lock,
     value: passwordConfirm,
     handleChange: (e: Handler["string"]) => setPasswordConfirm(e.target.value),
-    placeholder: "Confirm Password",
+    placeholder: LANG.AUTH.CONFIRM_PASSWORD,
     type: "password",
     pattern: new RegExp(`^${password}$`),
   };
@@ -98,20 +95,21 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
 
   return (
     <div className="signUp">
-      <h3>SIGN UP</h3>
+      <h3>{LANG.AUTH.SIGN_UP}</h3>
       <InfoOutlined
         onClick={handleInfo}
         className="infoIcon"
         fontSize="small"
       />
+
       <AuthInput {...usernameConfig} />
       <AuthInput {...emailConfig} />
       <AuthInput {...passwordConfig} />
       <AuthInput {...passwordConfirmConfig} />
 
       <div className="signUp__buttons">
-        <Button {...cancelButtonConfig}>CANCEL</Button>
-        <Button {...submitButtonConfig}>SIGN UP</Button>
+        <Button {...cancelButtonConfig}>{LANG.AUTH.CANCEL}</Button>
+        <Button {...submitButtonConfig}>{LANG.AUTH.SIGN_UP}</Button>
       </div>
     </div>
   );

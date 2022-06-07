@@ -8,9 +8,11 @@ import {
 } from "../../redux/User/user.actions";
 import { Mail } from "@material-ui/icons";
 import { Handler, State } from "../../shared/types";
+import { useLanguage } from "../../hooks";
 
 import Button from "../../components/forms/Button";
 import AuthInput from "../../components/forms/AuthInput";
+import AuthError from "../../components/AuthError";
 
 import "./styles.scss";
 
@@ -22,6 +24,7 @@ const mapState = ({ user }: State) => ({
 const NewPasswordPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const LANG = useLanguage();
   const [email, setEmail] = useState("");
   const { resetPasswordSuccess, resetPasswordErrors } = useSelector(mapState);
   const [errors, setErrors] = useState([]);
@@ -29,7 +32,7 @@ const NewPasswordPage: React.FC = () => {
   useEffect(() => {
     if (resetPasswordSuccess) {
       dispatch(resetUserState());
-      alert("E-mail sent.");
+      alert(LANG.AUTH.NEW_PASSWORD_SEND_SUCCESS);
       navigate("/auth");
     }
   }, [resetPasswordSuccess, navigate, dispatch]);
@@ -55,7 +58,7 @@ const NewPasswordPage: React.FC = () => {
     Icon: Mail,
     value: email,
     handleChange: (e: Handler["string"]) => setEmail(e.target.value),
-    placeholder: "E-mail",
+    placeholder: LANG.AUTH.EMAIL,
     type: "email",
     name: "email",
   };
@@ -72,30 +75,26 @@ const NewPasswordPage: React.FC = () => {
   return (
     <form className="newPassword" onSubmit={handleSubmit}>
       <div className="newPassword__header">
-        <h3>New password</h3>
+        <h3>{LANG.AUTH.NEW_PASSWORD}</h3>
       </div>
 
       <div className="newPassword__body">
         <h4>
-          Please provide an e-mail in order to send a message with a password
-          reset
+          {LANG.AUTH.NEW_PASSWORD_TEXT}
         </h4>
+
         <AuthInput {...emailConfig} />
 
-        {errors && (
-          <ul className="newPassword__errors">
-            {errors.map((err: string, i: number) => (
-              <li className="error" key={i}>
-                {err}
-              </li>
-            ))}
-          </ul>
-        )}
+        {errors && <ul className="newPassword__errors">
+          {errors.map((err: string, i: number) => (
+            <AuthError error={err} key={i} />
+          ))}
+        </ul>}
       </div>
 
       <div className="newPassword__buttons">
-        <Button {...cancelButtonConfig}>CANCEL</Button>
-        <Button {...submitButtonConfig}>SEND</Button>
+        <Button {...cancelButtonConfig}>{LANG.AUTH.CANCEL}</Button>
+        <Button {...submitButtonConfig}>{LANG.AUTH.NEW_PASSWORD_SEND}</Button>
       </div>
     </form>
   );

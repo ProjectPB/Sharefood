@@ -39,7 +39,6 @@ export const getRecipesCounter = (width: number, sidebarIsOpen: boolean) => {
   }
 }
 
-
 export const fillWithHiddenCards = (data: Recipe[] | []) => {
   if (data?.length === 1) {
     return (
@@ -82,7 +81,6 @@ export const capitalizeLetter = (str: string) => {
   const formatStr = capitalStr.trim();
   return formatStr;
 };
-
 
 export const getValuesFromSelect = (array: Option[]) => {
   let result = array.map(option => option.value);

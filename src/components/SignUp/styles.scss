@@ -4,6 +4,11 @@
   justify-content: center;
   width: 100%;
   position: relative;
+  min-width: 400px;
+
+  @media (max-width: 480px) {
+    min-width: auto;
+  }
 
   h3 {
     text-align: center;
@@ -15,7 +20,7 @@
   .infoIcon {
     position: absolute;
     right: 5px;
-    top: 3px;
+    top: 0;
     color: gray;
     cursor: pointer;
   }

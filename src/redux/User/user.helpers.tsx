@@ -49,7 +49,7 @@ export const handleResetPasswordAPI = (email: string) => {
         resolve();
       })
       .catch(() => {
-        const err = ["Email not found. Please try again."];
+        const err = ["EMAIL_NOT_FOUND"];
         reject(err);
       });
   });
@@ -58,18 +58,18 @@ export const handleResetPasswordAPI = (email: string) => {
 export const validateRegister = (displayName: string, email: string, password: string, passwordConfirm: string) => {
   let errors = [];
   if (displayName.length > 12 || displayName.length < 4) {
-    errors.push("Username does not match requirements.");
+    errors.push("INVALID_USERNAME");
   }
   if (!email.match("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")) {
-    errors.push("Invalid email.");
+    errors.push("INVALID_EMAIL");
   }
   if (
     !password.match(new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))
   ) {
-    errors.push("Password does not match requirements.");
+    errors.push("INVALID_PASSWORD");
   }
   if (password !== passwordConfirm) {
-    errors.push("Passwords do not match.");
+    errors.push("PASSWORDS_VARY");
   }
   return errors;
 }
@@ -77,10 +77,10 @@ export const validateRegister = (displayName: string, email: string, password: s
 export const validateLogin = (email: string, password: string) => {
   let errors = []
   if (!email.match("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")) {
-    errors.push('Invalid email');
+    errors.push('INVALID_EMAIL');
   }
   if (!password) {
-    errors.push("Invalid password")
+    errors.push("INVALID_PASSWORD")
   }
   return errors;
 }
