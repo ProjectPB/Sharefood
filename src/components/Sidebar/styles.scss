@@ -10,6 +10,7 @@
 
 .sidebar--hidden {
   width: fit-content;
+  min-width: 80px;
   background-color: var(--color-primary);
   border-right: 1px solid black;
 
