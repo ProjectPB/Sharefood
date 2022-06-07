@@ -35,7 +35,7 @@ const NewPasswordPage: React.FC = () => {
       alert(LANG.AUTH.NEW_PASSWORD_SEND_SUCCESS);
       navigate("/auth");
     }
-  }, [resetPasswordSuccess, navigate, dispatch]);
+  }, [resetPasswordSuccess, navigate, dispatch, LANG.AUTH.NEW_PASSWORD_SEND_SUCCESS]);
 
   useEffect(() => {
     return () => {

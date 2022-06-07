@@ -36,7 +36,7 @@ const AuthError: React.FC<Props> = ({ error }) => {
     return () => {
       setNewErr('');
     }
-  });
+  }, [error, LANG.ERRORS.INVALID_USERNAME, LANG.ERRORS.INVALID_EMAIL, LANG.ERRORS.INVALID_PASSWORD, LANG.ERRORS.PASSWORDS_VARY, LANG.ERRORS.EMAIL_NOT_FOUND]);
 
   return (
     <li className='authError'>{newErr}</li>
