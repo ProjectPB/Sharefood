@@ -87,6 +87,11 @@
 
         .recipe__date {
           margin-left: 5px;
+          text-transform: capitalize;
+        }
+
+        .recipe__type {
+          text-transform: capitalize;
         }
 
         .recipe__delete {

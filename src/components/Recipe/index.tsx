@@ -16,7 +16,8 @@ import { RecipeData, State } from '../../shared/types';
 import { handleDeleteRecipe } from '../../redux/Recipe/recipe.helpers';
 import { resetRecipes } from '../../redux/Recipes/recipes.actions';
 import { dislikeRecipeStart, likeRecipeStart, viewRecipeStart } from '../../redux/Recipe/recipe.actions';
-import { capitalizeLetter } from '../../shared/functions';
+import { translateType } from '../../shared/functions';
+import { useLanguage } from '../../hooks';
 
 import Loading from '../Loading';
 
@@ -26,14 +27,16 @@ interface Props {
   data: RecipeData;
 }
 
-const mapState = ({ user }: State) => ({
+const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,
+  language: ui.language,
 });
 
 const Recipe: React.FC<Props> = ({ data }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { currentUser } = useSelector(mapState);
+  const LANG = useLanguage();
+  const { currentUser, language } = useSelector(mapState);
   const { recipeId } = useParams<{ recipeId: string }>();
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -55,7 +58,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
 
   const deleteRecipe = async () => {
     const answer = window.confirm(
-      "Are you sure you want to delete this recipe?"
+      LANG.RECIPE.DELETE_ALERT
     );
 
     if (answer) {
@@ -85,7 +88,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
           <div className="recipe__infoCol">
             <div className="recipe__time">
               <DateRange />
-              <Moment format="MMMM DD YYYY" className="recipe__date">
+              <Moment locale={(language === 'polish') ? 'pl' : 'en'} format="MMMM DD YYYY" className="recipe__date">
                 {data?.timestamp?.toDate()}
               </Moment>
             </div>
@@ -100,13 +103,13 @@ const Recipe: React.FC<Props> = ({ data }) => {
 
             <div className="recipe__views">
               <Visibility fontSize="large" />
-              <p>{data?.stats?.views} views</p>
+              <p>{data?.stats?.views} {LANG.RECIPE.VIEWS}</p>
             </div>
 
             {data?.authorId === currentUser?.uid && (
               <div className="recipe__delete" onClick={deleteRecipe}>
                 <DeleteOutlined fontSize="large" />
-                <p>Delete recipe</p>
+                <p>{LANG.RECIPE.DELETE_RECIPE}</p>
               </div>
             )}
           </div>
@@ -115,7 +118,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
             <div className="recipe__type">
               <LocalDining fontSize="large" />
               <p>
-                {data?.type && capitalizeLetter(data?.type)}
+                {translateType(data?.type, language)}
               </p>
             </div>
 
@@ -136,7 +139,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
         <div className="recipe__body">
           <div className="recipe__ingredients">
             <div className="recipe__ingredientsHeader">
-              <h2>Ingredients</h2>
+              <h2>{LANG.RECIPE.INGREDIENTS}</h2>
               <div className="recipe__portions">
                 <Group />
                 <p>{data?.portions}</p>
@@ -146,7 +149,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
           </div>
 
           <div className="recipe__method">
-            <h2>Method</h2>
+            <h2>{LANG.RECIPE.METHOD}</h2>
             <div className="recipe__list" dangerouslySetInnerHTML={{ __html: data?.method }} />
           </div>
         </div>

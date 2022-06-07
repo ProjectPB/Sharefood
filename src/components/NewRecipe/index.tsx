@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { EditorState, convertToRaw } from "draft-js";
 import draftToHtml from "draftjs-to-html";
-import { capitalizeLetter, getValuesFromSelect, resizeFile } from '../../shared/functions'
+import { capitalize, getValuesFromSelect, resizeFile } from '../../shared/functions'
 import { Handler, Option, State } from "../../shared/types";
 import { createRecipeStart } from "../../redux/Recipe/recipe.actions";
 import { resetRecipes } from "../../redux/Recipes/recipes.actions";
@@ -114,7 +114,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       createRecipeStart({
         authorId: currentUser.uid,
         type: type,
-        title: capitalizeLetter(title),
+        title: capitalize(title),
         description: description,
         ingredients: ingredients,
         special: getValuesFromSelect(special),

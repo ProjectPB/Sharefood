@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Moment from "react-moment";
+import 'moment/locale/pl';
 import { useNavigate } from "react-router-dom";
 import { AccessTimeOutlined, LocalDining } from "@material-ui/icons";
 import { Avatar } from "@material-ui/core";
-import { capitalizeLetter } from "../../shared/functions";
+import { State } from "../../shared/types";
+import { translateType } from "../../shared/functions";
 
 import "./styles.scss";
 
@@ -20,6 +23,10 @@ interface Data {
   keepScrollHeight?: () => void;
 }
 
+const mapState = ({ ui }: State) => ({
+  language: ui.language,
+});
+
 const Card: React.FC<Data> = ({
   id,
   username,
@@ -33,6 +40,7 @@ const Card: React.FC<Data> = ({
 }) => {
   const [loaded, setLoaded] = useState(false);
   const navigate = useNavigate();
+  const { language } = useSelector(mapState);
 
   const navToRecipe = () => {
     keepScrollHeight && keepScrollHeight();
@@ -74,11 +82,11 @@ const Card: React.FC<Data> = ({
           <div className="card__data">
             <div className="card__infoContainer">
               <LocalDining className="card__icon" />
-              <p className="card__text">{type && capitalizeLetter(type)}</p>
+              <p className="card__text card__type">{type && translateType(type, language)}</p>
             </div>
             <div className="card__infoContainer card__timestamp">
               <AccessTimeOutlined className="card__icon" />
-              <Moment fromNow className="card__text">
+              <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow className="card__text">
                 {timestamp?.toDate()}
               </Moment>
             </div>

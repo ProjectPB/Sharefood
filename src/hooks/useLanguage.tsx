@@ -7,6 +7,7 @@ import { ENG_FILTERS, PL_FILTERS } from './../assets/lang/filters';
 import { ENG_NEW_RECIPE, PL_NEW_RECIPE } from './../assets/lang/newRecipe';
 import { ENG_AUTH, PL_AUTH } from './../assets/lang/auth';
 import { ENG_ERRORS, PL_ERRORS } from './../assets/lang/errors';
+import { ENG_RECIPE, PL_RECIPE } from "../assets/lang/recipe";
 
 const mapState = ({ ui }: State) => ({
   language: ui.language
@@ -24,6 +25,7 @@ const useLanguage = () => {
         NEW_RECIPE: ENG_NEW_RECIPE,
         AUTH: ENG_AUTH,
         ERRORS: ENG_ERRORS,
+        RECIPE: ENG_RECIPE,
       }
     case "polish":
       return {
@@ -33,6 +35,7 @@ const useLanguage = () => {
         NEW_RECIPE: PL_NEW_RECIPE,
         AUTH: PL_AUTH,
         ERRORS: PL_ERRORS,
+        RECIPE: PL_RECIPE,
       }
   }
 }

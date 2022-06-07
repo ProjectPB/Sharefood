@@ -2,6 +2,7 @@ import React from "react";
 import Resizer from "react-image-file-resizer";
 import Card from "../components/Card";
 import { Option, Recipe } from "./types";
+import { PL_RECIPE } from './../assets/lang/recipe';
 
 export const resizeFile = (file: Blob, maxWidth: number, maxHeight: number): Promise<string | unknown> =>
   new Promise((resolve) => {
@@ -76,11 +77,36 @@ export const invokeOnBottom = (ref: React.MutableRefObject<HTMLDivElement>, acti
   }
 };
 
-export const capitalizeLetter = (str: string) => {
+export const capitalize = (str: string) => {
   const capitalStr = str[0].toUpperCase() + str.substring(1);
   const formatStr = capitalStr.trim();
   return formatStr;
 };
+
+export const translateType = (type: string, lang: string) => {
+  if (lang === 'english') {
+    return type;
+  }
+
+  if (lang === 'polish') {
+    switch (type) {
+      case "breakfast":
+        return PL_RECIPE.BREAKFAST;
+      case "appetizer":
+        return PL_RECIPE.APPETIZER;
+      case 'soup':
+        return PL_RECIPE.SOUP;
+      case 'main':
+        return PL_RECIPE.MAIN;
+      case 'drink':
+        return PL_RECIPE.DRINK;
+      case 'dessert':
+        return PL_RECIPE.DESSERT;
+      case 'other':
+        return PL_RECIPE.OTHER;
+    }
+  }
+}
 
 export const getValuesFromSelect = (array: Option[]) => {
   let result = array.map(option => option.value);
