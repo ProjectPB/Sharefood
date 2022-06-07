@@ -44,7 +44,7 @@ export const ENG_FILTERS = {
 }
 
 export const PL_FILTERS = {
-  SORT: "Sortuj według",
+  SORT: "Sortuj",
   TYPE: "Posiłek",
   typeFilters: [{
     name: 'Wszystkie',

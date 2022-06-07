@@ -73,7 +73,7 @@ const Header: React.FC = () => {
           <div className="header__language" ref={langMenuRef}>
             <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>{lang.HEADER.LANG}</p>
 
-            {langMenuIsOpen && <LangSelector />}
+            {langMenuIsOpen && <LangSelector close={() => setLangMenuIsOpen(false)} />}
           </div>
 
           <Button handleClick={() => toggleRecipeModal()}>{lang.HEADER.CREATE}</Button>
@@ -97,7 +97,7 @@ const Header: React.FC = () => {
           <div className="header__language" ref={langMenuRef}>
             <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>{lang.HEADER.LANG}</p>
 
-            {langMenuIsOpen && <LangSelector />}
+            {langMenuIsOpen && <LangSelector close={() => setLangMenuIsOpen(false)} />}
           </div>
 
           <Button handleClick={() => navigate("/auth")}>{lang.HEADER.LOGIN}</Button>
