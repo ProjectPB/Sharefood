@@ -11,7 +11,7 @@ import rootSaga from "./rootSaga";
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'ui'],
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
