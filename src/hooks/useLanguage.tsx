@@ -1,13 +1,8 @@
 import { State } from "../shared/types";
 import { useSelector } from "react-redux";
 
-import { ENG_HEADER, PL_HEADER } from './../assets/lang/header';
-import { ENG_SIDEBAR, PL_SIDEBAR } from './../assets/lang/sidebar';
-import { ENG_FILTERS, PL_FILTERS } from './../assets/lang/filters';
-import { ENG_NEW_RECIPE, PL_NEW_RECIPE } from './../assets/lang/newRecipe';
-import { ENG_AUTH, PL_AUTH } from './../assets/lang/auth';
-import { ENG_ERRORS, PL_ERRORS } from './../assets/lang/errors';
-import { ENG_RECIPE, PL_RECIPE } from "../assets/lang/recipe";
+import { ENG_RECIPE, ENG_HEADER, ENG_SIDEBAR, ENG_FILTERS, ENG_NEW_RECIPE, ENG_AUTH, ENG_ERRORS, PL_HEADER, PL_SIDEBAR, PL_FILTERS, PL_NEW_RECIPE, PL_AUTH, PL_ERRORS, PL_RECIPE } from "../assets/lang";
+
 
 const mapState = ({ ui }: State) => ({
   language: ui.language

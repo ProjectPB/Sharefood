@@ -43,6 +43,9 @@
           font-size: 18px;
           font-weight: 500;
           word-break: break-word;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
           text-align: center;
           overflow: hidden;
           margin: auto;
@@ -72,6 +75,9 @@
                 font-size: 14px;
                 font-weight: 400;
                 color: rgb(114, 114, 114);
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
 
                 @media (max-width: 600px) {
                   font-size: 12px;
@@ -86,6 +92,7 @@
 
             .card__timestamp {
               margin: 0 7px;
+              overflow: hidden;
 
               &::before {
                 content: "|";
