@@ -1,12 +1,15 @@
 .card {
   position: relative;
   cursor: pointer;
-  outline: 1px solid gray;
   margin: 0px 20px 20px 0px;
   width: calc(100% - 20px);
+  outline: 1px solid lightgray;
+  border-radius: 10px;
+  background-color: white;
 
   &:hover {
-    opacity: 0.8;
+    outline: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
     transform: scale(1.025);
     transition: ease-in 0.2s;
   }
@@ -17,8 +20,11 @@
     .card__container {
       display: flex;
       flex-direction: column;
+      overflow: hidden;
 
       .card__img {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         object-fit: cover;
         aspect-ratio: 4 / 3;
         width: 100%;
@@ -29,9 +35,7 @@
         display: flex;
         justify-content: space-between;
         flex-direction: column;
-        background-color: whitesmoke;
-        border-top: 1px solid gray;
-        padding: 5px;
+        padding: 7px;
         height: 110px;
         position: relative;
 

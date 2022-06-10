@@ -1,18 +1,19 @@
 .sidebar {
   width: 300px;
-  background-color: var(--color-primary);
-  border-right: 1px solid black;
+  background-color: rgb(247, 247, 247);
+  margin: 5px 0;
+  border-right: 1px solid lightgray;
 
   @media (max-width: 600px) {
     width: 100%;
+    padding: 0;
   }
 }
 
 .sidebar--hidden {
   width: fit-content;
   min-width: 80px;
-  background-color: var(--color-primary);
-  border-right: 1px solid black;
+  background-color: rgb(247, 247, 247);
 
   @media (max-width: 600px) {
     display: none;
@@ -26,10 +27,16 @@ a {
 
 .active .sidebarOption--narrow,
 .active .sidebarOption {
-  background-color: var(--color-secondary);
+  font-weight: 500;
+  margin: 5px 10px;
+  border-radius: 10px;
+  opacity: 1;
 }
 
 .active .sidebarOption:hover,
 .active .sidebarOption--narrow:hover {
-  background-color: var(--color-secondary);
+  font-weight: 500;
+  margin: 5px 10px;
+  border-radius: 10px;
+  opacity: 1;
 }

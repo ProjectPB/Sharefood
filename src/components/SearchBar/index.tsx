@@ -43,7 +43,7 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
           <SearchInput />
           <div className="searchIcons__container">
             <ClearRefinements {...clearConfig} />
-            <Search className="searchIcon" />
+            <Search className="searchIcon" onClick={() => setShowResults(!showResults)} />
           </div>
         </div>
 

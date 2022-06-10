@@ -2,18 +2,23 @@
   display: flex;
   align-items: center;
   padding: 15px 12.5px;
+  margin: 5px 0;
   background-color: inherit;
+  font-weight: 400;
+  opacity: 0.95;
 
   h2 {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: inherit;
     padding-left: 10px;
   }
 
   &:hover {
     cursor: pointer;
-    background-color: var(--color-hover);
+    background-color: rgb(254, 242, 224);
+    margin: 5px 10px;
     transition: 0.3s ease-in-out;
+    border-radius: 10px;
   }
 
   @media (max-width: 600px) {
@@ -41,8 +46,10 @@
 
   &:hover {
     cursor: pointer;
-    background-color: var(--color-hover);
+    background-color: rgb(254, 242, 224);
+    margin: 5px 10px;
     transition: 0.3s ease-in-out;
+    border-radius: 10px;
   }
 }
 

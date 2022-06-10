@@ -1,10 +1,12 @@
 .logo {
   cursor: pointer;
   user-select: none;
+  padding: 5px;
+  border-radius: 5px;
 
   .text {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 300;
   }
 
   &:hover {

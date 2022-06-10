@@ -1,20 +1,27 @@
 .recipesRenderer {
   overflow-y: scroll;
   flex: 1;
-  background-color: var(--darkgray-background);
   height: 100%;
   position: relative;
+  padding: 5px 10px;
+  background-color: rgb(247, 247, 247);
 
   .recipesRenderer__filtersContainer {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid gray;
-    padding: 5px 0;
+    background-color: white;
+    border-radius: 5px;
+    outline: 1px solid lightgray;
 
     .recipesRenderer__filters {
       display: flex;
       align-items: center;
-      margin: 0 10px;
+      padding: 7px 10px;
+      margin: 0 5px;
+
+      &:nth-child(2) {
+        border-top: 1px solid lightgray;
+      }
 
       p {
         font-size: 16px;
@@ -34,15 +41,20 @@
         cursor: pointer;
         padding: 10px 24px;
         text-transform: uppercase;
-        background-color: var(--lightgray-background);
+        background-color: rgb(254, 242, 224);
         outline: 1px solid;
         border-radius: 5px;
         border: none;
         font-family: inherit;
+
+        &:hover {
+          opacity: 0.9;
+          box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+        }
       }
 
       .active {
-        background-color: var(--color-primary);
+        background-color: var(--color-secondary) !important;
       }
     }
   }

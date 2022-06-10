@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useLanguage } from "../../hooks";
 import { NavLink } from "react-router-dom";
-import { Favorite, Home, MenuBook, Whatshot } from "@material-ui/icons";
+import { FavoriteBorderOutlined, FavoriteOutlined, Home, MenuBook, Whatshot } from "@material-ui/icons";
 import { State } from "../../shared/types";
 
 import SidebarOption from "../SidebarOption";
@@ -40,11 +40,11 @@ const Sidebar: React.FC = () => {
 
       {currentUser ? (
         <NavLink to="/favorite" className={(navData) => navData.isActive ? "active" : ""}>
-          <SidebarOption Icon={Favorite} title={LANG.SIDEBAR.FAVORITE} />
+          <SidebarOption Icon={FavoriteBorderOutlined} title={LANG.SIDEBAR.FAVORITE} />
         </NavLink>
       ) : (
         <NavLink to="/auth" className={(navData) => navData.isActive ? "active" : ""}>
-          <SidebarOption Icon={Favorite} title={LANG.SIDEBAR.FAVORITE} hidden />
+          <SidebarOption Icon={FavoriteBorderOutlined} title={LANG.SIDEBAR.FAVORITE} hidden />
         </NavLink>
       )}
     </div>

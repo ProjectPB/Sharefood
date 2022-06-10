@@ -1,13 +1,16 @@
 .main {
+  background-color: rgb(247, 247, 247);
+
   .main__wrapper {
     display: flex;
     height: calc(100vh - 62px);
+    background-color: inherit;
 
     .main__body {
       height: inherit;
       overflow: hidden;
       flex: 1;
-      background-color: var(--darkgray-background);
+      background-color: inherit;
     }
 
     .main__refresh {
