@@ -3,13 +3,13 @@
   cursor: pointer;
   margin: 0px 20px 20px 0px;
   width: calc(100% - 20px);
-  outline: 1px solid lightgray;
+  outline: 1px solid var(--gray-border);
   border-radius: 10px;
-  background-color: white;
+  background-color: var(--white);
 
   &:hover {
     outline: none;
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+    box-shadow: var(--box-shadow);
     transform: scale(1.025);
     transition: ease-in 0.2s;
   }
@@ -78,7 +78,7 @@
                 margin-left: 3px;
                 font-size: 14px;
                 font-weight: 400;
-                color: rgb(114, 114, 114);
+                color: var(--gray-text);
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -119,12 +119,16 @@
     z-index: 2;
     background-color: var(--darkgray-background);
     position: absolute;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
   }
 
   .cardBody--loading__overlay {
     height: 110px;
     position: relative;
-    background-color: var(--lightgray-background);
+    background-color: var(--white);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 
     .cardTitle--loading__overlay {
       width: 80%;

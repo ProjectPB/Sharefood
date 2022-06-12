@@ -1,5 +1,5 @@
 .main {
-  background-color: rgb(247, 247, 247);
+  background-color: var(--lightgray-background);
 
   .main__wrapper {
     display: flex;
@@ -7,10 +7,10 @@
     background-color: inherit;
 
     .main__body {
-      height: inherit;
       overflow: hidden;
       flex: 1;
       background-color: inherit;
+      height: 100%;
     }
 
     .main__refresh {
@@ -20,7 +20,7 @@
     }
 
     @media (max-width: 600px) {
-      height: calc(100vh - 157px);
+      height: calc(100vh - 117px);
     }
   }
 }

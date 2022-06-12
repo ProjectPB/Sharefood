@@ -1,8 +1,7 @@
 .sidebar {
   width: 300px;
-  background-color: rgb(247, 247, 247);
-  margin: 5px 0;
-  border-right: 1px solid lightgray;
+  background-color: var(--lightgray-background);
+  padding: 10px 0;
 
   @media (max-width: 600px) {
     width: 100%;
@@ -13,7 +12,8 @@
 .sidebar--hidden {
   width: fit-content;
   min-width: 80px;
-  background-color: rgb(247, 247, 247);
+  padding: 10px 0;
+  background-color: var(--lightgray-background);
 
   @media (max-width: 600px) {
     display: none;
@@ -31,6 +31,7 @@ a {
   margin: 5px 10px;
   border-radius: 10px;
   opacity: 1;
+  background-color: var(--darkgray-background);
 }
 
 .active .sidebarOption:hover,

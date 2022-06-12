@@ -8,13 +8,17 @@
   body {
     margin: 0;
     font-family: "Montserrat", sans-serif;
-    --color-primary: #ffe59c;
-    --color-hover: #ffd34e;
+    --color-primary: rgb(254, 242, 224);
     --color-secondary: #ffc000;
+    --gray-hover: rgb(239, 238, 238);
+    --lightgray-background: rgb(247, 247, 247);
     --darkgray-background: rgb(230, 230, 230);
-    --lightgray-background: rgb(245, 245, 245);
-    --test1: rgb(239, 238, 238);
-    --test2: white;
+    --gray-border: lightgray;
+    --gray-text: rgb(114, 114, 114);
+    --white: white;
+    --black: black;
+    --error: red;
+    --box-shadow: rgba(0, 0, 0, 0.15) 0px 2.5px 5px 0px;
     overflow-y: hidden;
   }
 }

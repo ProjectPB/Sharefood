@@ -3,15 +3,17 @@
   flex: 1;
   height: 100%;
   position: relative;
-  padding: 5px 10px;
-  background-color: rgb(247, 247, 247);
+  padding: 15px 10px;
+  background-color: var(--lightgray-background);
 
   .recipesRenderer__filtersContainer {
     display: flex;
     flex-direction: column;
-    background-color: white;
+    background-color: var(--white);
     border-radius: 5px;
-    outline: 1px solid lightgray;
+    outline: 1px solid var(--gray-border);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 7.5px;
 
     .recipesRenderer__filters {
       display: flex;
@@ -20,7 +22,7 @@
       margin: 0 5px;
 
       &:nth-child(2) {
-        border-top: 1px solid lightgray;
+        border-top: 1px solid var(--gray-border);
       }
 
       p {
@@ -41,7 +43,7 @@
         cursor: pointer;
         padding: 10px 24px;
         text-transform: uppercase;
-        background-color: rgb(254, 242, 224);
+        background-color: var(--color-primary);
         outline: 1px solid;
         border-radius: 5px;
         border: none;
@@ -49,7 +51,7 @@
 
         &:hover {
           opacity: 0.9;
-          box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+          box-shadow: var(--box-shadow);
         }
       }
 
