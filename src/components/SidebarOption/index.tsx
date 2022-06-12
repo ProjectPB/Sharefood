@@ -1,7 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { closeSidebar } from "../../redux/UI/ui.actions";
-import { SvgIconComponent } from "@material-ui/icons";
 import useWidth from "../../hooks/useWidth";
 import { State } from "../../shared/types";
 
@@ -13,8 +12,8 @@ const mapState = ({ ui }: State) => ({
 
 interface Props {
   title: string;
-  Icon: SvgIconComponent;
   hidden?: boolean;
+  Icon: any;
 }
 
 const SidebarOption: React.FC<Props> = ({ Icon, title, hidden }) => {
