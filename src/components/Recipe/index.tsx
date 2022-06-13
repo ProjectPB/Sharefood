@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Moment from "react-moment";
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -15,7 +15,7 @@ import {
 import { RecipeData, State } from '../../shared/types';
 import { handleDeleteRecipe } from '../../redux/Recipe/recipe.helpers';
 import { resetRecipes } from '../../redux/Recipes/recipes.actions';
-import { dislikeRecipeStart, likeRecipeStart, viewRecipeStart } from '../../redux/Recipe/recipe.actions';
+import { dislikeRecipeStart, likeRecipeStart } from '../../redux/Recipe/recipe.actions';
 import { translateType } from '../../shared/functions';
 import { useLanguage } from '../../hooks';
 
@@ -39,11 +39,6 @@ const Recipe: React.FC<Props> = ({ data }) => {
   const { currentUser, language } = useSelector(mapState);
   const { recipeId } = useParams<{ recipeId: string }>();
   const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    dispatch(viewRecipeStart({ recipeId: recipeId, data: data }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch, recipeId]);
 
   const handleLikes = () => {
     if (!currentUser) {
@@ -103,7 +98,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
 
             <div className="recipe__views">
               <Visibility fontSize="large" />
-              <p>{data?.stats?.views} {LANG.RECIPE.VIEWS}</p>
+              <p>{data?.stats?.views + 1} {LANG.RECIPE.VIEWS}</p>
             </div>
 
             {data?.authorId === currentUser?.uid && (

@@ -25,8 +25,3 @@ export const dislikeRecipeStart = (ID: { userId: string, recipeId: string, data:
   type: recipeTypes.DISLIKE_RECIPE,
   payload: ID,
 })
-
-export const viewRecipeStart = (ID: { recipeId: string, data: RecipeData }) => ({
-  type: recipeTypes.VIEW_RECIPE,
-  payload: ID
-})

@@ -2,7 +2,7 @@ import recipeTypes from "./recipe.types";
 import { RecipeData } from "../../shared/types";
 
 const INITIAL_STATE: { recipeData: RecipeData } = {
-  recipeData: undefined,
+  recipeData: null,
 };
 
 const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: RecipeData }) => {

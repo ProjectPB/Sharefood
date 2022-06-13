@@ -1,6 +1,6 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
 import { RecipeData } from "../../shared/types";
-import { createRecipeStart, dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart, setRecipeData, viewRecipeStart } from "./recipe.actions";
+import { createRecipeStart, dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart, setRecipeData } from "./recipe.actions";
 import { handleCreateRecipe, handleDislikeRecipe, handleFetchRecipeData, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
 import { setFavoriteRecipes } from './../Recipes/recipes.actions'
 import { loadRecipeData } from "../Loading/loading.actions";
@@ -9,6 +9,7 @@ import recipeTypes from "./recipe.types";
 export function* fetchRecipeData({ payload }: ReturnType<typeof fetchRecipeDataStart>) {
   try {
     const data: RecipeData = yield handleFetchRecipeData(payload.recipeId, payload.userId);
+    yield handleViewRecipe(payload.recipeId);
     yield put(setRecipeData(data));
     yield put(loadRecipeData(true));
   } catch (err) {
@@ -68,29 +69,11 @@ export function* onDislikeRecipeStart() {
   yield takeLatest(recipeTypes.DISLIKE_RECIPE, dislikeRecipe);
 }
 
-export function* viewRecipe({ payload }: ReturnType<typeof viewRecipeStart>) {
-  try {
-    handleViewRecipe(payload.recipeId);
-    yield put(setRecipeData({
-      ...payload.data, stats: {
-        ...payload.data.stats, views: payload.data.stats.views += 1,
-      }
-    }));
-  } catch (error) {
-    console.log(error.message)
-  }
-}
-
-export function* onViewRecipeStart() {
-  yield takeLatest(recipeTypes.VIEW_RECIPE, viewRecipe);
-}
-
 export default function* recipeSagas() {
   yield all([
     call(onCreateRecipeStart),
     call(onFetchRecipeDataStart),
     call(onLikeRecipeStart),
     call(onDislikeRecipeStart),
-    call(onViewRecipeStart),
   ]);
 }
