@@ -4,7 +4,7 @@
   padding: 20px 0 0 20px;
   margin: 0 auto;
   max-width: 1600px;
-  background-color: rgb(247, 247, 247);
+  background-color: var(--lightgray-background);
 }
 
 .recipes--narrow {
@@ -28,7 +28,7 @@
 .recipes--wide {
   grid-template-columns: repeat(auto-fit, minmax(25%, max-content));
 
-  @media (max-width: 1200x) {
+  @media (max-width: 1200px) {
     grid-template-columns: repeat(auto-fit, minmax(33.3%, max-content));
   }
 

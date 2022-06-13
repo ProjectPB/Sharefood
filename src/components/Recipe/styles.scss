@@ -79,7 +79,7 @@
           }
 
           &:hover {
-            background-color: var(--gray-background);
+            background-color: var(--gray-hover);
             cursor: pointer;
             border-radius: 5px;
           }
@@ -99,7 +99,7 @@
           border-radius: 5px;
 
           &:hover {
-            background-color: var(--gray-background);
+            background-color: var(--gray-hover);
           }
         }
 

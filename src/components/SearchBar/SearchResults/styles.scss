@@ -10,9 +10,14 @@
     background-color: var(--color-primary);
     border-top: 1px solid;
     margin-top: -1px;
+
+    p {
+      font-weight: 500;
+    }
   }
 
   .searchResults__none {
     padding: 15px 10px;
+    background-color: var(--lightgray-background);
   }
 }
