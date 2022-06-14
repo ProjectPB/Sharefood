@@ -7,7 +7,7 @@ import { useLanguage } from "../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types";
 
-import "./styles.scss";
+import './styles.scss';
 
 const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,

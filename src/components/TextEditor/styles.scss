@@ -1,3 +1,5 @@
+@use "/src/sass/variables" as *;
+
 .editor {
   width: 100%;
   display: flex;
@@ -14,14 +16,14 @@
 
   .toolbar {
     width: 100%;
-    background-color: var(--color-secondary);
+    background-color: $color-secondary;
     margin: 0;
     border: none;
   }
 
   .textarea {
     height: 300px;
-    background-color: var(--gray-background);
+    background-color: $lightgray-background;
     padding: 5px;
     width: 100%;
   }

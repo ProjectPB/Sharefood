@@ -1,7 +1,9 @@
+@use "/src/sass/variables" as *;
+
 .fullscreen {
   height: 100vh;
   width: 100vw;
-  background-color: var(--color-primary);
+  background-color: $color-primary;
   display: grid;
   place-items: center;
 }

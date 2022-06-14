@@ -8,7 +8,7 @@ import { Avatar } from "@material-ui/core";
 import { State } from "../../shared/types";
 import { translateType } from "../../shared/functions";
 
-import "./styles.scss";
+import './styles.scss';
 
 interface Data {
   id?: string;

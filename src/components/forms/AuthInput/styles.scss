@@ -1,16 +1,18 @@
+@use "./../../../sass/variables" as *;
+
 .authInput {
   margin-bottom: 5px;
 
   .body {
     font-size: 14px;
-    color: var(--black);
+    color: black;
     border-radius: 2px;
     display: flex;
     align-items: center;
     position: relative;
 
     .MuiSvgIcon-root {
-      color: var(--gray-border);
+      color: $gray-border;
       margin: 0 5px;
     }
 
@@ -32,7 +34,7 @@
   .info {
     font-size: 12px;
     font-weight: 500;
-    color: var(--gray-text);
+    color: $gray-text;
     margin-top: 2px;
     margin-left: 2px;
   }

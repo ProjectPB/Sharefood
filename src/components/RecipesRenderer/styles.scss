@@ -1,18 +1,20 @@
+@use "/src/sass/variables" as *;
+
 .recipesRenderer {
   overflow-y: scroll;
   flex: 1;
   height: 100%;
   position: relative;
   padding: 15px 10px;
-  background-color: var(--lightgray-background);
+  background-color: $lightgray-background;
 
   .recipesRenderer__filtersContainer {
     display: flex;
     flex-direction: column;
-    background-color: var(--white);
+    background-color: $white;
     border-radius: 5px;
-    outline: 1px solid var(--gray-border);
-    box-shadow: var(--box-shadow);
+    outline: 1px solid $gray-border;
+    box-shadow: $box-shadow;
     margin-bottom: 7.5px;
 
     .recipesRenderer__filters {
@@ -22,7 +24,7 @@
       margin: 0 5px;
 
       &:nth-child(2) {
-        border-top: 1px solid var(--gray-border);
+        border-top: 1px solid $gray-border;
       }
 
       p {
@@ -43,7 +45,7 @@
         cursor: pointer;
         padding: 10px 24px;
         text-transform: uppercase;
-        background-color: var(--color-primary);
+        background-color: $color-primary;
         outline: 1px solid;
         border-radius: 5px;
         border: none;
@@ -51,12 +53,12 @@
 
         &:hover {
           opacity: 0.9;
-          box-shadow: var(--box-shadow);
+          box-shadow: $box-shadow;
         }
       }
 
       .active {
-        background-color: var(--color-secondary) !important;
+        background-color: $color-secondary !important;
       }
     }
   }

@@ -1,14 +1,14 @@
+@use "./../../sass/mixins" as m;
+@use "./../../sass/variables" as *;
+
 .profilePopup {
+  @include m.pop-up;
   display: flex;
   flex-direction: column;
   position: absolute;
-  background-color: var(--color-primary);
   right: 25px;
   top: 55px;
   z-index: 999;
-  border: 1px solid;
-  padding: 5px;
-  border-radius: 10px;
   border-top-right-radius: 0px;
 
   .userInfo {
@@ -24,7 +24,7 @@
     }
 
     &:hover {
-      background-color: var(--gray-dark);
+      background-color: $gray-hover;
     }
   }
 
@@ -36,7 +36,7 @@
     padding: 10px;
 
     &:hover {
-      background-color: var(--gray-dark);
+      background-color: $gray-hover;
     }
 
     p {

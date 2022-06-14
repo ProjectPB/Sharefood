@@ -1,15 +1,17 @@
+@use "/src/sass/variables" as *;
+
 .googleButton {
   display: flex;
   align-items: center;
   margin-top: 15px;
   cursor: pointer;
   border-radius: 2px;
-  box-shadow: 0px 1px 5px 0px var(--lightgray-background);
-  outline: 1px solid var(--gray-border);
+  box-shadow: 0px 1px 5px 0px $lightgray-background;
+  outline: 1px solid $gray-border;
   padding: 11px 8px;
 
   &:hover {
-    box-shadow: 1px 1px 4px 2px var(--darkgray-background);
+    box-shadow: 1px 1px 4px 2px $darkgray-background;
     color: rgb(0, 0, 0, 0.8);
 
     button {

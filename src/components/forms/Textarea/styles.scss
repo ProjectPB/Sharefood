@@ -1,3 +1,5 @@
+@use "/src/sass/variables" as *;
+
 .textarea {
   display: flex;
   flex-direction: column;
@@ -10,7 +12,7 @@
     resize: none;
     outline: none;
     padding: 5px;
-    background-color: var(--gray-background);
+    background-color: $gray-background;
     border: 1px solid;
   }
 }

@@ -1,12 +1,14 @@
+@use "./../../sass/variables" as *;
+
 .card {
   position: relative;
   cursor: pointer;
   margin: 0px 20px 20px 0px;
   width: calc(100% - 20px);
-  outline: 1px solid var(--gray-border);
+  outline: 1px solid $gray-border;
   border-radius: 10px;
-  background-color: var(--white);
-  box-shadow: var(--box-shadow);
+  background-color: $white;
+  box-shadow: $box-shadow;
 
   &:hover {
     outline: none;
@@ -78,7 +80,7 @@
                 margin-left: 3px;
                 font-size: 14px;
                 font-weight: 400;
-                color: var(--gray-text);
+                color: $gray-text;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
@@ -117,7 +119,7 @@
     width: 100%;
     aspect-ratio: 4 / 3;
     z-index: 2;
-    background-color: var(--darkgray-background);
+    background-color: $darkgray-background;
     position: absolute;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
@@ -126,13 +128,13 @@
   .cardBody--loading__overlay {
     height: 110px;
     position: relative;
-    background-color: var(--white);
+    background-color: $white;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 
     .cardTitle--loading__overlay {
       width: 80%;
-      background-color: var(--darkgray-background);
+      background-color: $darkgray-background;
       z-index: 2;
       position: absolute;
       top: 25%;
@@ -143,7 +145,7 @@
     }
 
     .cardAvatar--loading__overlay {
-      background-color: var(--darkgray-background);
+      background-color: $darkgray-background;
       height: 20px;
       width: 35%;
       z-index: 2;
@@ -153,7 +155,7 @@
     }
 
     .cardInfo--loading__overlay {
-      background-color: var(--darkgray-background);
+      background-color: $darkgray-background;
       height: 20px;
       width: 60%;
       z-index: 2;

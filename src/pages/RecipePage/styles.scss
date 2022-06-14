@@ -1,7 +1,9 @@
+@use "/src/sass/variables" as *;
+
 .recipePage {
   display: flex;
   justify-content: center;
-  background-color: var(--gray-background);
+  background-color: $lightgray-background;
   height: 100%;
   overflow-y: scroll;
 

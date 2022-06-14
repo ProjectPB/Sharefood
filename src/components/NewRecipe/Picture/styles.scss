@@ -1,3 +1,5 @@
+@use "/src/sass/variables" as *;
+
 .picture {
   display: flex;
   justify-content: center;
@@ -21,7 +23,7 @@
       border: 1px solid black;
       cursor: pointer;
       margin: -1px;
-      background-color: var(--color-secondary);
+      background-color: $color-secondary;
       border-radius: 5px;
       display: flex;
       justify-content: center;

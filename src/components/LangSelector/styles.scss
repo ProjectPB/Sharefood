@@ -1,14 +1,15 @@
+@use "./../../sass/mixins" as m;
+@use "./../../sass/variables" as *;
+
 .langSelector {
+  @include m.pop-up;
   display: flex;
   flex-direction: column;
   position: absolute;
-  background-color: var(--color-primary);
   top: 35px;
   right: -70px;
   z-index: 999;
-  border: 1px solid;
   padding: 10px;
-  border-radius: 10px;
   min-width: 180px;
   cursor: default;
 

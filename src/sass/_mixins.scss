@@ -1,0 +1,9 @@
+@use "./variables" as *;
+
+@mixin pop-up {
+  background-color: $lightgray-background;
+  outline: 1px solid $gray-border;
+  box-shadow: $box-shadow;
+  padding: 5px;
+  border-radius: 10px;
+}

@@ -1,8 +1,10 @@
+@use "/src/sass/variables" as *;
+
 .sidebar {
   width: 300px;
-  background-color: var(--lightgray-background);
+  background-color: $lightgray-background;
   margin: 10px 0;
-  border-right: 1px solid var(--gray-border);
+  border-right: 1px solid $gray-border;
 
   @media (max-width: 600px) {
     width: 100%;
@@ -14,7 +16,7 @@
   display: none;
   // width: 105px;
   // padding: 10px 0;
-  // background-color: var(--lightgray-background);
+  // background-color: $lightgray-background;
 
   // @media (max-width: 600px) {
   //   display: none;
@@ -37,7 +39,7 @@
 
   .orange {
     .MuiSvgIcon-root {
-      fill: var(--color-secondary);
+      fill: $color-secondary;
     }
   }
 

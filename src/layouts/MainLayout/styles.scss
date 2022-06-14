@@ -1,5 +1,7 @@
+@use "/src/sass/variables" as *;
+
 .main {
-  background-color: var(--lightgray-background);
+  background-color: $lightgray-background;
 
   .main__wrapper {
     display: flex;

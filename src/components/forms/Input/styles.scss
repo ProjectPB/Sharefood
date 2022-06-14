@@ -1,3 +1,5 @@
+@use "/src/sass/variables" as *;
+
 .input {
   display: flex;
   flex-direction: column;
@@ -10,7 +12,7 @@
     outline: none;
     min-height: 38px;
     padding: 5px;
-    background-color: var(--gray-background);
+    background-color: $lightgray-background;
     border: 1px solid;
   }
 }

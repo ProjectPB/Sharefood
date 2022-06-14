@@ -1,14 +1,16 @@
+@use "/src/sass/variables" as *;
+
 .searchHit {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--white);
+  background-color: $white;
   padding: 5px 10px;
   gap: 5px;
-  border-bottom: 1px solid var(--gray-border);
+  border-bottom: 1px solid $gray-border;
 
   &:hover {
-    background-color: var(--gray-hover);
+    background-color: $gray-hover;
   }
 
   .searchHit__data {
@@ -22,7 +24,7 @@
       font-size: 14px;
       font-weight: 300;
       text-transform: uppercase;
-      color: var(--gray-text);
+      color: $gray-text;
     }
   }
 
@@ -32,7 +34,7 @@
   }
 
   .searchHit__recipeImg--hidden {
-    background-color: var(--darkgray-background);
+    background-color: $darkgray-background;
     height: 50px;
     aspect-ratio: 4 / 3;
   }

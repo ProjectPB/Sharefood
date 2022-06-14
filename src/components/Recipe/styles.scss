@@ -1,3 +1,5 @@
+@use "/src/sass/variables" as *;
+
 .recipe {
   display: flex;
   flex-direction: column;
@@ -79,7 +81,7 @@
           }
 
           &:hover {
-            background-color: var(--gray-hover);
+            background-color: $gray-hover;
             cursor: pointer;
             border-radius: 5px;
           }
@@ -99,7 +101,7 @@
           border-radius: 5px;
 
           &:hover {
-            background-color: var(--gray-hover);
+            background-color: $gray-hover;
           }
         }
 

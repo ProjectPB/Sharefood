@@ -1,10 +1,12 @@
+@use "/src/sass/variables" as *;
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-  background-color: var(--color-primary);
-  border-bottom: 1px solid var(--gray-border);
+  background-color: $color-primary;
+  border-bottom: 1px solid $gray-border;
 
   .header__left {
     display: flex;

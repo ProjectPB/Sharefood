@@ -1,3 +1,5 @@
+@use "/src/sass/variables" as *;
+
 .sidebarOption {
   display: flex;
   align-items: center;
@@ -15,7 +17,7 @@
 
   &:hover {
     cursor: pointer;
-    background-color: var(--gray-hover);
+    background-color: $gray-hover;
     margin: 5px 10px;
     transition: 0.3s ease-in-out;
     border-radius: 10px;
@@ -49,7 +51,7 @@
 
   // &:hover {
   //   cursor: pointer;
-  //   background-color: var(--gray-hover);
+  //   background-color: $gray-hover;
   //   margin: 5px 10px;
   //   transition: 0.3s ease-in-out;
   //   border-radius: 10px;

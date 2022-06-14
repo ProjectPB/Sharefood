@@ -1,5 +1,7 @@
+@use "./../../sass/variables" as *;
+
 .authError {
-  color: var(--error);
+  color: $error;
   margin-top: 5px;
   font-size: 14px;
 }
