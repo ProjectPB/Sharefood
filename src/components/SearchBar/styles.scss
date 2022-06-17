@@ -48,6 +48,10 @@
       .searchIcon {
         font-size: 18px !important;
         cursor: pointer;
+
+        &:hover {
+          opacity: 0.5;
+        }
       }
     }
   }

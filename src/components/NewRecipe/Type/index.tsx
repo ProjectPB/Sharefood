@@ -1,30 +1,28 @@
 import React from 'react';
-
-import Select from './../../forms/Select';
+import Select from 'react-select';
+import { Option } from '../../../shared/types';
 
 interface Props {
-  options: {
-    value: string;
-    name: string;
-    hidden: boolean;
-  }[]
+  options: Option[],
   label: string,
-  value: string,
-  handler: (e: React.ChangeEvent<HTMLSelectElement>) =>
-    void,
+  placeholder: string
+  update: (option: Option) => void;
 }
 
-const Type: React.FC<Props> = ({ value, handler, label, options }) => {
-  const typeConfig = {
-    handleChange: handler,
-    label: label,
-    options: options,
-    required: true,
-    defaultValue: value,
-  };
+const Type: React.FC<Props> = ({ label, options, placeholder, update }) => {
 
   return (
-    <Select {...typeConfig} />
+    <div className="type">
+      <label>{label}</label>
+
+      <Select
+        onChange={update}
+        defaultValue={[]}
+        options={options}
+        classNamePrefix='select'
+        placeholder={placeholder}
+      />
+    </div>
   )
 }
 

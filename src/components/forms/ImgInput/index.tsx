@@ -17,7 +17,7 @@ const ImgInput: React.FC<Props> = ({
   ...otherProps
 }) => {
   return (
-    <div className="imgInput">
+    <div className="imgInput" tabIndex={1}>
       <img src="https://icon-library.com/images/placeholder-image-icon/placeholder-image-icon-7.jpg" alt="Recipe attachment" />
       <AddCircleIcon />
       <p>{label}</p>

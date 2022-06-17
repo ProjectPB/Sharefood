@@ -1,18 +1,38 @@
 @use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
 
-.special {
+.special,
+.type {
   label {
     font-size: 18px;
   }
+
   .select {
     &__control {
-      border-radius: 0;
-      border: 1px solid;
+      padding: 0;
+      border: none;
       background-color: $lightgray-background;
-      box-shadow: none;
+      outline: 1px solid $gray-border !important;
+      cursor: pointer;
+      border-radius: 5px;
 
-      &:hover {
-        border: 1px solid black;
+      &--is-focused {
+        outline: 2px solid $color-secondary !important;
+      }
+    }
+
+    &__menu {
+      outline: 1px solid $gray-border;
+    }
+
+    &__option {
+      background-color: white;
+      padding: 10px;
+
+      &--is-focused,
+      &:active {
+        background-color: $gray-hover;
+        cursor: pointer;
       }
     }
   }

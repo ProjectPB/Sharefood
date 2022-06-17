@@ -104,12 +104,19 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       alert(LANG.NEW_RECIPE.NO_INGREDIENTS);
       return
     };
+
     if (method.trim() === "<p></p>" || !method) {
       alert(LANG.NEW_RECIPE.NO_METHOD);
       return
     };
 
+    if (!type) {
+      alert(LANG.NEW_RECIPE.NO_TYPE);
+      return
+    };
+
     setLoading(true);
+
     dispatch(
       createRecipeStart({
         authorId: currentUser.uid,
@@ -132,12 +139,6 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
       label: LANG.NEW_RECIPE.TITLE,
       handler: (e: React.ChangeEvent<HTMLInputElement>) =>
         setTitle(e.target.value), value: title
-    },
-    type: {
-      options: LANG.NEW_RECIPE.TYPE_OPTIONS,
-      label: LANG.NEW_RECIPE.TYPE,
-      handler: (e: React.ChangeEvent<HTMLSelectElement>) =>
-        setType(e.target.value), value: type,
     },
     portions: {
       label: LANG.NEW_RECIPE.PORTIONS,
@@ -185,9 +186,17 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         setMethod(draftToHtml(convertToRaw(state.getCurrentContent())));
       },
     },
+    type: {
+      options: LANG.NEW_RECIPE.TYPE_OPTIONS,
+      placeholder: LANG.NEW_RECIPE.SELECT_PLACEHOLDER,
+      label: LANG.NEW_RECIPE.TYPE,
+      update: (option: Option) => {
+        setType(option.value);
+      },
+    },
     special: {
       options: LANG.NEW_RECIPE.SPECIAL_OPTIONS,
-      placeholder: LANG.NEW_RECIPE.SPECIAL_PLACEHOLDER,
+      placeholder: LANG.NEW_RECIPE.SELECT_PLACEHOLDER,
       label: LANG.NEW_RECIPE.SPECIAL,
       update: (option: Option[]) => {
         setSpecial(option);
@@ -202,19 +211,20 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   return (
     <div className="newRecipe" >
       <form className="newRecipe__body" onSubmit={handleCreate}>
+        <h1>{LANG.NEW_RECIPE.LABEL}</h1>
         <Title {...config.title} />
         <TextEditor {...config.description} />
         <TextEditor {...config.ingredients} />
         <TextEditor {...config.method} />
-        <Type {...config.type} />
         <Portions {...config.portions} />
+        <Type {...config.type} />
         <Special {...config.special} />
         <Picture {...config.picture} />
         {loading && <Loading />}
         <div className="newRecipe__button">
           <Button {...config.submitButton}>{LANG.NEW_RECIPE.CREATE}</Button>
         </div>
-      </form >
+      </form>
     </div >
   );
 };

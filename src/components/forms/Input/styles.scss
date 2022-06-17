@@ -1,18 +1,17 @@
 @use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
 
 .input {
   display: flex;
   flex-direction: column;
+  position: relative;
 
   label {
     font-size: 18px;
   }
 
   input {
-    outline: none;
+    @include m.input;
     min-height: 38px;
-    padding: 5px;
-    background-color: $lightgray-background;
-    border: 1px solid;
   }
 }

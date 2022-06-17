@@ -1,9 +1,21 @@
 @use "./variables" as *;
 
 @mixin pop-up {
-  background-color: $lightgray-background;
+  background-color: $white;
   outline: 1px solid $gray-border;
   box-shadow: $box-shadow;
   padding: 5px;
   border-radius: 10px;
+}
+
+@mixin input {
+  outline: none;
+  border: 1px solid $gray-border;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: $lightgray-background;
+
+  &:focus {
+    border: 2px solid $color-secondary;
+  }
 }

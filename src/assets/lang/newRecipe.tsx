@@ -1,19 +1,21 @@
 export const ENG_NEW_RECIPE = {
+  LABEL: "Create a new recipe",
   TITLE: "Title",
   DESCRIPTION: "Description (optional)",
   INGREDIENTS: "Ingredients",
   METHOD: "Method",
-  SPECIAL: "Special",
+  SPECIAL: "Special (optional)",
   TYPE: "Type",
   PORTIONS: "Portions",
   CREATE: "Create",
   ADDED: "Recipe added",
   NO_INGREDIENTS: "Please enter ingredients",
   NO_METHOD: "Please enter a method",
+  NO_TYPE: "Please enter a type",
   IMG_PLACEHOLDER: "Click to upload an image",
   REMOVE_IMG: "REMOVE",
   ACCEPT_IMG: "ACCEPT",
-  SPECIAL_PLACEHOLDER: "Select",
+  SELECT_PLACEHOLDER: "Select",
   SPECIAL_OPTIONS: [
     {
       value: 'party',
@@ -34,64 +36,54 @@ export const ENG_NEW_RECIPE = {
   ],
   TYPE_OPTIONS: [
     {
-      value: "",
-      name: "Type",
-      hidden: true,
-    },
-    {
       value: "breakfast",
-      name: "Breakfast",
-      hidden: false,
+      label: "Breakfast",
     },
     {
       value: "appetizer",
-      name: "Appetizer",
-      hidden: false,
+      label: "Appetizer",
     },
     {
       value: "soup",
-      name: "Soup",
-      hidden: false,
+      label: "Soup",
     },
     {
       value: "main",
-      name: "Main",
-      hidden: false,
+      label: "Main",
     },
     {
       value: "dessert",
-      name: "Dessert",
-      hidden: false,
+      label: "Dessert",
     },
     {
       value: "drink",
-      name: "Drink",
-      hidden: false,
+      label: "Drink",
     },
     {
       value: "other",
-      name: "Other",
-      hidden: false,
+      label: "Other",
     },
   ]
 }
 
 export const PL_NEW_RECIPE = {
+  LABEL: "Utwórz nowy przepis",
   TITLE: "Tytuł",
   DESCRIPTION: "Opis (opcjonalnie)",
   INGREDIENTS: "Składniki",
   METHOD: "Sposób wykonania",
-  SPECIAL: "Specjalne",
+  SPECIAL: "Specjalne (opcjonalnie)",
   TYPE: "Posiłek",
   PORTIONS: "Liczba porcji",
   CREATE: "Utwórz",
   ADDED: "Przepis został dodany",
   NO_INGREDIENTS: "Proszę uzupełnić składniki",
   NO_METHOD: "Proszę uzupełnić sposób wykonania",
+  NO_TYPE: "Please uzupełnić rodzaj posiłku",
   IMG_PLACEHOLDER: "Kliknij, żeby dodać zdjęcie",
   REMOVE_IMG: "Usuń",
   ACCEPT_IMG: "Akceptuj",
-  SPECIAL_PLACEHOLDER: "Wybierz",
+  SELECT_PLACEHOLDER: "Wybierz",
   SPECIAL_OPTIONS: [
     {
       value: 'party',
@@ -112,44 +104,32 @@ export const PL_NEW_RECIPE = {
   ],
   TYPE_OPTIONS: [
     {
-      value: "",
-      name: "Posiłek",
-      hidden: true,
-    },
-    {
       value: "breakfast",
-      name: "Śniadanie",
-      hidden: false,
+      label: "Śniadanie",
     },
     {
       value: "appetizer",
-      name: "Przystawka",
-      hidden: false,
+      label: "Przystawka",
     },
     {
       value: "soup",
-      name: "Zupa",
-      hidden: false,
+      label: "Zupa",
     },
     {
       value: "main",
-      name: "Danie główne",
-      hidden: false,
+      label: "Danie główne",
     },
     {
       value: "dessert",
-      name: "Deser",
-      hidden: false,
+      label: "Deser",
     },
     {
       value: "drink",
-      name: "Napój",
-      hidden: false,
+      label: "Napój",
     },
     {
       value: "other",
-      name: "Inne",
-      hidden: false,
+      label: "Inne",
     },
   ]
 }

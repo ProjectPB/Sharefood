@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState } from 'draft-js';
 
@@ -12,28 +12,29 @@ interface Props {
   update: (state: React.SetStateAction<EditorState> | any) => void;
 }
 
-const TextEditor: React.FC<Props> = ({ label, editor, content, update }) => {
+const TextEditor: React.FC<Props> = ({ label, editor, update }) => {
+  const [hasFocus, setHasFocus] = useState(false);
+
   return (
-    <div className="editor">
+    <div className={`editor ${hasFocus ? 'hasFocus' : ''}`}>
       {label && <label className="label">{label}</label>}
 
       <Editor
         editorState={editor}
+        onFocus={() => setHasFocus(true)}
+        onBlur={() => setHasFocus(false)}
         toolbarClassName="toolbar"
         wrapperClassName="wrapper"
         editorClassName="textarea"
         handlePastedText={() => false}
         onEditorStateChange={update}
         toolbar={{
-          options: ['inline', 'link', 'list', 'textAlign'],
+          options: ['inline', 'list', 'textAlign'],
           inline: {
             options: ['bold', 'italic', 'underline'],
           },
           list: {
             options: ['ordered', 'unordered'],
-          },
-          link: {
-            options: ['link'],
           },
           textAlign: {
             options: ['left', 'center', 'right']
