@@ -4,6 +4,7 @@
 .newRecipe {
   height: 100%;
   width: 100%;
+  overflow: auto;
 
   .newRecipe__body {
     width: 100%;

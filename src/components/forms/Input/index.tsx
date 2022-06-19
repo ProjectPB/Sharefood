@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Handler } from "../../../shared/types";
 
 import "./styles.scss";
@@ -11,12 +11,14 @@ interface Props {
 }
 
 const Input: React.FC<Props> = ({ handleChange, label, ...otherProps }) => {
-  return (
-    <div className="input">
-      {label && <label>{label}</label>}
+  const inputRef = useRef<HTMLInputElement>();
 
-      <input onChange={handleChange} {...otherProps} />
-    </div>
+  return (
+    <fieldset className="input" tabIndex={1} onFocus={() => inputRef.current.focus()}>
+      {label && <legend>{label}</legend>}
+
+      <input ref={inputRef} onChange={handleChange} {...otherProps} />
+    </fieldset>
   );
 };
 

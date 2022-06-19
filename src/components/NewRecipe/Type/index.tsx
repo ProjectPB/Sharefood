@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Select from 'react-select';
 import { Option } from '../../../shared/types';
+
+import './../../forms/Select/styles.scss';
 
 interface Props {
   options: Option[],
@@ -10,19 +12,22 @@ interface Props {
 }
 
 const Type: React.FC<Props> = ({ label, options, placeholder, update }) => {
+  const selectRef = useRef<any>();
 
   return (
-    <div className="type">
-      <label>{label}</label>
+    <fieldset className="select" tabIndex={1} onFocus={() => selectRef.current.focus()}>
+      <legend>{label}</legend>
 
       <Select
         onChange={update}
         defaultValue={[]}
+        name="type"
         options={options}
-        classNamePrefix='select'
+        classNamePrefix='field'
         placeholder={placeholder}
+        ref={selectRef}
       />
-    </div>
+    </fieldset>
   )
 }
 

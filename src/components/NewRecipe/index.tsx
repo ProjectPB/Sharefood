@@ -16,7 +16,7 @@ import Type from './Type';
 import Special from './Special';
 import Portions from './Portions';
 import Picture from './Picture';
-import TextEditor from "../TextEditor";
+import TextEditor from "../forms/TextEditor";
 
 import "cropperjs/dist/cropper.css";
 import "./styles.scss";

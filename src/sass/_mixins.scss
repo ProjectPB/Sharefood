@@ -8,14 +8,26 @@
   border-radius: 10px;
 }
 
-@mixin input {
-  outline: none;
-  border: 1px solid $gray-border;
-  border-radius: 5px;
-  padding: 5px;
-  background-color: $lightgray-background;
+@mixin legend {
+  font-size: 18px;
+  color: $gray-text;
+  font-weight: 500;
+  margin-left: 7px;
+  padding: 0 2.5px;
+}
 
-  &:focus {
+@mixin input {
+  border: 1px solid $gray-border;
+  outline: none;
+  border-radius: 10px;
+
+  &:focus-within {
     border: 2px solid $color-secondary;
+    margin: -1px;
+
+    legend {
+      color: black;
+      opacity: 0.8;
+    }
   }
 }

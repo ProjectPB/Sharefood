@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import { EditorState } from 'draft-js';
 
@@ -13,16 +13,13 @@ interface Props {
 }
 
 const TextEditor: React.FC<Props> = ({ label, editor, update }) => {
-  const [hasFocus, setHasFocus] = useState(false);
 
   return (
-    <div className={`editor ${hasFocus ? 'hasFocus' : ''}`}>
-      {label && <label className="label">{label}</label>}
+    <fieldset className='editor'>
+      {label && <legend>{label}</legend>}
 
       <Editor
         editorState={editor}
-        onFocus={() => setHasFocus(true)}
-        onBlur={() => setHasFocus(false)}
         toolbarClassName="toolbar"
         wrapperClassName="wrapper"
         editorClassName="textarea"
@@ -41,7 +38,7 @@ const TextEditor: React.FC<Props> = ({ label, editor, update }) => {
           }
         }}
       />
-    </div>
+    </fieldset>
   )
 }
 
