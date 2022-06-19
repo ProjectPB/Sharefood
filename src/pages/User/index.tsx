@@ -6,7 +6,7 @@ import { getRecipesCounter } from "../../shared/functions";
 import { setLastDisplayedProfile } from "../../redux/UI/ui.actions";
 import { State } from "../../shared/types";
 
-import RecipesRenderer from "../../components/RecipesRenderer";
+import RecipesRenderer from "../../components/Renderer";
 
 const mapState = ({ ui }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,

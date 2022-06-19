@@ -1,13 +1,13 @@
 export const ENG_SIDEBAR = {
   HOME: "HOME",
-  POPULAR: "POPULAR",
+  ALL: "ALL",
   YOUR: "YOURS",
   FAVORITE: "FAVORITE",
 }
 
 export const PL_SIDEBAR = {
   HOME: "GŁÓWNA",
-  POPULAR: "POPULARNE",
+  ALL: "WSZYSTKIE",
   YOUR: "TWOJE",
   FAVORITE: "POLUBIONE",
 }

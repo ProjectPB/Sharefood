@@ -2,12 +2,13 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useLanguage } from "../../hooks";
 import { NavLink } from "react-router-dom";
-import { Favorite, Home, LocalFireDepartment, MenuBook } from "@mui/icons-material";
+import { Favorite, Home, MenuBook } from "@mui/icons-material";
 import { State } from "../../shared/types";
 
 import SidebarOption from "../SidebarOption";
 
 import "./styles.scss";
+import { LocalDining } from "@material-ui/icons";
 
 const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,
@@ -24,8 +25,8 @@ const Sidebar: React.FC = () => {
         <SidebarOption Icon={Home} title={LANG.SIDEBAR.HOME} />
       </NavLink>
 
-      <NavLink to="/popular" className={(navData) => navData.isActive ? "active darkred" : ""}>
-        <SidebarOption Icon={LocalFireDepartment} title={LANG.SIDEBAR.POPULAR} />
+      <NavLink to="/all" className={(navData) => navData.isActive ? "active darkred" : ""}>
+        <SidebarOption Icon={LocalDining} title={LANG.SIDEBAR.ALL} />
       </NavLink>
 
       {currentUser ? (

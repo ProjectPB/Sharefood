@@ -4,7 +4,7 @@ import { useWidth } from "../../hooks";
 import { State } from "../../shared/types";
 import { getRecipesCounter } from "../../shared/functions";
 
-import RecipesRenderer from '../../components/RecipesRenderer';
+import RecipesRenderer from '../../components/Renderer';
 import WithAuth from './../../hoc/WithAuth';
 
 const mapState = ({ user, ui }: State) => ({

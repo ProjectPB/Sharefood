@@ -56,7 +56,7 @@ export interface NewRecipeData extends RecipeData {
   special: string[],
 }
 
-export interface Filters {
+export interface FiltersTypes {
   queryFilter?: string;
   counter?: number;
   statsFilter?: string;
@@ -83,24 +83,22 @@ export interface SingleRecipes {
 
 export interface Recipes {
   recipes: {
-    queryRecipes: SingleRecipes,
     mainRecipes: SingleRecipes,
-    popularRecipes: SingleRecipes,
+    allRecipes: SingleRecipes,
     myRecipes: SingleRecipes,
     favoriteRecipes: SingleRecipes,
     userRecipes: SingleRecipes,
   }
   scrollDistance: {
     main: number;
-    popular: number;
+    all: number;
     my: number;
     favorite: number;
     user: number;
   }
   filters: {
-    popularType: string,
-    popularStats: string,
-    recentType: string,
+    type: string,
+    stats: string,
   }
 }
 

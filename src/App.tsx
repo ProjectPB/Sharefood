@@ -10,7 +10,7 @@ import RecipePage from "./pages/RecipePage";
 import UserPage from "./pages/User";
 import EmptyPage from "./pages/Empty";
 import MainPage from './pages/Main';
-import PopularRecipesPage from './pages/Popular';
+import AllRecipesPage from './pages/All';
 import FavoriteRecipesPage from './pages/Favorite';
 import MyRecipesPage from './pages/My';
 
@@ -21,7 +21,7 @@ const App: React.FC = () => {
         <Route path="/" >
           <Route element={<MainLayout />}>
             <Route index element={<MainPage />} />
-            <Route path="popular" element={<PopularRecipesPage />} />
+            <Route path="all" element={<AllRecipesPage />} />
             <Route path="favorite" element={<FavoriteRecipesPage />} />
             <Route path="my" element={<MyRecipesPage />} />
             <Route path="user/:userId" element={<UserPage />} />

@@ -1,6 +1,6 @@
 import { db } from "../../firebase/utils";
 import { Query } from "@firebase/firestore-types";
-import { Filters } from "../../shared/types";
+import { FiltersTypes } from "../../shared/types";
 
 export const handleGetUserData = (userId: string): Promise<{ profilePic: string, username: string }> => {
   return new Promise((resolve, reject) => {
@@ -13,7 +13,7 @@ export const handleGetUserData = (userId: string): Promise<{ profilePic: string,
   })
 }
 
-export const handleFetchRecipes = (filters: Filters) => {
+export const handleFetchRecipes = (filters: FiltersTypes) => {
   return new Promise((resolve, reject) => {
     let ref: Query = db.collection("recipes");
     let {
@@ -43,7 +43,7 @@ export const handleFetchRecipes = (filters: Filters) => {
       ref = ref.where("likesUsers", "array-contains", favoriteFilter);
     }
 
-    if (typeFilter) {
+    if (typeFilter && typeFilter !== 'all') {
       ref = ref.where("type", "==", typeFilter);
     }
 

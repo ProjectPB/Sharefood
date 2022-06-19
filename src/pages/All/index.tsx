@@ -2,26 +2,25 @@ import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useWidth } from "../../hooks";
 import { getRecipesCounter } from "../../shared/functions";
-import { setPopularStatsFilter, setPopularTypeFilter } from "../../redux/Recipes/recipes.actions";
+import { setStatsFilter, setTypeFilter } from "../../redux/Recipes/recipes.actions";
 import { State } from "../../shared/types";
-import { typeFilters } from './../../shared/filters';
 
-import RecipesRenderer from "../../components/RecipesRenderer";
+import RecipesRenderer from "../../components/Renderer";
 
 const mapState = ({ ui, recipes }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,
-  typeFilter: recipes.filters.popularType,
-  statsFilter: recipes.filters.popularStats
+  typeFilter: recipes.filters.type,
+  statsFilter: recipes.filters.stats,
 });
 
-const PopularPage: React.FC = () => {
+const AllPage: React.FC = () => {
   const width = useWidth();
   const dispatch = useDispatch();
   const { sidebarIsOpen, typeFilter, statsFilter } = useSelector(mapState)
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
 
   const filters = {
-    store: 'popular', counter: counter, typeFilter: typeFilter, statsFilter: statsFilter,
+    store: 'all', counter: counter, typeFilter: typeFilter, statsFilter: statsFilter,
   }
 
   useEffect(() => {
@@ -29,20 +28,17 @@ const PopularPage: React.FC = () => {
   }, [width, sidebarIsOpen]);
 
   const changeTypeFilter = (name: string) => {
-    dispatch(setPopularTypeFilter(name))
+    dispatch(setTypeFilter(name))
   }
 
   const changeStatsFilter = (name: string) => {
-    dispatch(setPopularStatsFilter(name));
+    dispatch(setStatsFilter(name));
   }
 
   const rendererConfig = {
-    typesAvailable: true,
-    statsAvailable: true,
     filters: filters,
     changeType: (name: string) => changeTypeFilter(name),
     changeStats: (name: string) => changeStatsFilter(name),
-    typeFilters: typeFilters
   }
 
   return (
@@ -52,4 +48,4 @@ const PopularPage: React.FC = () => {
   );
 };
 
-export default PopularPage;
+export default AllPage;

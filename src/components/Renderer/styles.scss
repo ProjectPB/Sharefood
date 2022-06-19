@@ -1,0 +1,41 @@
+@use "/src/sass/variables" as *;
+
+.renderer {
+  overflow-y: scroll;
+  flex: 1;
+  height: 100%;
+  position: relative;
+  padding: 15px 10px;
+  background-color: $lightgray-background;
+
+  .renderer__filters {
+    display: flex;
+    flex-direction: column;
+    background-color: $white;
+    border-radius: 5px;
+    outline: 1px solid $gray-border;
+    box-shadow: $box-shadow;
+    margin-bottom: 7.5px;
+  }
+
+  .renderer__loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .renderer__noData {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+
+  .renderer__loadingMore {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+}

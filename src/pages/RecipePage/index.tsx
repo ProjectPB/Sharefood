@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadRecipeData } from "../../redux/Loading/loading.actions";
 import { State } from "../../shared/types";
 import { resetScrollDistancesStart } from "../../redux/Recipes/recipes.actions";;
-import { fetchRecipeDataStart } from "../../redux/Recipe/recipe.actions";;
+import { fetchRecipeDataStart, setRecipeData } from "../../redux/Recipe/recipe.actions";;
 
 import Loading from "../../components/Loading";
 import NoData from "../../components/NoData";
@@ -31,6 +31,7 @@ const RecipePage: React.FC = () => {
     return () => {
       dispatch(loadRecipeData(false));
       dispatch(resetScrollDistancesStart());
+      dispatch(setRecipeData(null));
     };
   }, [recipeId, currentUser?.uid, dispatch]);
 

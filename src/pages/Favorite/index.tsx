@@ -5,7 +5,7 @@ import { State } from "../../shared/types";
 import { getRecipesCounter } from "../../shared/functions";
 
 import WithAuth from './../../hoc/WithAuth';
-import RecipesRenderer from "../../components/RecipesRenderer";
+import RecipesRenderer from "../../components/Renderer";
 
 const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,

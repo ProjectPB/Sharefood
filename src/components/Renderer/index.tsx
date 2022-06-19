@@ -1,6 +1,6 @@
 import React, { createRef, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { Filters, State } from "../../shared/types";
+import { FiltersTypes, State } from "../../shared/types";
 import { fetchRecipesStart, setScrollDistanceStart } from "../../redux/Recipes/recipes.actions";
 import { loadRecipes } from '../../redux/Loading/loading.actions';
 import { useLanguage, useRecipeData } from '../../hooks';
@@ -10,23 +10,21 @@ import Recipes from '../Recipes';
 import Loading from '../Loading';
 import NoData from '../NoData';
 import Profile from '../Profile';
+import Filters from '../Filters';
 
 import "./styles.scss";
 
 interface Props {
-  filters: Filters
-  typesAvailable?: boolean;
-  statsAvailable?: boolean;
+  filters: FiltersTypes;
   changeType?: (name: string) => void;
   changeStats?: (name: string) => void;
-  typeFilters?: { name: string, value: string }[]
 }
 
 const mapState = ({ loading }: State) => ({
   loaded: loading.recipesLoaded,
 });
 
-const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType, typeFilters, statsAvailable, changeStats }) => {
+const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeStats }) => {
   const dispatch = useDispatch();
   const { loaded } = useSelector(mapState);
   const LANG = useLanguage();
@@ -105,46 +103,32 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
 
   return (
     <div
-      className="recipesRenderer"
+      className="renderer"
       onScroll={handleScroll}
       ref={recipesContainerRef}
     >
       <div ref={topRef} />
 
-      {(statsAvailable || typesAvailable) &&
-        <div className="recipesRenderer__filtersContainer">
-          {statsAvailable &&
-            <div className="recipesRenderer__filters">
-              <p>{LANG.FILTERS.SORT}</p>
-              <div className="recipesRenderer__buttons">
-                {LANG.FILTERS.statsFilters.map((({ value, name }, id) => (
-                  <button
-                    key={id}
-                    className={filters.statsFilter === value ? "active" : undefined}
-                    onClick={() => changeStats(value)}
-                  >
-                    {name}
-                  </button>
-                )))}
-              </div>
-            </div>
+      {(filters.statsFilter || filters.typeFilter) &&
+        <div className="renderer__filters">
+          {filters.statsFilter &&
+            <Filters
+              type="stats"
+              name={LANG.FILTERS.SORT}
+              filters={LANG.FILTERS.statsFilters}
+              update={(val) => changeStats(val)}
+              activeFilter={filters.statsFilter}
+            />
           }
 
-          {typesAvailable &&
-            <div className="recipesRenderer__filters">
-              <p>{LANG.FILTERS.TYPE}</p>
-              <div className="recipesRenderer__buttons">
-                {LANG.FILTERS.typeFilters.map((({ value, name }, id) => (
-                  <button
-                    key={id}
-                    className={filters.typeFilter === value ? "active" : undefined}
-                    onClick={() => changeType(value)}
-                  >
-                    {name}
-                  </button>
-                )))}
-              </div>
-            </div>
+          {filters.typeFilter &&
+            <Filters
+              type="type"
+              name={LANG.FILTERS.TYPE}
+              filters={LANG.FILTERS.typeFilters}
+              update={(val) => changeType(val)}
+              activeFilter={filters.typeFilter}
+            />
           }
         </div>
       }
@@ -154,13 +138,13 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
       }
 
       {!loaded &&
-        <div className="recipesRenderer__loading">
+        <div className="renderer__loading">
           <Loading />
         </div>
       }
 
       {loaded && data?.length === 0 &&
-        <div className="recipesRenderer__noData">
+        <div className="renderer__noData">
           <NoData />
         </div>
       }
@@ -168,7 +152,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters, typesAvailable, changeType,
       {loaded && <Recipes {...recipesConfig} />}
 
       {(loadMore && !isLastPage) &&
-        <div className="recipesRenderer__loadingMore">
+        <div className="renderer__loadingMore">
           <Loading />
         </div>
       }

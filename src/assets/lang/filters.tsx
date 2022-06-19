@@ -3,7 +3,7 @@ export const ENG_FILTERS = {
   TYPE: "Type",
   typeFilters: [{
     name: 'all',
-    value: "",
+    value: "all",
   },
   {
     name: "breakfast",
@@ -48,7 +48,7 @@ export const PL_FILTERS = {
   TYPE: "Posiłek",
   typeFilters: [{
     name: 'Wszystkie',
-    value: "",
+    value: "all",
   },
   {
     name: "śniadanie",

@@ -3,17 +3,12 @@ import { Recipes } from "../../shared/types";
 
 const INITIAL_STATE: Recipes = {
   recipes: {
-    queryRecipes: {
-      data: [],
-      queryDoc: null,
-      isLastPage: false,
-    },
     mainRecipes: {
       data: [],
       queryDoc: null,
       isLastPage: false,
     },
-    popularRecipes: {
+    allRecipes: {
       data: [],
       queryDoc: null,
       isLastPage: false,
@@ -36,34 +31,28 @@ const INITIAL_STATE: Recipes = {
   },
   scrollDistance: {
     main: 0,
-    popular: 0,
+    all: 0,
     my: 0,
     favorite: 0,
     user: 0,
   },
   filters: {
-    popularType: "",
-    popularStats: "views",
-    recentType: "",
+    type: "all",
+    stats: "views",
   }
 };
 
 const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: Recipes }) => {
   switch (action.type) {
-    case recipesTypes.SET_QUERY_RECIPES:
-      return {
-        ...state,
-        recipes: { ...state.recipes, queryRecipes: action.payload },
-      };
     case recipesTypes.SET_MAIN_RECIPES:
       return {
         ...state,
         recipes: { ...state.recipes, mainRecipes: action.payload },
       };
-    case recipesTypes.SET_POPULAR_RECIPES:
+    case recipesTypes.SET_ALL_RECIPES:
       return {
         ...state,
-        recipes: { ...state.recipes, popularRecipes: action.payload },
+        recipes: { ...state.recipes, allRecipes: action.payload },
       };
     case recipesTypes.SET_MY_RECIPES:
       return {
@@ -85,10 +74,10 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         scrollDistance: { ...state.scrollDistance, main: action.payload }
       }
-    case recipesTypes.SET_POPULAR_SCROLL_DISTANCE:
+    case recipesTypes.SET_ALL_SCROLL_DISTANCE:
       return {
         ...state,
-        scrollDistance: { ...state.scrollDistance, popular: action.payload }
+        scrollDistance: { ...state.scrollDistance, all: action.payload }
       }
     case recipesTypes.SET_MY_SCROLL_DISTANCE:
       return {
@@ -105,25 +94,18 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         scrollDistance: { ...state.scrollDistance, user: action.payload }
       }
-    case recipesTypes.SET_POPULAR_TYPE_FILTER:
+    case recipesTypes.SET_STATS_FILTER:
       return {
         ...state,
         filters: {
-          ...state.filters, popularType: action.payload,
+          ...state.filters, stats: action.payload,
         }
       }
-    case recipesTypes.SET_POPULAR_STATS_FILTER:
+    case recipesTypes.SET_TYPE_FILTER:
       return {
         ...state,
         filters: {
-          ...state.filters, popularStats: action.payload,
-        }
-      }
-    case recipesTypes.SET_RECENT_FILTER:
-      return {
-        ...state,
-        filters: {
-          ...state.filters, recentType: action.payload,
+          ...state.filters, type: action.payload,
         }
       }
     default:

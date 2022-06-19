@@ -1,5 +1,5 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setPopularRecipes, setPopularScrollDistance, setQueryRecipes, setScrollDistanceStart, setUserRecipes, setUserScrollDistance } from "./recipes.actions";
+import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance } from "./recipes.actions";
 import { handleFetchRecipes } from "./recipes.helpers";
 import { loadRecipes } from "../Loading/loading.actions";
 import { SingleRecipes } from "../../shared/types";
@@ -11,18 +11,12 @@ export function* fetchRecipes({
   try {
     const renderedRecipes: SingleRecipes = yield handleFetchRecipes(payload);
     switch (payload.store) {
-      case "query": {
-        if (payload.queryFilter) {
-          yield put(setQueryRecipes(renderedRecipes));
-        }
-        break;
-      }
       case "main": {
         yield put(setMainRecipes(renderedRecipes));
         break;
       }
-      case "popular": {
-        yield put(setPopularRecipes(renderedRecipes));
+      case "all": {
+        yield put(setAllRecipes(renderedRecipes));
         break;
       }
       case "my": {
@@ -58,7 +52,7 @@ export function* resetRecipes() {
       queryDoc: null,
       isLastPage: false,
     }));
-    yield put(setPopularRecipes({
+    yield put(setAllRecipes({
       data: [],
       queryDoc: null,
       isLastPage: false,
@@ -95,8 +89,8 @@ export function* setScrollDistance({ payload }: ReturnType<typeof setScrollDista
         yield put(setMainScrollDistance(distance));
         break;
       }
-      case "popular": {
-        yield put(setPopularScrollDistance(distance));
+      case "all": {
+        yield put(setAllScrollDistance(distance));
         break;
       }
       case "my": {
@@ -127,7 +121,7 @@ export function* onSetScrollDistanceStart() {
 export function* resetScrollDistances() {
   try {
     yield put(setMainScrollDistance(0));
-    yield put(setPopularScrollDistance(0));
+    yield put(setAllScrollDistance(0));
     yield put(setMyScrollDistance(0));
     yield put(setUserScrollDistance(0));
     yield put(setFavoriteScrollDistance(0));

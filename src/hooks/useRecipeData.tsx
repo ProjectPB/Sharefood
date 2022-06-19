@@ -13,12 +13,9 @@ const useRecipeData = (store: string) => {
     case "main": {
       return ({ ...recipes.mainRecipes, scrollDistance: scrollDistance.main });
     }
-    case "query": {
-      return ({ ...recipes.queryRecipes, scrollDistance: null })
-    }
-    case "popular": {
+    case "all": {
       return ({
-        ...recipes.popularRecipes, scrollDistance: scrollDistance.popular
+        ...recipes.allRecipes, scrollDistance: scrollDistance.all
       })
     }
     case "my": {

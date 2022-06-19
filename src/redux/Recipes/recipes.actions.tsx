@@ -1,14 +1,9 @@
 import recipesTypes from "./recipes.types";
-import { Filters, SingleRecipes } from "../../shared/types";
+import { FiltersTypes, SingleRecipes } from "../../shared/types";
 
-export const fetchRecipesStart = (filters: Filters) => ({
+export const fetchRecipesStart = (filters: FiltersTypes) => ({
   type: recipesTypes.FETCH_RECIPES,
   payload: filters,
-});
-
-export const setQueryRecipes = (recipes: SingleRecipes) => ({
-  type: recipesTypes.SET_QUERY_RECIPES,
-  payload: recipes,
 });
 
 export const setMainRecipes = (recipes: SingleRecipes) => ({
@@ -16,8 +11,8 @@ export const setMainRecipes = (recipes: SingleRecipes) => ({
   payload: recipes,
 });
 
-export const setPopularRecipes = (recipes: SingleRecipes) => ({
-  type: recipesTypes.SET_POPULAR_RECIPES,
+export const setAllRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_ALL_RECIPES,
   payload: recipes,
 });
 
@@ -50,8 +45,8 @@ export const setMainScrollDistance = (distance: number) => ({
   payload: distance
 })
 
-export const setPopularScrollDistance = (distance: number) => ({
-  type: recipesTypes.SET_POPULAR_SCROLL_DISTANCE,
+export const setAllScrollDistance = (distance: number) => ({
+  type: recipesTypes.SET_ALL_SCROLL_DISTANCE,
   payload: distance
 })
 
@@ -74,17 +69,12 @@ export const resetScrollDistancesStart = () => ({
   type: recipesTypes.RESET_SCROLL_DISTANCES,
 })
 
-export const setPopularTypeFilter = (filter: string) => ({
-  type: recipesTypes.SET_POPULAR_TYPE_FILTER,
+export const setTypeFilter = (filter: string) => ({
+  type: recipesTypes.SET_TYPE_FILTER,
   payload: filter,
 })
 
-export const setPopularStatsFilter = (filter: string) => ({
-  type: recipesTypes.SET_POPULAR_STATS_FILTER,
-  payload: filter,
-})
-
-export const setRecentTypeFilter = (filter: string) => ({
-  type: recipesTypes.SET_RECENT_FILTER,
+export const setStatsFilter = (filter: string) => ({
+  type: recipesTypes.SET_STATS_FILTER,
   payload: filter,
 })

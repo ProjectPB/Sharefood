@@ -1,0 +1,46 @@
+@use "/src/sass/variables" as *;
+
+.filters {
+  display: flex;
+  align-items: center;
+  padding: 9.5px 10px;
+  margin: 0 5px;
+
+  &:nth-child(2) {
+    border-top: 1px solid $gray-border;
+  }
+
+  p {
+    font-size: 16px;
+    font-weight: 400;
+    min-width: 60px;
+  }
+
+  .filters__buttons {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    overflow-x: auto;
+
+    button {
+      cursor: pointer;
+      padding: 10px 24px;
+      text-transform: uppercase;
+      background-color: $color-primary;
+      outline: 1px solid;
+      border-radius: 5px;
+      border: none;
+      font-family: inherit;
+
+      &:hover {
+        opacity: 0.9;
+        box-shadow: $box-shadow;
+      }
+    }
+
+    .active {
+      background-color: $color-secondary !important;
+    }
+  }
+}
