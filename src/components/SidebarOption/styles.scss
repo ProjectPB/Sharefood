@@ -1,6 +1,14 @@
 @use "/src/sass/variables" as *;
 
-.sidebarOption {
+@mixin sidebarOption--hover {
+  cursor: pointer;
+  background-color: $gray-hover;
+  margin: 5px 10px;
+  transition: 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+@mixin sidebarOption {
   display: flex;
   align-items: center;
   padding: 15px 12.5px;
@@ -16,11 +24,7 @@
   }
 
   &:hover {
-    cursor: pointer;
-    background-color: $gray-hover;
-    margin: 5px 10px;
-    transition: 0.3s ease-in-out;
-    border-radius: 10px;
+    @include sidebarOption--hover;
   }
 
   @media (max-width: 600px) {
@@ -28,37 +32,29 @@
   }
 }
 
-.sidebarOption--narrow {
-  display: none;
-  // display: flex;
-  // align-items: center;
-  // flex-direction: column;
-  // padding: 0 8px;
-  // height: 65px;
-  // min-width: 85px;
-  // margin: 5px 0;
-  // justify-content: center;
+@mixin sidebarOption--narrow {
+  display: flex;
+  place-items: center;
+  flex-direction: column;
+  padding: 6px 4.5px;
+  margin: 5px 0;
 
-  // h2 {
-  //   font-size: 10px;
-  //   font-weight: 500;
-  // }
+  h2 {
+    font-size: 10px;
+    font-weight: 500;
+  }
 
-  // .MuiSvgIcon-root {
-  //   width: 25px;
-  //   object-fit: contain;
-  // }
+  .MuiSvgIcon-root {
+    width: 25px;
+    object-fit: contain;
+  }
 
-  // &:hover {
-  //   cursor: pointer;
-  //   background-color: $gray-hover;
-  //   margin: 5px 10px;
-  //   transition: 0.3s ease-in-out;
-  //   border-radius: 10px;
-  // }
+  &:hover {
+    @include sidebarOption--hover;
+  }
 }
 
-.sidebarOption--hidden {
+.sidebarOption--blocked {
   opacity: 0.8;
   color: rgb(170, 170, 170);
 }

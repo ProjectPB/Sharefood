@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import FullscreenLayout from './layouts/FullscreenLayout';
 import MainLayout from './layouts/MainLayout';
+import WideLayout from './layouts/WideLayout';
 
 import AuthenticationPage from "./pages/Authentication";
 import NewPasswordPage from "./pages/NewPassword";
@@ -25,6 +26,8 @@ const App: React.FC = () => {
             <Route path="favorite" element={<FavoriteRecipesPage />} />
             <Route path="my" element={<MyRecipesPage />} />
             <Route path="user/:userId" element={<UserPage />} />
+          </Route>
+          <Route element={<WideLayout />}>
             <Route path="recipe/:recipeId" element={<RecipePage />} />
             <Route path="*" element={<EmptyPage />} />
           </Route>
@@ -34,7 +37,7 @@ const App: React.FC = () => {
           </Route>
         </Route>
       </Routes>
-    </BrowserRouter >
+    </BrowserRouter>
   );
 };
 

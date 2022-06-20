@@ -1,0 +1,28 @@
+@use "/src/sass/variables" as *;
+
+.wide {
+  background-color: $lightgray-background;
+
+  .wide__wrapper {
+    display: flex;
+    height: calc(100vh - 62px);
+    background-color: inherit;
+
+    .wide__body {
+      overflow: hidden;
+      flex: 1;
+      background-color: inherit;
+      height: 100%;
+    }
+
+    .wide__refresh {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+    }
+
+    @media (max-width: 600px) {
+      height: calc(100vh - 117px);
+    }
+  }
+}

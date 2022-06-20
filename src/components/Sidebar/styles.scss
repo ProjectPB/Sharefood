@@ -1,4 +1,5 @@
 @use "/src/sass/variables" as *;
+@use "../SidebarOption/styles.scss" as m;
 
 .sidebar {
   width: 300px;
@@ -6,25 +7,33 @@
   margin: 10px 0;
   border-right: 1px solid $gray-border;
 
+  .sidebarOption {
+    @include m.sidebarOption;
+  }
+
   @media (max-width: 600px) {
     width: 100%;
     padding: 0;
   }
 }
 
+.sidebar--narrow {
+  width: 80px;
+  margin: 10px 0;
+  border-right: 1px solid $gray-border;
+  background-color: $lightgray-background;
+
+  .sidebarOption {
+    @include m.sidebarOption--narrow;
+  }
+}
+
 .sidebar--hidden {
   display: none;
-  // width: 105px;
-  // padding: 10px 0;
-  // background-color: $lightgray-background;
-
-  // @media (max-width: 600px) {
-  //   display: none;
-  // }
 }
 
 .sidebar,
-.sidebar--hidden {
+.sidebar--narrow {
   .MuiSvgIcon-root {
     opacity: 0.9;
   }

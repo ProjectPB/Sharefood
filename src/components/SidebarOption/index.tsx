@@ -12,11 +12,11 @@ const mapState = ({ ui }: State) => ({
 
 interface Props {
   title: string;
-  hidden?: boolean;
+  blocked?: boolean;
   Icon: any;
 }
 
-const SidebarOption: React.FC<Props> = ({ Icon, title, hidden }) => {
+const SidebarOption: React.FC<Props> = ({ Icon, title, blocked }) => {
   const { sidebarIsOpen } = useSelector(mapState);
   const width = useWidth();
   const dispatch = useDispatch();
@@ -30,8 +30,7 @@ const SidebarOption: React.FC<Props> = ({ Icon, title, hidden }) => {
   return (
     <div
       onClick={minimalizeSidebar}
-      className={`${sidebarIsOpen ? `sidebarOption` : `sidebarOption--narrow`
-        } ${hidden ? `sidebarOption--hidden` : ``}`}
+      className={`sidebarOption ${blocked ? `sidebarOption--blocked` : ``}`}
     >
       <Icon fontSize="large" />
       <h2>{title}</h2>
