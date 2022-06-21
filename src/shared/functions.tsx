@@ -108,6 +108,34 @@ export const translateType = (type: string, lang: string) => {
   }
 }
 
+export const translateTag = (tag: string, lang: string) => {
+  if (lang === 'english') {
+    switch (tag) {
+      case "party":
+        return 'Party'
+      case "christmas":
+        return 'Christmas'
+      case 'grill':
+        return 'Grill'
+      case 'easter':
+        return 'Easter'
+    }
+  }
+
+  if (lang === 'polish') {
+    switch (tag) {
+      case "party":
+        return 'Impreza'
+      case "christmas":
+        return 'Boże Narodzenie'
+      case 'grill':
+        return 'Grill'
+      case 'easter':
+        return 'Wielkanoc'
+    }
+  }
+}
+
 export const getValuesFromSelect = (array: Option[]) => {
   let result = array.map(option => option.value);
   return result

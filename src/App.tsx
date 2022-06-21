@@ -25,10 +25,10 @@ const App: React.FC = () => {
             <Route path="all" element={<AllRecipesPage />} />
             <Route path="favorite" element={<FavoriteRecipesPage />} />
             <Route path="my" element={<MyRecipesPage />} />
-            <Route path="user/:userId" element={<UserPage />} />
           </Route>
           <Route element={<WideLayout />}>
             <Route path="recipe/:recipeId" element={<RecipePage />} />
+            <Route path="user/:userId" element={<UserPage />} />
             <Route path="*" element={<EmptyPage />} />
           </Route>
           <Route element={<FullscreenLayout />}>

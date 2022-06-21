@@ -1,0 +1,48 @@
+@use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
+
+.moreRecipes {
+  @include m.pop-up;
+  height: fit-content;
+
+  h1 {
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+    border-bottom: 1px solid $gray-border;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+  }
+
+  .moreRecipes__cards {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    @media (max-width: 992px) {
+      flex-direction: row;
+    }
+
+    .moreRecipes__card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 5px;
+
+      img {
+        border-radius: 10px;
+        max-width: 200px;
+        width: 100%;
+        aspect-ratio: 4 / 3;
+      }
+
+      p {
+        text-transform: capitalize;
+        height: 25px;
+        max-width: 100px;
+        overflow: hidden;
+      }
+    }
+  }
+}

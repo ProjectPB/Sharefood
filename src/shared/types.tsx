@@ -36,6 +36,7 @@ export interface RecipeData {
   image?: string;
   imageLow?: string;
   ingredients: string;
+  special: string[];
   likesUsers?: string[];
   liked?: boolean;
   method: string;

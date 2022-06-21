@@ -10,7 +10,8 @@ import { fetchRecipeDataStart, setRecipeData } from "../../redux/Recipe/recipe.a
 
 import Loading from "../../components/Loading";
 import NoData from "../../components/NoData";
-import Recipe from "../../components/Recipe";
+import Recipe from "../../components/RecipeRework";
+import MoreRecipes from '../../components/MoreRecipes';
 
 import "./styles.scss";
 
@@ -44,7 +45,10 @@ const RecipePage: React.FC = () => {
       {!recipeData ? (
         <NoData />
       ) : (
-        <Recipe data={recipeData} />
+        <div className="recipePage__wrapper">
+          <Recipe data={recipeData} />
+          <MoreRecipes />
+        </div>
       )}
     </div>
   );

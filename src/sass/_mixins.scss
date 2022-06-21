@@ -31,3 +31,32 @@
     }
   }
 }
+
+@mixin fromHTML {
+  font-size: 16px;
+  list-style-position: inside;
+  margin-top: 2px;
+
+  p {
+    padding-top: 8px;
+
+    &:empty {
+      margin: 5px;
+    }
+  }
+
+  a {
+    color: $link;
+  }
+
+  ul,
+  ol {
+    margin-top: 5px;
+  }
+
+  * {
+    li {
+      margin: 5px 0;
+    }
+  }
+}
