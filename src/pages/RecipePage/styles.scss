@@ -8,16 +8,12 @@
   width: 100%;
   overflow-y: scroll;
 
-  ::-webkit-scrollbar {
-    display: none;
-  }
-
   .recipePage__wrapper {
-    margin: 10px;
+    padding: 20px;
     height: fit-content;
     display: flex;
     width: 100%;
-    gap: 10px;
+    gap: 20px;
     max-width: 1500px;
 
     @media (max-width: 992px) {

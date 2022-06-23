@@ -4,11 +4,16 @@
 .recipe {
   @include m.pop-up;
   flex: 1;
+  padding: 10px;
+  flex: 0.8;
+
+  @media (max-width: 992px) {
+    padding: 0;
+  }
 
   .recipe__title {
     text-align: center;
     padding: 10px;
-    margin: 0 10px;
     font-weight: 500;
     font-size: 24px;
     border-bottom: 1px solid $gray-border;
@@ -16,7 +21,6 @@
 
   .recipe__top {
     display: flex;
-    margin: 0 10px;
     padding: 10px;
     gap: 15px;
     background-color: $lightgray-background;
@@ -29,7 +33,7 @@
 
     .recipe__img {
       max-width: 400px;
-      width: 45%;
+      width: 40%;
       aspect-ratio: 4 / 3;
       margin: auto;
 
@@ -43,8 +47,7 @@
         border-radius: 10px;
 
         @media (max-width: 600px) {
-          border-top-left-radius: 0;
-          border-top-right-radius: 0;
+          border-radius: 0;
         }
       }
     }
@@ -125,7 +128,6 @@
 
   .recipe__description {
     padding: 5px;
-    margin: 0 10px;
     background-color: $lightgray-background;
 
     .recipe__descriptionHeader {
@@ -135,7 +137,6 @@
       font-weight: 500;
       padding: 5px;
       width: fit-content;
-      border-radius: 10px;
       cursor: pointer;
 
       &:hover {
@@ -158,7 +159,6 @@
     border-top: 1px solid $gray-border;
     display: flex;
     padding: 10px;
-    margin: 0 10px;
 
     @media (max-width: 600px) {
       flex-direction: column;

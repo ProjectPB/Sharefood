@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import './styles.scss'
 
 const MoreRecipes = () => {
-  const [imgSrc, setImgSrc] = useState('https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FTest%2F1655842992294UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2testJPEG_HIGH?alt=media&token=c028489c-9864-445b-b5f9-f816111a7b71')
+  const imgSrc = 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FTest%2F1655842992294UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2testJPEG_HIGH?alt=media&token=c028489c-9864-445b-b5f9-f816111a7b71';
 
   return (
     <div className='moreRecipes'>
-      <h1>MORE</h1>
+      <h1>Related Recipes</h1>
 
       <div className="moreRecipes__cards">
         <div className="moreRecipes__card">
@@ -24,11 +24,11 @@ const MoreRecipes = () => {
         </div>
         <div className="moreRecipes__card">
           <img src={imgSrc} alt="" />
-          <p>title</p>
+          <p>titleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</p>
         </div>
         <div className="moreRecipes__card">
           <img src={imgSrc} alt="" />
-          <p>title</p>
+          <p>titleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</p>
         </div>
       </div>
     </div>
