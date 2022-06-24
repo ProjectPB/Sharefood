@@ -2,7 +2,7 @@
 @use "/src/sass/mixins" as m;
 
 .moreRecipes {
-  @include m.pop-up;
+  @include m.borders;
   width: 100%;
   flex: 0.2;
   padding: 10px;
@@ -36,7 +36,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      @include m.pop-up;
+      @include m.borders;
       background-color: white;
       padding: 0;
       border-radius: 10px;

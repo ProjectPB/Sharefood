@@ -2,7 +2,7 @@
 @use "./../../sass/variables" as *;
 
 .langSelector {
-  @include m.pop-up;
+  @include m.borders;
   display: flex;
   flex-direction: column;
   position: absolute;
