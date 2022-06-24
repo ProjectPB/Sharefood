@@ -33,6 +33,7 @@
 
     .moreRecipes__card {
       display: flex;
+      position: relative;
       flex-direction: column;
       justify-content: center;
       align-items: center;
@@ -43,7 +44,17 @@
       cursor: pointer;
       min-width: 200px;
 
+      .moreRecipes__cardImg--loading-overlay {
+        @extend img;
+        @include m.loadingAnimation;
+        position: absolute;
+        top: 0;
+        background-color: $darkgray-background;
+        z-index: 2;
+      }
+
       img {
+        z-index: 1;
         border-top-left-radius: 10px;
         border-top-right-radius: 10px;
         width: 100%;

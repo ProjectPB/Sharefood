@@ -60,3 +60,27 @@
     }
   }
 }
+
+@mixin loadingAnimation {
+  animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: loadingBackground;
+  animation-timing-function: linear;
+  background: linear-gradient(
+    to right,
+    $darkgray-background 20%,
+    rgb(240, 240, 240) 35%,
+    $darkgray-background 80%
+  );
+  background-size: 800px 200px;
+}
+
+@keyframes loadingBackground {
+  from {
+    background-position: -400px 0;
+  }
+  to {
+    background-position: 400px 0;
+  }
+}

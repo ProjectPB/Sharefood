@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './styles.scss'
 
 const MoreRecipes = () => {
-  const imgSrc = 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FTest%2F1655842992294UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2testJPEG_HIGH?alt=media&token=c028489c-9864-445b-b5f9-f816111a7b71';
+  const imgSrc = 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FTest%2F1656110698908UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2testJPEG_HIGH?alt=media&token=0b6969ea-4305-4b64-9aff-6c78ce3db195';
+  const [loaded, setLoaded] = useState(false);
 
   return (
     <div className='moreRecipes'>
@@ -11,7 +12,8 @@ const MoreRecipes = () => {
 
       <div className="moreRecipes__cards">
         <div className="moreRecipes__card">
-          <img src={imgSrc} alt="" />
+          <img src={imgSrc} alt="" onLoad={() => setLoaded(true)} />
+          {!loaded && <div className='moreRecipes__cardImg--loading-overlay' />}
           <p>title</p>
         </div>
         <div className="moreRecipes__card">

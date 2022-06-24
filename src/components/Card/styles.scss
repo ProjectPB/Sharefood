@@ -1,4 +1,5 @@
 @use "./../../sass/variables" as *;
+@use "./../../sass/mixins" as m;
 
 .card {
   position: relative;
@@ -123,6 +124,7 @@
     position: absolute;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+    @include m.loadingAnimation;
   }
 
   .cardBody--loading__overlay {
@@ -142,6 +144,8 @@
       right: 50%;
       transform: translate(-50%, -50%);
       height: 25px;
+      @include m.loadingAnimation;
+      border-radius: 5px;
     }
 
     .cardAvatar--loading__overlay {
@@ -152,6 +156,8 @@
       position: absolute;
       bottom: 35px;
       left: 5px;
+      @include m.loadingAnimation;
+      border-radius: 5px;
     }
 
     .cardInfo--loading__overlay {
@@ -162,6 +168,8 @@
       position: absolute;
       bottom: 10px;
       left: 5px;
+      @include m.loadingAnimation;
+      border-radius: 5px;
     }
   }
 }
