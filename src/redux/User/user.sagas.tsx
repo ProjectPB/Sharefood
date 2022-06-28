@@ -53,7 +53,7 @@ export function* emailSignIn({
       yield put(loadAuth(false));
     }
   } catch (err) {
-    errors.push(err.message);
+    errors.push(err.message.substring(10));
     yield put(loadAuth(false));
     yield put(signUpError(errors));
   }
@@ -94,7 +94,8 @@ export function* signUpUser({
       yield put(loadAuth(false));
     }
   } catch (err) {
-    errors.push(err.message);
+    console.log(err);
+    errors.push(err.message.substring(10));
     yield put(signUpError(errors));
     yield put(loadAuth(false));
   }
@@ -123,7 +124,9 @@ export function* resetPassword({
   try {
     yield call(handleResetPasswordAPI, email);
     yield put(resetPasswordSuccess());
+    yield put(loadAuth(false));
   } catch (err) {
+    yield put(loadAuth(false));
     yield put(resetPasswordError(err));
   }
 }

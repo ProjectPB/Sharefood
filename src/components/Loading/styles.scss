@@ -1,6 +1,13 @@
+@use "./../../sass/variables" as *;
+@use "./../../sass/mixins" as m;
+
 .loading {
   width: 100%;
   height: 100%;
   display: grid;
   place-items: center;
+
+  .MuiCircularProgress-svg {
+    color: $color-secondary;
+  }
 }

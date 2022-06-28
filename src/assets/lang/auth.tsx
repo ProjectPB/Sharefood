@@ -19,7 +19,7 @@ export const ENG_AUTH = {
   FORGOT_PASSWORD: "Forgot password",
   RESET_PASSWORD: "Reset",
   NEW_PASSWORD: "New password",
-  NEW_PASSWORD_TEXT: "Please provide an e-mail in order to send a message with a password reset",
+  NEW_PASSWORD_TEXT: "Please provide an e-mail in order to send a message with a password reset.",
   NEW_PASSWORD_SEND: "Send",
   NEW_PASSWORD_SEND_SUCCESS: "E-mail sent. ",
 }
@@ -45,7 +45,7 @@ export const PL_AUTH = {
   FORGOT_PASSWORD: "Nie pamiętasz hasła",
   RESET_PASSWORD: "Zresetuj",
   NEW_PASSWORD: "Nowe hasło",
-  NEW_PASSWORD_TEXT: "Wprowadź adres e-mail aby wyszukać swoje konto",
+  NEW_PASSWORD_TEXT: "Wprowadź adres e-mail aby wyszukać swoje konto.",
   NEW_PASSWORD_SEND: "Wyślij",
   NEW_PASSWORD_SEND_SUCCESS: "Wiadomość została wysłana.",
 }

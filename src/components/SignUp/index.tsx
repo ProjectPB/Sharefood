@@ -27,7 +27,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
     setOpenInfo(!openInfo);
   };
 
-  const register = (e: Handler["change"]) => {
+  const register = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
 
     dispatch(
@@ -85,6 +85,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
   const cancelButtonConfig = {
     onClick: cancel,
     secondary: true,
+    type: "button",
   };
 
   const submitButtonConfig = {
@@ -94,7 +95,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
   };
 
   return (
-    <div className="signUp">
+    <form className="signUp" onSubmit={register}>
       <h3>{LANG.AUTH.SIGN_UP}</h3>
       <InfoOutlined
         onClick={handleInfo}
@@ -111,7 +112,7 @@ const SignUp: React.FC<Props> = ({ cancel }) => {
         <Button {...cancelButtonConfig}>{LANG.AUTH.CANCEL}</Button>
         <Button {...submitButtonConfig}>{LANG.AUTH.SIGN_UP}</Button>
       </div>
-    </div>
+    </form>
   );
 };
 

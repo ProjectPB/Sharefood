@@ -52,35 +52,36 @@ const AuthPage: React.FC = () => {
       <div className="auth__logo">
         <Logo />
       </div>
+
       {newAccount ? <SignUp cancel={handleAccount} /> : <Login />}
 
-      {!newAccount && (
-        <p className="link">
-          {LANG.AUTH.NO_ACCOUNT}?{" "}
-          <span className="span" onClick={handleAccount}>
-            {LANG.AUTH.SIGN_UP}
-          </span>
-        </p>
-      )}
-
-      {!newAccount && (
-        <p className="link">
-          {LANG.AUTH.FORGOT_PASSWORD}?{" "}
-          <Link to="/reset">
-            <span className="span">{LANG.AUTH.RESET_PASSWORD}</span>
-          </Link>
-        </p>
-      )}
-
-      {!newAccount && <GoogleButton handleClick={handleGoogleSignIn} />}
-
-      {errors && <ul className="errors">
+      {errors && errors.length > 0 && <ul className="errors">
         {errors.map((err: string, i: number) => (
           <AuthError error={err} key={i} />
         ))}
       </ul>}
 
-      <div className="loading">{loading && <Loading />}</div>
+      {!newAccount && (
+        <div className="auth__links">
+          <p className="auth__link">
+            {LANG.AUTH.NO_ACCOUNT}?{" "}
+            <span className="span" onClick={handleAccount}>
+              {LANG.AUTH.SIGN_UP}
+            </span>
+          </p>
+
+          <p className="auth__link">
+            {LANG.AUTH.FORGOT_PASSWORD}?{" "}
+            <Link to="/reset">
+              <span className="span">{LANG.AUTH.RESET_PASSWORD}</span>
+            </Link>
+          </p>
+        </div>
+      )}
+
+      {!newAccount && <GoogleButton handleClick={handleGoogleSignIn} />}
+
+      {loading && <div className="auth__loading"><Loading /></div>}
     </div>
   );
 };

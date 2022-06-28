@@ -65,7 +65,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <form className="login">
+    <form className="login" onSubmit={signIn}>
       <h3>{LANG.AUTH.SIGN_IN}</h3>
       <AuthInput {...emailConfig} />
       <AuthInput {...passwordConfig} />

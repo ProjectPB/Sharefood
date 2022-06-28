@@ -4,17 +4,13 @@
   justify-content: center;
   width: 100%;
   position: relative;
-  min-width: 400px;
-
-  @media (max-width: 480px) {
-    min-width: auto;
-  }
+  margin-bottom: 10px;
 
   h3 {
     text-align: center;
-    margin-bottom: 5px;
+    padding-bottom: 10px;
     font-size: 18px;
-    font-weight: 600;
+    font-weight: 500;
   }
 
   .infoIcon {

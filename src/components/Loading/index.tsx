@@ -6,7 +6,7 @@ import "./styles.scss";
 const Loading: React.FC = () => {
   return (
     <div className="loading">
-      <CircularProgress size={60} color="inherit" />
+      <CircularProgress size={50} />
     </div>
   );
 };

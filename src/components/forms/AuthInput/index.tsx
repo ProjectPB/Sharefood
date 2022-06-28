@@ -59,13 +59,8 @@ const AuthInput: React.FC<Props> = ({
 
   return (
     <div className="authInput">
-      <div
-        className="body"
-        style={
-          isValid ? { outline: "1px solid" } : { outline: "2px solid red" }
-        }
-      >
-        <Icon fontSize="small" />
+      <div className={`${isValid ? 'authInput__wrapper' : 'authInput__wrapper authInput__wrapper--invalid'} `}>
+        <Icon className='authInput__labelIcon' />
         <input
           value={value}
           onChange={handleChange}
@@ -83,14 +78,18 @@ const AuthInput: React.FC<Props> = ({
       </div>
 
       {openInfo &&
-        info?.map((i) => (
-          <p
-            style={isValid ? { color: "gray" } : { color: "red" }}
-            className="info"
-          >
-            {i}
-          </p>
-        ))}
+        <div className="authInput__infoContainer">
+          {info?.map((i, index) => (
+            <p
+              key={index}
+              style={isValid ? { color: "gray" } : { color: "red" }}
+              className="authInput__info"
+            >
+              {i}
+            </p>
+          ))}
+        </div>
+      }
     </div>
   );
 };

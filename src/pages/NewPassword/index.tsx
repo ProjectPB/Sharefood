@@ -9,16 +9,19 @@ import {
 import { Mail } from "@material-ui/icons";
 import { Handler, State } from "../../shared/types";
 import { useLanguage } from "../../hooks";
+import { loadAuth } from "../../redux/Loading/loading.actions";
 
 import Button from "../../components/forms/Button";
 import AuthInput from "../../components/forms/AuthInput";
 import AuthError from "../../components/AuthError";
+import Loading from "../../components/Loading";
 
 import "./styles.scss";
 
-const mapState = ({ user }: State) => ({
+const mapState = ({ user, loading }: State) => ({
   resetPasswordSuccess: user.resetPasswordSuccess,
   resetPasswordErrors: user.resetPasswordErrors,
+  loading: loading.authLoading,
 });
 
 const NewPasswordPage: React.FC = () => {
@@ -26,7 +29,7 @@ const NewPasswordPage: React.FC = () => {
   const dispatch = useDispatch();
   const LANG = useLanguage();
   const [email, setEmail] = useState("");
-  const { resetPasswordSuccess, resetPasswordErrors } = useSelector(mapState);
+  const { resetPasswordSuccess, resetPasswordErrors, loading } = useSelector(mapState);
   const [errors, setErrors] = useState([]);
 
   useEffect(() => {
@@ -40,6 +43,7 @@ const NewPasswordPage: React.FC = () => {
   useEffect(() => {
     return () => {
       dispatch(resetPasswordError({}));
+      dispatch(loadAuth(false));
     };
   }, [dispatch]);
 
@@ -51,6 +55,7 @@ const NewPasswordPage: React.FC = () => {
 
   const handleSubmit = (e: Handler["form"]) => {
     e.preventDefault();
+    dispatch(loadAuth(true));
     dispatch(resetPasswordStart({ email }));
   };
 
@@ -64,6 +69,7 @@ const NewPasswordPage: React.FC = () => {
   };
 
   const cancelButtonConfig = {
+    type: "button",
     secondary: true,
     onClick: () => navigate("/auth"),
   };
@@ -74,9 +80,7 @@ const NewPasswordPage: React.FC = () => {
 
   return (
     <form className="newPassword" onSubmit={handleSubmit}>
-      <div className="newPassword__header">
-        <h3>{LANG.AUTH.NEW_PASSWORD}</h3>
-      </div>
+      <h3>{LANG.AUTH.NEW_PASSWORD}</h3>
 
       <div className="newPassword__body">
         <h4>
@@ -85,7 +89,7 @@ const NewPasswordPage: React.FC = () => {
 
         <AuthInput {...emailConfig} />
 
-        {errors && <ul className="newPassword__errors">
+        {errors && errors.length > 0 && <ul className="newPassword__errors">
           {errors.map((err: string, i: number) => (
             <AuthError error={err} key={i} />
           ))}
@@ -96,7 +100,9 @@ const NewPasswordPage: React.FC = () => {
         <Button {...cancelButtonConfig}>{LANG.AUTH.CANCEL}</Button>
         <Button {...submitButtonConfig}>{LANG.AUTH.NEW_PASSWORD_SEND}</Button>
       </div>
-    </form>
+
+      {loading && <div className="newPassword__loading"><Loading /></div>}
+    </form >
   );
 };
 
