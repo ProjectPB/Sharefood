@@ -9,13 +9,13 @@
   background-color: inherit;
   cursor: pointer;
   padding-right: 5px;
-  border-right: 1px solid $black;
+  border-right: 1px solid $gray-border;
 
   .clearRefinements__icon {
     font-size: 18px !important;
 
     &:hover {
-      opacity: 0.5;
+      opacity: 0.6;
     }
   }
 }

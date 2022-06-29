@@ -5,7 +5,7 @@
 
   .wide__wrapper {
     display: flex;
-    height: calc(100vh - 62px);
+    height: calc(100vh - 62.5px);
     background-color: inherit;
 
     .wide__body {
@@ -22,7 +22,7 @@
     }
 
     @media (max-width: 600px) {
-      height: calc(100vh - 110px);
+      height: calc(100vh - 108.5px);
     }
   }
 }

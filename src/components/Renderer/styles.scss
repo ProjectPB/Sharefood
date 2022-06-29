@@ -1,7 +1,7 @@
 @use "/src/sass/variables" as *;
 
 .renderer {
-  overflow-y: scroll;
+  overflow-y: auto;
   flex: 1;
   height: 100%;
   position: relative;
@@ -14,7 +14,7 @@
     border-radius: 5px;
     outline: 1px solid $gray-border;
     box-shadow: $box-shadow;
-    margin: 20px 20px 5px 20px;
+    margin: 20px 20px 10px 20px;
   }
 
   .renderer__loading {

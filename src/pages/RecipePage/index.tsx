@@ -10,7 +10,7 @@ import { fetchRecipeDataStart, setRecipeData } from "../../redux/Recipe/recipe.a
 
 import Loading from "../../components/Loading";
 import NoData from "../../components/NoData";
-import Recipe from "../../components/RecipeRework";
+import Recipe from "../../components/Recipe";
 import MoreRecipes from '../../components/MoreRecipes';
 
 import "./styles.scss";

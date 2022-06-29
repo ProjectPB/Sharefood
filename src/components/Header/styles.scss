@@ -1,4 +1,5 @@
 @use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
 
 .header {
   display: flex;
@@ -8,22 +9,59 @@
   background-color: $color-primary;
   border-bottom: 1px solid $gray-border;
 
+  @media (max-width: 600px) {
+    padding: 10px 5px;
+    box-shadow: none;
+    margin-bottom: 0px;
+  }
+
   .header__left {
     display: flex;
     align-items: center;
     margin-right: 10px;
 
-    .MuiSvgIcon-root {
+    @media (max-width: 600px) {
+      margin-left: 5px;
+    }
+
+    .header__menuIcon {
+      width: 35px;
+      height: fit-content;
       cursor: pointer;
 
-      :hover {
-        opacity: 0.8;
+      &:hover {
+        opacity: 0.6;
       }
     }
 
     .header__logo {
       margin-left: 5px;
+      display: flex;
+      align-items: center;
       height: 100%;
+
+      @media (max-width: 600px) {
+        margin-left: 0px;
+      }
+
+      .header__languageContainer {
+        @include m.borders;
+        margin-left: 5px;
+        cursor: pointer;
+        position: relative;
+        user-select: none;
+
+        &:hover {
+          .header__language {
+            opacity: 0.6;
+          }
+        }
+
+        .header__language {
+          font-size: 12px;
+          font-weight: 400;
+        }
+      }
     }
   }
 
@@ -32,28 +70,19 @@
     align-items: center;
     margin-left: 10px;
 
-    .header__language {
-      cursor: pointer;
-      margin-right: 15px;
-      position: relative;
-      user-select: none;
-    }
-
-    .popup {
+    .header__avatar {
       margin-left: 15px;
       cursor: pointer;
 
       .avatarIcon {
         &:hover {
-          opacity: 0.8;
+          opacity: 0.6;
         }
       }
-    }
-  }
 
-  @media (max-width: 600px) {
-    padding: 10px 5px;
-    box-shadow: none;
-    margin-bottom: 0px;
+      @media (max-width: 600px) {
+        margin-left: 10px;
+      }
+    }
   }
 }

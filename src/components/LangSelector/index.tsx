@@ -28,12 +28,12 @@ const LangSelector: React.FC<Props> = ({ close }) => {
     <div className='langSelector'>
       <p className='langSelector__text'>{LANG.HEADER.SELECT_LANG}</p>
       <form className="langSelector__languages">
-        <div className="langSelector__language" onClick={() => handleChange}>
+        <div className="langSelector__language">
           <input type="radio" name="language" value="english" checked={language === 'english'} onChange={handleChange} />
           <p>{LANG.HEADER.LANG_ENG}</p>
         </div>
 
-        <div className="langSelector__language" onClick={() => handleChange}>
+        <div className="langSelector__language">
           <input type="radio" name="language" value="polish" checked={language === 'polish'} onChange={handleChange} />
           <p>{LANG.HEADER.LANG_PL}</p>
         </div>

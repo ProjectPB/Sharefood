@@ -30,13 +30,13 @@ const ProfilePopup: React.FC<Props> = ({ close }) => {
   return (
     <div className="profilePopup">
       <Link to={`user/${currentUser.uid}`} onClick={() => close()}>
-        <div className="userInfo">
+        <div className="profilePopup__action">
           <Avatar src={currentUser?.profilePic} alt={currentUser?.displayName} />
           <p>{currentUser?.displayName}</p>
         </div>
       </Link>
 
-      <div onClick={logout} className="logout">
+      <div onClick={logout} className="profilePopup__action">
         <ExitToApp />
         <p>{LANG.HEADER.LOGOUT}</p>
       </div>

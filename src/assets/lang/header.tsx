@@ -1,5 +1,5 @@
 export const ENG_HEADER = {
-  LANG: "English",
+  LANG: "EN",
   SEARCH: "Search...",
   SELECT_LANG: "Choose your language",
   LANG_ENG: "English",
@@ -10,7 +10,7 @@ export const ENG_HEADER = {
 }
 
 export const PL_HEADER = {
-  LANG: "Polski",
+  LANG: "PL",
   SEARCH: "Szukaj...",
   SELECT_LANG: "Wybierz język",
   LANG_ENG: "Angielski",

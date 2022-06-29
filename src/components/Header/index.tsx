@@ -60,9 +60,14 @@ const Header: React.FC = () => {
   return (
     <div className="header">
       <div className="header__left">
-        <Menu onClick={handleSidebar} fontSize="large" />
+        <Menu onClick={handleSidebar} className="header__menuIcon" />
         <div className="header__logo">
           <Logo />
+          <div className="header__languageContainer" ref={langMenuRef} onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>
+            <p className="header__language">{lang.HEADER.LANG}</p>
+
+            {langMenuIsOpen && <LangSelector close={() => setLangMenuIsOpen(false)} />}
+          </div>
         </div>
       </div>
 
@@ -70,19 +75,13 @@ const Header: React.FC = () => {
 
       {currentUser ? (
         <div className="header__right">
-          <div className="header__language" ref={langMenuRef}>
-            <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>{lang.HEADER.LANG}</p>
-
-            {langMenuIsOpen && <LangSelector close={() => setLangMenuIsOpen(false)} />}
-          </div>
-
           <Button handleClick={() => toggleRecipeModal()}>{lang.HEADER.CREATE}</Button>
 
           <Modal {...configRecipeModal}>
             <NewRecipe close={() => setRecipeModalIsOpen(false)} />
           </Modal>
 
-          <div className="popup" ref={profilePopupRef}>
+          <div className="header__avatar" ref={profilePopupRef}>
             <Avatar
               onClick={() => setProfileMenuIsOpen(!profileMenuIsOpen)}
               src={currentUser?.profilePic}
@@ -94,12 +93,6 @@ const Header: React.FC = () => {
         </div>
       ) : (
         <div className="header__right">
-          <div className="header__language" ref={langMenuRef}>
-            <p onClick={() => setLangMenuIsOpen(!langMenuIsOpen)}>{lang.HEADER.LANG}</p>
-
-            {langMenuIsOpen && <LangSelector close={() => setLangMenuIsOpen(false)} />}
-          </div>
-
           <Button handleClick={() => navigate("/auth")}>{lang.HEADER.LOGIN}</Button>
         </div >
       )

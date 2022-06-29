@@ -10,13 +10,14 @@ import {
   DateRange,
   Group,
   LocalDining,
-  Visibility,
+  ArrowDownward,
+  ArrowUpward,
 } from "@material-ui/icons";
 import { RecipeData, State } from '../../shared/types';
 import { handleDeleteRecipe } from '../../redux/Recipe/recipe.helpers';
 import { resetRecipes } from '../../redux/Recipes/recipes.actions';
 import { dislikeRecipeStart, likeRecipeStart } from '../../redux/Recipe/recipe.actions';
-import { translateType } from '../../shared/functions';
+import { translateTag, translateType } from '../../shared/functions';
 import { useLanguage } from '../../hooks';
 
 import Loading from '../Loading';
@@ -39,6 +40,8 @@ const Recipe: React.FC<Props> = ({ data }) => {
   const { currentUser, language } = useSelector(mapState);
   const { recipeId } = useParams<{ recipeId: string }>();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
 
   const handleLikes = () => {
     if (!currentUser) {
@@ -68,70 +71,74 @@ const Recipe: React.FC<Props> = ({ data }) => {
     }
   }
 
-  return isDeleting ? <Loading /> : (
-    <div className="recipe">
-      <h1 className="recipe__title">{data?.title}</h1>
+  return isDeleting ?
+    <div className="recipe__loading">
+      <Loading />
+    </div>
+    : (
+      <div className="recipe">
+        <h1 className="recipe__title">{data?.title}</h1>
 
-      <div className="recipe__main">
-        <img
-          className="recipe__image"
-          src={data?.image}
-          alt=""
-        />
+        <div className="recipe__top">
+          <div className="recipe__img">
+            {!loaded && <div className='recipe__img--loading__overlay' />}
+            <img src={data?.image} alt={data?.title} onLoad={() => setLoaded(true)} />
+          </div>
 
-        <div className="recipe__info">
-          <div className="recipe__infoCol">
-            <div className="recipe__time">
-              <DateRange />
-              <Moment locale={(language === 'polish') ? 'pl' : 'en'} format="MMMM DD YYYY" className="recipe__date">
-                {data?.timestamp?.toDate()}
-              </Moment>
+          <div className="recipe__data">
+            <div className="recipe__type">
+              <LocalDining className="card__icon" />
+              <p>{translateType(data?.type, language)}</p>
             </div>
 
             <div className="recipe__author" onClick={() => navigate(`/user/${data.authorId}`)}>
-              <Avatar
-                src={data?.profilePic}
-                alt={data?.username}
-              />
+              <Avatar src={data?.profilePic} alt={data?.username} />
               <p>{data?.username}</p>
             </div>
 
-            <div className="recipe__views">
-              <Visibility fontSize="large" />
-              <p>{data?.stats?.views + 1} {LANG.RECIPE.VIEWS}</p>
+            <div className="recipe__info">
+              <DateRange />
+              <Moment locale={(language === 'polish') ? 'pl' : 'en'} format={(language === 'polish') ? 'DD MMMM YYYY' : 'MMMM DD YYYY'} className="recipe__date">
+                {data?.timestamp?.toDate()}
+              </Moment> · {data?.stats?.views + 1} {LANG.RECIPE.VIEWS}
             </div>
 
-            {data?.authorId === currentUser?.uid && (
-              <div className="recipe__delete" onClick={deleteRecipe}>
-                <DeleteOutlined fontSize="large" />
-                <p>{LANG.RECIPE.DELETE_RECIPE}</p>
+
+            {data?.special && data?.special.length > 0 &&
+              <div className="recipe__tags">
+                {data?.special.map((special, id) => (
+                  <p className='recipe__tag' key={id}>{translateTag(special, language)}</p>
+                ))}
+              </div>}
+
+            <div className="recipe__userActions">
+              <div className="recipe__action" onClick={handleLikes}>
+                {!data?.liked ? <FavoriteBorderOutlined /> : <Favorite />}
+                <p>{data?.stats?.likesQuantity}</p>
               </div>
-            )}
-          </div>
 
-          <div className="recipe__infoCol">
-            <div className="recipe__type">
-              <LocalDining fontSize="large" />
-              <p>
-                {translateType(data?.type, language)}
-              </p>
-            </div>
-
-            <div className="recipe__favorite">
-              {!data?.liked ? (
-                <FavoriteBorderOutlined
-                  fontSize="large"
-                  onClick={handleLikes}
-                />
-              ) : (
-                <Favorite fontSize="large" onClick={handleLikes} />
+              {data?.authorId === currentUser?.uid && (
+                <div className="recipe__action" onClick={deleteRecipe}>
+                  <DeleteOutlined />
+                </div>
               )}
-              <p>{data?.stats?.likesQuantity}</p>
             </div>
           </div>
         </div>
 
-        <div className="recipe__body">
+        {
+          (data?.description && data?.description !== '<p></p>') &&
+          <div className="recipe__description">
+            <div className="recipe__descriptionHeader" onClick={() => setShowDescription(!showDescription)} >
+              <p>Description</p>
+              {!showDescription && <ArrowDownward fontSize='small' />}
+              {showDescription && <ArrowUpward fontSize='small' />}
+            </div>
+            {showDescription && <div className="recipe__fromHTML" dangerouslySetInnerHTML={{ __html: data?.description }} />}
+          </div>
+        }
+
+        <div className="recipe__preparation">
           <div className="recipe__ingredients">
             <div className="recipe__ingredientsHeader">
               <h2>{LANG.RECIPE.INGREDIENTS}</h2>
@@ -140,17 +147,16 @@ const Recipe: React.FC<Props> = ({ data }) => {
                 <p>{data?.portions}</p>
               </div>
             </div>
-            <div className="recipe__list" dangerouslySetInnerHTML={{ __html: data?.ingredients }} />
+            <div className="recipe__fromHTML" dangerouslySetInnerHTML={{ __html: data?.ingredients }} />
           </div>
 
           <div className="recipe__method">
             <h2>{LANG.RECIPE.METHOD}</h2>
-            <div className="recipe__list" dangerouslySetInnerHTML={{ __html: data?.method }} />
+            <div className="recipe__fromHTML" dangerouslySetInnerHTML={{ __html: data?.method }} />
           </div>
         </div>
-      </div>
-    </div >
-  )
+      </div >
+    )
 };
 
 export default Recipe;

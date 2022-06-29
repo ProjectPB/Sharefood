@@ -6,43 +6,44 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  right: 25px;
+  right: 15px;
   top: 55px;
   z-index: 999;
-  border-top-right-radius: 0px;
+  padding: 10px;
+  gap: 10px;
+  cursor: default;
 
-  .userInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid black;
-    padding: 10px;
-
-    p {
-      margin-top: 5px;
-    }
-
-    &:hover {
-      background-color: $gray-hover;
-      border-radius: 5px;
-    }
+  @media (max-width: 600px) {
+    right: 5px;
   }
 
-  .logout {
+  .profilePopup__action {
     display: flex;
     align-items: center;
     cursor: pointer;
-    justify-content: space-between;
     padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+
+    .MuiAvatar-root,
+    .MuiSvgIcon-root {
+      width: 25px;
+      height: fit-content;
+    }
 
     &:hover {
       background-color: $gray-hover;
-      border-radius: 5px;
     }
 
-    p {
-      margin-left: 5px;
+    &:first-child::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      content: "";
+      background: $gray-border;
+      width: calc(100% - 10px);
+      height: 1px;
     }
   }
 }

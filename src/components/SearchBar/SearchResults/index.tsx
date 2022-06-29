@@ -1,6 +1,6 @@
 import React from 'react';
 import { connectStateResults } from 'react-instantsearch-dom';
-import { AccountCircleOutlined, RestaurantOutlined } from '@material-ui/icons';
+import { Person, RestaurantOutlined } from '@material-ui/icons';
 
 import SearchHits from '../SearchHits';
 
@@ -23,7 +23,7 @@ const SearchResults = connectStateResults(({ searchResults, hideResults, indexNa
       {indexName === 'users' &&
         <div className="searchResults__headerWrapper">
           <p>Users</p>
-          <AccountCircleOutlined />
+          <Person />
         </div>}
 
       {searchResults?.hits.length === 0 && <p className="searchResults__none">Could not find {indexName}</p>}
