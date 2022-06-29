@@ -28,6 +28,21 @@ const AuthError: React.FC<Props> = ({ error }) => {
       case "EMAIL_NOT_FOUND":
         setNewErr(LANG.ERRORS.EMAIL_NOT_FOUND);
         break;
+      case "auth/user-not-found":
+        setNewErr(LANG.ERRORS.USER_NOT_FOUND);
+        break;
+      case "auth/email-already-exists":
+        setNewErr(LANG.ERRORS.EMAIL_ALREADY_EXISTS);
+        break;
+      case "auth/wrong-password":
+        setNewErr(LANG.ERRORS.WRONG_PASSWORD);
+        break;
+      case "auth/too-many-requests":
+        setNewErr(LANG.ERRORS.TOO_MANY_REQUESTS);
+        break;
+      case "auth/user-disabled":
+        setNewErr(LANG.ERRORS.USER_DISABLED);
+        break;
       default:
         setNewErr(error)
         break;

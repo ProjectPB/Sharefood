@@ -5,7 +5,6 @@
   flex: 1;
   height: 100%;
   position: relative;
-  padding: 15px 10px;
   background-color: $lightgray-background;
 
   .renderer__filters {
@@ -15,7 +14,7 @@
     border-radius: 5px;
     outline: 1px solid $gray-border;
     box-shadow: $box-shadow;
-    margin-bottom: 7.5px;
+    margin: 20px 20px 5px 20px;
   }
 
   .renderer__loading {

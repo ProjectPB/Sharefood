@@ -53,7 +53,8 @@ export function* emailSignIn({
       yield put(loadAuth(false));
     }
   } catch (err) {
-    errors.push(err.message.substring(10));
+    errors.push(err.code);
+    console.log(err.message);
     yield put(loadAuth(false));
     yield put(signUpError(errors));
   }
@@ -94,8 +95,7 @@ export function* signUpUser({
       yield put(loadAuth(false));
     }
   } catch (err) {
-    console.log(err);
-    errors.push(err.message.substring(10));
+    errors.push(err.code);
     yield put(signUpError(errors));
     yield put(loadAuth(false));
   }
