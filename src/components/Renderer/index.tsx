@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { FiltersTypes, State } from "../../shared/types";
 import { fetchRecipesStart, setScrollDistanceStart } from "../../redux/Recipes/recipes.actions";
@@ -30,12 +30,12 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeStats }) 
   const LANG = useLanguage();
   const topRef = useRef<HTMLDivElement>(null);
   const recipesContainerRef = useRef<HTMLDivElement>(null);
-  const recipesRef = createRef<HTMLDivElement>();
   const [loadMore, setLoadMore] = useState(false);
   const { data, queryDoc, isLastPage, scrollDistance } = useRecipeData(filters.store);
   const [filtersChanged, setFiltersChanged] = useState(false);
   const [rendered, setRendered] = useState(false);
   const [distance, setDistance] = useState(0);
+  const [recipesHeight, setRecipesHeight] = useState(0);
 
   useEffect(() => {
     setRendered(true);
@@ -63,15 +63,14 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeStats }) 
   }, [data.length, dispatch, filtersChanged]);
 
   useEffect(() => {
-    if (data?.length !== 0 && !isLastPage && recipesRef.current && recipesContainerRef.current) {
+    if (data?.length !== 0 && !isLastPage && recipesHeight > 20) {
       const { clientHeight } = recipesContainerRef.current;
-      const { scrollHeight } = recipesRef.current
-      if (scrollHeight < clientHeight) {
+      if (recipesHeight < clientHeight) {
         fetchMoreRecipes();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, recipesContainerRef.current?.clientHeight, recipesRef.current?.scrollHeight])
+  }, [data, isLastPage, recipesContainerRef.current?.clientHeight, recipesHeight])
 
   useEffect(() => {
     recipesContainerRef.current.scrollTo(0, scrollDistance);
@@ -96,8 +95,8 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeStats }) 
   }
 
   const recipesConfig = {
-    ref: recipesRef,
     data: data,
+    updateHeight: (height: number) => setRecipesHeight(height),
     keepScroll: () => dispatch(setScrollDistanceStart({ distance: distance, store: filters.store })),
   }
 
@@ -149,7 +148,9 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeStats }) 
         </div>
       }
 
-      {loaded && <Recipes {...recipesConfig} />}
+      {loaded &&
+        <Recipes {...recipesConfig} />
+      }
 
       {(loadMore && !isLastPage) &&
         <div className="renderer__loadingMore">

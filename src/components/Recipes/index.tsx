@@ -1,4 +1,4 @@
-import React, { LegacyRef } from 'react'
+import React, { LegacyRef, useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { fillWithHiddenCards } from '../../shared/functions'
 import { Recipe, State } from '../../shared/types'
@@ -15,18 +15,24 @@ interface Props {
       distance: number;
       store: string;
     };
-  }
+  },
+  updateHeight: (height: number) => void,
 }
 
 const mapState = ({ ui }: State) => ({
   sidebarOpen: ui.sidebarOpen,
 });
 
-const Recipes = React.forwardRef(({ data, keepScroll }: Props, ref: LegacyRef<HTMLDivElement>) => {
+const Recipes = (({ data, keepScroll, updateHeight }: Props) => {
   const { sidebarOpen } = useSelector(mapState);
+  const recipesRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    updateHeight(recipesRef.current.clientHeight)
+  })
 
   return (
-    <div ref={ref}
+    <div ref={recipesRef}
       className={`recipes ${sidebarOpen ? "recipes--narrow" : "recipes--wide"}`}
     >
       {data?.map(({ id, data }) => (

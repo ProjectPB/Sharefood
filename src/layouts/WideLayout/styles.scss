@@ -5,24 +5,11 @@
 
   .wide__wrapper {
     display: flex;
-    height: calc(100vh - 62.5px);
+    height: calc(100vh - 60px);
     background-color: inherit;
 
-    .wide__body {
-      overflow: hidden;
-      flex: 1;
-      background-color: inherit;
-      height: 100%;
-    }
-
-    .wide__refresh {
-      display: flex;
-      justify-content: center;
-      padding: 10px 0;
-    }
-
     @media (max-width: 600px) {
-      height: calc(100vh - 108.5px);
+      height: calc(100vh - 106px);
     }
   }
 }
