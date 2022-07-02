@@ -1,4 +1,4 @@
-import React, { LegacyRef, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, } from 'react'
 import { useSelector } from 'react-redux'
 import { fillWithHiddenCards } from '../../shared/functions'
 import { Recipe, State } from '../../shared/types'

@@ -32,6 +32,7 @@
     "react-scripts": "^5.0.1",
     "react-select": "^5.3.2",
     "redux": "^4.0.5",
+    "redux-deep-persist": "^1.0.6",
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.3",
