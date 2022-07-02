@@ -28,6 +28,11 @@ const INITIAL_STATE: Recipes = {
       queryDoc: null,
       isLastPage: false,
     },
+    relatedRecipes: {
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }
   },
   scrollDistance: {
     main: 0,
@@ -68,6 +73,11 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
       return {
         ...state,
         recipes: { ...state.recipes, userRecipes: action.payload },
+      };
+    case recipesTypes.SET_RELATED_RECIPES:
+      return {
+        ...state,
+        recipes: { ...state.recipes, relatedRecipes: action.payload },
       };
     case recipesTypes.SET_MAIN_SCROLL_DISTANCE:
       return {

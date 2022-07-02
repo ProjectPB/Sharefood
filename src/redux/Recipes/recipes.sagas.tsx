@@ -1,7 +1,7 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance } from "./recipes.actions";
+import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes } from "./recipes.actions";
 import { handleFetchRecipes } from "./recipes.helpers";
-import { loadRecipes } from "../Loading/loading.actions";
+import { loadRecipes, loadRelatedRecipes } from "../Loading/loading.actions";
 import { SingleRecipes } from "../../shared/types";
 import recipesTypes from "./recipes.types";
 
@@ -13,29 +13,38 @@ export function* fetchRecipes({
     switch (payload.store) {
       case "main": {
         yield put(setMainRecipes(renderedRecipes));
+        yield put(loadRecipes(true));
         break;
       }
       case "all": {
         yield put(setAllRecipes(renderedRecipes));
+        yield put(loadRecipes(true));
         break;
       }
       case "my": {
         yield put(setMyRecipes(renderedRecipes));
+        yield put(loadRecipes(true));
         break;
       }
       case "favorite": {
         yield put(setFavoriteRecipes(renderedRecipes));
+        yield put(loadRecipes(true));
         break;
       }
       case "user": {
         yield put(setUserRecipes(renderedRecipes));
+        yield put(loadRecipes(true));
+        break;
+      }
+      case "related": {
+        yield put(setRelatedRecipes(renderedRecipes));
+        yield put(loadRelatedRecipes(true));
         break;
       }
       default: {
         break;
       }
     }
-    yield put(loadRecipes(true));
   } catch (err) {
     alert(err.message);
   }

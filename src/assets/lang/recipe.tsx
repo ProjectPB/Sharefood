@@ -11,6 +11,7 @@ export const ENG_RECIPE = {
   DRINK: "drink",
   DESSERT: "dessert",
   OTHER: "other",
+  MORE: "More recipes",
 };
 
 export const PL_RECIPE = {
@@ -25,5 +26,6 @@ export const PL_RECIPE = {
   MAIN: "danie główne",
   DRINK: "napój",
   DESSERT: "deser",
-  OTHER: "inne"
+  OTHER: "inne",
+  MORE: "Więcej przepisów",
 };

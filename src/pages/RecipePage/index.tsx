@@ -3,9 +3,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { loadRecipeData } from "../../redux/Loading/loading.actions";
+import { loadRecipeData, loadRelatedRecipes } from "../../redux/Loading/loading.actions";
 import { State } from "../../shared/types";
-import { resetScrollDistancesStart } from "../../redux/Recipes/recipes.actions";;
+import { resetScrollDistancesStart, setRelatedRecipes } from "../../redux/Recipes/recipes.actions";;
 import { fetchRecipeDataStart, setRecipeData } from "../../redux/Recipe/recipe.actions";;
 
 import Loading from "../../components/Loading";
@@ -33,6 +33,8 @@ const RecipePage: React.FC = () => {
       dispatch(loadRecipeData(false));
       dispatch(resetScrollDistancesStart());
       dispatch(setRecipeData(null));
+      dispatch(setRelatedRecipes({ data: [], queryDoc: null, isLastPage: null }));
+      dispatch(loadRelatedRecipes(false));
     };
   }, [recipeId, currentUser?.uid, dispatch]);
 
@@ -47,7 +49,7 @@ const RecipePage: React.FC = () => {
       ) : (
         <div className="recipePage__wrapper">
           <Recipe data={recipeData} />
-          <MoreRecipes />
+          <MoreRecipes filter={recipeData.type} excludeId={recipeId} />
         </div>
       )}
     </div>

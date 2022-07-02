@@ -21,6 +21,11 @@ export const setMyRecipes = (recipes: SingleRecipes) => ({
   payload: recipes,
 });
 
+export const setRelatedRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_RELATED_RECIPES,
+  payload: recipes
+})
+
 export const setUserRecipes = (recipes: SingleRecipes) => ({
   type: recipesTypes.SET_USER_RECIPES,
   payload: recipes,

@@ -33,6 +33,11 @@ const useRecipeData = (store: string) => {
         ...recipes.userRecipes, scrollDistance: scrollDistance.user
       })
     }
+    case 'related': {
+      return ({
+        ...recipes.relatedRecipes, scrollDistance: null,
+      })
+    }
     default: {
       return;
     }

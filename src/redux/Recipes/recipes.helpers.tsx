@@ -1,3 +1,4 @@
+import firebase from "firebase/compat/app";
 import { db } from "../../firebase/utils";
 import { Query } from "@firebase/firestore-types";
 import { FiltersTypes } from "../../shared/types";
@@ -23,9 +24,14 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
       statsFilter,
       typeFilter,
       counter,
+      excludeId,
       startAfterDoc,
       persistProducts = [],
     } = filters;
+
+    if (excludeId) {
+      ref = ref.where(firebase.firestore.FieldPath.documentId(), '!=', excludeId)
+    }
 
     if (authorFilter) {
       ref = ref.where("authorId", "==", authorFilter);
@@ -35,6 +41,8 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
       ref = ref.orderBy("stats.likesQuantity", "desc");
     } else if (statsFilter === 'views') {
       ref = ref.orderBy('stats.views', 'desc')
+    } else if (excludeId) {
+      ref = ref.orderBy(firebase.firestore.FieldPath.documentId());
     } else {
       ref = ref.orderBy("timestamp", "desc");
     }

@@ -14,3 +14,8 @@ export const loadAuth = (state: boolean) => ({
   type: loadingTypes.LOAD_AUTH,
   payload: state,
 });
+
+export const loadRelatedRecipes = (state: boolean) => ({
+  type: loadingTypes.LOAD_RELATED_RECIPES,
+  payload: state,
+})

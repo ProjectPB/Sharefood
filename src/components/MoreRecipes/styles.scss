@@ -3,6 +3,7 @@
 
 .moreRecipes {
   @include m.borders;
+  position: relative;
   width: 100%;
   flex: 0.2;
   padding: 10px;
@@ -15,9 +16,28 @@
     border-bottom: 1px solid $gray-border;
   }
 
+  .moreRecipes__loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 100%;
+    width: 100%;
+    padding: 0 20px;
+
+    @media (max-width: 992px) {
+      position: static;
+      top: 0;
+      left: 0;
+      transform: none;
+      margin: 0 auto;
+    }
+  }
+
   .moreRecipes__cards {
     display: flex;
     flex-direction: column;
+    min-height: calc(100% - 40px);
     width: 100%;
     gap: 15px;
     background-color: $lightgray-background;
@@ -29,50 +49,6 @@
       flex-direction: row;
       overflow-x: auto;
       border-radius: 0;
-    }
-
-    .moreRecipes__card {
-      display: flex;
-      position: relative;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      @include m.borders;
-      background-color: white;
-      padding: 0;
-      border-radius: 10px;
-      cursor: pointer;
-      min-width: 200px;
-
-      .moreRecipes__cardImg--loading-overlay {
-        @extend img;
-        @include m.loadingAnimation;
-        position: absolute;
-        top: 0;
-        background-color: $darkgray-background;
-        z-index: 2;
-      }
-
-      img {
-        z-index: 1;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-        width: 100%;
-        aspect-ratio: 4 / 3;
-      }
-
-      p {
-        padding: 4px;
-        font-size: 18px;
-        font-weight: 400;
-        word-break: break-word;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        text-align: center;
-        overflow: hidden;
-        margin: auto;
-      }
     }
   }
 }

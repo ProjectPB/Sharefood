@@ -1,0 +1,56 @@
+@use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
+
+.moreCard {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include m.borders;
+  background-color: white;
+  padding: 0;
+  border-radius: 10px;
+  cursor: pointer;
+  min-width: 200px;
+
+  &:hover {
+    opacity: 0.6;
+  }
+
+  .moreCardImg--loading-overlay {
+    @extend img;
+    @include m.loadingAnimation;
+    position: absolute;
+    top: 0;
+    background-color: $darkgray-background;
+    z-index: 2;
+  }
+
+  img {
+    z-index: 1;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  .moreCard__title {
+    height: 50px;
+    display: grid;
+    place-items: center;
+    padding: 3px;
+
+    p {
+      font-size: 18px;
+      font-weight: 400;
+      word-break: break-word;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      text-align: center;
+      overflow: hidden;
+      margin: 0;
+    }
+  }
+}

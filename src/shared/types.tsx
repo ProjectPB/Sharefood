@@ -24,6 +24,7 @@ export interface Credentials {
 export interface Loading {
   recipesLoaded: boolean;
   recipeDataLoaded: boolean;
+  relatedRecipesLoaded: boolean;
   authLoading: boolean;
 }
 
@@ -69,6 +70,7 @@ export interface FiltersTypes {
   persistProducts?: Recipe[];
   store?: string,
   rendered?: boolean;
+  excludeId?: string;
 }
 
 export interface Recipe {
@@ -89,6 +91,7 @@ export interface Recipes {
     myRecipes: SingleRecipes,
     favoriteRecipes: SingleRecipes,
     userRecipes: SingleRecipes,
+    relatedRecipes: SingleRecipes,
   }
   scrollDistance: {
     main: number;

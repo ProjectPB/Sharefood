@@ -4,6 +4,7 @@ import { Loading } from "../../shared/types";
 const INITIAL_STATE: Loading = {
   recipesLoaded: false,
   recipeDataLoaded: false,
+  relatedRecipesLoaded: false,
   authLoading: false,
 };
 
@@ -27,6 +28,11 @@ const loadingReducer = (
         ...state,
         authLoading: action.payload,
       };
+    case loadingTypes.LOAD_RELATED_RECIPES:
+      return {
+        ...state,
+        relatedRecipesLoaded: action.payload,
+      }
     default:
       return state;
   }
