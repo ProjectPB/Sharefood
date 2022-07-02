@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import Select from 'react-select';
+import { useLanguage } from '../../../hooks';
 import { Option } from '../../../shared/types';
 
 import './../../forms/Select/styles.scss';
@@ -13,6 +14,7 @@ interface Props {
 
 const Special: React.FC<Props> = ({ label, options, update, placeholder }) => {
   const selectRef = useRef<any>();
+  const LANG = useLanguage();
 
   return (
     <fieldset className='select' tabIndex={1} onFocus={() => selectRef.current.focus()}>
@@ -26,6 +28,7 @@ const Special: React.FC<Props> = ({ label, options, update, placeholder }) => {
         name="special"
         options={options}
         placeholder={placeholder}
+        noOptionsMessage={() => LANG.MISC.SELECT_NO_OPTIONS}
       />
     </fieldset>
   )
