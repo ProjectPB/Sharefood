@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import Select from 'react-select';
 import { useLanguage } from '../../../hooks';
 import { Option } from '../../../shared/types';
@@ -12,12 +12,11 @@ interface Props {
   update: (option: Option[]) => void
 }
 
-const Special: React.FC<Props> = ({ label, options, update, placeholder }) => {
-  const selectRef = useRef<any>();
+const Tags: React.FC<Props> = ({ label, options, update, placeholder }) => {
   const LANG = useLanguage();
 
   return (
-    <fieldset className='select' tabIndex={1} onFocus={() => selectRef.current.focus()}>
+    <fieldset className='select'>
       <legend>{label}</legend>
 
       <Select
@@ -25,7 +24,7 @@ const Special: React.FC<Props> = ({ label, options, update, placeholder }) => {
         onChange={update}
         classNamePrefix='field'
         isMulti
-        name="special"
+        name="tags"
         options={options}
         placeholder={placeholder}
         noOptionsMessage={() => LANG.MISC.SELECT_NO_OPTIONS}
@@ -34,4 +33,4 @@ const Special: React.FC<Props> = ({ label, options, update, placeholder }) => {
   )
 }
 
-export default Special;
+export default Tags;

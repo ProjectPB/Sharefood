@@ -13,7 +13,7 @@ import Button from "../forms/Button";
 import Loading from "../Loading";
 import Title from './Title';
 import Type from './Type';
-import Special from './Special';
+import Tags from './Tags';
 import Portions from './Portions';
 import Picture from './Picture';
 import TextEditor from "../forms/TextEditor";
@@ -37,7 +37,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
   const [portions, setPortions] = useState(1);
-  const [special, setSpecial] = useState([]);
+  const [tags, setTags] = useState([]);
   const [imageHigh, setImageHigh] = useState(null);
   const [imageLow, setImageLow] = useState(null);
   const [cropper, setCropper] = useState<any>();
@@ -124,7 +124,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         title: capitalize(title),
         description: description,
         ingredients: ingredients,
-        special: getValuesFromSelect(special),
+        tags: getValuesFromSelect(tags),
         method: method,
         portions: portions,
         imgFileHigh: imageHigh,
@@ -194,12 +194,12 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         setType(option.value);
       },
     },
-    special: {
-      options: LANG.NEW_RECIPE.SPECIAL_OPTIONS,
+    tags: {
+      options: LANG.NEW_RECIPE.TAGS_OPTIONS,
       placeholder: LANG.NEW_RECIPE.SELECT_PLACEHOLDER,
-      label: LANG.NEW_RECIPE.SPECIAL,
+      label: LANG.NEW_RECIPE.TAGS,
       update: (option: Option[]) => {
-        setSpecial(option);
+        setTags(option);
       },
     },
     submitButton: {
@@ -218,7 +218,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         <TextEditor {...config.method} />
         <Portions {...config.portions} />
         <Type {...config.type} />
-        <Special {...config.special} />
+        <Tags {...config.tags} />
         <Picture {...config.picture} />
         {loading && <Loading />}
         <div className="newRecipe__button">

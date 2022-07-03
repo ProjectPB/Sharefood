@@ -4,7 +4,7 @@ export const ENG_NEW_RECIPE = {
   DESCRIPTION: "Description (optional)",
   INGREDIENTS: "Ingredients",
   METHOD: "Method",
-  SPECIAL: "Special (optional)",
+  TAGS: "Tags (optional)",
   TYPE: "Type",
   PORTIONS: "Portions",
   CREATE: "Create",
@@ -16,7 +16,7 @@ export const ENG_NEW_RECIPE = {
   REMOVE_IMG: "REMOVE",
   ACCEPT_IMG: "ACCEPT",
   SELECT_PLACEHOLDER: "Select",
-  SPECIAL_OPTIONS: [
+  TAGS_OPTIONS: [
     {
       value: 'party',
       label: 'Party'
@@ -72,7 +72,7 @@ export const PL_NEW_RECIPE = {
   DESCRIPTION: "Opis (opcjonalnie)",
   INGREDIENTS: "Składniki",
   METHOD: "Sposób wykonania",
-  SPECIAL: "Specjalne (opcjonalnie)",
+  TAGS: "Tagi (opcjonalnie)",
   TYPE: "Posiłek",
   PORTIONS: "Liczba porcji",
   CREATE: "Utwórz",
@@ -84,7 +84,7 @@ export const PL_NEW_RECIPE = {
   REMOVE_IMG: "Usuń",
   ACCEPT_IMG: "Akceptuj",
   SELECT_PLACEHOLDER: "Wybierz",
-  SPECIAL_OPTIONS: [
+  TAGS_OPTIONS: [
     {
       value: 'party',
       label: 'Impreza'

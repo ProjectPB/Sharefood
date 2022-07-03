@@ -37,7 +37,7 @@ export interface RecipeData {
   image?: string;
   imageLow?: string;
   ingredients: string;
-  special: string[];
+  tags: string[];
   likesUsers?: string[];
   liked?: boolean;
   method: string;
@@ -55,7 +55,7 @@ export interface NewRecipeData extends RecipeData {
   handleAdd: (val: boolean) => void;
   imgFileHigh: any;
   imgFileLow: any;
-  special: string[],
+  tags: string[],
 }
 
 export interface FiltersTypes {

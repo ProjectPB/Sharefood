@@ -104,10 +104,10 @@ const Recipe: React.FC<Props> = ({ data }) => {
             </div>
 
 
-            {data?.special && data?.special.length > 0 &&
+            {data?.tags && data?.tags.length > 0 &&
               <div className="recipe__tags">
-                {data?.special.map((special, id) => (
-                  <p className='recipe__tag' key={id}>{translateTag(special, language)}</p>
+                {data?.tags.map((tag, id) => (
+                  <p className='recipe__tag' key={id}>{translateTag(tag, language)}</p>
                 ))}
               </div>}
 
