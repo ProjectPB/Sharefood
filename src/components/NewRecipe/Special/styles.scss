@@ -1,0 +1,15 @@
+@use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
+
+.select {
+  @include m.input;
+  background-color: $lightgray-background;
+
+  legend {
+    @include m.legend;
+  }
+
+  .field {
+    @include m.field;
+  }
+}

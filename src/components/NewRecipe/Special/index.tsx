@@ -3,7 +3,7 @@ import Select from 'react-select';
 import { useLanguage } from '../../../hooks';
 import { Option } from '../../../shared/types';
 
-import './../../forms/Select/styles.scss';
+import './styles.scss';
 
 interface Props {
   options: Option[],

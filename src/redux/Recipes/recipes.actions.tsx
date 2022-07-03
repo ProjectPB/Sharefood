@@ -79,7 +79,7 @@ export const setTypeFilter = (filter: string) => ({
   payload: filter,
 })
 
-export const setStatsFilter = (filter: string) => ({
-  type: recipesTypes.SET_STATS_FILTER,
+export const setSortFilter = (filter: string) => ({
+  type: recipesTypes.SET_SORT_FILTER,
   payload: filter,
 })

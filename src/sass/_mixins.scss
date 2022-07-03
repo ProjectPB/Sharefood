@@ -84,3 +84,45 @@
     background-position: 400px 0;
   }
 }
+
+@mixin field {
+  &__control {
+    background-color: $lightgray-background;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    text-transform: capitalize;
+  }
+
+  &__menu {
+    border-radius: 10px;
+    box-shadow: $box-shadow;
+    outline: 1px solid $gray-border;
+    z-index: 3;
+    text-transform: capitalize;
+
+    > div {
+      padding: 0;
+      border-radius: 10px;
+    }
+  }
+
+  &__option {
+    background-color: white;
+    padding: 10px;
+    font-size: 16px;
+    color: black;
+
+    &--is-selected {
+      color: rgba(0, 0, 0, 0.3);
+    }
+
+    &--is-focused,
+    &:active {
+      background-color: $gray-hover;
+      cursor: pointer;
+    }
+  }
+}

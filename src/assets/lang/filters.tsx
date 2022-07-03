@@ -2,43 +2,43 @@ export const ENG_FILTERS = {
   SORT: "Sort by",
   TYPE: "Type",
   typeFilters: [{
-    name: 'all',
+    label: 'all',
     value: "all",
   },
   {
-    name: "breakfast",
+    label: "breakfast",
     value: "breakfast",
   },
   {
-    name: "appetizer",
+    label: "appetizer",
     value: "appetizer",
   },
   {
-    name: "soup",
+    label: "soup",
     value: "soup",
   },
   {
-    name: "main",
+    label: "main",
     value: "main",
   },
   {
-    name: "drink",
+    label: "drink",
     value: "drink",
   },
   {
-    name: "dessert",
+    label: "dessert",
     value: "dessert",
   },
   {
-    name: "other",
+    label: "other",
     value: "other",
   }],
-  statsFilters: [{
-    name: 'Views',
+  sortFilters: [{
+    label: 'Views',
     value: "views",
   },
   {
-    name: "Likes",
+    label: "Likes",
     value: "likes",
   }]
 }
@@ -47,43 +47,43 @@ export const PL_FILTERS = {
   SORT: "Sortuj",
   TYPE: "Posiłek",
   typeFilters: [{
-    name: 'Wszystkie',
+    label: 'Wszystkie',
     value: "all",
   },
   {
-    name: "śniadanie",
+    label: "śniadanie",
     value: "breakfast",
   },
   {
-    name: "przystawka",
+    label: "przystawka",
     value: "appetizer",
   },
   {
-    name: "zupa",
+    label: "zupa",
     value: "soup",
   },
   {
-    name: "danie główne",
+    label: "danie główne",
     value: "main",
   },
   {
-    name: "napój",
+    label: "napój",
     value: "drink",
   },
   {
-    name: "deser",
+    label: "deser",
     value: "dessert",
   },
   {
-    name: "inne",
+    label: "inne",
     value: "other",
   }],
-  statsFilters: [{
-    name: 'wyświetlenia',
+  sortFilters: [{
+    label: 'wyświetlenia',
     value: "views",
   },
   {
-    name: "polubienia",
+    label: "polubienia",
     value: "likes",
   }]
 }

@@ -140,3 +140,11 @@ export const getValuesFromSelect = (array: Option[]) => {
   let result = array.map(option => option.value);
   return result
 }
+
+export const getLabelFromValue = (array: Option[], value: string) => {
+  let obj = array.find(obj => {
+    return obj.value === value;
+  });
+
+  return (obj.label);
+}

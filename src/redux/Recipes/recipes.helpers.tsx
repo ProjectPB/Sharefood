@@ -21,7 +21,7 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
       authorFilter,
       userId,
       favoriteFilter,
-      statsFilter,
+      sortFilter,
       typeFilter,
       counter,
       excludeId,
@@ -37,9 +37,9 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
       ref = ref.where("authorId", "==", authorFilter);
     }
 
-    if (statsFilter === 'likes') {
+    if (sortFilter === 'likes') {
       ref = ref.orderBy("stats.likesQuantity", "desc");
-    } else if (statsFilter === 'views') {
+    } else if (sortFilter === 'views') {
       ref = ref.orderBy('stats.views', 'desc')
     } else if (excludeId) {
       ref = ref.orderBy(firebase.firestore.FieldPath.documentId());

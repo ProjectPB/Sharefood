@@ -1,0 +1,30 @@
+@use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
+
+.filter {
+  display: flex;
+  align-items: center;
+  padding: 9.5px 10px;
+  margin: 0 5px;
+
+  p {
+    font-size: 16px;
+    font-weight: 400;
+    min-width: 60px;
+    margin-right: 5px;
+    color: $gray-text;
+  }
+
+  .css-b62m3t-container {
+    width: 100%;
+
+    &:focus-within {
+      outline: 2px solid $color-secondary;
+      border-radius: 10px;
+    }
+
+    .field {
+      @include m.field;
+    }
+  }
+}

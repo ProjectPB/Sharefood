@@ -42,8 +42,8 @@ const INITIAL_STATE: Recipes = {
     user: 0,
   },
   filters: {
+    sort: "views",
     type: "all",
-    stats: "views",
   }
 };
 
@@ -104,11 +104,11 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         scrollDistance: { ...state.scrollDistance, user: action.payload }
       }
-    case recipesTypes.SET_STATS_FILTER:
+    case recipesTypes.SET_SORT_FILTER:
       return {
         ...state,
         filters: {
-          ...state.filters, stats: action.payload,
+          ...state.filters, sort: action.payload,
         }
       }
     case recipesTypes.SET_TYPE_FILTER:

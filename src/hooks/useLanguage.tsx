@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 
 import { ENG_MISC, PL_MISC, ENG_RECIPE, ENG_HEADER, ENG_SIDEBAR, ENG_FILTERS, ENG_NEW_RECIPE, ENG_AUTH, ENG_ERRORS, PL_HEADER, PL_SIDEBAR, PL_FILTERS, PL_NEW_RECIPE, PL_AUTH, PL_ERRORS, PL_RECIPE } from "../assets/lang";
 
-
 const mapState = ({ ui }: State) => ({
   language: ui.language
 })

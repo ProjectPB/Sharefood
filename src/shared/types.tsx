@@ -61,7 +61,7 @@ export interface NewRecipeData extends RecipeData {
 export interface FiltersTypes {
   queryFilter?: string;
   counter?: number;
-  statsFilter?: string;
+  sortFilter?: string;
   userId?: string;
   typeFilter?: string,
   authorFilter?: string;
@@ -102,7 +102,7 @@ export interface Recipes {
   }
   filters: {
     type: string,
-    stats: string,
+    sort: string,
   }
 }
 

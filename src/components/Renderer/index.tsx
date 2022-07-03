@@ -1,30 +1,30 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { FiltersTypes, State } from "../../shared/types";
+import { FiltersTypes, Option, State } from "../../shared/types";
 import { fetchRecipesStart, setScrollDistanceStart } from "../../redux/Recipes/recipes.actions";
 import { loadRecipes } from '../../redux/Loading/loading.actions';
 import { useLanguage, useRecipeData } from '../../hooks';
-import { invokeOnBottom } from '../../shared/functions';
+import { getLabelFromValue, invokeOnBottom } from '../../shared/functions';
 
 import Recipes from '../Recipes';
 import Loading from '../Loading';
 import NoData from '../NoData';
 import Profile from '../Profile';
-import Filters from '../Filters';
+import CustomSelect from '../forms/CustomSelect';
 
 import "./styles.scss";
 
 interface Props {
   filters: FiltersTypes;
-  changeType?: (name: string) => void;
-  changeStats?: (name: string) => void;
+  changeSort?: (option: string) => void;
+  changeType?: (option: string) => void;
 }
 
 const mapState = ({ loading }: State) => ({
   loaded: loading.recipesLoaded,
 });
 
-const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeStats }) => {
+const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort }) => {
   const dispatch = useDispatch();
   const { loaded } = useSelector(mapState);
   const LANG = useLanguage();
@@ -46,7 +46,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeStats }) 
       setRendered(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.counter, filters.typeFilter, filters.statsFilter, filters.userId]);
+  }, [filters.counter, filters.typeFilter, filters.sortFilter, filters.userId]);
 
   useEffect(() => {
     if (data.length === 0 && !isLastPage) {
@@ -108,27 +108,25 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeStats }) 
     >
       <div ref={topRef} />
 
-      {(filters.statsFilter || filters.typeFilter) &&
-        <div className="renderer__filters">
-          {filters.statsFilter &&
-            <Filters
-              type="stats"
-              name={LANG.FILTERS.SORT}
-              filters={LANG.FILTERS.statsFilters}
-              update={(val) => changeStats(val)}
-              activeFilter={filters.statsFilter}
+      {(filters.store === 'all') &&
+        <div className="renderer__filtersContainer">
+          <div className="renderer__filters">
+            <CustomSelect
+              type="sort"
+              label={LANG.FILTERS.SORT}
+              filters={LANG.FILTERS.sortFilters}
+              update={(option: Option) => changeSort(option.value)}
+              value={{ label: getLabelFromValue(LANG.FILTERS.sortFilters, filters.sortFilter), value: filters.sortFilter }}
             />
-          }
 
-          {filters.typeFilter &&
-            <Filters
+            <CustomSelect
               type="type"
-              name={LANG.FILTERS.TYPE}
+              label={LANG.FILTERS.TYPE}
               filters={LANG.FILTERS.typeFilters}
-              update={(val) => changeType(val)}
-              activeFilter={filters.typeFilter}
+              update={(option: Option) => changeType(option.value)}
+              value={{ label: getLabelFromValue(LANG.FILTERS.typeFilters, filters.typeFilter), value: filters.typeFilter }}
             />
-          }
+          </div>
         </div>
       }
 
