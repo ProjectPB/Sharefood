@@ -3,11 +3,6 @@ import { Recipes } from "../../shared/types";
 
 const INITIAL_STATE: Recipes = {
   recipes: {
-    mainRecipes: {
-      data: [],
-      queryDoc: null,
-      isLastPage: false,
-    },
     allRecipes: {
       data: [],
       queryDoc: null,
@@ -50,11 +45,6 @@ const INITIAL_STATE: Recipes = {
 
 const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: Recipes }) => {
   switch (action.type) {
-    case recipesTypes.SET_MAIN_RECIPES:
-      return {
-        ...state,
-        recipes: { ...state.recipes, mainRecipes: action.payload },
-      };
     case recipesTypes.SET_ALL_RECIPES:
       return {
         ...state,

@@ -6,11 +6,6 @@ export const fetchRecipesStart = (filters: FiltersTypes) => ({
   payload: filters,
 });
 
-export const setMainRecipes = (recipes: SingleRecipes) => ({
-  type: recipesTypes.SET_MAIN_RECIPES,
-  payload: recipes,
-});
-
 export const setAllRecipes = (recipes: SingleRecipes) => ({
   type: recipesTypes.SET_ALL_RECIPES,
   payload: recipes,

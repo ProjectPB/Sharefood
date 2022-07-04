@@ -1,5 +1,5 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainRecipes, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes } from "./recipes.actions";
+import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes } from "./recipes.actions";
 import { handleFetchRecipes } from "./recipes.helpers";
 import { loadRecipes, loadRelatedRecipes } from "../Loading/loading.actions";
 import { SingleRecipes } from "../../shared/types";
@@ -11,11 +11,6 @@ export function* fetchRecipes({
   try {
     const renderedRecipes: SingleRecipes = yield handleFetchRecipes(payload);
     switch (payload.store) {
-      case "main": {
-        yield put(setMainRecipes(renderedRecipes));
-        yield put(loadRecipes(true));
-        break;
-      }
       case "all": {
         yield put(setAllRecipes(renderedRecipes));
         yield put(loadRecipes(true));
@@ -56,11 +51,6 @@ export function* onFetchRecipesStart() {
 
 export function* resetRecipes() {
   try {
-    yield put(setMainRecipes({
-      data: [],
-      queryDoc: null,
-      isLastPage: false,
-    }));
     yield put(setAllRecipes({
       data: [],
       queryDoc: null,

@@ -1,0 +1,144 @@
+@use "./../../sass/variables" as *;
+@use "./../../sass/mixins" as m;
+
+.homepage {
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+
+  .homepage__container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    gap: 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+
+    .banner {
+      @include m.borders;
+      width: 100%;
+      padding: 15px;
+
+      h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: 500;
+      }
+
+      .banner__wrapper {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        height: fit-content;
+        border-radius: 10px;
+        width: 100%;
+        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
+
+        .banner__img {
+          position: relative;
+          border-radius: 10px;
+          cursor: pointer;
+
+          img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: contain;
+          }
+
+          p {
+            position: absolute;
+            bottom: 0;
+            padding: 15px;
+            font-size: 20px;
+            width: 100%;
+            text-align: center;
+            background-color: rgba(164, 61, 51, 0.5);
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            backdrop-filter: blur(2px);
+            color: white;
+            border-top: rgb(164, 61, 51);
+          }
+        }
+      }
+    }
+
+    .window {
+      @include m.borders;
+      width: 100%;
+      padding: 15px;
+
+      h2 {
+        font-weight: 500;
+        margin-left: 10px;
+        margin-bottom: 10px;
+      }
+
+      .divRecipes {
+        display: flex;
+        padding: 20px;
+        background-color: $lightgray-background;
+        border-radius: 10px;
+        gap: 20px;
+        overflow-x: auto;
+
+        .card {
+          margin: 0;
+          width: 100%;
+        }
+      }
+    }
+
+    .topUsers {
+      @include m.borders;
+      width: 100%;
+      padding: 15px;
+      display: flex;
+      gap: 20px;
+
+      .users {
+        width: 100%;
+
+        h2 {
+          text-align: center;
+          margin-bottom: 10px;
+        }
+
+        .usersProfiles {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          background-color: $lightgray-background;
+          padding: 20px;
+          border-radius: 10px;
+
+          .userProfile {
+            @include m.borders;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            border-bottom: 1px solid $gray-border;
+
+            &:hover {
+              background-color: $gray-hover;
+              border-radius: 10px;
+            }
+
+            img {
+              height: 30px;
+              width: 30px;
+              border-radius: 99%;
+            }
+
+            h3 {
+              font-weight: 400;
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

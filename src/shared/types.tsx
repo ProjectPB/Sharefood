@@ -87,7 +87,6 @@ export interface SingleRecipes {
 
 export interface Recipes {
   recipes: {
-    mainRecipes: SingleRecipes,
     allRecipes: SingleRecipes,
     myRecipes: SingleRecipes,
     favoriteRecipes: SingleRecipes,

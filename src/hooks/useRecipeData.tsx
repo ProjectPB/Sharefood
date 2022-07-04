@@ -10,9 +10,6 @@ const useRecipeData = (store: string) => {
   const { recipes, scrollDistance } = useSelector(mapState);
 
   switch (store) {
-    case "main": {
-      return ({ ...recipes.mainRecipes, scrollDistance: scrollDistance.main });
-    }
     case "all": {
       return ({
         ...recipes.allRecipes, scrollDistance: scrollDistance.all

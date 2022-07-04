@@ -79,9 +79,9 @@ const Card: React.FC<Data> = ({
                 </div>
                 <div className="card__infoContainer card__timestamp">
                   <AccessTimeOutlined className="card__icon" />
-                  <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow className="card__text">
+                  {/* <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow className="card__text">
                     {timestamp?.toDate()}
-                  </Moment>
+                  </Moment> */}
                 </div>
               </div>
             </div>
