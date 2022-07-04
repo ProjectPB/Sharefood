@@ -23,6 +23,7 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
       favoriteFilter,
       sortFilter,
       typeFilter,
+      tagFilter,
       counter,
       excludeId,
       startAfterDoc,
@@ -41,10 +42,12 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
       ref = ref.orderBy("stats.likesQuantity", "desc");
     } else if (sortFilter === 'views') {
       ref = ref.orderBy('stats.views', 'desc')
+    } else if (sortFilter === 'recent') {
+      ref = ref.orderBy("timestamp", "desc");
+    } else if (sortFilter === 'oldest') {
+      ref = ref.orderBy('timestamp', 'asc');
     } else if (excludeId) {
       ref = ref.orderBy(firebase.firestore.FieldPath.documentId());
-    } else {
-      ref = ref.orderBy("timestamp", "desc");
     }
 
     if (favoriteFilter) {
@@ -53,6 +56,10 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
 
     if (typeFilter && typeFilter !== 'all') {
       ref = ref.where("type", "==", typeFilter);
+    }
+
+    if (tagFilter && tagFilter !== 'all') {
+      ref = ref.where('tags', "array-contains", tagFilter)
     }
 
     if (userId) {

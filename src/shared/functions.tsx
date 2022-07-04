@@ -119,6 +119,12 @@ export const translateTag = (tag: string, lang: string) => {
         return 'Grill'
       case 'easter':
         return 'Easter'
+      case 'fit':
+        return 'Fit'
+      case 'vegan':
+        return 'Vegan'
+      case 'vegetarian':
+        return 'Vegetarian'
     }
   }
 
@@ -132,6 +138,12 @@ export const translateTag = (tag: string, lang: string) => {
         return 'Grill'
       case 'easter':
         return 'Wielkanoc'
+      case 'fit':
+        return 'Fit'
+      case 'vegan':
+        return 'Wegańskie'
+      case 'vegetarian':
+        return 'Wegetariańskie'
     }
   }
 }

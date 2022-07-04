@@ -42,8 +42,9 @@ const INITIAL_STATE: Recipes = {
     user: 0,
   },
   filters: {
-    sort: "views",
+    sort: "recent",
     type: "all",
+    tag: "all",
   }
 };
 
@@ -116,6 +117,13 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         filters: {
           ...state.filters, type: action.payload,
+        }
+      }
+    case recipesTypes.SET_TAG_FILTER:
+      return {
+        ...state,
+        filters: {
+          ...state.filters, tag: action.payload,
         }
       }
     default:

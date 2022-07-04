@@ -64,6 +64,7 @@ export interface FiltersTypes {
   sortFilter?: string;
   userId?: string;
   typeFilter?: string,
+  tagFilter?: string,
   authorFilter?: string;
   favoriteFilter?: string;
   startAfterDoc?: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
@@ -103,6 +104,7 @@ export interface Recipes {
   filters: {
     type: string,
     sort: string,
+    tag: string,
   }
 }
 

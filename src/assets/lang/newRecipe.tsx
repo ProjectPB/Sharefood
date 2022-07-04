@@ -22,6 +22,18 @@ export const ENG_NEW_RECIPE = {
       label: 'Party'
     },
     {
+      label: "Fit",
+      value: "fit",
+    },
+    {
+      label: "Vegan",
+      value: "vegan",
+    },
+    {
+      label: "Vegetarian",
+      value: "vegetarian",
+    },
+    {
       value: 'christmas',
       label: 'Christmas'
     },
@@ -88,6 +100,18 @@ export const PL_NEW_RECIPE = {
     {
       value: 'party',
       label: 'Impreza'
+    },
+    {
+      label: "Fit",
+      value: "fit",
+    },
+    {
+      label: "Wegańskie",
+      value: "vegan",
+    },
+    {
+      label: "Wegetariańskie",
+      value: "vegetarian",
     },
     {
       value: 'christmas',

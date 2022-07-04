@@ -28,6 +28,7 @@ const Tags: React.FC<Props> = ({ label, options, update, placeholder }) => {
         options={options}
         placeholder={placeholder}
         noOptionsMessage={() => LANG.MISC.SELECT_NO_OPTIONS}
+        maxMenuHeight={200}
       />
     </fieldset>
   )

@@ -18,13 +18,14 @@ interface Props {
   filters: FiltersTypes;
   changeSort?: (option: string) => void;
   changeType?: (option: string) => void;
+  changeTag?: (option: string) => void;
 }
 
 const mapState = ({ loading }: State) => ({
   loaded: loading.recipesLoaded,
 });
 
-const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort }) => {
+const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort, changeTag }) => {
   const dispatch = useDispatch();
   const { loaded } = useSelector(mapState);
   const LANG = useLanguage();
@@ -46,7 +47,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort }) =
       setRendered(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.counter, filters.typeFilter, filters.sortFilter, filters.userId]);
+  }, [filters.counter, filters.typeFilter, filters.sortFilter, filters.tagFilter, filters.userId]);
 
   useEffect(() => {
     if (data.length === 0 && !isLastPage) {
@@ -125,6 +126,14 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort }) =
               filters={LANG.FILTERS.typeFilters}
               update={(option: Option) => changeType(option.value)}
               value={{ label: getLabelFromValue(LANG.FILTERS.typeFilters, filters.typeFilter), value: filters.typeFilter }}
+            />
+
+            <CustomSelect
+              type="tag"
+              label={LANG.FILTERS.TAG}
+              filters={LANG.FILTERS.tagFilters}
+              update={(option: Option) => changeTag(option.value)}
+              value={{ label: getLabelFromValue(LANG.FILTERS.tagFilters, filters.tagFilter), value: filters.tagFilter }}
             />
           </div>
         </div>
