@@ -26,6 +26,8 @@ export interface Loading {
   recipeDataLoaded: boolean;
   relatedRecipesLoaded: boolean;
   authLoading: boolean;
+  homeRecentRecipesLoaded: boolean,
+  homePopularRecipesLoaded: boolean,
 }
 
 export interface RecipeData {
@@ -87,6 +89,8 @@ export interface SingleRecipes {
 
 export interface Recipes {
   recipes: {
+    homeRecentRecipes: SingleRecipes
+    homePopularRecipes: SingleRecipes,
     allRecipes: SingleRecipes,
     myRecipes: SingleRecipes,
     favoriteRecipes: SingleRecipes,
@@ -94,7 +98,7 @@ export interface Recipes {
     relatedRecipes: SingleRecipes,
   }
   scrollDistance: {
-    main: number;
+    home: number;
     all: number;
     my: number;
     favorite: number;

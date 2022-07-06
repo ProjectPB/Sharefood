@@ -1,0 +1,43 @@
+@use "./../../sass/variables" as *;
+@use "./../../sass/mixins" as m;
+
+.homeRecipes {
+  width: 100%;
+  padding: 0;
+
+  .homeRecipes__title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px 0;
+    margin-bottom: -5px;
+
+    h2 {
+      font-weight: 500;
+      font-size: 20px;
+      margin-right: 5px;
+    }
+
+    h3 {
+      font-size: 16px;
+      font-weight: 500;
+      color: $gray-text;
+      cursor: pointer;
+      margin-top: 1px;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+  }
+
+  .homeRecipes__wrapper {
+    width: 100%;
+
+    .homeRecipes__loading {
+      min-height: 300px;
+      display: grid;
+      place-items: center;
+    }
+  }
+}

@@ -6,6 +6,21 @@ export const fetchRecipesStart = (filters: FiltersTypes) => ({
   payload: filters,
 });
 
+export const fetchRecipesStart2 = (filters: FiltersTypes) => ({
+  type: recipesTypes.FETCH_RECIPES2,
+  payload: filters,
+});
+
+export const setHomeRecentRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_HOME_RECENT_RECIPES,
+  payload: recipes,
+});
+
+export const setHomePopularRecipes = (recipes: SingleRecipes) => ({
+  type: recipesTypes.SET_HOME_POPULAR_RECIPES,
+  payload: recipes,
+});
+
 export const setAllRecipes = (recipes: SingleRecipes) => ({
   type: recipesTypes.SET_ALL_RECIPES,
   payload: recipes,
@@ -40,8 +55,8 @@ export const setScrollDistanceStart = (data: { distance: number, store: string }
   payload: data,
 })
 
-export const setMainScrollDistance = (distance: number) => ({
-  type: recipesTypes.SET_MAIN_SCROLL_DISTANCE,
+export const setHomeScrollDistance = (distance: number) => ({
+  type: recipesTypes.SET_HOME_SCROLL_DISTANCE,
   payload: distance
 })
 

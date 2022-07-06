@@ -3,6 +3,16 @@ import { Recipes } from "../../shared/types";
 
 const INITIAL_STATE: Recipes = {
   recipes: {
+    homeRecentRecipes: {
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    },
+    homePopularRecipes: {
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    },
     allRecipes: {
       data: [],
       queryDoc: null,
@@ -30,7 +40,7 @@ const INITIAL_STATE: Recipes = {
     }
   },
   scrollDistance: {
-    main: 0,
+    home: 0,
     all: 0,
     my: 0,
     favorite: 0,
@@ -45,6 +55,16 @@ const INITIAL_STATE: Recipes = {
 
 const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: Recipes }) => {
   switch (action.type) {
+    case recipesTypes.SET_HOME_RECENT_RECIPES:
+      return {
+        ...state,
+        recipes: { ...state.recipes, homeRecentRecipes: action.payload, }
+      };
+    case recipesTypes.SET_HOME_POPULAR_RECIPES:
+      return {
+        ...state,
+        recipes: { ...state.recipes, homePopularRecipes: action.payload, },
+      };
     case recipesTypes.SET_ALL_RECIPES:
       return {
         ...state,
@@ -70,10 +90,10 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         recipes: { ...state.recipes, relatedRecipes: action.payload },
       };
-    case recipesTypes.SET_MAIN_SCROLL_DISTANCE:
+    case recipesTypes.SET_HOME_SCROLL_DISTANCE:
       return {
         ...state,
-        scrollDistance: { ...state.scrollDistance, main: action.payload }
+        scrollDistance: { ...state.scrollDistance, home: action.payload }
       }
     case recipesTypes.SET_ALL_SCROLL_DISTANCE:
       return {

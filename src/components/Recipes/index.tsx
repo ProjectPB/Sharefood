@@ -16,7 +16,7 @@ interface Props {
       store: string;
     };
   },
-  updateHeight: (height: number) => void,
+  updateHeight?: (height: number) => void,
 }
 
 const mapState = ({ ui }: State) => ({
@@ -28,8 +28,8 @@ const Recipes = (({ data, keepScroll, updateHeight }: Props) => {
   const recipesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    updateHeight(recipesRef.current.clientHeight)
-  })
+    updateHeight && updateHeight(recipesRef.current.clientHeight);
+  }, [updateHeight])
 
   return (
     <div ref={recipesRef}

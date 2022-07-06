@@ -5,6 +5,7 @@
   height: 100%;
   width: 100%;
   overflow-y: auto;
+  flex: 1;
 
   .homepage__container {
     display: flex;
@@ -32,7 +33,6 @@
         height: fit-content;
         border-radius: 10px;
         width: 100%;
-        grid-template-columns: repeat(auto-fit, minmax(50%, max-content));
 
         .banner__img {
           position: relative;
@@ -59,32 +59,6 @@
             color: white;
             border-top: rgb(164, 61, 51);
           }
-        }
-      }
-    }
-
-    .window {
-      @include m.borders;
-      width: 100%;
-      padding: 15px;
-
-      h2 {
-        font-weight: 500;
-        margin-left: 10px;
-        margin-bottom: 10px;
-      }
-
-      .divRecipes {
-        display: flex;
-        padding: 20px;
-        background-color: $lightgray-background;
-        border-radius: 10px;
-        gap: 20px;
-        overflow-x: auto;
-
-        .card {
-          margin: 0;
-          width: 100%;
         }
       }
     }

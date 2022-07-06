@@ -6,6 +6,8 @@ const INITIAL_STATE: Loading = {
   recipeDataLoaded: false,
   relatedRecipesLoaded: false,
   authLoading: false,
+  homeRecentRecipesLoaded: false,
+  homePopularRecipesLoaded: false,
 };
 
 const loadingReducer = (
@@ -32,6 +34,16 @@ const loadingReducer = (
       return {
         ...state,
         relatedRecipesLoaded: action.payload,
+      }
+    case loadingTypes.LOAD_HOME_RECENT_RECIPES:
+      return {
+        ...state,
+        homeRecentRecipesLoaded: action.payload,
+      };
+    case loadingTypes.LOAD_HOME_POPULAR_RECIPES:
+      return {
+        ...state,
+        homePopularRecipesLoaded: action.payload,
       }
     default:
       return state;

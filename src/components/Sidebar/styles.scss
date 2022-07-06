@@ -6,6 +6,7 @@
   background-color: $lightgray-background;
   margin: 10px 0;
   border-right: 1px solid $gray-border;
+  overflow-y: auto;
 
   .sidebarOption {
     @include m.sidebarOption;
@@ -22,6 +23,7 @@
   margin: 10px 0;
   border-right: 1px solid $gray-border;
   background-color: $lightgray-background;
+  overflow-y: auto;
 
   .sidebarOption {
     @include m.sidebarOption--narrow;

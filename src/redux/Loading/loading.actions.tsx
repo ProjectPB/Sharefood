@@ -19,3 +19,13 @@ export const loadRelatedRecipes = (state: boolean) => ({
   type: loadingTypes.LOAD_RELATED_RECIPES,
   payload: state,
 })
+
+export const loadHomeRecentRecipes = (state: boolean) => ({
+  type: loadingTypes.LOAD_HOME_RECENT_RECIPES,
+  payload: state,
+})
+
+export const loadHomePopularRecipes = (state: boolean) => ({
+  type: loadingTypes.LOAD_HOME_POPULAR_RECIPES,
+  payload: state,
+})

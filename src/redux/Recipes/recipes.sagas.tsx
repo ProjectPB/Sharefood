@@ -1,7 +1,7 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMainScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes } from "./recipes.actions";
+import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes, setHomeRecentRecipes, setHomePopularRecipes, setHomeScrollDistance } from "./recipes.actions";
 import { handleFetchRecipes } from "./recipes.helpers";
-import { loadRecipes, loadRelatedRecipes } from "../Loading/loading.actions";
+import { loadHomePopularRecipes, loadHomeRecentRecipes, loadRecipes, loadRelatedRecipes } from "../Loading/loading.actions";
 import { SingleRecipes } from "../../shared/types";
 import recipesTypes from "./recipes.types";
 
@@ -11,6 +11,16 @@ export function* fetchRecipes({
   try {
     const renderedRecipes: SingleRecipes = yield handleFetchRecipes(payload);
     switch (payload.store) {
+      case "homeRecent": {
+        yield put(setHomeRecentRecipes(renderedRecipes));
+        yield put(loadHomeRecentRecipes(true));
+        break;
+      }
+      case "homePopular": {
+        yield put(setHomePopularRecipes(renderedRecipes));
+        yield put(loadHomePopularRecipes(true));
+        break;
+      }
       case "all": {
         yield put(setAllRecipes(renderedRecipes));
         yield put(loadRecipes(true));
@@ -49,8 +59,22 @@ export function* onFetchRecipesStart() {
   yield takeLatest(recipesTypes.FETCH_RECIPES, fetchRecipes);
 }
 
+export function* onFetchRecipes2Start() {
+  yield takeLatest(recipesTypes.FETCH_RECIPES2, fetchRecipes);
+}
+
 export function* resetRecipes() {
   try {
+    yield put(setHomeRecentRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+    yield put(setHomePopularRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
     yield put(setAllRecipes({
       data: [],
       queryDoc: null,
@@ -84,8 +108,8 @@ export function* setScrollDistance({ payload }: ReturnType<typeof setScrollDista
   try {
     const { store, distance } = payload
     switch (store) {
-      case "main": {
-        yield put(setMainScrollDistance(distance));
+      case "home": {
+        yield put(setHomeScrollDistance(distance));
         break;
       }
       case "all": {
@@ -119,7 +143,7 @@ export function* onSetScrollDistanceStart() {
 
 export function* resetScrollDistances() {
   try {
-    yield put(setMainScrollDistance(0));
+    yield put(setHomeScrollDistance(0));
     yield put(setAllScrollDistance(0));
     yield put(setMyScrollDistance(0));
     yield put(setUserScrollDistance(0));
@@ -136,6 +160,7 @@ export function* onResetScrollDistancesStart() {
 export default function* recipesSagas() {
   yield all([
     call(onFetchRecipesStart),
+    call(onFetchRecipes2Start),
     call(onResetRecipesStart),
     call(onSetScrollDistanceStart),
     call(onResetScrollDistancesStart),
