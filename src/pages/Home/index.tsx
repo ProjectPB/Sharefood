@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRecipesStart, fetchRecipesStart2, setScrollDistanceStart, setSortFilter } from "../../redux/Recipes/recipes.actions";
+import { fetchRecipesStart, setScrollDistanceStart, setSortFilter } from "../../redux/Recipes/recipes.actions";
 import { getRecipesCounter } from "../../shared/functions";
 import { useLanguage, useRecipeData, useWidth } from "../../hooks";
 import { State } from "../../shared/types";
 import { loadHomePopularRecipes, loadHomeRecentRecipes } from "../../redux/Loading/loading.actions";
 
 import HomeRecipes from "../../components/HomeRecipes";
+import Banner from "../../components/Banner";
 
 import './styles.scss';
 
@@ -140,7 +141,7 @@ const HomePage: React.FC = () => {
       dispatch(loadHomeRecentRecipes(false));
       dispatch(loadHomePopularRecipes(false));
       dispatch(fetchRecipesStart({ store: "homeRecent", counter: counter, sortFilter: "recent" }));
-      dispatch(fetchRecipesStart2({ store: "homePopular", counter: counter, sortFilter: "likes" }));
+      dispatch(fetchRecipesStart({ store: "homePopular", counter: counter, sortFilter: "likes" }));
       setCounterChanged(false);
     }
   }, [counter, counterChanged, dispatch, popularData.length, recentData.length])
@@ -154,19 +155,7 @@ const HomePage: React.FC = () => {
     <div className="homepage" ref={homepageRef} onScroll={() => setDistance(homepageRef.current?.scrollTop)}>
 
       <div className="homepage__container">
-        <div className="banner">
-          <h2>Currently in season</h2>
-          <div className="banner__wrapper">
-            <div className="banner__img">
-              <img src="https://cdn.pixabay.com/photo/2017/11/18/17/09/strawberries-2960533_960_720.jpg" alt="strawberries" />
-              <p>Strawberry</p>
-            </div>
-            <div className="banner__img">
-              <img src="https://cdn.pixabay.com/photo/2018/03/17/21/04/fruit-3235152_960_720.jpg" alt="Wild cherry" />
-              <p>Wild cherry</p>
-            </div>
-          </div>
-        </div>
+        <Banner />
 
         <HomeRecipes handleSortFilter={() => dispatch(setSortFilter('recent'))} title={LANG.HOMEPAGE.RECENT} loaded={recentRecipesLoaded} data={recentData} keepScroll={() => dispatch(setScrollDistanceStart({ distance: distance, store: 'home' }))} />
         <HomeRecipes handleSortFilter={() => dispatch(setSortFilter('views'))} title={LANG.HOMEPAGE.POPULAR} loaded={popularRecipesLoaded} data={popularData} keepScroll={() => dispatch(setScrollDistanceStart({ distance: distance, store: 'home' }))} />

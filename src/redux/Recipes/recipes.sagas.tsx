@@ -1,4 +1,4 @@
-import { takeLatest, call, all, put } from "redux-saga/effects";
+import { takeLatest, call, all, put, takeEvery } from "redux-saga/effects";
 import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes, setHomeRecentRecipes, setHomePopularRecipes, setHomeScrollDistance } from "./recipes.actions";
 import { handleFetchRecipes } from "./recipes.helpers";
 import { loadHomePopularRecipes, loadHomeRecentRecipes, loadRecipes, loadRelatedRecipes } from "../Loading/loading.actions";
@@ -56,12 +56,9 @@ export function* fetchRecipes({
 }
 
 export function* onFetchRecipesStart() {
-  yield takeLatest(recipesTypes.FETCH_RECIPES, fetchRecipes);
+  yield takeEvery(recipesTypes.FETCH_RECIPES, fetchRecipes);
 }
 
-export function* onFetchRecipes2Start() {
-  yield takeLatest(recipesTypes.FETCH_RECIPES2, fetchRecipes);
-}
 
 export function* resetRecipes() {
   try {
@@ -160,7 +157,6 @@ export function* onResetScrollDistancesStart() {
 export default function* recipesSagas() {
   yield all([
     call(onFetchRecipesStart),
-    call(onFetchRecipes2Start),
     call(onResetRecipesStart),
     call(onSetScrollDistanceStart),
     call(onResetScrollDistancesStart),

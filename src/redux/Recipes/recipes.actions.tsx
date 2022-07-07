@@ -6,11 +6,6 @@ export const fetchRecipesStart = (filters: FiltersTypes) => ({
   payload: filters,
 });
 
-export const fetchRecipesStart2 = (filters: FiltersTypes) => ({
-  type: recipesTypes.FETCH_RECIPES2,
-  payload: filters,
-});
-
 export const setHomeRecentRecipes = (recipes: SingleRecipes) => ({
   type: recipesTypes.SET_HOME_RECENT_RECIPES,
   payload: recipes,

@@ -10,58 +10,9 @@
   .homepage__container {
     display: flex;
     flex-direction: column;
-    padding: 20px;
     gap: 20px;
     max-width: 1600px;
     margin: 0 auto;
-
-    .banner {
-      @include m.borders;
-      width: 100%;
-      padding: 15px;
-
-      h2 {
-        text-align: center;
-        margin-bottom: 10px;
-        font-weight: 500;
-      }
-
-      .banner__wrapper {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        height: fit-content;
-        border-radius: 10px;
-        width: 100%;
-
-        .banner__img {
-          position: relative;
-          border-radius: 10px;
-          cursor: pointer;
-
-          img {
-            width: 100%;
-            border-radius: 10px;
-            object-fit: contain;
-          }
-
-          p {
-            position: absolute;
-            bottom: 0;
-            padding: 15px;
-            font-size: 20px;
-            width: 100%;
-            text-align: center;
-            background-color: rgba(164, 61, 51, 0.5);
-            border-bottom-left-radius: 10px;
-            border-bottom-right-radius: 10px;
-            backdrop-filter: blur(2px);
-            color: white;
-            border-top: rgb(164, 61, 51);
-          }
-        }
-      }
-    }
 
     .topUsers {
       @include m.borders;

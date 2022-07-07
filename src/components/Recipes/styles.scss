@@ -23,7 +23,7 @@
 
   @media (max-width: 992px) {
     grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
-    max-width: 480px;
+    max-width: 600px;
   }
 }
 
@@ -41,6 +41,6 @@
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(auto-fit, minmax(100%, max-content));
-    max-width: 480px;
+    max-width: 600px;
   }
 }

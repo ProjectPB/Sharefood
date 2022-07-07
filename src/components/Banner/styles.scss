@@ -1,0 +1,63 @@
+@use "./../../sass/variables" as *;
+@use "./../../sass/mixins" as m;
+
+.banner {
+  width: 100%;
+
+  h2 {
+    font-weight: 500;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: -5px;
+    padding: 10px 15px 0;
+  }
+
+  .banner__wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: $lightgray-background;
+    height: fit-content;
+    border-radius: 10px;
+    width: 100%;
+    padding: 20px;
+
+    @media (max-width: 992px) {
+      flex-direction: column;
+    }
+
+    .banner__img {
+      position: relative;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 100%;
+
+      &:hover {
+        img {
+          opacity: 0.8;
+        }
+      }
+
+      img {
+        border-radius: 10px;
+        width: 100%;
+        max-height: 360px;
+        min-height: 250px;
+        object-fit: cover;
+      }
+
+      p {
+        position: absolute;
+        bottom: 0;
+        padding: 15px;
+        font-size: 20px;
+        width: 100%;
+        text-align: center;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        backdrop-filter: blur(2px);
+        color: white;
+      }
+    }
+  }
+}
