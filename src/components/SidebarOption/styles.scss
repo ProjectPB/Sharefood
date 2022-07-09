@@ -23,6 +23,10 @@
     padding-left: 10px;
   }
 
+  .MuiSvgIcon-root {
+    font-size: 32px;
+  }
+
   &:hover {
     @include sidebarOption--hover;
   }

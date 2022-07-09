@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLanguage, useWidth } from "../../hooks";
-import { NavLink } from "react-router-dom";
 import { Favorite, Home, MenuBook } from "@mui/icons-material";
 import { State } from "../../shared/types";
 import { LocalDining } from "@material-ui/icons";
@@ -39,32 +38,20 @@ const Sidebar = ({ narrow }: { narrow?: boolean }) => {
 
   return (
     <div className={className}>
-      <NavLink to="/" className={(navData) => navData.isActive ? "active orange" : ""}>
-        <SidebarOption Icon={Home} title={LANG.SIDEBAR.HOME} />
-      </NavLink>
+      <SidebarOption Icon={Home} title={LANG.SIDEBAR.HOME} link="/" color="orange" />
 
-      <NavLink to="/all" className={(navData) => navData.isActive ? "active darkred" : ""}>
-        <SidebarOption Icon={LocalDining} title={LANG.SIDEBAR.ALL} />
-      </NavLink>
+      <SidebarOption Icon={LocalDining} title={LANG.SIDEBAR.ALL} link="/all" color="darkred" />
 
       {currentUser ? (
-        <NavLink to="/my" className={(navData) => navData.isActive ? "active teal" : ""}>
-          <SidebarOption Icon={MenuBook} title={LANG.SIDEBAR.YOUR} />
-        </NavLink>
+        <SidebarOption Icon={MenuBook} title={LANG.SIDEBAR.YOUR} link="/my" color="teal" />
       ) : (
-        <NavLink to="/auth" className={(navData) => navData.isActive ? "active teal" : ""}>
-          <SidebarOption Icon={MenuBook} title={LANG.SIDEBAR.YOUR} blocked />
-        </NavLink>
+        <SidebarOption Icon={MenuBook} title={LANG.SIDEBAR.YOUR} blocked link="/auth" />
       )}
 
       {currentUser ? (
-        <NavLink to="/favorite" className={(navData) => navData.isActive ? "active red" : ""}>
-          <SidebarOption Icon={Favorite} title={LANG.SIDEBAR.FAVORITE} />
-        </NavLink>
+        <SidebarOption Icon={Favorite} title={LANG.SIDEBAR.FAVORITE} link="/favorite" color="red" />
       ) : (
-        <NavLink to="/auth" className={(navData) => navData.isActive ? "active red" : ""}>
-          <SidebarOption Icon={Favorite} title={LANG.SIDEBAR.FAVORITE} blocked />
-        </NavLink>
+        <SidebarOption Icon={Favorite} title={LANG.SIDEBAR.FAVORITE} blocked link="/auth" />
       )}
     </div>
   );
