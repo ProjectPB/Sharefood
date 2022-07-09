@@ -13,6 +13,7 @@ import './styles.scss';
 
 const mapState = ({ ui, recipes, loading }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,
+  language: ui.language,
   scrollDistance: recipes.scrollDistance.home,
   popularRecipesLoaded: loading.homePopularRecipesLoaded,
   recentRecipesLoaded: loading.homeRecentRecipesLoaded,
@@ -109,7 +110,7 @@ const HomePage: React.FC = () => {
       }
     },
   ]
-  const { sidebarIsOpen, scrollDistance, popularRecipesLoaded, recentRecipesLoaded } = useSelector(mapState);
+  const { sidebarIsOpen, scrollDistance, popularRecipesLoaded, recentRecipesLoaded, language } = useSelector(mapState);
   const width = useWidth();
   const LANG = useLanguage();
   const dispatch = useDispatch();
@@ -140,11 +141,11 @@ const HomePage: React.FC = () => {
     if ((recentData.length === 0 && popularData.length === 0) || counterChanged) {
       dispatch(loadHomeRecentRecipes(false));
       dispatch(loadHomePopularRecipes(false));
-      dispatch(fetchRecipesStart({ store: "homeRecent", counter: counter, sortFilter: "recent" }));
-      dispatch(fetchRecipesStart({ store: "homePopular", counter: counter, sortFilter: "likes" }));
+      dispatch(fetchRecipesStart({ store: "homeRecent", counter: counter, sortFilter: "recent", language: language }));
+      dispatch(fetchRecipesStart({ store: "homePopular", counter: counter, sortFilter: "likes", language: language }));
       setCounterChanged(false);
     }
-  }, [counter, counterChanged, dispatch, popularData.length, recentData.length])
+  }, [counter, counterChanged, dispatch, popularData.length, recentData.length, language])
 
   useEffect(() => {
     homepageRef.current.scrollTo(0, scrollDistance);

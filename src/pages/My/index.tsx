@@ -18,7 +18,7 @@ const MyPage: React.FC = () => {
   const width = useWidth();
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
   const filters = {
-    authorFilter, store: 'my', counter: counter
+    authorFilter, store: 'my', counter: counter, language: ""
   }
 
   useEffect(() => {

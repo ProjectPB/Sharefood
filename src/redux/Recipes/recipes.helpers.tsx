@@ -26,6 +26,7 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
       tagFilter,
       counter,
       excludeId,
+      language,
       startAfterDoc,
       persistProducts = [],
     } = filters;
@@ -64,6 +65,10 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
 
     if (userId) {
       ref = ref.where('authorId', '==', userId)
+    }
+
+    if (language) {
+      ref = ref.where('language', '==', language);
     }
 
     if (startAfterDoc) ref = ref.startAfter(startAfterDoc);

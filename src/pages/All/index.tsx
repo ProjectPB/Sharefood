@@ -12,16 +12,17 @@ const mapState = ({ ui, recipes }: State) => ({
   typeFilter: recipes.filters.type,
   sortFilter: recipes.filters.sort,
   tagFilter: recipes.filters.tag,
+  language: ui.language
 });
 
 const AllPage: React.FC = () => {
   const width = useWidth();
   const dispatch = useDispatch();
-  const { sidebarIsOpen, typeFilter, sortFilter, tagFilter } = useSelector(mapState)
+  const { sidebarIsOpen, typeFilter, sortFilter, tagFilter, language } = useSelector(mapState)
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
 
   const filters = {
-    store: 'all', counter: counter, sortFilter: sortFilter, typeFilter: typeFilter, tagFilter: tagFilter
+    store: 'all', counter: counter, sortFilter: sortFilter, typeFilter: typeFilter, tagFilter: tagFilter, language: language,
   }
 
   useEffect(() => {

@@ -10,7 +10,7 @@ import RecipesRenderer from "../../components/Renderer";
 
 const mapState = ({ ui }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,
-  lastDisplayedProfile: ui.lastDisplayedProfile
+  lastDisplayedProfile: ui.lastDisplayedProfile,
 });
 
 const UserPage: React.FC = () => {
@@ -21,7 +21,7 @@ const UserPage: React.FC = () => {
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
 
   const filters = {
-    counter: counter, userId: lastDisplayedProfile, store: 'user', sortFilter: "recent"
+    counter: counter, userId: lastDisplayedProfile, store: 'user', sortFilter: "recent", language: ""
   }
 
   useEffect(() => {

@@ -39,7 +39,7 @@ const CollectionPage = () => {
       setRendered(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [collectionId, language, lastDisplayedCollection]);
+  }, [collectionId, lastDisplayedCollection]);
 
   useEffect(() => {
     if (data.length === 0 || changed) {

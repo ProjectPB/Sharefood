@@ -21,8 +21,9 @@ import TextEditor from "../forms/TextEditor";
 import "cropperjs/dist/cropper.css";
 import "./styles.scss";
 
-const mapState = ({ user }: State) => ({
+const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,
+  language: ui.language,
 });
 
 interface Props {
@@ -30,7 +31,7 @@ interface Props {
 }
 
 const NewRecipe: React.FC<Props> = ({ close }) => {
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, language } = useSelector(mapState);
   const dispatch = useDispatch();
   const LANG = useLanguage();
   const navigate = useNavigate();
@@ -130,6 +131,7 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
         imgFileHigh: imageHigh,
         imgFileLow: imageLow,
         handleAdd: (val: boolean) => setAdded(val),
+        language: language,
       })
     );
   };
@@ -211,7 +213,10 @@ const NewRecipe: React.FC<Props> = ({ close }) => {
   return (
     <div className="newRecipe" >
       <form className="newRecipe__body" onSubmit={handleCreate}>
-        <h1>{LANG.NEW_RECIPE.LABEL}</h1>
+        <div className="newRecipe__title">
+          <h1>{LANG.NEW_RECIPE.LABEL}</h1>
+        </div>
+
         <Title {...config.title} />
         <TextEditor {...config.description} />
         <TextEditor {...config.ingredients} />

@@ -15,18 +15,19 @@ interface Props {
   filter: string, excludeId: string,
 }
 
-const mapState = ({ loading }: State) => ({
-  loaded: loading.relatedRecipesLoaded
+const mapState = ({ loading, ui }: State) => ({
+  loaded: loading.relatedRecipesLoaded,
+  language: ui.language
 });
 
 const MoreRecipes = ({ filter, excludeId }: Props) => {
   const { data } = useRecipeData('related');
-  const { loaded } = useSelector(mapState);
+  const { loaded, language } = useSelector(mapState);
   const dispatch = useDispatch();
   const LANG = useLanguage();
 
   useEffect(() => {
-    dispatch(fetchRecipesStart({ store: "related", counter: 5, typeFilter: filter, excludeId: excludeId }));
+    dispatch(fetchRecipesStart({ store: "related", counter: 5, typeFilter: filter, excludeId: excludeId, language: language }));
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);

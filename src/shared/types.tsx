@@ -59,6 +59,7 @@ export interface NewRecipeData extends RecipeData {
   imgFileHigh: any;
   imgFileLow: any;
   tags: string[],
+  language: string,
 }
 
 export interface FiltersTypes {
@@ -67,6 +68,7 @@ export interface FiltersTypes {
   sortFilter?: string;
   userId?: string;
   typeFilter?: string,
+  language: string,
   tagFilter?: string,
   authorFilter?: string;
   favoriteFilter?: string;

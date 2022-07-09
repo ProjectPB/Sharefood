@@ -148,6 +148,7 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
       portions,
       imgFileHigh,
       imgFileLow,
+      language,
       handleAdd,
       description
     } = payload;
@@ -178,6 +179,7 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
           portions: portions,
           image: urls.highResImg,
           imageLow: urls.lowResImg,
+          language: language,
           stats: {
             likesQuantity: 0,
             views: 0,
