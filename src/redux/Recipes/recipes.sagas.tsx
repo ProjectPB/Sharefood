@@ -1,5 +1,5 @@
 import { takeLatest, call, all, put, takeEvery } from "redux-saga/effects";
-import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes, setHomeRecentRecipes, setHomePopularRecipes, setHomeScrollDistance } from "./recipes.actions";
+import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes, setHomeRecentRecipes, setHomePopularRecipes, setHomeScrollDistance, setCollectionScrollDistance } from "./recipes.actions";
 import { handleFetchRecipes } from "./recipes.helpers";
 import { loadHomePopularRecipes, loadHomeRecentRecipes, loadRecipes, loadRelatedRecipes } from "../Loading/loading.actions";
 import { SingleRecipes } from "../../shared/types";
@@ -123,6 +123,10 @@ export function* setScrollDistance({ payload }: ReturnType<typeof setScrollDista
       }
       case "user": {
         yield put(setUserScrollDistance(distance));
+        break;
+      }
+      case "collection": {
+        yield put(setCollectionScrollDistance(distance));
         break;
       }
       default: {

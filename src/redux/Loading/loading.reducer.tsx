@@ -8,6 +8,7 @@ const INITIAL_STATE: Loading = {
   authLoading: false,
   homeRecentRecipesLoaded: false,
   homePopularRecipesLoaded: false,
+  collectionLoaded: false,
 };
 
 const loadingReducer = (
@@ -45,6 +46,11 @@ const loadingReducer = (
         ...state,
         homePopularRecipesLoaded: action.payload,
       }
+    case loadingTypes.LOAD_COLLECTION:
+      return {
+        ...state,
+        collectionLoaded: action.payload,
+      };
     default:
       return state;
   }

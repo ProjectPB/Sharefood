@@ -3,6 +3,26 @@ import { db, storage } from "../../firebase/utils";
 import { handleGetUserData } from './../Recipes/recipes.helpers'
 import { createRecipeStart } from "./recipe.actions";
 
+export const handleFetchSelectedRecipe = (recipeId: string) => {
+  return new Promise((resolve, reject) => {
+    db.collection("recipes")
+      .doc(recipeId)
+      .get()
+      .then(async (doc) => {
+        if (doc.data()) {
+          let { profilePic, username } = await handleGetUserData(doc.data()?.authorId);
+          resolve({ id: doc.id, data: { ...doc.data(), profilePic, username } });
+        }
+        else {
+          resolve(null);
+        }
+      })
+      .catch(err => {
+        reject(err.message)
+      })
+  })
+}
+
 export const handleFetchRecipeData = (recipeId: string, userId?: string) => {
   return new Promise((resolve, reject) => {
     db.collection("recipes")
@@ -115,7 +135,6 @@ const putImgToStorage = (file: any, refString: string) => {
     }
   })
 }
-
 
 export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
   return new Promise((resolve, reject) => {

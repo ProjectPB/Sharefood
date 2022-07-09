@@ -28,6 +28,7 @@ export interface Loading {
   authLoading: boolean;
   homeRecentRecipesLoaded: boolean,
   homePopularRecipesLoaded: boolean,
+  collectionLoaded: boolean,
 }
 
 export interface RecipeData {
@@ -77,8 +78,8 @@ export interface FiltersTypes {
 }
 
 export interface Recipe {
-  id: string;
-  data: RecipeData;
+  id?: string;
+  data?: RecipeData;
 }
 
 export interface SingleRecipes {
@@ -96,6 +97,7 @@ export interface Recipes {
     favoriteRecipes: SingleRecipes,
     userRecipes: SingleRecipes,
     relatedRecipes: SingleRecipes,
+    collectionRecipes: SingleRecipes,
   }
   scrollDistance: {
     home: number;
@@ -103,6 +105,7 @@ export interface Recipes {
     my: number;
     favorite: number;
     user: number;
+    collection: number;
   }
   filters: {
     type: string,
@@ -121,6 +124,7 @@ export interface State {
   ui: {
     sidebarOpen: boolean;
     lastDisplayedProfile: string;
+    lastDisplayedCollection: string;
     language: string,
   };
   recipes: Recipes;
@@ -128,11 +132,25 @@ export interface State {
   recipe: {
     recipeData: RecipeData
   };
+  collections: Collections
+}
+
+export interface Collections {
+  collection: CollectionData,
 }
 
 export interface Option {
   label: string,
   value: string,
+}
+
+export interface CollectionData {
+  pl_title?: string,
+  eng_title?: string,
+  color?: string,
+  img?: string,
+  eng_recipes?: string[],
+  pl_recipes?: string[],
 }
 
 export interface Handler {

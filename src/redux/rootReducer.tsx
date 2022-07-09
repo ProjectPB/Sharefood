@@ -7,6 +7,7 @@ import uiReducer from "./UI/ui.reducer";
 import recipesReducer from "./Recipes/recipes.reducer";
 import loadingReducer from "./Loading/loading.reducer";
 import recipeReducer from './Recipe/recipe.reducer';
+import collectionsReducer from './Collections/collections.reducer';
 import { getPersistConfig } from "redux-deep-persist";
 
 export const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
   recipes: recipesReducer,
   loading: loadingReducer,
   recipe: recipeReducer,
+  collections: collectionsReducer,
 });
 
 const rootPersistConfig = getPersistConfig({

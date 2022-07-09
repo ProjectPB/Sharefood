@@ -21,7 +21,7 @@ const UserPage: React.FC = () => {
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
 
   const filters = {
-    counter: counter, userId: lastDisplayedProfile, store: 'user'
+    counter: counter, userId: lastDisplayedProfile, store: 'user', sortFilter: "recent"
   }
 
   useEffect(() => {

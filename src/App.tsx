@@ -14,6 +14,7 @@ import HomePage from './pages/Home';
 import AllRecipesPage from './pages/All';
 import FavoriteRecipesPage from './pages/Favorite';
 import MyRecipesPage from './pages/My';
+import CollectionPage from './pages/Collection';
 
 const App: React.FC = () => {
   return (
@@ -25,6 +26,7 @@ const App: React.FC = () => {
             <Route path="all" element={<AllRecipesPage />} />
             <Route path="favorite" element={<FavoriteRecipesPage />} />
             <Route path="my" element={<MyRecipesPage />} />
+            <Route path="collection/:collectionId" element={<CollectionPage />} />
           </Route>
           <Route element={<WideLayout />}>
             <Route path="recipe/:recipeId" element={<RecipePage />} />

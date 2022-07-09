@@ -45,6 +45,11 @@ const useRecipeData = (store: string) => {
         ...recipes.relatedRecipes, scrollDistance: null,
       })
     }
+    case "collection": {
+      return ({
+        ...recipes.collectionRecipes, scrollDistance: scrollDistance.collection,
+      })
+    }
     default: {
       return;
     }

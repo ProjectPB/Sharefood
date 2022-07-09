@@ -13,6 +13,11 @@ export const setLastDisplayedProfile = (id: string) => ({
   payload: id,
 })
 
+export const setLastDisplayedCollection = (id: string) => ({
+  type: uiTypes.SET_LAST_DISPLAYED_COLLECTION,
+  payload: id,
+})
+
 export const setLanguage = (lang: string) => ({
   type: uiTypes.SET_LANGUAGE,
   payload: lang,

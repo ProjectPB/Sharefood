@@ -29,3 +29,8 @@ export const loadHomePopularRecipes = (state: boolean) => ({
   type: loadingTypes.LOAD_HOME_POPULAR_RECIPES,
   payload: state,
 })
+
+export const loadCollection = (state: boolean) => ({
+  type: loadingTypes.LOAD_COLLECTION,
+  payload: state,
+});

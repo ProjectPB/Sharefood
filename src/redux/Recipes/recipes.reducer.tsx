@@ -37,7 +37,12 @@ const INITIAL_STATE: Recipes = {
       data: [],
       queryDoc: null,
       isLastPage: false,
-    }
+    },
+    collectionRecipes: {
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    },
   },
   scrollDistance: {
     home: 0,
@@ -45,6 +50,7 @@ const INITIAL_STATE: Recipes = {
     my: 0,
     favorite: 0,
     user: 0,
+    collection: 0,
   },
   filters: {
     sort: "recent",
@@ -90,6 +96,11 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
         ...state,
         recipes: { ...state.recipes, relatedRecipes: action.payload },
       };
+    case recipesTypes.SET_COLLECTION_RECIPES:
+      return {
+        ...state,
+        recipes: { ...state.recipes, collectionRecipes: action.payload },
+      };
     case recipesTypes.SET_HOME_SCROLL_DISTANCE:
       return {
         ...state,
@@ -114,6 +125,11 @@ const recipesReducer = (state = INITIAL_STATE, action: { type: string; payload: 
       return {
         ...state,
         scrollDistance: { ...state.scrollDistance, user: action.payload }
+      }
+    case recipesTypes.SET_COLLECTION_SCROLL_DISTANCE:
+      return {
+        ...state,
+        scrollDistance: { ...state.scrollDistance, collection: action.payload }
       }
     case recipesTypes.SET_SORT_FILTER:
       return {

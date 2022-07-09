@@ -5,6 +5,7 @@ const INITIAL_STATE: State["ui"] = {
   sidebarOpen: true,
   lastDisplayedProfile: "",
   language: 'english',
+  lastDisplayedCollection: "",
 };
 
 const uiReducer = (state = INITIAL_STATE, action: { type: string, payload: string }) => {
@@ -23,8 +24,12 @@ const uiReducer = (state = INITIAL_STATE, action: { type: string, payload: strin
       return {
         ...state,
         lastDisplayedProfile: action.payload,
+      };
+    case uiTypes.SET_LAST_DISPLAYED_COLLECTION:
+      return {
+        ...state,
+        lastDisplayedCollection: action.payload,
       }
-
     case uiTypes.SET_LANGUAGE:
       return {
         ...state,
