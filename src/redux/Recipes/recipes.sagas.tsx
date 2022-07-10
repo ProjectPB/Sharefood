@@ -1,5 +1,5 @@
 import { takeLatest, call, all, put, takeEvery } from "redux-saga/effects";
-import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes, setHomeRecentRecipes, setHomePopularRecipes, setHomeScrollDistance, setCollectionScrollDistance } from "./recipes.actions";
+import { fetchRecipesStart, setFavoriteRecipes, setFavoriteScrollDistance, setMyRecipes, setMyScrollDistance, setAllRecipes, setAllScrollDistance, setScrollDistanceStart, setUserRecipes, setUserScrollDistance, setRelatedRecipes, setHomeRecentRecipes, setHomePopularRecipes, setHomeScrollDistance, setCollectionScrollDistance, setCollectionRecipes } from "./recipes.actions";
 import { handleFetchRecipes } from "./recipes.helpers";
 import { loadHomePopularRecipes, loadHomeRecentRecipes, loadRecipes, loadRelatedRecipes } from "../Loading/loading.actions";
 import { SingleRecipes } from "../../shared/types";
@@ -88,6 +88,11 @@ export function* resetRecipes() {
       isLastPage: false,
     }));
     yield put(setFavoriteRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+    yield put(setCollectionRecipes({
       data: [],
       queryDoc: null,
       isLastPage: false,

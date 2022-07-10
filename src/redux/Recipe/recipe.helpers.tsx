@@ -116,8 +116,30 @@ export const handleDeleteRecipe = (imageRef: string, imageLowRef: string, recipe
           storage.refFromURL(imageRef).delete()
           storage.refFromURL(imageLowRef).delete()
             .then(() => {
-              resolve(true)
+              db.collection('collections').where('eng_recipes', 'array-contains', recipeId).get().then((snapshot) => {
+                // eslint-disable-next-line 
+                snapshot.docs.map((doc) => {
+                  if (doc.id) {
+                    db.collection('collections').doc(doc.id).update({
+                      'eng_recipes': firebase.firestore.FieldValue.arrayRemove(recipeId)
+                    })
+                  }
+                })
+              });
             })
+        }).then(() => {
+          db.collection('collections').where('pl_recipes', 'array-contains', recipeId).get().then((snapshot) => {
+            // eslint-disable-next-line 
+            snapshot.docs.map((doc) => {
+              if (doc.id) {
+                db.collection('collections').doc(doc.id).update({
+                  'pl_recipes': firebase.firestore.FieldValue.arrayRemove(recipeId)
+                })
+              }
+            })
+          });
+        }).then(() => {
+          resolve(true);
         })
     } catch (err) {
       reject(err.message);
