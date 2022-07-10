@@ -1,27 +1,58 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { bannerConfig } from '../../config';
+import { useLanguage } from '../../hooks';
+import { fetchBannerDataStart } from '../../redux/Collections/collections.actions';
+import { State } from '../../shared/types';
+
+import Loading from '../Loading';
+import NoData from '../NoData';
 
 import './styles.scss';
 
-const Banner = () => {
+const mapState = ({ ui, collections, loading }: State) => ({
+  language: ui.language,
+  banner: collections.banner,
+  loaded: loading.bannerLoaded,
+});
+
+interface Props {
+  keepScroll: () => {
+    type: string;
+    payload: {
+      distance: number;
+      store: string;
+    };
+  },
+}
+
+const Banner = ({ keepScroll }: Props) => {
+  const LANG = useLanguage();
+  const dispatch = useDispatch();
+  const { language, banner, loaded } = useSelector(mapState);
+
+  useEffect(() => {
+    if (banner.length === 0) {
+      dispatch(fetchBannerDataStart(bannerConfig));
+    }
+  }, [dispatch, banner.length])
+
   return (
     <div className="banner">
-      <h2>Currently in season</h2>
+      <h2>{LANG.HOMEPAGE.FEATURED}</h2>
 
       <div className="banner__wrapper">
-        <div className="banner__img">
-          <Link to="/collection/strawberry">
-            <img src="https://cdn.pixabay.com/photo/2017/11/18/17/09/strawberries-2960533_960_720.jpg" alt="strawberries" />
-            <p style={{ backgroundColor: 'rgba(164, 61, 51, 0.5)' }}>Strawberry</p>
-          </Link>
-        </div>
-
-        <div className="banner__img">
-          <Link to="/collection/wild-cherry">
-            <img src="https://cdn.pixabay.com/photo/2018/03/17/21/04/fruit-3235152_960_720.jpg" alt="Wild cherry" />
-            <p style={{ backgroundColor: 'rgba(98, 48, 14, 0.5)' }}>Wild cherry</p>
-          </Link>
-        </div>
+        {(loaded && banner && banner.length > 0) && banner.map((i) => (
+          <div className="banner__img" key={i?.id}>
+            <Link to={`/collection/${i?.id}`} onClick={keepScroll}>
+              <img src={i?.img} alt={language === 'english' ? i?.eng_title : i?.pl_title} />
+              <p style={{ backgroundColor: `${i?.color}` }}>{language === 'english' ? i?.eng_title : i?.pl_title}</p>
+            </Link>
+            {(loaded && banner.length === 0) && <NoData />}
+          </div>
+        ))}
+        {!loaded && <Loading />}
       </div>
     </div >
   )

@@ -152,14 +152,27 @@ const HomePage: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const keepScroll = (): any => {
+    dispatch(setScrollDistanceStart({ distance: distance, store: 'home' }))
+  }
+
   return (
     <div className="homepage" ref={homepageRef} onScroll={() => setDistance(homepageRef.current?.scrollTop)}>
 
       <div className="homepage__container">
-        <Banner />
+        <Banner keepScroll={keepScroll} />
 
-        <HomeRecipes handleSortFilter={() => dispatch(setSortFilter('recent'))} title={LANG.HOMEPAGE.RECENT} loaded={recentRecipesLoaded} data={recentData} keepScroll={() => dispatch(setScrollDistanceStart({ distance: distance, store: 'home' }))} />
-        <HomeRecipes handleSortFilter={() => dispatch(setSortFilter('views'))} title={LANG.HOMEPAGE.POPULAR} loaded={popularRecipesLoaded} data={popularData} keepScroll={() => dispatch(setScrollDistanceStart({ distance: distance, store: 'home' }))} />
+        <HomeRecipes
+          handleSortFilter={() => dispatch(setSortFilter('recent'))}
+          title={LANG.HOMEPAGE.RECENT} loaded={recentRecipesLoaded}
+          data={recentData}
+          keepScroll={keepScroll} />
+
+        <HomeRecipes
+          handleSortFilter={() => dispatch(setSortFilter('views'))}
+          title={LANG.HOMEPAGE.POPULAR} loaded={popularRecipesLoaded}
+          data={popularData}
+          keepScroll={keepScroll} />
 
         <div className="topUsers">
           <div className="users">

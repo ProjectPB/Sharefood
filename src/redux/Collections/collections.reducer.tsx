@@ -3,6 +3,7 @@ import collectionsTypes from "./collections.types";
 
 const INITIAL_STATE: Collections = {
   collection: {
+    id: "",
     pl_title: '',
     eng_title: '',
     color: '',
@@ -10,6 +11,7 @@ const INITIAL_STATE: Collections = {
     eng_recipes: [],
     pl_recipes: [],
   },
+  banner: [],
 }
 
 const collectionsReducer = (state = INITIAL_STATE, action: { type: string; payload: any }) => {
@@ -18,6 +20,11 @@ const collectionsReducer = (state = INITIAL_STATE, action: { type: string; paylo
       return {
         ...state,
         collection: action.payload
+      }
+    case collectionsTypes.SET_BANNER:
+      return {
+        ...state,
+        banner: action.payload
       }
     default: return state;
   }

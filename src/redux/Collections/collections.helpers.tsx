@@ -17,6 +17,19 @@ export const handleFetchCollectionData = (collectionId: string) => {
   })
 }
 
+export const handleFetchBanner = (ids: string[]) => {
+  return new Promise((resolve, reject) => {
+    const recipes = ids.map(async (id) => (
+      await handleFetchCollectionData(id)
+    ))
+    Promise.all(recipes).then((value) => {
+      resolve(value);
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
+
 export const handleFetchCollectionRecipes = (ref: string[]) => {
   return new Promise((resolve, reject) => {
     try {
@@ -87,7 +100,6 @@ export const handleFetchCollection = ({ collectionId, language }: { collectionId
           }
         })
       }
-
     } catch (error) {
       reject(error);
       console.log(error);

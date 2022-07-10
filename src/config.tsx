@@ -1,0 +1,1 @@
+export const bannerConfig = ['strawberry', 'cherry'];

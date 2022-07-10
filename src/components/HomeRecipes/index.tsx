@@ -14,7 +14,13 @@ import './styles.scss';
 interface Props {
   loaded: boolean,
   data: Recipe[] | [],
-  keepScroll: () => { type: string; payload: { distance: number; store: string; }; }
+  keepScroll: () => {
+    type: string;
+    payload: {
+      distance: number;
+      store: string;
+    };
+  },
   title: string,
   handleSortFilter: () => void;
 }

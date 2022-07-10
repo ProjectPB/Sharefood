@@ -15,6 +15,11 @@ export const loadAuth = (state: boolean) => ({
   payload: state,
 });
 
+export const loadBanner = (state: boolean) => ({
+  type: loadingTypes.LOAD_BANNER,
+  payload: state,
+});
+
 export const loadRelatedRecipes = (state: boolean) => ({
   type: loadingTypes.LOAD_RELATED_RECIPES,
   payload: state,

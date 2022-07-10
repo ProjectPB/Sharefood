@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 import { fetchCollectionStart } from './../../redux/Collections/collections.actions';
 import { State } from '../../shared/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { setScrollDistanceStart } from '../../redux/Recipes/recipes.actions';
+import { resetScrollDistancesStart, setScrollDistanceStart } from '../../redux/Recipes/recipes.actions';
+import { setLastDisplayedCollection } from '../../redux/UI/ui.actions';
 import { useRecipeData } from '../../hooks';
 
 import Recipes from '../../components/Recipes';
@@ -11,7 +12,6 @@ import Loading from '../../components/Loading';
 import NoData from '../../components/NoData';
 
 import './styles.scss';
-import { setLastDisplayedCollection } from '../../redux/UI/ui.actions';
 
 const mapState = ({ ui, collections, loading }: State) => ({
   language: ui.language,
@@ -50,7 +50,11 @@ const CollectionPage = () => {
   useEffect(() => {
     collectionRef.current.scrollTo(0, scrollDistance);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+    return () => {
+      dispatch(resetScrollDistancesStart());
+    }
+  }, [dispatch, scrollDistance]);
 
   useEffect(() => {
     dispatch(setLastDisplayedCollection(collectionId));
@@ -58,8 +62,8 @@ const CollectionPage = () => {
 
   return (
     <div className='collection' ref={collectionRef} onScroll={() => setDistance(collectionRef.current?.scrollTop)}>
-      {language === 'english' && <h1 className='collection__title'>{collection?.eng_title}</h1>}
-      {language === 'polish' && <h1 className='collection__title'>{collection?.pl_title}</h1>}
+      {loaded && language === 'english' && <h1 className='collection__title'>{collection?.eng_title}</h1>}
+      {loaded && language === 'polish' && <h1 className='collection__title'>{collection?.pl_title}</h1>}
 
       {(loaded && data?.length > 0) && <div className="collection__container">
         <Recipes data={data} keepScroll={() => dispatch(setScrollDistanceStart({ distance: distance, store: 'collection' }))} />

@@ -149,6 +149,7 @@ export function* resetScrollDistances() {
     yield put(setMyScrollDistance(0));
     yield put(setUserScrollDistance(0));
     yield put(setFavoriteScrollDistance(0));
+    yield put(setCollectionScrollDistance(0));
   } catch (error) {
     alert(error.message);
   }

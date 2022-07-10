@@ -29,6 +29,7 @@ export interface Loading {
   homeRecentRecipesLoaded: boolean,
   homePopularRecipesLoaded: boolean,
   collectionLoaded: boolean,
+  bannerLoaded: boolean,
 }
 
 export interface RecipeData {
@@ -139,6 +140,7 @@ export interface State {
 
 export interface Collections {
   collection: CollectionData,
+  banner: CollectionData[],
 }
 
 export interface Option {
@@ -153,6 +155,7 @@ export interface CollectionData {
   img?: string,
   eng_recipes?: string[],
   pl_recipes?: string[],
+  id: string,
 }
 
 export interface Handler {
