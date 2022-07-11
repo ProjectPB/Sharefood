@@ -10,6 +10,7 @@ const INITIAL_STATE: Loading = {
   homePopularRecipesLoaded: false,
   collectionLoaded: false,
   bannerLoaded: false,
+  topUsersLoaded: false,
 };
 
 const loadingReducer = (
@@ -56,6 +57,11 @@ const loadingReducer = (
       return {
         ...state,
         bannerLoaded: action.payload,
+      };
+    case loadingTypes.LOAD_TOP_USERS:
+      return {
+        ...state,
+        topUsersLoaded: action.payload,
       };
     default:
       return state;

@@ -13,57 +13,5 @@
     gap: 20px;
     max-width: 1600px;
     margin: 0 auto;
-
-    .topUsers {
-      @include m.borders;
-      width: 100%;
-      padding: 15px;
-      display: flex;
-      gap: 20px;
-
-      .users {
-        width: 100%;
-
-        h2 {
-          text-align: center;
-          margin-bottom: 10px;
-        }
-
-        .usersProfiles {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          background-color: $lightgray-background;
-          padding: 20px;
-          border-radius: 10px;
-
-          .userProfile {
-            @include m.borders;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px;
-            border-bottom: 1px solid $gray-border;
-
-            &:hover {
-              background-color: $gray-hover;
-              border-radius: 10px;
-            }
-
-            img {
-              height: 30px;
-              width: 30px;
-              border-radius: 99%;
-            }
-
-            h3 {
-              font-weight: 400;
-              font-size: 16px;
-            }
-          }
-        }
-      }
-    }
   }
 }

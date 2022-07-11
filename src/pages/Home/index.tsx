@@ -8,6 +8,7 @@ import { loadHomePopularRecipes, loadHomeRecentRecipes } from "../../redux/Loadi
 
 import HomeRecipes from "../../components/HomeRecipes";
 import Banner from "../../components/Banner";
+import TopUsers from './../../components/TopUsers';
 
 import './styles.scss';
 
@@ -20,96 +21,6 @@ const mapState = ({ ui, recipes, loading }: State) => ({
 });
 
 const HomePage: React.FC = () => {
-  const placeholderData = [
-    {
-      id: '1',
-      data: {
-        username: 'Pabek',
-        profilePic: 'https://lh6.googleusercontent.com/-S3D1sw2-6lw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmQDbLm8_slOlkhcbK4fPLtvlkYOA/s96-c/photo.jpg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FBreakfast%20sandwich%2F1650560888169UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2Breakfast%20sandwichJPEG_HIGH?alt=media&token=b09de19b-c66b-468a-a8e2-b4d196861e7a',
-        timestamp: "",
-        title: 'Crème brûlée',
-        type: 'breakfast',
-      }
-    },
-    {
-      id: '2',
-      data: {
-        username: 'Pabek',
-        profilePic: 'https://lh6.googleusercontent.com/-S3D1sw2-6lw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmQDbLm8_slOlkhcbK4fPLtvlkYOA/s96-c/photo.jpg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FBreakfast%20sandwich%2F1650560888169UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2Breakfast%20sandwichJPEG_HIGH?alt=media&token=b09de19b-c66b-468a-a8e2-b4d196861e7a',
-        timestamp: "",
-        title: 'Crème brûlée',
-        type: 'breakfast',
-      }
-    },
-    {
-      id: '3',
-      data: {
-        username: 'Pabek',
-        profilePic: 'https://lh6.googleusercontent.com/-S3D1sw2-6lw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmQDbLm8_slOlkhcbK4fPLtvlkYOA/s96-c/photo.jpg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FBreakfast%20sandwich%2F1650560888169UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2Breakfast%20sandwichJPEG_HIGH?alt=media&token=b09de19b-c66b-468a-a8e2-b4d196861e7a',
-        timestamp: "",
-        title: 'Crème brûlée',
-        type: 'breakfast',
-      }
-    },
-    {
-      id: '4',
-      data: {
-        username: 'Pabek',
-        profilePic: 'https://lh6.googleusercontent.com/-S3D1sw2-6lw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmQDbLm8_slOlkhcbK4fPLtvlkYOA/s96-c/photo.jpg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FBreakfast%20sandwich%2F1650560888169UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2Breakfast%20sandwichJPEG_HIGH?alt=media&token=b09de19b-c66b-468a-a8e2-b4d196861e7a',
-        timestamp: "",
-        title: 'Crème brûlée',
-        type: 'breakfast',
-      }
-    },
-    {
-      id: '5',
-      data: {
-        username: 'Pabek',
-        profilePic: 'https://lh6.googleusercontent.com/-S3D1sw2-6lw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmQDbLm8_slOlkhcbK4fPLtvlkYOA/s96-c/photo.jpg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FBreakfast%20sandwich%2F1650560888169UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2Breakfast%20sandwichJPEG_HIGH?alt=media&token=b09de19b-c66b-468a-a8e2-b4d196861e7a',
-        timestamp: "",
-        title: 'Crème brûlée',
-        type: 'breakfast',
-      }
-    },
-    {
-      id: '6',
-      data: {
-        username: 'Pabek',
-        profilePic: 'https://lh6.googleusercontent.com/-S3D1sw2-6lw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmQDbLm8_slOlkhcbK4fPLtvlkYOA/s96-c/photo.jpg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FBreakfast%20sandwich%2F1650560888169UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2Breakfast%20sandwichJPEG_HIGH?alt=media&token=b09de19b-c66b-468a-a8e2-b4d196861e7a',
-        timestamp: "",
-        title: 'Crème brûlée',
-        type: 'breakfast',
-      }
-    },
-    {
-      id: '7',
-      data: {
-        username: 'Pabek',
-        profilePic: 'https://lh6.googleusercontent.com/-S3D1sw2-6lw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmQDbLm8_slOlkhcbK4fPLtvlkYOA/s96-c/photo.jpg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FBreakfast%20sandwich%2F1650560888169UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2Breakfast%20sandwichJPEG_HIGH?alt=media&token=b09de19b-c66b-468a-a8e2-b4d196861e7a',
-        timestamp: "",
-        title: 'Crème brûlée',
-        type: 'breakfast',
-      }
-    },
-    {
-      id: '8',
-      data: {
-        username: 'Pabek',
-        profilePic: 'https://lh6.googleusercontent.com/-S3D1sw2-6lw/AAAAAAAAAAI/AAAAAAAAAAA/AMZuucmQDbLm8_slOlkhcbK4fPLtvlkYOA/s96-c/photo.jpg',
-        image: 'https://firebasestorage.googleapis.com/v0/b/pb-sharefood.appspot.com/o/recipeImages%2FUjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2%2FBreakfast%20sandwich%2F1650560888169UjsXIWZ4EpOD5kvBBPhtCkaZ1Aa2Breakfast%20sandwichJPEG_HIGH?alt=media&token=b09de19b-c66b-468a-a8e2-b4d196861e7a',
-        timestamp: "",
-        title: 'Crème brûlée',
-        type: 'breakfast',
-      }
-    },
-  ]
   const { sidebarIsOpen, scrollDistance, popularRecipesLoaded, recentRecipesLoaded, language } = useSelector(mapState);
   const width = useWidth();
   const LANG = useLanguage();
@@ -174,60 +85,7 @@ const HomePage: React.FC = () => {
           data={popularData}
           keepScroll={keepScroll} />
 
-        <div className="topUsers">
-          <div className="users">
-            <h2>TOP (summarized likes on all recipes)</h2>
-            <div className="usersProfiles">
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-            </div>
-          </div>
-
-          <div className="users">
-            {/* likes comments added recipes */}
-            <h2>MOST RECIPES ADDED</h2>
-            <div className="usersProfiles">
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-              <div className="userProfile">
-                <img src={placeholderData[0].data?.profilePic} alt="" />
-                <h3>Pabek</h3>
-              </div>
-            </div>
-          </div>
-        </div>
+        <TopUsers keepScroll={keepScroll} />
       </div >
     </div >
   );

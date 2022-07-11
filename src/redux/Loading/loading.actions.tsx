@@ -39,3 +39,8 @@ export const loadCollection = (state: boolean) => ({
   type: loadingTypes.LOAD_COLLECTION,
   payload: state,
 });
+
+export const loadTopUsers = (state: boolean) => ({
+  type: loadingTypes.LOAD_TOP_USERS,
+  payload: state,
+});

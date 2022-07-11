@@ -106,3 +106,28 @@ export const handleFetchCollection = ({ collectionId, language }: { collectionId
     }
   })
 }
+
+export const handleFetchUsers = (order: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection('users').orderBy(order, 'desc').limit(5).get().then((snapshot) => {
+        const data = [
+          ...snapshot.docs.map((doc) => {
+            return {
+              uid: doc.data().uid,
+              displayName: doc.data().displayName,
+              profilePic: doc.data().profilePic,
+              stats: {
+                recipesAdded: doc.data().stats.recipesAdded,
+                likesQuantity: doc.data().stats.likesQuantity,
+              }
+            }
+          })
+        ]
+        resolve(data);
+      })
+    } catch (error) {
+      reject(error.message);
+    }
+  })
+}

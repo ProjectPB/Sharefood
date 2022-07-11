@@ -25,7 +25,7 @@ export function* createRecipe(payload: ReturnType<typeof createRecipeStart>) {
   try {
     yield handleCreateRecipe(payload);
   } catch (err) {
-    // console.log(err.message);
+    console.log(err.message);
   }
 }
 
@@ -35,7 +35,7 @@ export function* onCreateRecipeStart() {
 
 export function* likeRecipe({ payload }: ReturnType<typeof likeRecipeStart>) {
   try {
-    yield handleLikeRecipe(payload.userId, payload.recipeId);
+    yield handleLikeRecipe(payload.userId, payload.recipeId, payload.data.authorId);
     yield put(setRecipeData({ ...payload.data, liked: true, stats: { ...payload.data.stats, likesQuantity: payload.data.stats.likesQuantity += 1 } }));
     yield put(setFavoriteRecipes({
       data: [],
@@ -53,7 +53,7 @@ export function* onLikeRecipeStart() {
 
 export function* dislikeRecipe({ payload }: ReturnType<typeof dislikeRecipeStart>) {
   try {
-    handleDislikeRecipe(payload.userId, payload.recipeId);
+    handleDislikeRecipe(payload.userId, payload.recipeId, payload.data.authorId);
     yield put(setRecipeData({ ...payload.data, liked: false, stats: { ...payload.data.stats, likesQuantity: payload.data.stats.likesQuantity -= 1 } }));
     yield put(setFavoriteRecipes({
       data: [],

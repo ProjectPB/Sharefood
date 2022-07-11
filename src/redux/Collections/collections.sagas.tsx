@@ -1,9 +1,9 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { fetchBannerDataStart, fetchCollectionStart, setBanner, setCollection } from './collections.actions';
-import { handleFetchBanner, handleFetchCollection } from './collections.helpers';
-import { loadBanner, loadCollection } from "../Loading/loading.actions";
+import { fetchBannerDataStart, fetchCollectionStart, fetchTopUsersStart, setActiveUsers, setBanner, setCollection, setTopUsers } from './collections.actions';
+import { handleFetchBanner, handleFetchCollection, handleFetchUsers } from './collections.helpers';
+import { loadBanner, loadCollection, loadTopUsers } from "../Loading/loading.actions";
 import { setCollectionRecipes } from "../Recipes/recipes.actions";
-import { CollectionData, SingleRecipes } from "../../shared/types";
+import { CollectionData, SingleRecipes, User } from "../../shared/types";
 import collectionTypes from './collections.types';
 
 export function* fetchCollection({ payload }: ReturnType<typeof fetchCollectionStart>) {
@@ -42,9 +42,28 @@ export function* onFetchBannerStart() {
   yield takeLatest(collectionTypes.FETCH_BANNER_DATA, fetchBanner);
 }
 
+export function* fetchTopUsers({ payload: { topFilter, activeFilter } }: ReturnType<typeof fetchTopUsersStart>) {
+  try {
+    yield put(loadTopUsers(false));
+    const topUsers: User[] = yield handleFetchUsers(topFilter);
+    const activeUsers: User[] = yield handleFetchUsers(activeFilter);
+    yield put(setTopUsers(topUsers));
+    yield put(setActiveUsers(activeUsers));
+    yield put(loadTopUsers(true));
+  } catch (error) {
+    console.log(error);
+    yield put(loadTopUsers(true));
+  }
+}
+
+export function* onFetchTopUsersStart() {
+  yield takeLatest(collectionTypes.FETCH_TOP_USERS, fetchTopUsers);
+}
+
 export default function* collectionsSagas() {
   yield all([
     call(onFetchCollectionStart),
     call(onFetchBannerStart),
+    call(onFetchTopUsersStart),
   ]);
 }

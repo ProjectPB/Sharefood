@@ -3,6 +3,8 @@ export const ENG_HOMEPAGE = {
   POPULAR: "Popular recipes",
   MORE: "More",
   FEATURED: "Featured recipes",
+  TOP_USERS: "Top users",
+  ACTIVE_USERS: "Most active users"
 }
 
 export const PL_HOMEPAGE = {
@@ -10,4 +12,6 @@ export const PL_HOMEPAGE = {
   POPULAR: "Najpopularniejsze przepisy",
   MORE: "Więcej",
   FEATURED: "Polecane przepisy",
+  TOP_USERS: "Najpopularniejsi użytkownicy",
+  ACTIVE_USERS: "Najaktywniejsi użytkownicy"
 }

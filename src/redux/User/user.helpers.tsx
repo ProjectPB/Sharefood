@@ -17,9 +17,13 @@ export const handleUserProfile = async ({ userAuth, additionalData }: any) => {
         displayName,
         email,
         uid: uid,
-        profilePic: photoURL || null,
-        userRoles,
+        profilePic: photoURL || '',
+        stats: {
+          recipesAdded: 0,
+          likesQuantity: 0,
+        },
         ...additionalData,
+        userRoles,
       });
     } catch (err) {
       // console.log(err);

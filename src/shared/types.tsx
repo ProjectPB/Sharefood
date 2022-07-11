@@ -9,9 +9,14 @@ export interface CurrentUser {
 }
 
 export interface User {
-  objectID: string,
+  uid?: string;
+  objectID?: string,
   profilePic: string;
   displayName: string;
+  stats?: {
+    recipesAdded?: number
+    likesQuantity?: number
+  }
 }
 
 export interface Credentials {
@@ -30,6 +35,7 @@ export interface Loading {
   homePopularRecipesLoaded: boolean,
   collectionLoaded: boolean,
   bannerLoaded: boolean,
+  topUsersLoaded: boolean,
 }
 
 export interface RecipeData {
@@ -141,6 +147,8 @@ export interface State {
 export interface Collections {
   collection: CollectionData,
   banner: CollectionData[],
+  topUsers: User[],
+  activeUsers: User[],
 }
 
 export interface Option {

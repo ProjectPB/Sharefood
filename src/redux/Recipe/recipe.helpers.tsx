@@ -58,7 +58,7 @@ export const checkIfLiked = (userId: string, data: firebase.firestore.DocumentDa
   })
 }
 
-export const handleLikeRecipe = (userId: string, recipeId: string) => {
+export const handleLikeRecipe = (userId: string, recipeId: string, authorId: string) => {
   return new Promise((resolve, reject) => {
     try {
       db.collection("recipes")
@@ -67,8 +67,14 @@ export const handleLikeRecipe = (userId: string, recipeId: string) => {
           // eslint-disable-next-line 
           ['stats.likesQuantity']: firebase.firestore.FieldValue.increment(1),
           likesUsers: firebase.firestore.FieldValue.arrayUnion(userId),
-        });
-      resolve(true);
+        }).then(() => {
+          db.collection('users').doc(authorId).update({
+            // eslint-disable-next-line 
+            ['stats.likesQuantity']: firebase.firestore.FieldValue.increment(1),
+          }).then(() => {
+            resolve(true);
+          })
+        })
     } catch (err) {
       reject(err.message)
     }
@@ -91,7 +97,7 @@ export const handleViewRecipe = (recipeId: string) => {
   })
 };
 
-export const handleDislikeRecipe = (userId: string, recipeId: string) => {
+export const handleDislikeRecipe = (userId: string, recipeId: string, authorId: string) => {
   return new Promise((resolve, reject) => {
     try {
       db.collection("recipes")
@@ -100,6 +106,13 @@ export const handleDislikeRecipe = (userId: string, recipeId: string) => {
           // eslint-disable-next-line 
           ['stats.likesQuantity']: firebase.firestore.FieldValue.increment(-1),
           likesUsers: firebase.firestore.FieldValue.arrayRemove(userId),
+        }).then(() => {
+          db.collection('users').doc(authorId).update({
+            // eslint-disable-next-line 
+            ['stats.likesQuantity']: firebase.firestore.FieldValue.increment(-1),
+          }).then(() => {
+            resolve(true);
+          })
         })
       resolve(true);
     } catch (err) {
@@ -108,7 +121,7 @@ export const handleDislikeRecipe = (userId: string, recipeId: string) => {
   })
 };
 
-export const handleDeleteRecipe = (imageRef: string, imageLowRef: string, recipeId: string) => {
+export const handleDeleteRecipe = (imageRef: string, imageLowRef: string, recipeId: string, authorId: string) => {
   return new Promise((resolve, reject) => {
     try {
       db.collection("recipes").doc(recipeId).delete()
@@ -138,6 +151,11 @@ export const handleDeleteRecipe = (imageRef: string, imageLowRef: string, recipe
               }
             })
           });
+        }).then(() => {
+          db.collection('users').doc(authorId).update({
+            // eslint-disable-next-line 
+            ['stats.recipesAdded']: firebase.firestore.FieldValue.increment(-1),
+          })
         }).then(() => {
           resolve(true);
         })
@@ -206,8 +224,14 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
             likesQuantity: 0,
             views: 0,
           }
-        });
-        resolve(true);
+        }).then(() => {
+          db.collection('users').doc(authorId).update({
+            // eslint-disable-next-line 
+            ['stats.recipesAdded']: firebase.firestore.FieldValue.increment(1),
+          })
+        }).then(() => {
+          resolve(true);
+        })
       }).catch(err => {
         console.log(err.message);
         reject(err.message);

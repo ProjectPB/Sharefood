@@ -12,6 +12,8 @@ const INITIAL_STATE: Collections = {
     pl_recipes: [],
   },
   banner: [],
+  topUsers: [],
+  activeUsers: [],
 }
 
 const collectionsReducer = (state = INITIAL_STATE, action: { type: string; payload: any }) => {
@@ -25,6 +27,16 @@ const collectionsReducer = (state = INITIAL_STATE, action: { type: string; paylo
       return {
         ...state,
         banner: action.payload
+      }
+    case collectionsTypes.SET_TOP_USERS:
+      return {
+        ...state,
+        topUsers: action.payload
+      }
+    case collectionsTypes.SET_ACTIVE_USERS:
+      return {
+        ...state,
+        activeUsers: action.payload
       }
     default: return state;
   }
