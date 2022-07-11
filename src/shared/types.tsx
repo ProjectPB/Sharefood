@@ -70,6 +70,7 @@ export interface NewRecipeData extends RecipeData {
 }
 
 export interface FiltersTypes {
+  lastDisplayedProfile?: string;
   queryFilter?: string;
   counter?: number;
   sortFilter?: string;

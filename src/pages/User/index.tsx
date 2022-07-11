@@ -21,7 +21,7 @@ const UserPage: React.FC = () => {
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
 
   const filters = {
-    counter: counter, userId: lastDisplayedProfile, store: 'user', sortFilter: "recent", language: ""
+    counter: counter, userId: userId, store: 'user', sortFilter: "recent", language: "", lastDisplayedProfile
   }
 
   useEffect(() => {
@@ -32,13 +32,9 @@ const UserPage: React.FC = () => {
     dispatch(setLastDisplayedProfile(userId));
   }, [userId, dispatch])
 
-  const rendererConfig = {
-    filters: filters
-  }
-
   return (
     <Fragment>
-      <RecipesRenderer {...rendererConfig} />
+      <RecipesRenderer filters={filters} />
     </Fragment >
   );
 };

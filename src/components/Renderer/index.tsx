@@ -47,7 +47,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort, cha
       setRendered(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.counter, filters.typeFilter, filters.sortFilter, filters.tagFilter, filters.userId]);
+  }, [filters.counter, filters.typeFilter, filters.sortFilter, filters.tagFilter, filters.userId, filters?.lastDisplayedProfile]);
 
   useEffect(() => {
     if (data.length === 0 && !isLastPage) {
