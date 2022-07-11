@@ -59,7 +59,9 @@ const HomePage: React.FC = () => {
   }, [counter, counterChanged, dispatch, popularData.length, recentData.length, language])
 
   useEffect(() => {
-    homepageRef.current.scrollTo(0, scrollDistance);
+    setTimeout(() => {
+      homepageRef.current.scrollTo(0, scrollDistance);
+    }, 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

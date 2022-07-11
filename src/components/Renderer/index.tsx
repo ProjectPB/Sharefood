@@ -74,7 +74,9 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort, cha
   }, [data, isLastPage, recipesContainerRef.current?.clientHeight, recipesHeight])
 
   useEffect(() => {
-    recipesContainerRef.current.scrollTo(0, scrollDistance);
+    setTimeout(() => {
+      recipesContainerRef.current.scrollTo(0, scrollDistance);
+    }, 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

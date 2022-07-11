@@ -48,7 +48,9 @@ const CollectionPage = () => {
   }, [collectionId, language, dispatch, changed, data.length]);
 
   useEffect(() => {
-    collectionRef.current.scrollTo(0, scrollDistance);
+    setTimeout(() => {
+      collectionRef.current.scrollTo(0, scrollDistance);
+    }, 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
 
     return () => {
