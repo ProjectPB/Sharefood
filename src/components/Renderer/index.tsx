@@ -146,18 +146,18 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort, cha
       }
 
       {!loaded &&
-        <div className="renderer__loading">
+        <div className={`renderer__loading ${filters.store === 'favorite' || filters.store === 'my' ? 'center' : ''}`}>
           <Loading />
         </div>
       }
 
       {loaded && data?.length === 0 &&
-        <div className="renderer__noData">
+        <div className={`renderer__noData ${filters.store === 'favorite' || filters.store === 'my' ? 'center' : ''}`}>
           <NoData />
         </div>
       }
 
-      {loaded &&
+      {loaded && data?.length > 0 &&
         <Recipes {...recipesConfig} />
       }
 

@@ -49,7 +49,6 @@ const TopUsers = ({ keepScroll }: Props) => {
               <div className="userProfile">
                 <Avatar className="userProfile__profilePic" src={user?.profilePic} />
                 <h3>{user.displayName}</h3>
-                <p>{user.stats.likesQuantity}</p>
               </div>
             </Link>
           ))}
@@ -65,7 +64,6 @@ const TopUsers = ({ keepScroll }: Props) => {
               <div className="userProfile">
                 <Avatar className="userProfile__profilePic" src={user?.profilePic} />
                 <h3>{user.displayName}</h3>
-                <p>{user.stats.recipesAdded}</p>
               </div>
             </Link>
           ))}

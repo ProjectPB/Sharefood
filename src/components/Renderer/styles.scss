@@ -25,19 +25,23 @@
   }
 
   .renderer__loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    margin: 0 auto;
+    min-height: 200px;
+    display: grid;
+    place-items: center;
   }
 
   .renderer__noData {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     width: 100%;
     padding: 0 20px;
+    min-height: 200px;
+    display: grid;
+    place-items: center;
+  }
+
+  .center {
+    height: 100%;
   }
 
   .renderer__loadingMore {
