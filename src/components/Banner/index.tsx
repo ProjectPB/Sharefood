@@ -6,7 +6,6 @@ import { useLanguage } from '../../hooks';
 import { fetchBannerDataStart } from '../../redux/Collections/collections.actions';
 import { State } from '../../shared/types';
 
-import Loading from '../Loading';
 import NoData from '../NoData';
 
 import './styles.scss';
@@ -43,7 +42,7 @@ const Banner = ({ keepScroll }: Props) => {
       <h2>{LANG.HOMEPAGE.FEATURED}</h2>
 
       <div className="banner__wrapper">
-        {(loaded && banner && banner.length > 0) && banner.map((i) => (
+        {(loaded && banner.length > 0) && banner.map((i) => (
           <div className="banner__img" key={i?.id}>
             <Link to={`/collection/${i?.id}`} onClick={keepScroll}>
               <img src={i?.img} alt={language === 'english' ? i?.eng_title : i?.pl_title} />
@@ -52,7 +51,9 @@ const Banner = ({ keepScroll }: Props) => {
             {(loaded && banner.length === 0) && <NoData />}
           </div>
         ))}
-        {!loaded && <Loading />}
+        {!loaded && bannerConfig.map((id) => {
+          return <div className='banner--loading__overlay' key={id} />
+        })}
       </div>
     </div >
   )

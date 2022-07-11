@@ -23,7 +23,9 @@
 
     .usersProfiles {
       display: flex;
+      justify-content: center;
       flex-direction: column;
+      min-height: 300px;
       gap: 10px;
       padding: 20px;
       border-radius: 10px;
