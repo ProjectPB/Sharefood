@@ -1,5 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { checkUserSessionStart } from "./redux/User/user.actions";
+import { RootState } from "./redux/rootReducer";
+import { CurrentUser } from "./shared/types";
 
 import FullscreenLayout from './layouts/FullscreenLayout';
 import MainLayout from './layouts/MainLayout';
@@ -17,6 +21,13 @@ import MyRecipesPage from './pages/My';
 import CollectionPage from './pages/Collection';
 
 const App: React.FC = () => {
+  const dispatch = useDispatch();
+  const currentUserData: CurrentUser = useSelector((state: RootState) => state.user.currentUser);
+
+  useEffect(() => {
+    dispatch(checkUserSessionStart(currentUserData));
+  }, [dispatch, currentUserData]);
+
   return (
     <BrowserRouter>
       <Routes>

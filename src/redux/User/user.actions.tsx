@@ -11,8 +11,9 @@ export const signInSuccess = (user: CurrentUser) => ({
   payload: user,
 });
 
-export const checkUserSession = () => ({
+export const checkUserSessionStart = (userData: CurrentUser) => ({
   type: userTypes.CHECK_USER_SESSION,
+  payload: userData,
 });
 
 export const signOutUserStart = () => ({
@@ -55,3 +56,13 @@ export const signUpError = (error: string[]) => ({
   type: userTypes.SIGN_UP_ERROR,
   payload: error,
 });
+
+export const setDisplayName = (displayName: string) => ({
+  type: userTypes.SET_DISPLAY_NAME,
+  payload: displayName,
+})
+
+export const setProfilePic = (profilePic: string) => ({
+  type: userTypes.SET_PROFILE_PIC,
+  payload: profilePic,
+})

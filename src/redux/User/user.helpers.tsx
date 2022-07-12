@@ -3,27 +3,23 @@ import { auth, db } from "../../firebase/utils";
 export const handleUserProfile = async ({ userAuth, additionalData }: any) => {
   if (!userAuth) return;
 
-  const { uid } = userAuth;
+  const userRef = db.doc(`users/${userAuth.uid}`);
 
-  const userRef = db.doc(`users/${uid}`);
   const snapshot = await userRef.get();
-
   if (!snapshot.exists) {
-    const { displayName, email, photoURL } = userAuth;
-    const userRoles = ["user"];
+    const { email, photoURL } = userAuth;
 
     try {
       await userRef.set({
-        displayName,
+        displayName: additionalData?.displayName,
         email,
-        uid: uid,
+        uid: userAuth.uid,
         profilePic: photoURL || '',
         stats: {
           recipesAdded: 0,
           likesQuantity: 0,
         },
-        ...additionalData,
-        userRoles,
+        userRoles: ["user"],
       });
     } catch (err) {
       // console.log(err);
@@ -32,11 +28,28 @@ export const handleUserProfile = async ({ userAuth, additionalData }: any) => {
   return userRef;
 };
 
-export const getCurrentUser = () => {
+export const updateUserData = ({ userId, key, value }: { userId: string, key: string, value: string, }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection('users').doc(userId).update({
+        [key]: value
+      });
+      resolve(true);
+    } catch (error) {
+      reject(error);
+    }
+  })
+}
+
+export const checkCurrentUser = () => {
   return new Promise((resolve, reject) => {
     const unsubscribe = auth.onAuthStateChanged((userAuth) => {
       unsubscribe();
-      resolve(userAuth);
+      if (userAuth) {
+        resolve(userAuth);
+      } else {
+        resolve(false);
+      }
     }, reject);
   });
 };

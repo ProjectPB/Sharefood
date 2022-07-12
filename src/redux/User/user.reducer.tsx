@@ -1,4 +1,4 @@
-import { Credentials, CurrentUser, State } from "../../shared/types";
+import { State } from "../../shared/types";
 import userTypes from "./user.types";
 
 const INITIAL_STATE: State["user"] = {
@@ -10,7 +10,7 @@ const INITIAL_STATE: State["user"] = {
 
 const userReducer = (
   state = INITIAL_STATE,
-  action: { type: string; payload: Credentials | CurrentUser | string[] | {} }
+  action: { type: string; payload: any }
 ) => {
   switch (action.type) {
     case userTypes.SIGN_IN_SUCCESS:
@@ -38,6 +38,20 @@ const userReducer = (
       return {
         ...state,
         signUpErrors: action.payload,
+      };
+    case userTypes.SET_DISPLAY_NAME:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser, displayName: action.payload,
+        }
+      };
+    case userTypes.SET_PROFILE_PIC:
+      return {
+        ...state,
+        currentUser: {
+          ...state.currentUser, profilePic: action.payload,
+        }
       };
     default:
       return state;

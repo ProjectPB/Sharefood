@@ -5,21 +5,28 @@ import {
   handleResetPasswordAPI,
   validateLogin,
   validateRegister,
+  updateUserData,
+  checkCurrentUser,
 } from "./user.helpers";
 import {
+  checkUserSessionStart,
   emailSignInStart,
   resetPasswordError,
   resetPasswordStart,
   resetPasswordSuccess,
+  setDisplayName,
+  setProfilePic,
   signInSuccess,
+  signOutUserStart,
   signOutUserSuccess,
   signUpError,
   signUpUserStart,
 } from "./user.actions";
 import { loadAuth } from "../Loading/loading.actions";
 import userTypes from "./user.types";
+import { setFavoriteRecipes, setMyRecipes } from "../Recipes/recipes.actions";
 
-export function* getSnapshotFromUserAuth(
+export function* fetchDataFromUserAuth(
   user: {},
   additionalData?: { displayName: string }
 ): any {
@@ -28,7 +35,9 @@ export function* getSnapshotFromUserAuth(
       userAuth: user,
       additionalData,
     });
+
     const snapshot = yield userRef.get();
+
     yield put(
       signInSuccess({
         uid: snapshot.uid,
@@ -40,16 +49,42 @@ export function* getSnapshotFromUserAuth(
   }
 }
 
+export function* checkUserSession({ payload }: ReturnType<typeof checkUserSessionStart>): any {
+  try {
+    const userAuth = yield checkCurrentUser();
+    const userAuthData = { uid: userAuth.uid, displayName: userAuth.displayName, profilePic: userAuth.photoURL }
+    const userPersistData = { uid: payload.uid, displayName: payload.displayName, profilePic: payload.profilePic }
+    if (!userAuth) {
+      yield put(signOutUserStart());
+    }
+    if (userAuthData.displayName && userAuthData.displayName !== userPersistData.displayName) {
+      yield put(setDisplayName(userAuthData.displayName));
+      yield updateUserData({ userId: userAuth.uid, key: 'displayName', value: userAuthData.displayName });
+    }
+    else if (userAuthData.profilePic && userAuthData.profilePic !== userPersistData.profilePic) {
+      yield put(setProfilePic(userAuthData.profilePic));
+      yield updateUserData({ userId: userAuth.uid, key: 'profilePic', value: userAuthData.profilePic });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function* onCheckUserSessionStart() {
+  yield takeLatest(userTypes.CHECK_USER_SESSION, checkUserSession);
+}
+
+
 export function* emailSignIn({
   payload: { email, password },
 }: ReturnType<typeof emailSignInStart>) {
   const errors: string[] = validateLogin(email, password);
-  yield put(signUpError(errors));
+  if (errors.length > 0) { yield put(signUpError(errors)) };
   try {
     if (errors.length === 0) {
       yield put(loadAuth(true));
       const { user } = yield auth.signInWithEmailAndPassword(email, password);
-      yield getSnapshotFromUserAuth(user);
+      yield fetchDataFromUserAuth(user);
       yield put(loadAuth(false));
     }
   } catch (err) {
@@ -62,19 +97,6 @@ export function* emailSignIn({
 
 export function* onEmailSignInStart() {
   yield takeLatest(userTypes.EMAIL_SIGN_IN_START, emailSignIn);
-}
-
-export function* signOutUser() {
-  try {
-    yield auth.signOut();
-    yield put(signOutUserSuccess());
-  } catch (err) {
-    // console.log(err);
-  }
-}
-
-export function* onSignOutUserStart() {
-  yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUser);
 }
 
 export function* signUpUser({
@@ -90,8 +112,8 @@ export function* signUpUser({
         email,
         password
       );
-      const additionalData = { displayName };
-      yield getSnapshotFromUserAuth(user, additionalData);
+      const additionalData = { displayName: displayName };
+      yield fetchDataFromUserAuth(user, additionalData);
       yield put(loadAuth(false));
     }
   } catch (err) {
@@ -108,7 +130,7 @@ export function* onSignUpUserStart() {
 export function* googleSignIn() {
   try {
     const { user } = yield auth.signInWithPopup(GoogleProvider);
-    yield getSnapshotFromUserAuth(user);
+    yield fetchDataFromUserAuth(user);
   } catch (err) {
     // console.log(err.message);
   }
@@ -116,6 +138,29 @@ export function* googleSignIn() {
 
 export function* onGoogleSignInStart() {
   yield takeLatest(userTypes.GOOGLE_SIGN_IN_START, googleSignIn);
+}
+
+export function* signOutUser() {
+  try {
+    yield auth.signOut();
+    yield put(signOutUserSuccess());
+    yield put(setMyRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+    yield put(setFavoriteRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+  } catch (err) {
+    // console.log(err);
+  }
+}
+
+export function* onSignOutUserStart() {
+  yield takeLatest(userTypes.SIGN_OUT_USER_START, signOutUser);
 }
 
 export function* resetPassword({
@@ -140,6 +185,7 @@ export default function* userSagas() {
     call(onEmailSignInStart),
     call(onSignOutUserStart),
     call(onSignUpUserStart),
+    call(onCheckUserSessionStart),
     call(onResetPasswordStart),
     call(onGoogleSignInStart),
   ]);

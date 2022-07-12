@@ -19,6 +19,8 @@ export const rootReducer = combineReducers({
   collections: collectionsReducer,
 });
 
+export type RootState = ReturnType<typeof rootReducer>
+
 const rootPersistConfig = getPersistConfig({
   key: 'root',
   storage,

@@ -1,9 +1,11 @@
 import React from 'react'
 import NoData from './../../components/NoData';
 
+import './styles.scss';
+
 const EmptyPage: React.FC = () => {
   return (
-    <div>
+    <div className='emptyPage'>
       <NoData />
     </div>
   )
