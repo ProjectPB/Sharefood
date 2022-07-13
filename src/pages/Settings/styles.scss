@@ -1,0 +1,51 @@
+@use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
+
+.settings {
+  overflow-y: auto;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+
+  .settings__container {
+    @include m.borders;
+    max-width: 992px;
+    width: 100%;
+    padding: 20px;
+
+    .settings__form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .settings__div {
+        display: flex;
+        justify-content: space-between;
+
+        @media (max-width: 600px) {
+          flex-direction: column;
+        }
+
+        .settings__title {
+          font-size: 20px;
+          font-weight: 500;
+          color: $gray-text;
+          flex: 0.3;
+          margin-right: 5px;
+
+          @media (max-width: 600px) {
+            margin-bottom: 3px;
+            margin-right: 0;
+          }
+        }
+
+        .settings__handlers {
+          flex: 0.7;
+        }
+      }
+    }
+  }
+}

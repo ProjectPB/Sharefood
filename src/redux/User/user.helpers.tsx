@@ -1,4 +1,5 @@
-import { auth, db } from "../../firebase/utils";
+import { auth, db, storage } from "../../firebase/utils";
+import { putImgToStorage } from './../Recipe/recipe.helpers';
 
 export const handleUserProfile = async ({ userAuth, additionalData }: any) => {
   if (!userAuth) return;
@@ -100,4 +101,27 @@ export const validateLogin = (email: string, password: string) => {
     errors.push("INVALID_PASSWORD")
   }
   return errors;
+}
+
+export const handleUpdateProfilePic = (userId: string, profilePic: File): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    try {
+      let imgUrl = '';
+      const imageName = new Date().getTime() + profilePic.name;
+      const storageRef = `users/${userId}/thumbnails/${imageName}`;
+
+      putImgToStorage(profilePic, storageRef)
+        .then((res: string) => (imgUrl = res))
+        .then(() => {
+          db.collection('users').doc(userId).update({
+            'profilePic': imgUrl,
+          })
+        })
+        .then(() => {
+          resolve(imgUrl);
+        })
+    } catch (error) {
+      reject(error.message);
+    }
+  })
 }

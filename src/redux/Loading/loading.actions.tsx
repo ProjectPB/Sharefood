@@ -44,3 +44,8 @@ export const loadTopUsers = (state: boolean) => ({
   type: loadingTypes.LOAD_TOP_USERS,
   payload: state,
 });
+
+export const loadProfilePic = (state: boolean) => ({
+  type: loadingTypes.LOAD_PROFILE_PIC,
+  payload: state,
+})

@@ -34,16 +34,5 @@
     &:hover {
       background-color: $gray-hover;
     }
-
-    &:first-child::after {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      content: "";
-      background: $gray-border;
-      width: calc(100% - 10px);
-      height: 1px;
-    }
   }
 }

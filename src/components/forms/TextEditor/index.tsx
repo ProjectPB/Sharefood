@@ -6,7 +6,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import './styles.scss';
 
 interface Props {
-  label: string,
+  label?: string,
   editor: EditorState;
   content: string;
   update: (state: React.SetStateAction<EditorState> | any) => void;

@@ -19,6 +19,7 @@ import AllRecipesPage from './pages/All';
 import FavoriteRecipesPage from './pages/Favorite';
 import MyRecipesPage from './pages/My';
 import CollectionPage from './pages/Collection';
+import SettingsPage from './pages/Settings';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(checkUserSessionStart(currentUserData));
-  }, [dispatch, currentUserData]);
+  });
 
   return (
     <BrowserRouter>
@@ -41,7 +42,10 @@ const App: React.FC = () => {
           </Route>
           <Route element={<WideLayout />}>
             <Route path="recipe/:recipeId" element={<RecipePage />} />
-            <Route path="user/:userId" element={<UserPage />} />
+            <Route path="user">
+              <Route path=":userId" element={<UserPage />} />
+              <Route path="settings" element={<SettingsPage />} />
+            </Route>
             <Route path="*" element={<EmptyPage />} />
           </Route>
           <Route element={<FullscreenLayout />}>

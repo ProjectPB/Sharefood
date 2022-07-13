@@ -7,8 +7,10 @@ import {
   validateRegister,
   updateUserData,
   checkCurrentUser,
+  handleUpdateProfilePic,
 } from "./user.helpers";
 import {
+  changeProfilePicStart,
   checkUserSessionStart,
   emailSignInStart,
   resetPasswordError,
@@ -22,7 +24,7 @@ import {
   signUpError,
   signUpUserStart,
 } from "./user.actions";
-import { loadAuth } from "../Loading/loading.actions";
+import { loadAuth, loadProfilePic } from "../Loading/loading.actions";
 import userTypes from "./user.types";
 import { setFavoriteRecipes, setMyRecipes } from "../Recipes/recipes.actions";
 
@@ -180,6 +182,21 @@ export function* onResetPasswordStart() {
   yield takeLatest(userTypes.RESET_PASSWORD_START, resetPassword);
 }
 
+export function* changeProfilePic({ payload: { userId, profilePic } }: ReturnType<typeof changeProfilePicStart>) {
+  try {
+    yield put(loadProfilePic(true));
+    const newPic: string = yield handleUpdateProfilePic(userId, profilePic);
+    yield put(setProfilePic(newPic));
+    yield put(loadProfilePic(false));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* onChangeProfilePicStart() {
+  yield takeLatest(userTypes.CHANGE_PROFILE_PIC_START, changeProfilePic);
+}
+
 export default function* userSagas() {
   yield all([
     call(onEmailSignInStart),
@@ -188,5 +205,6 @@ export default function* userSagas() {
     call(onCheckUserSessionStart),
     call(onResetPasswordStart),
     call(onGoogleSignInStart),
+    onChangeProfilePicStart(),
   ]);
 }

@@ -6,7 +6,8 @@ export const ENG_HEADER = {
   LANG_PL: "Polish",
   CREATE: "Create",
   LOGIN: "Sign In",
-  LOGOUT: "Sign Out"
+  LOGOUT: "Sign Out",
+  SETTINGS: "Settings"
 }
 
 export const PL_HEADER = {
@@ -17,5 +18,6 @@ export const PL_HEADER = {
   LANG_PL: "Polski",
   CREATE: "Utwórz",
   LOGIN: "Zaloguj się",
-  LOGOUT: "Wyloguj się"
+  LOGOUT: "Wyloguj się",
+  SETTINGS: "USTAWIENIA"
 }

@@ -11,6 +11,7 @@ const INITIAL_STATE: Loading = {
   collectionLoaded: false,
   bannerLoaded: false,
   topUsersLoaded: false,
+  profilePicLoading: false,
 };
 
 const loadingReducer = (
@@ -62,6 +63,11 @@ const loadingReducer = (
       return {
         ...state,
         topUsersLoaded: action.payload,
+      };
+    case loadingTypes.LOAD_PROFILE_PIC:
+      return {
+        ...state,
+        profilePicLoading: action.payload,
       };
     default:
       return state;

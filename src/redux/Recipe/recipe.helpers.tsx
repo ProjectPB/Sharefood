@@ -165,7 +165,7 @@ export const handleDeleteRecipe = (imageRef: string, imageLowRef: string, recipe
   })
 };
 
-const putImgToStorage = (file: any, refString: string) => {
+export const putImgToStorage = (file: any, refString: string) => {
   return new Promise((resolve, reject) => {
     try {
       let ref = storage.ref(refString)

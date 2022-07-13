@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types";
 
 import './styles.scss';
+import { Edit, Settings } from "@mui/icons-material";
 
 const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,
@@ -33,6 +34,13 @@ const ProfilePopup: React.FC<Props> = ({ close }) => {
         <div className="profilePopup__action">
           <Avatar src={currentUser?.profilePic} alt={currentUser?.displayName} />
           <p>{currentUser?.displayName}</p>
+        </div>
+      </Link>
+
+      <Link to='user/settings'>
+        <div className="profilePopup__action" onClick={() => close()}>
+          <Settings />
+          <p>{LANG.HEADER.SETTINGS}</p>
         </div>
       </Link>
 

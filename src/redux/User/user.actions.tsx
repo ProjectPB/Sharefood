@@ -66,3 +66,8 @@ export const setProfilePic = (profilePic: string) => ({
   type: userTypes.SET_PROFILE_PIC,
   payload: profilePic,
 })
+
+export const changeProfilePicStart = (data: { userId: string, profilePic: File }) => ({
+  type: userTypes.CHANGE_PROFILE_PIC_START,
+  payload: data,
+})

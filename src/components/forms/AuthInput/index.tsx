@@ -10,7 +10,7 @@ const mapState = ({ user }: State) => ({
 });
 
 interface Props {
-  Icon: SvgIconComponent;
+  Icon?: SvgIconComponent;
   value: string;
   handleChange: {
     (e: Handler["string"]): void;
@@ -60,7 +60,7 @@ const AuthInput: React.FC<Props> = ({
   return (
     <div className="authInput">
       <div className={`${isValid ? 'authInput__wrapper' : 'authInput__wrapper authInput__wrapper--invalid'} `}>
-        <Icon className='authInput__labelIcon' />
+        {Icon && <Icon className='authInput__labelIcon' />}
         <input
           value={value}
           onChange={handleChange}
