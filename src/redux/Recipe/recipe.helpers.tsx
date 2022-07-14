@@ -121,7 +121,7 @@ export const handleDislikeRecipe = (userId: string, recipeId: string, authorId: 
   })
 };
 
-export const handleDeleteRecipe = (imageRef: string, imageLowRef: string, recipeId: string, authorId: string) => {
+export const handleDeleteRecipe = ({ imageRef, imageLowRef, recipeId, authorId }: { imageRef: string, imageLowRef: string, recipeId: string, authorId: string }) => {
   return new Promise((resolve, reject) => {
     try {
       db.collection("recipes").doc(recipeId).delete()

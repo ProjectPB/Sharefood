@@ -8,10 +8,13 @@ import {
   updateUserData,
   checkCurrentUser,
   handleUpdateProfilePic,
+  handleDeleteAccount,
+  handleDeleteUserData,
 } from "./user.helpers";
 import {
   changeProfilePicStart,
   checkUserSessionStart,
+  deleteAccountStart,
   emailSignInStart,
   resetPasswordError,
   resetPasswordStart,
@@ -24,9 +27,9 @@ import {
   signUpError,
   signUpUserStart,
 } from "./user.actions";
-import { loadAuth, loadProfilePic } from "../Loading/loading.actions";
-import userTypes from "./user.types";
+import { loadAuth, loadDeleteAccount, loadProfilePic } from "../Loading/loading.actions";
 import { resetRecipes, setFavoriteRecipes, setMyRecipes } from "../Recipes/recipes.actions";
+import userTypes from "./user.types";
 
 export function* fetchDataFromUserAuth(
   user: {},
@@ -198,6 +201,23 @@ export function* onChangeProfilePicStart() {
   yield takeLatest(userTypes.CHANGE_PROFILE_PIC_START, changeProfilePic);
 }
 
+export function* deleteAccount({ payload }: ReturnType<typeof deleteAccountStart>) {
+  try {
+    yield put(loadDeleteAccount(true));
+    yield handleDeleteAccount();
+    yield handleDeleteUserData(payload);
+    yield put(loadDeleteAccount(false));
+    yield put(signOutUserStart());
+    yield put(resetRecipes());
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* onDeleteAccountStart() {
+  yield takeLatest(userTypes.DELETE_ACCOUNT_START, deleteAccount);
+}
+
 export default function* userSagas() {
   yield all([
     call(onEmailSignInStart),
@@ -206,6 +226,7 @@ export default function* userSagas() {
     call(onCheckUserSessionStart),
     call(onResetPasswordStart),
     call(onGoogleSignInStart),
+    call(onDeleteAccountStart),
     onChangeProfilePicStart(),
   ]);
 }

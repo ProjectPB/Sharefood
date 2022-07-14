@@ -22,7 +22,7 @@ const Hit: React.FC<Props> = (({ title, type, image, avatarSrc, hideResults, hit
         {hitType === 'recipe' && <h3 className="searchHit__type">{type}</h3>}
       </div>
       {hitType === 'recipe' && <img alt={title} src={image} className={`${imgLoaded ? 'searchHit__recipeImg' : "searchHit__recipeImg--hidden"}`} onLoad={() => setImgLoaded(true)} />}
-      {hitType === 'user' && <Avatar src={avatarSrc} alt={title} className="searchHit__profileImg" />}
+      {hitType === 'user' && <Avatar src={avatarSrc} className="searchHit__profileImg" />}
     </div>
   )
 });

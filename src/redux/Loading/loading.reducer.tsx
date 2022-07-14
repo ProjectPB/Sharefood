@@ -12,6 +12,7 @@ const INITIAL_STATE: Loading = {
   bannerLoaded: false,
   topUsersLoaded: false,
   profilePicLoading: false,
+  deleteAccountLoading: false,
 };
 
 const loadingReducer = (
@@ -69,6 +70,11 @@ const loadingReducer = (
         ...state,
         profilePicLoading: action.payload,
       };
+    case loadingTypes.LOAD_DELETE_ACCOUNT:
+      return {
+        ...state,
+        deleteAccountLoading: action.payload,
+      }
     default:
       return state;
   }

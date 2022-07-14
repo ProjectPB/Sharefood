@@ -7,9 +7,9 @@ import { resizeFile } from '../../../shared/functions';
 import { State } from '../../../shared/types';
 
 import Button from './../../forms/Button';
+import Loading from '../../Loading';
 
 import './styles.scss';
-import Loading from '../../Loading';
 
 const mapState = ({ user, loading }: State) => ({
   currentUser: user.currentUser,

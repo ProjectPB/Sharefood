@@ -9,6 +9,7 @@ const loadingTypes = {
   LOAD_BANNER: 'LOAD_BANNER',
   LOAD_TOP_USERS: "LOAD_TOP_USERS",
   LOAD_PROFILE_PIC: "LOAD_PROFILE_PIC",
+  LOAD_DELETE_ACCOUNT: "LOAD_DELETE_ACCOUNT"
 };
 
 export default loadingTypes;

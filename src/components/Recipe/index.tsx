@@ -61,7 +61,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
 
     if (answer) {
       setIsDeleting(true)
-      const resolve = await handleDeleteRecipe(data?.image, data?.imageLow, recipeId, data?.authorId);
+      const resolve = await handleDeleteRecipe({ imageRef: data?.image, imageLowRef: data?.imageLow, recipeId: recipeId, authorId: data?.authorId });
       if (resolve) {
         dispatch(resetRecipes());
         alert("Recipe deleted");

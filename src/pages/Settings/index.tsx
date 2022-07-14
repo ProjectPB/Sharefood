@@ -2,18 +2,21 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { State } from '../../shared/types';
 import { useNavigate } from 'react-router-dom';
+import { deleteAccountStart } from '../../redux/User/user.actions';
 
 import Button from '../../components/forms/Button';
 import ProfilePic from './../../components/Settings/ProfilePic';
+import Loading from '../../components/Loading';
 
 import './styles.scss'
 
-const mapState = ({ user }: State) => ({
+const mapState = ({ user, loading }: State) => ({
   currentUser: user.currentUser,
+  deleting: loading.deleteAccountLoading,
 });
 
 const SettingsPage = () => {
-  const { currentUser } = useSelector(mapState);
+  const { currentUser, deleting } = useSelector(mapState);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -59,7 +62,8 @@ const SettingsPage = () => {
           <div className="settings__div">
             <h2 className='settings__title'>Delete account</h2>
             <div className="settings__handlers">
-              {/* <Button onClick={() => dispatch(handleDeleteAccountStart())}>DELETE</Button> */}
+              {!deleting && <Button handleClick={() => dispatch(deleteAccountStart(currentUser.uid))}>DELETE</Button>}
+              {deleting && <Loading />}
             </div>
           </div>
         </div>

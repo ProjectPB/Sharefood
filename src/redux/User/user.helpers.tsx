@@ -1,5 +1,6 @@
 import { auth, db, storage } from "../../firebase/utils";
-import { putImgToStorage } from './../Recipe/recipe.helpers';
+import { deleteUser } from "firebase/auth";
+import { handleDeleteRecipe, putImgToStorage } from './../Recipe/recipe.helpers';
 
 export const handleUserProfile = async ({ userAuth, additionalData }: any) => {
   if (!userAuth) return;
@@ -108,18 +109,76 @@ export const handleUpdateProfilePic = (userId: string, profilePic: File): Promis
     try {
       let imgUrl = '';
       const imageName = new Date().getTime() + profilePic.name;
-      const storageRef = `users/${userId}/thumbnails/${imageName}`;
+      const storageRef = `users/${userId}/${imageName}`;
 
-      putImgToStorage(profilePic, storageRef)
-        .then((res: string) => (imgUrl = res))
-        .then(() => {
-          db.collection('users').doc(userId).update({
-            'profilePic': imgUrl,
+      deleteStorageUserFiles(userId).then(() => {
+        putImgToStorage(profilePic, storageRef)
+          .then((res: string) => (imgUrl = res))
+          .then(() => {
+            db.collection('users').doc(userId).update({
+              'profilePic': imgUrl,
+            })
           })
+          .then(() => {
+            resolve(imgUrl);
+          })
+      })
+    } catch (error) {
+      reject(error.message);
+    }
+  })
+}
+
+export const handleDeleteAccount = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      deleteUser(auth.currentUser).then(() => {
+        resolve(true);
+      })
+    } catch (error) {
+      reject(error.message);
+    }
+  })
+}
+
+export const deleteFile = (pathToFile: string, fileName: string) => {
+  const ref = storage.ref(pathToFile);
+  const childRef = ref.child(fileName);
+  childRef.delete()
+}
+
+export const deleteStorageUserFiles = (id: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      const ref = storage.ref(`/users/${id}`);
+      ref.listAll()
+        .then(directory => {
+          directory.items.forEach(fileRef => deleteFile(ref.fullPath, fileRef.name));
         })
         .then(() => {
-          resolve(imgUrl);
+          resolve(true);
         })
+        .catch(error => console.log(error));
+    } catch (error) {
+      reject(error.message);
+    }
+  })
+}
+
+export const handleDeleteUserData = (id: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection('users').doc(id).delete().then(() => {
+        db.collection('recipes').where('authorId', '==', id).get().then(res => res.forEach(element => {
+          handleDeleteRecipe({ imageRef: element.data().image, imageLowRef: element.data().imageLow, recipeId: element.id, authorId: element.data().authorId })
+        })).then(() => {
+          deleteStorageUserFiles(id)
+            .then(() => {
+              resolve(true);
+            })
+            .catch(error => console.log(error));
+        })
+      })
     } catch (error) {
       reject(error.message);
     }

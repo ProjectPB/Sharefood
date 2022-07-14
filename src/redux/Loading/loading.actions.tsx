@@ -49,3 +49,8 @@ export const loadProfilePic = (state: boolean) => ({
   type: loadingTypes.LOAD_PROFILE_PIC,
   payload: state,
 })
+
+export const loadDeleteAccount = (state: boolean) => ({
+  type: loadingTypes.LOAD_DELETE_ACCOUNT,
+  payload: state,
+})

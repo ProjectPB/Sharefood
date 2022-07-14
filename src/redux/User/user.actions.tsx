@@ -71,3 +71,8 @@ export const changeProfilePicStart = (data: { userId: string, profilePic: File }
   type: userTypes.CHANGE_PROFILE_PIC_START,
   payload: data,
 })
+
+export const deleteAccountStart = (id: string) => ({
+  type: userTypes.DELETE_ACCOUNT_START,
+  payload: id,
+})

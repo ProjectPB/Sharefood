@@ -37,6 +37,7 @@ export interface Loading {
   bannerLoaded: boolean,
   topUsersLoaded: boolean,
   profilePicLoading: boolean,
+  deleteAccountLoading: boolean,
 }
 
 export interface RecipeData {
