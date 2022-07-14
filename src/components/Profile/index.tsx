@@ -41,7 +41,6 @@ const Profile: React.FC<Props> = ({ id }) => {
         <>
           <Avatar
             src={userImg}
-            alt={userImg}
             className="profile__img"
           />
           <p className='profile__username'>{username}</p>

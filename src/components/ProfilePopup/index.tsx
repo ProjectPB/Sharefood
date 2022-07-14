@@ -6,9 +6,9 @@ import { signOutUserStart } from "../../redux/User/user.actions";
 import { useLanguage } from "../../hooks";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../shared/types";
+import { Settings } from "@mui/icons-material";
 
 import './styles.scss';
-import { Edit, Settings } from "@mui/icons-material";
 
 const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,
@@ -32,7 +32,7 @@ const ProfilePopup: React.FC<Props> = ({ close }) => {
     <div className="profilePopup">
       <Link to={`user/${currentUser.uid}`} onClick={() => close()}>
         <div className="profilePopup__action">
-          <Avatar src={currentUser?.profilePic} alt={currentUser?.displayName} />
+          <Avatar src={currentUser?.profilePic} />
           <p>{currentUser?.displayName}</p>
         </div>
       </Link>

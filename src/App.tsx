@@ -21,13 +21,15 @@ import MyRecipesPage from './pages/My';
 import CollectionPage from './pages/Collection';
 import SettingsPage from './pages/Settings';
 
-const App: React.FC = () => {
+const App = () => {
   const dispatch = useDispatch();
   const currentUserData: CurrentUser = useSelector((state: RootState) => state.user.currentUser);
 
   useEffect(() => {
     dispatch(checkUserSessionStart(currentUserData));
-  });
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <BrowserRouter>

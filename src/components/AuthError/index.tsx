@@ -34,6 +34,9 @@ const AuthError: React.FC<Props> = ({ error }) => {
       case "auth/email-already-exists":
         setNewErr(LANG.ERRORS.EMAIL_ALREADY_EXISTS);
         break;
+      case "auth/email-already-in-use":
+        setNewErr(LANG.ERRORS.EMAIL_ALREADY_EXISTS);
+        break;
       case "auth/wrong-password":
         setNewErr(LANG.ERRORS.WRONG_PASSWORD);
         break;
@@ -51,7 +54,7 @@ const AuthError: React.FC<Props> = ({ error }) => {
     return () => {
       setNewErr('');
     }
-  }, [error, LANG.ERRORS.INVALID_USERNAME, LANG.ERRORS.INVALID_EMAIL, LANG.ERRORS.INVALID_PASSWORD, LANG.ERRORS.PASSWORDS_VARY, LANG.ERRORS.EMAIL_NOT_FOUND, LANG.ERRORS.EMAIL_ALREADY_EXISTS, LANG.ERRORS.TOO_MANY_REQUESTS, LANG.ERRORS.USER_DISABLED, LANG.ERRORS.USER_NOT_FOUND,LANG.ERRORS.WRONG_PASSWORD ]);
+  }, [error, LANG.ERRORS.INVALID_USERNAME, LANG.ERRORS.INVALID_EMAIL, LANG.ERRORS.INVALID_PASSWORD, LANG.ERRORS.PASSWORDS_VARY, LANG.ERRORS.EMAIL_NOT_FOUND, LANG.ERRORS.EMAIL_ALREADY_EXISTS, LANG.ERRORS.TOO_MANY_REQUESTS, LANG.ERRORS.USER_DISABLED, LANG.ERRORS.USER_NOT_FOUND, LANG.ERRORS.WRONG_PASSWORD]);
 
   return (
     <li className='authError'>{newErr}</li>

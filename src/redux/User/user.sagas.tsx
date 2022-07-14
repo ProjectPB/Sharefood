@@ -26,7 +26,7 @@ import {
 } from "./user.actions";
 import { loadAuth, loadProfilePic } from "../Loading/loading.actions";
 import userTypes from "./user.types";
-import { setFavoriteRecipes, setMyRecipes } from "../Recipes/recipes.actions";
+import { resetRecipes, setFavoriteRecipes, setMyRecipes } from "../Recipes/recipes.actions";
 
 export function* fetchDataFromUserAuth(
   user: {},
@@ -68,7 +68,7 @@ export function* checkUserSession({ payload }: ReturnType<typeof checkUserSessio
       yield updateUserData({ userId: userAuth.uid, key: 'profilePic', value: userAuthData.profilePic });
     }
   } catch (err) {
-    console.log(err);
+    // console.log(err);
   }
 }
 
@@ -188,6 +188,7 @@ export function* changeProfilePic({ payload: { userId, profilePic } }: ReturnTyp
     const newPic: string = yield handleUpdateProfilePic(userId, profilePic);
     yield put(setProfilePic(newPic));
     yield put(loadProfilePic(false));
+    yield put(resetRecipes());
   } catch (error) {
     console.log(error);
   }

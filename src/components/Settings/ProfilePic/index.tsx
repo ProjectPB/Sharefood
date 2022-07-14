@@ -19,14 +19,14 @@ const mapState = ({ user, loading }: State) => ({
 const ProfilePic = () => {
   const dispatch = useDispatch();
   const { currentUser, loading } = useSelector(mapState);
-  const [previewImg, setPreviewImg] = useState(currentUser.profilePic);
+  const [previewImg, setPreviewImg] = useState(currentUser?.profilePic);
   const [imgChanged, setImgChanged] = useState(false);
   const [profilePic, setProfilePic] = useState<File>(null);
   const imgInputRef = useRef<HTMLInputElement>();
 
   const changeImgFile = async (e: any) => {
     try {
-      const file = new File([e.target.files[0]], currentUser.uid);
+      const file = new File([e.target.files[0]], currentUser?.uid);
       const image: any = await resizeFile(file, 200, 200);
       setPreviewImg(URL.createObjectURL(image));
       setProfilePic(image);
@@ -38,7 +38,7 @@ const ProfilePic = () => {
 
   const acceptImgChange = () => {
     dispatch(changeProfilePicStart({
-      userId: currentUser.uid,
+      userId: currentUser?.uid,
       profilePic: profilePic,
     }))
     setImgChanged(false);
@@ -55,8 +55,8 @@ const ProfilePic = () => {
     <div className='profilePic'>
       {loading && <Loading />}
       {!loading && <div className="profilePic__avatar">
-        <Avatar className="profilePic__avatarImg" src={previewImg} alt={currentUser?.displayName} />
-        {!imgChanged && <AddPhotoAlternateOutlined />}
+        <Avatar src={previewImg} />
+        {!imgChanged && <AddPhotoAlternateOutlined className="profilePic__addIcon" />}
         <input type="file" onChange={changeImgFile} ref={imgInputRef} accept="image/*" />
       </div>}
 

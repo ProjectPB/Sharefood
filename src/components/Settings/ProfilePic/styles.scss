@@ -18,17 +18,20 @@
       opacity: 0.6;
     }
 
-    .profilePic__avatarImg {
+    .MuiAvatar-root {
       height: 50px;
       width: 50px;
     }
 
-    .MuiSvgIcon-root {
+    .profilePic__addIcon {
       position: absolute;
       bottom: 0;
       right: -5px;
       height: 25px;
       width: 25px;
+      background-color: rgba($color: lightgray, $alpha: 0.5);
+      border-radius: 99%;
+      padding: 2px;
     }
 
     input {
