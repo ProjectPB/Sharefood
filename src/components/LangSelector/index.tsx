@@ -1,8 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLanguage } from '../../hooks';
-import { resetRecipes } from '../../redux/Recipes/recipes.actions';
-import { setLanguage } from '../../redux/UI/ui.actions';
+import { changeLanguageStart } from '../../redux/UI/ui.actions';
 import { State } from '../../shared/types';
 
 import './styles.scss'
@@ -21,8 +20,7 @@ const LangSelector: React.FC<Props> = ({ close }) => {
   const LANG = useLanguage();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(setLanguage(e.target.value));
-    dispatch(resetRecipes());
+    dispatch(changeLanguageStart(e.target.value));
     close();
   }
 

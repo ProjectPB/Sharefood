@@ -176,6 +176,7 @@ export function* resetPassword({
     yield put(resetPasswordSuccess());
     yield put(loadAuth(false));
   } catch (err) {
+    console.log(err);
     yield put(loadAuth(false));
     yield put(resetPasswordError(err));
   }

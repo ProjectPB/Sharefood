@@ -18,6 +18,11 @@ export const setLastDisplayedCollection = (id: string) => ({
   payload: id,
 })
 
+export const changeLanguageStart = (lang: string) => ({
+  type: uiTypes.CHANGE_LANGUAGE,
+  payload: lang,
+})
+
 export const setLanguage = (lang: string) => ({
   type: uiTypes.SET_LANGUAGE,
   payload: lang,

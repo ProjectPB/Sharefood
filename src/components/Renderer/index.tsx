@@ -21,13 +21,14 @@ interface Props {
   changeTag?: (option: string) => void;
 }
 
-const mapState = ({ loading }: State) => ({
+const mapState = ({ loading, ui }: State) => ({
   loaded: loading.recipesLoaded,
+  language: ui.language,
 });
 
 const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort, changeTag }) => {
   const dispatch = useDispatch();
-  const { loaded } = useSelector(mapState);
+  const { loaded, language } = useSelector(mapState);
   const LANG = useLanguage();
   const topRef = useRef<HTMLDivElement>(null);
   const recipesContainerRef = useRef<HTMLDivElement>(null);
@@ -47,7 +48,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort, cha
       setRendered(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters.counter, filters.typeFilter, filters.sortFilter, filters.tagFilter, filters.userId, filters?.lastDisplayedProfile]);
+  }, [filters.counter, filters.typeFilter, filters.sortFilter, filters.tagFilter, filters.userId, filters?.lastDisplayedProfile, language]);
 
   useEffect(() => {
     if (data.length === 0 && !isLastPage) {
