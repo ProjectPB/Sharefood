@@ -132,9 +132,7 @@ export const handleUpdateProfilePic = (userId: string, profilePic: File): Promis
 export const handleDeleteAccount = () => {
   return new Promise((resolve, reject) => {
     try {
-      deleteUser(auth.currentUser).then(() => {
-        resolve(true);
-      })
+      resolve(deleteUser(auth.currentUser));
     } catch (error) {
       reject(error.message);
     }

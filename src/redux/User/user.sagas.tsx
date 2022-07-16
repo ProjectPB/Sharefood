@@ -212,6 +212,7 @@ export function* deleteAccount({ payload }: ReturnType<typeof deleteAccountStart
     yield put(resetRecipes());
   } catch (error) {
     console.log(error);
+    alert(error.message);
   }
 }
 

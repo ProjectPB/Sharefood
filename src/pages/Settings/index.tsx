@@ -4,9 +4,8 @@ import { State } from '../../shared/types';
 import { useNavigate } from 'react-router-dom';
 import { deleteAccountStart } from '../../redux/User/user.actions';
 
-import Button from '../../components/forms/Button';
 import ProfilePic from './../../components/Settings/ProfilePic';
-import Loading from '../../components/Loading';
+import UserDelete from './../../components/Settings/UserDelete';
 
 import './styles.scss'
 
@@ -45,6 +44,11 @@ const SettingsPage = () => {
     }
   }, [currentUser, navigate]);
 
+  const deleteConfig = {
+    deleting: deleting,
+    handleDelete: () => dispatch(deleteAccountStart(currentUser.uid))
+  }
+
   return (
     <div className='settings'>
       <div className="settings__container">
@@ -59,13 +63,7 @@ const SettingsPage = () => {
             </div>
           </div> */}
 
-          <div className="settings__div">
-            <h2 className='settings__title'>Delete account</h2>
-            <div className="settings__handlers">
-              {!deleting && <Button handleClick={() => dispatch(deleteAccountStart(currentUser.uid))}>DELETE</Button>}
-              {deleting && <Loading />}
-            </div>
-          </div>
+          <UserDelete {...deleteConfig} />
         </div>
 
       </div>
