@@ -1,7 +1,7 @@
 import { State } from "../shared/types";
 import { useSelector } from "react-redux";
 
-import { ENG_MISC, PL_MISC, ENG_RECIPE, ENG_HEADER, ENG_SIDEBAR, ENG_FILTERS, ENG_NEW_RECIPE, ENG_AUTH, ENG_ERRORS, PL_HEADER, PL_SIDEBAR, PL_FILTERS, PL_NEW_RECIPE, PL_AUTH, PL_ERRORS, PL_RECIPE, ENG_HOMEPAGE, PL_HOMEPAGE } from "../assets/lang";
+import { ENG_MISC, PL_MISC, ENG_RECIPE, ENG_HEADER, ENG_SIDEBAR, ENG_FILTERS, ENG_NEW_RECIPE, ENG_AUTH, ENG_ERRORS, PL_HEADER, PL_SIDEBAR, PL_FILTERS, PL_NEW_RECIPE, PL_AUTH, PL_ERRORS, PL_RECIPE, ENG_HOMEPAGE, PL_HOMEPAGE, ENG_SETTINGS, PL_SETTINGS } from "../assets/lang";
 
 const mapState = ({ ui }: State) => ({
   language: ui.language
@@ -21,7 +21,8 @@ const useLanguage = () => {
         ERRORS: ENG_ERRORS,
         RECIPE: ENG_RECIPE,
         MISC: ENG_MISC,
-        HOMEPAGE: ENG_HOMEPAGE
+        HOMEPAGE: ENG_HOMEPAGE,
+        SETTINGS: ENG_SETTINGS,
       }
     case "polish":
       return {
@@ -33,7 +34,8 @@ const useLanguage = () => {
         ERRORS: PL_ERRORS,
         RECIPE: PL_RECIPE,
         MISC: PL_MISC,
-        HOMEPAGE: PL_HOMEPAGE
+        HOMEPAGE: PL_HOMEPAGE,
+        SETTINGS: PL_SETTINGS,
       }
   }
 }

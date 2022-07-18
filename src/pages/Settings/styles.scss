@@ -10,6 +10,19 @@
   place-items: center;
   padding: 20px;
 
+  .settings__buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .settings__button {
+    width: 90px;
+    float: right;
+  }
+
   .settings__container {
     @include m.borders;
     max-width: 992px;
@@ -21,7 +34,16 @@
       flex-direction: column;
       gap: 20px;
 
-      .settings__div {
+      .settings__errors {
+        list-style-type: none;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        width: 100%;
+      }
+
+      .settings__wrapper {
         display: flex;
         justify-content: space-between;
 
@@ -39,6 +61,20 @@
           @media (max-width: 600px) {
             margin-bottom: 3px;
             margin-right: 0;
+          }
+
+          span {
+            margin-left: 10px;
+
+            .settings__infoIcon {
+              cursor: pointer;
+              height: 24px;
+              margin-bottom: -4px;
+
+              &:hover {
+                opacity: 0.6;
+              }
+            }
           }
         }
 

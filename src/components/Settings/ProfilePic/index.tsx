@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeProfilePicStart } from '../../../redux/User/user.actions';
 import { resizeFile } from '../../../shared/functions';
 import { State } from '../../../shared/types';
+import { useLanguage } from '../../../hooks';
 
 import Button from './../../forms/Button';
 import Loading from '../../Loading';
@@ -18,6 +19,7 @@ const mapState = ({ user, loading }: State) => ({
 
 const ProfilePic = () => {
   const dispatch = useDispatch();
+  const LANG = useLanguage();
   const { currentUser, loading } = useSelector(mapState);
   const [previewImg, setPreviewImg] = useState(currentUser?.profilePic);
   const [imgChanged, setImgChanged] = useState(false);
@@ -63,9 +65,9 @@ const ProfilePic = () => {
       <p>{currentUser?.displayName}</p>
 
       {imgChanged &&
-        <div className='profilePic__buttons'>
-          <Button secondary handleClick={cancelImgChange}>Cancel</Button>
-          <Button handleClick={acceptImgChange}>Save</Button>
+        <div className='settings__buttons'>
+          <Button secondary handleClick={cancelImgChange}>{LANG.SETTINGS.CANCEL}</Button>
+          <Button handleClick={acceptImgChange}>{LANG.SETTINGS.CHANGE}</Button>
         </div>}
     </div>
   )

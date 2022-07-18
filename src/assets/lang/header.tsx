@@ -19,5 +19,5 @@ export const PL_HEADER = {
   CREATE: "Utwórz",
   LOGIN: "Zaloguj się",
   LOGOUT: "Wyloguj się",
-  SETTINGS: "USTAWIENIA"
+  SETTINGS: "Ustawienia"
 }

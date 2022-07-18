@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Visibility, SvgIconComponent } from "@material-ui/icons";
+import { Visibility } from "@material-ui/icons";
 import { Handler, State } from "../../../shared/types";
 
 import "./styles.scss";
@@ -10,7 +10,7 @@ const mapState = ({ user }: State) => ({
 });
 
 interface Props {
-  Icon?: SvgIconComponent;
+  Icon?: any;
   value: string;
   handleChange: {
     (e: Handler["string"]): void;

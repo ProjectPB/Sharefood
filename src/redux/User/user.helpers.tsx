@@ -1,3 +1,4 @@
+import firebase from "firebase/compat/app";
 import { auth, db, storage } from "../../firebase/utils";
 import { deleteUser } from "firebase/auth";
 import { handleDeleteRecipe, putImgToStorage } from './../Recipe/recipe.helpers';
@@ -74,7 +75,7 @@ export const handleResetPasswordAPI = (email: string) => {
   });
 };
 
-export const validateRegister = (displayName: string, email: string, password: string, passwordConfirm: string) => {
+export const validateRegister = (displayName?: string, email?: string, password?: string, passwordConfirm?: string) => {
   let errors = [];
   if (displayName.length > 12 || displayName.length < 4) {
     errors.push("INVALID_USERNAME");
@@ -102,6 +103,33 @@ export const validateLogin = (email: string, password: string) => {
     errors.push("INVALID_PASSWORD")
   }
   return errors;
+}
+
+export const handleChangePassword = (oldPassword: string, newPassword: string) => {
+  return new Promise((resolve, reject) => {
+    const user = auth.currentUser;
+    const credentials = firebase.auth.EmailAuthProvider.credential(user.email, oldPassword);
+    const errors: string[] = [];
+
+    if (!newPassword.match(new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))) {
+      resolve(["INVALID_PASSWORD"]);
+    }
+
+    const reauthenticate = user.reauthenticateWithCredential(credentials).catch((error) => {
+      errors.push(error.code)
+    })
+
+    const update =
+      user.updatePassword(newPassword).catch((error) => {
+        errors.push(error.code)
+      });
+
+    Promise.all([reauthenticate, update]).then(() => {
+      resolve(errors);
+    }).catch((error) => {
+      reject(error.message)
+    })
+  })
 }
 
 export const handleUpdateProfilePic = (userId: string, profilePic: File): Promise<string> => {

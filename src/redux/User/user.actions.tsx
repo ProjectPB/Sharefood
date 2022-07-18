@@ -76,3 +76,8 @@ export const deleteAccountStart = (id: string) => ({
   type: userTypes.DELETE_ACCOUNT_START,
   payload: id,
 })
+
+export const changePasswordStart = (config: { oldPassword: string, newPassword: string, handlePasswordChanged: () => void }) => ({
+  type: userTypes.CHANGE_PASSWORD_START,
+  payload: config,
+})

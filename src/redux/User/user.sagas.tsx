@@ -10,8 +10,10 @@ import {
   handleUpdateProfilePic,
   handleDeleteAccount,
   handleDeleteUserData,
+  handleChangePassword,
 } from "./user.helpers";
 import {
+  changePasswordStart,
   changeProfilePicStart,
   checkUserSessionStart,
   deleteAccountStart,
@@ -94,7 +96,6 @@ export function* emailSignIn({
     }
   } catch (err) {
     errors.push(err.code);
-    console.log(err.message);
     yield put(loadAuth(false));
     yield put(signUpError(errors));
   }
@@ -186,6 +187,31 @@ export function* onResetPasswordStart() {
   yield takeLatest(userTypes.RESET_PASSWORD_START, resetPassword);
 }
 
+export function* changePassword({ payload: { oldPassword, newPassword, handlePasswordChanged } }: ReturnType<typeof changePasswordStart>) {
+  try {
+    yield put(loadAuth(true));
+    const result: string[] = yield handleChangePassword(oldPassword, newPassword);
+
+    if (result.length > 0) {
+      yield put(signUpError(result));
+    }
+
+    if (result.length === 0) {
+      handlePasswordChanged();
+      yield put(signUpError([]));
+    }
+
+    yield put(loadAuth(false));
+  } catch (err) {
+    yield put(loadAuth(false));
+    console.log(err.message);
+  }
+}
+
+export function* onChangePasswordStart() {
+  yield takeLatest(userTypes.CHANGE_PASSWORD_START, changePassword);
+}
+
 export function* changeProfilePic({ payload: { userId, profilePic } }: ReturnType<typeof changeProfilePicStart>) {
   try {
     yield put(loadProfilePic(true));
@@ -229,6 +255,7 @@ export default function* userSagas() {
     call(onResetPasswordStart),
     call(onGoogleSignInStart),
     call(onDeleteAccountStart),
-    onChangeProfilePicStart(),
+    call(onChangePasswordStart),
+    call(onChangeProfilePicStart),
   ]);
 }
