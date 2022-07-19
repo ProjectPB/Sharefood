@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useLanguage } from '../../../hooks';
-import { deleteAccountStart, signUpError } from '../../../redux/User/user.actions';
+import { deleteAccountStart } from '../../../redux/User/user.actions';
 import { State } from '../../../shared/types';
 
 import Button from '../../forms/Button'
@@ -16,12 +16,6 @@ const UserDelete = () => {
   const LANG = useLanguage();
   const { currentUser, deleting } = useSelector(mapState);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    return () => {
-      dispatch(signUpError([]));
-    };
-  }, [currentUser, dispatch]);
 
   const deleteAccount = () => {
     const answer = window.confirm(

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux';
-import { State } from '../../shared/types';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { passwordError, usernameError } from '../../redux/User/user.actions';
+import { State } from '../../shared/types';
 
 import ProfilePic from './../../components/Settings/ProfilePic';
 import UserDelete from './../../components/Settings/UserDelete';
@@ -17,12 +18,17 @@ const mapState = ({ user }: State) => ({
 const SettingsPage = () => {
   const { currentUser } = useSelector(mapState);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!currentUser) {
       navigate("/");
     }
-  }, [currentUser, navigate]);
+    return () => {
+      dispatch(usernameError([]));
+      dispatch(passwordError([]));
+    };
+  }, [currentUser, navigate, dispatch]);
 
   return (
     <div className='settings'>

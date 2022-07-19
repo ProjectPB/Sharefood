@@ -176,6 +176,26 @@ export const putImgToStorage = (file: any, refString: string) => {
   })
 }
 
+const handleExistingDoc = (title: string, collection: string) => {
+  return new Promise<string>(async (resolve, reject) => {
+    try {
+      const id = title.trim().split(' ').join('-').toLowerCase();
+      const refSnapshot = db.collection(collection).doc(id).get();
+      if (!(await refSnapshot).exists) {
+        resolve(id);
+      } else {
+        const existingId = (await refSnapshot).id;
+        const newId = existingId.concat(Date.now().toString());
+        resolve(newId);
+      }
+    } catch (error) {
+      reject(error.message);
+      alert(error.message);
+    }
+  })
+}
+
+
 export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
   return new Promise((resolve, reject) => {
     const {
@@ -194,19 +214,19 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
     } = payload;
     const imageName_highRes: string = new Date().getTime() + imgFileHigh.name + '_HIGH';
     const imageName_lowRes: string = new Date().getTime() + imgFileLow.name + "_LOW";
-
     const urls: { highResImg: string, lowResImg: string } = {
       highResImg: "", lowResImg: ""
     };
     const putHighResImg = putImgToStorage(imgFileHigh, `recipeImages/${authorId}/${title}/${imageName_highRes}`).then((res: string) => (urls.highResImg = res));
     const putLowResImg = putImgToStorage(imgFileLow, `recipeImages/${authorId}/${title}/${imageName_lowRes}`).then((res: string) => (urls.lowResImg = res));
+    const uniqueId = handleExistingDoc(title, 'recipes');
 
-    Promise.all([putHighResImg, putLowResImg])
+    Promise.all([putHighResImg, putLowResImg, uniqueId])
       .then(() => {
         handleAdd(true);
       })
-      .then(() => {
-        db.collection('recipes').add({
+      .then(async () => {
+        db.collection('recipes').doc(await uniqueId).set({
           authorId: authorId,
           type: type,
           description: description,
