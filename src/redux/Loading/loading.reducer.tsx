@@ -13,6 +13,7 @@ const INITIAL_STATE: Loading = {
   topUsersLoaded: false,
   profilePicLoading: false,
   deleteAccountLoading: false,
+  usernameLoading: false,
 };
 
 const loadingReducer = (
@@ -74,6 +75,11 @@ const loadingReducer = (
       return {
         ...state,
         deleteAccountLoading: action.payload,
+      }
+    case loadingTypes.LOAD_USERNAME:
+      return {
+        ...state,
+        usernameLoading: action.payload,
       }
     default:
       return state;

@@ -38,6 +38,7 @@ export interface Loading {
   topUsersLoaded: boolean,
   profilePicLoading: boolean,
   deleteAccountLoading: boolean,
+  usernameLoading: boolean,
 }
 
 export interface RecipeData {
@@ -130,6 +131,8 @@ export interface State {
   user: {
     currentUser: CurrentUser;
     signUpErrors: string[];
+    passwordErrors: string[],
+    usernameErrors: string[],
     resetPasswordSuccess: boolean;
     resetPasswordErrors: string[];
   };

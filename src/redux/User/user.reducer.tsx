@@ -4,6 +4,8 @@ import userTypes from "./user.types";
 const INITIAL_STATE: State["user"] = {
   currentUser: null,
   signUpErrors: [],
+  passwordErrors: [],
+  usernameErrors: [],
   resetPasswordSuccess: false,
   resetPasswordErrors: [],
 };
@@ -38,6 +40,16 @@ const userReducer = (
       return {
         ...state,
         signUpErrors: action.payload,
+      };
+    case userTypes.PASSWORD_ERROR:
+      return {
+        ...state,
+        passwordErrors: action.payload,
+      };
+    case userTypes.USERNAME_ERROR:
+      return {
+        ...state,
+        usernameErrors: action.payload,
       };
     case userTypes.SET_DISPLAY_NAME:
       return {

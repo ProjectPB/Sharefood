@@ -9,6 +9,7 @@ export const ENG_ERRORS = {
   WRONG_PASSWORD: "Wrong password.",
   USER_DISABLED: "User has been disabled.",
   TOO_MANY_REQUESTS: "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later.",
+  REQUIRES_RECENT_LOGIN: "Action requires recent login. Please reauthenticate.",
 }
 
 export const PL_ERRORS = {
@@ -22,4 +23,5 @@ export const PL_ERRORS = {
   WRONG_PASSWORD: "Podane hasło jest nieprawidłowe.",
   USER_DISABLED: "Użytkownik został zablokowany.",
   TOO_MANY_REQUESTS: "Dostęp do tego konta został tymczasowo wyłączony z powodu wielu nieudanych prób logowania. Możesz je natychmiast przywrócić, resetując hasło, lub możesz spróbować ponownie później.",
+  REQUIRES_RECENT_LOGIN: "Czynność wymaga ponownego zalogowania się.",
 }

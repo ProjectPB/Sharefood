@@ -112,7 +112,7 @@ export const handleChangePassword = (oldPassword: string, newPassword: string) =
     const errors: string[] = [];
 
     if (!newPassword.match(new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$/))) {
-      resolve(["INVALID_PASSWORD"]);
+      return resolve(["INVALID_PASSWORD"]);
     }
 
     const reauthenticate = user.reauthenticateWithCredential(credentials).catch((error) => {
@@ -128,6 +128,7 @@ export const handleChangePassword = (oldPassword: string, newPassword: string) =
       resolve(errors);
     }).catch((error) => {
       reject(error.message)
+      console.log(error);
     })
   })
 }
@@ -150,6 +151,24 @@ export const handleUpdateProfilePic = (userId: string, profilePic: File): Promis
           .then(() => {
             resolve(imgUrl);
           })
+      })
+    } catch (error) {
+      reject(error.message);
+    }
+  })
+}
+
+export const handleUpdateUsername = (userId: string, username: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      if (username.length > 12 || username.length < 4) {
+        return resolve(["INVALID_USERNAME"]);
+      }
+
+      db.collection('users').doc(userId).update({
+        'displayName': username,
+      }).then(() => {
+        resolve([]);
       })
     } catch (error) {
       reject(error.message);

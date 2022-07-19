@@ -10,10 +10,8 @@ import AuthError from '../../AuthError';
 import Button from '../../forms/Button';
 import Loading from '../../Loading';
 
-import './styles.scss';
-
 const mapState = ({ user, loading }: State) => ({
-  errors: user.signUpErrors,
+  errors: user.passwordErrors,
   loading: loading.authLoading,
 });
 
@@ -57,15 +55,15 @@ const PasswordChange = () => {
 
   return (
     <div className="settings__wrapper">
-      <h2 className='settings__title'>
-        {LANG.SETTINGS.CHANGE_PASSWORD}
-        <span>
-          <InfoOutlined
-            onClick={() => setOpenInfo(!openInfo)}
-            className="settings__infoIcon"
-          />
-        </span>
-      </h2>
+      <div className='settings__title'>
+        <h2>
+          {LANG.SETTINGS.CHANGE_PASSWORD}
+        </h2>
+        <InfoOutlined
+          onClick={() => setOpenInfo(!openInfo)}
+          className="settings__icon"
+        />
+      </div>
 
       {!loading && <div className="settings__handlers">
         <AuthInput {...oldPasswordConfig} />

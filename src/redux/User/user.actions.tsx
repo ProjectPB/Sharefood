@@ -57,6 +57,16 @@ export const signUpError = (error: string[]) => ({
   payload: error,
 });
 
+export const usernameError = (error: string[]) => ({
+  type: userTypes.USERNAME_ERROR,
+  payload: error,
+});
+
+export const passwordError = (error: string[]) => ({
+  type: userTypes.PASSWORD_ERROR,
+  payload: error,
+});
+
 export const setDisplayName = (displayName: string) => ({
   type: userTypes.SET_DISPLAY_NAME,
   payload: displayName,
@@ -79,5 +89,10 @@ export const deleteAccountStart = (id: string) => ({
 
 export const changePasswordStart = (config: { oldPassword: string, newPassword: string, handlePasswordChanged: () => void }) => ({
   type: userTypes.CHANGE_PASSWORD_START,
+  payload: config,
+})
+
+export const changeUsernameStart = (config: { userId: string, username: string, handleUsernameChanged: () => void }) => ({
+  type: userTypes.CHANGE_USERNAME_START,
   payload: config,
 })

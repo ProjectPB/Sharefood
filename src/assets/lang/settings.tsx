@@ -9,6 +9,8 @@ export const ENG_SETTINGS = {
   DELETE_ACCOUNT: "Delete account",
   DELETE_ACCOUNT_CONFIRM: "Are you sure you want to delete your account?",
   DELETE: "Delete",
+  USERNAME_CHANGED_ALERT: "Username changed.",
+  CHANGE_USERNAME: "Username",
 }
 
 export const PL_SETTINGS = {
@@ -22,4 +24,6 @@ export const PL_SETTINGS = {
   DELETE_ACCOUNT: "Usuń konto",
   DELETE_ACCOUNT_CONFIRM: "Czy na pewno chcesz usunąć konto?",
   DELETE: "Usuń",
+  USERNAME_CHANGED_ALERT: "Nazwa użytkownika została zmieniona.",
+  CHANGE_USERNAME: "Nazwa użytkownika",
 }

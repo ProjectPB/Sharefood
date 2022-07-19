@@ -6,12 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import ProfilePic from './../../components/Settings/ProfilePic';
 import UserDelete from './../../components/Settings/UserDelete';
 import Password from './../../components/Settings/Password';
+import Username from './../../components/Settings/Username';
 
 import './styles.scss'
 
-const mapState = ({ user, loading }: State) => ({
+const mapState = ({ user }: State) => ({
   currentUser: user.currentUser,
-  deleting: loading.deleteAccountLoading,
 });
 
 const SettingsPage = () => {
@@ -30,6 +30,7 @@ const SettingsPage = () => {
         <ProfilePic />
 
         <div className="settings__form">
+          <Username />
           <Password />
           <UserDelete />
         </div>

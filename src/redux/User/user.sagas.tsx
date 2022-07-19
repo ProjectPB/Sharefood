@@ -11,13 +11,16 @@ import {
   handleDeleteAccount,
   handleDeleteUserData,
   handleChangePassword,
+  handleUpdateUsername,
 } from "./user.helpers";
 import {
   changePasswordStart,
   changeProfilePicStart,
+  changeUsernameStart,
   checkUserSessionStart,
   deleteAccountStart,
   emailSignInStart,
+  passwordError,
   resetPasswordError,
   resetPasswordStart,
   resetPasswordSuccess,
@@ -28,8 +31,9 @@ import {
   signOutUserSuccess,
   signUpError,
   signUpUserStart,
+  usernameError,
 } from "./user.actions";
-import { loadAuth, loadDeleteAccount, loadProfilePic } from "../Loading/loading.actions";
+import { loadAuth, loadDeleteAccount, loadProfilePic, loadUsername } from "../Loading/loading.actions";
 import { resetRecipes, setFavoriteRecipes, setMyRecipes } from "../Recipes/recipes.actions";
 import userTypes from "./user.types";
 
@@ -193,18 +197,18 @@ export function* changePassword({ payload: { oldPassword, newPassword, handlePas
     const result: string[] = yield handleChangePassword(oldPassword, newPassword);
 
     if (result.length > 0) {
-      yield put(signUpError(result));
+      yield put(passwordError(result));
     }
 
     if (result.length === 0) {
       handlePasswordChanged();
-      yield put(signUpError([]));
+      yield put(passwordError([]));
     }
 
     yield put(loadAuth(false));
-  } catch (err) {
+  } catch (error) {
     yield put(loadAuth(false));
-    console.log(err.message);
+    alert(error.message);
   }
 }
 
@@ -220,12 +224,37 @@ export function* changeProfilePic({ payload: { userId, profilePic } }: ReturnTyp
     yield put(loadProfilePic(false));
     yield put(resetRecipes());
   } catch (error) {
-    console.log(error);
+    yield put(loadProfilePic(false));
+    alert(error.message);
   }
 }
 
 export function* onChangeProfilePicStart() {
   yield takeLatest(userTypes.CHANGE_PROFILE_PIC_START, changeProfilePic);
+}
+
+export function* changeUsername({ payload: { userId, username, handleUsernameChanged } }: ReturnType<typeof changeUsernameStart>) {
+  try {
+    yield put(loadUsername(true));
+
+    const result: string[] = yield handleUpdateUsername(userId, username);
+    if (result.length === 0) {
+      yield put(setDisplayName(username));
+      yield put(usernameError([]));
+      handleUsernameChanged();
+    } else {
+      yield put(usernameError(result));
+    }
+    yield put(loadUsername(false));
+    yield put(resetRecipes());
+  } catch (error) {
+    yield put(loadUsername(false));
+    alert(error.message);
+  }
+}
+
+export function* onChangeUsernameStart() {
+  yield takeLatest(userTypes.CHANGE_USERNAME_START, changeUsername);
 }
 
 export function* deleteAccount({ payload }: ReturnType<typeof deleteAccountStart>) {
@@ -237,7 +266,7 @@ export function* deleteAccount({ payload }: ReturnType<typeof deleteAccountStart
     yield put(signOutUserStart());
     yield put(resetRecipes());
   } catch (error) {
-    console.log(error);
+    yield put(loadDeleteAccount(false));
     alert(error.message);
   }
 }
@@ -257,5 +286,6 @@ export default function* userSagas() {
     call(onDeleteAccountStart),
     call(onChangePasswordStart),
     call(onChangeProfilePicStart),
+    call(onChangeUsernameStart),
   ]);
 }
