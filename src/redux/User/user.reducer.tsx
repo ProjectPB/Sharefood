@@ -6,8 +6,9 @@ const INITIAL_STATE: State["user"] = {
   signUpErrors: [],
   passwordErrors: [],
   usernameErrors: [],
-  resetPasswordSuccess: false,
   resetPasswordErrors: [],
+  deleteAccountErrors: [],
+  resetPasswordSuccess: false,
 };
 
 const userReducer = (
@@ -45,6 +46,11 @@ const userReducer = (
       return {
         ...state,
         passwordErrors: action.payload,
+      };
+    case userTypes.DELETE_ACCOUNT_ERROR:
+      return {
+        ...state,
+        deleteAccountErrors: action.payload,
       };
     case userTypes.USERNAME_ERROR:
       return {

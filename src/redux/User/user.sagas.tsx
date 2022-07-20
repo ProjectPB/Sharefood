@@ -18,6 +18,7 @@ import {
   changeProfilePicStart,
   changeUsernameStart,
   checkUserSessionStart,
+  deleteAccountError,
   deleteAccountStart,
   emailSignInStart,
   passwordError,
@@ -267,7 +268,7 @@ export function* deleteAccount({ payload }: ReturnType<typeof deleteAccountStart
     yield put(resetRecipes());
   } catch (error) {
     yield put(loadDeleteAccount(false));
-    alert(error.message);
+    yield put(deleteAccountError([error.code]));
   }
 }
 

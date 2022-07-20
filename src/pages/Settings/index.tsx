@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { passwordError, usernameError } from '../../redux/User/user.actions';
+import { deleteAccountError, passwordError, usernameError } from '../../redux/User/user.actions';
 import { State } from '../../shared/types';
 
 import ProfilePic from './../../components/Settings/ProfilePic';
@@ -27,6 +27,7 @@ const SettingsPage = () => {
     return () => {
       dispatch(usernameError([]));
       dispatch(passwordError([]));
+      dispatch(deleteAccountError([]));
     };
   }, [currentUser, navigate, dispatch]);
 

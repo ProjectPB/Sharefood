@@ -133,8 +133,9 @@ export interface State {
     signUpErrors: string[];
     passwordErrors: string[],
     usernameErrors: string[],
-    resetPasswordSuccess: boolean;
     resetPasswordErrors: string[];
+    deleteAccountErrors: string[];
+    resetPasswordSuccess: boolean;
   };
   ui: {
     sidebarOpen: boolean;

@@ -57,6 +57,11 @@ export const signUpError = (error: string[]) => ({
   payload: error,
 });
 
+export const deleteAccountError = (error: string[]) => ({
+  type: userTypes.DELETE_ACCOUNT_ERROR,
+  payload: error,
+});
+
 export const usernameError = (error: string[]) => ({
   type: userTypes.USERNAME_ERROR,
   payload: error,
