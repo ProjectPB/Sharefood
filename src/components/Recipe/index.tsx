@@ -19,8 +19,11 @@ import { resetRecipes } from '../../redux/Recipes/recipes.actions';
 import { dislikeRecipeStart, likeRecipeStart } from '../../redux/Recipe/recipe.actions';
 import { translateTag, translateType } from '../../shared/functions';
 import { useLanguage } from '../../hooks';
+import { ShareOutlined } from '@mui/icons-material';
 
 import Loading from '../Loading';
+import Modal from '../Modal';
+import Share from '../Share';
 
 import './styles.scss';
 
@@ -40,8 +43,16 @@ const Recipe: React.FC<Props> = ({ data }) => {
   const { currentUser, language } = useSelector(mapState);
   const { recipeId } = useParams<{ recipeId: string }>();
   const [isDeleting, setIsDeleting] = useState(false);
+  const [shareModalIsOpen, setShareModalIsOpen] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
+
+  const toggleShareModal = () => setShareModalIsOpen(!shareModalIsOpen);
+
+  const configShareModal = {
+    modalOpened: shareModalIsOpen,
+    toggleModal: toggleShareModal,
+  };
 
   const handleLikes = () => {
     if (!currentUser) {
@@ -77,6 +88,10 @@ const Recipe: React.FC<Props> = ({ data }) => {
     </div>
     : (
       <div className="recipe">
+        <Modal {...configShareModal}>
+          <Share url={window.location.href} media={data?.image} title={data?.title} />
+        </Modal>
+
         <h1 className="recipe__title">{data?.title}</h1>
 
         <div className="recipe__top">
@@ -103,7 +118,6 @@ const Recipe: React.FC<Props> = ({ data }) => {
               </Moment> · {data?.stats?.views + 1} {LANG.RECIPE.VIEWS}
             </div>
 
-
             {data?.tags && data?.tags.length > 0 &&
               <div className="recipe__tags">
                 {data?.tags.map((tag, id) => (
@@ -117,6 +131,10 @@ const Recipe: React.FC<Props> = ({ data }) => {
                 <p>{data?.stats?.likesQuantity}</p>
               </div>
 
+              <div className="recipe__action" onClick={() => toggleShareModal()}>
+                <ShareOutlined />
+              </div>
+
               {data?.authorId === currentUser?.uid && (
                 <div className="recipe__action" onClick={deleteRecipe}>
                   <DeleteOutlined />
@@ -126,8 +144,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
           </div>
         </div>
 
-        {
-          (data?.description && data?.description !== '<p></p>') &&
+        {(data?.description && data?.description !== '<p></p>') &&
           <div className="recipe__description">
             <div className="recipe__descriptionHeader" onClick={() => setShowDescription(!showDescription)} >
               <p>Description</p>
@@ -135,8 +152,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
               {showDescription && <ArrowUpward fontSize='small' />}
             </div>
             {showDescription && <div className="recipe__fromHTML" dangerouslySetInnerHTML={{ __html: data?.description }} />}
-          </div>
-        }
+          </div>}
 
         <div className="recipe__preparation">
           <div className="recipe__ingredients">

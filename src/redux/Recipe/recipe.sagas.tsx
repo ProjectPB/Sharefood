@@ -35,8 +35,8 @@ export function* onCreateRecipeStart() {
 
 export function* likeRecipe({ payload }: ReturnType<typeof likeRecipeStart>) {
   try {
-    yield handleLikeRecipe(payload.userId, payload.recipeId, payload.data.authorId);
     yield put(setRecipeData({ ...payload.data, liked: true, stats: { ...payload.data.stats, likesQuantity: payload.data.stats.likesQuantity += 1 } }));
+    yield handleLikeRecipe(payload.userId, payload.recipeId, payload.data.authorId);
     yield put(setFavoriteRecipes({
       data: [],
       queryDoc: null,
