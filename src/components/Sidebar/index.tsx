@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLanguage, useWidth } from "../../hooks";
-import { Favorite, Home, MenuBook } from "@mui/icons-material";
+import { Favorite, Home, LibraryBooks, } from "@mui/icons-material";
 import { State } from "../../shared/types";
 import { LocalDining } from "@material-ui/icons";
 
@@ -32,7 +32,6 @@ const Sidebar = ({ narrow }: { narrow?: boolean }) => {
         setClassName('sidebar--hidden');
       }
     }
-
     getClassName();
   }, [width, sidebarIsOpen, narrow])
 
@@ -43,9 +42,9 @@ const Sidebar = ({ narrow }: { narrow?: boolean }) => {
       <SidebarOption Icon={LocalDining} title={LANG.SIDEBAR.ALL} link="/all" color="darkred" />
 
       {currentUser ? (
-        <SidebarOption Icon={MenuBook} title={LANG.SIDEBAR.YOUR} link="/my" color="teal" />
+        <SidebarOption Icon={LibraryBooks} title={LANG.SIDEBAR.YOUR} link="/my" color="teal" />
       ) : (
-        <SidebarOption Icon={MenuBook} title={LANG.SIDEBAR.YOUR} blocked link="/auth" />
+        <SidebarOption Icon={LibraryBooks} title={LANG.SIDEBAR.YOUR} blocked link="/auth" />
       )}
 
       {currentUser ? (

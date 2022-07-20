@@ -37,13 +37,14 @@
 .sidebar,
 .sidebar--narrow {
   .MuiSvgIcon-root {
-    opacity: 0.9;
+    color: transparent;
+    opacity: 0.75;
+    stroke-width: 1;
+    stroke: black;
   }
 
   .active {
     .MuiSvgIcon-root {
-      stroke-width: 0.5;
-      stroke: black;
       opacity: 1;
     }
   }
@@ -57,7 +58,6 @@
   .teal {
     .MuiSvgIcon-root {
       fill: rgb(4, 161, 161);
-      stroke-width: 0.2;
     }
   }
 
