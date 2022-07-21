@@ -2,13 +2,12 @@
 @use "/src/sass/mixins" as m;
 
 .settings {
-  overflow-y: auto;
+  display: grid;
+  place-items: center;
   flex: 1;
   height: 100%;
   width: 100%;
-  display: grid;
-  place-items: center;
-  padding: 20px;
+  overflow-y: auto;
 
   .settings__buttons {
     display: flex;
@@ -25,8 +24,9 @@
 
   .settings__container {
     @include m.borders;
+    width: calc(100% - 40px);
     max-width: 992px;
-    width: 100%;
+    margin: 20px;
     padding: 20px;
 
     .settings__form {

@@ -3,10 +3,11 @@
 .recipePage {
   display: flex;
   justify-content: center;
+  flex: 1;
   background-color: $lightgray-background;
   height: 100%;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 
   .recipePage__wrapper {
     padding: 20px;
