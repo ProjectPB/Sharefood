@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Index, InstantSearch } from "react-instantsearch-dom";
+import { Index, InstantSearch, Pagination } from "react-instantsearch-dom";
 import { Configure } from 'react-instantsearch-dom';
 import { Search } from "@material-ui/icons";
 import { searchClient } from "../../firebase/config";
@@ -17,17 +17,14 @@ interface Props {
 
 const SearchBar: React.FC<Props> = ({ onHeader }) => {
   const [showResults, setShowResults] = useState(false);
+  const [index, setIndex] = useState('recipes')
   const searchbarRef = useRef<HTMLDivElement>();
   useClickOutside(searchbarRef, () => setShowResults(false))
 
-  const recipesConfig = {
+  const resultsConfig = {
     hideResults: () => setShowResults(false),
-    indexName: 'recipes'
-  }
-
-  const usersConfig = {
-    hideResults: () => setShowResults(false),
-    indexName: 'users'
+    indexName: index,
+    changeIndex: (e: string) => setIndex(e),
   }
 
   const clearConfig = {
@@ -38,7 +35,7 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
 
   return (
     <div className={onHeader ? "searchBar__onHeader" : "searchBar"} onFocus={() => setShowResults(true)} ref={searchbarRef}>
-      <InstantSearch indexName='recipes' searchClient={searchClient}>
+      <InstantSearch indexName={index} searchClient={searchClient}>
         <div className="searchBar__container">
           <SearchInput />
           <div className="searchIcons__container">
@@ -51,17 +48,7 @@ const SearchBar: React.FC<Props> = ({ onHeader }) => {
           hitsPerPage={5}
         />
 
-        {showResults &&
-          <div className="searchBar__resultsContainer">
-            <SearchResults {...recipesConfig} />
-            <Index indexName="users">
-              <Configure
-                hitsPerPage={3}
-              />
-              <SearchResults {...usersConfig} />
-            </Index>
-          </div>
-        }
+        {showResults && <SearchResults {...resultsConfig} />}
       </InstantSearch >
     </div >
   );

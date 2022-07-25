@@ -1,25 +1,78 @@
 @use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
 
 .searchResults {
   width: 100%;
+  position: absolute;
+  top: 38px;
+  z-index: 3;
+  left: 0;
+  right: 0;
 
-  .searchResults__headerWrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px;
-    width: 100%;
-    background-color: $color-primary;
-    border-top: 1px solid $gray-border;
-    margin-top: -1px;
-
-    p {
-      font-weight: 500;
-    }
+  @media (max-width: 600px) {
+    top: 44px;
   }
 
-  .searchResults__none {
-    padding: 15px 10px;
+  .searchResults__container {
     background-color: $lightgray-background;
+    outline: 1px solid $gray-border;
+    box-shadow: $box-shadow;
+    outline-offset: -1px;
+    max-height: 480px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+
+    @media (max-width: 600px) {
+      max-height: none !important;
+      height: calc(100vh - 105px) !important;
+    }
+
+    @media (max-height: 600px) {
+      max-height: 360px;
+    }
+
+    @media (max-height: 480px) {
+      max-height: 240px;
+    }
+
+    .searchResults__header {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      border-top: 1px solid $gray-border;
+
+      .searchResults__headerWrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 5px 10px;
+        cursor: pointer;
+        background-color: $lightgray-background;
+        width: 50%;
+
+        p {
+          font-weight: 400;
+        }
+
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+
+      .active {
+        background-color: $color-primary;
+
+        p {
+          font-weight: 500;
+        }
+      }
+    }
+
+    .searchResults__none {
+      padding: 15px 10px;
+      background-color: $lightgray-background;
+    }
   }
 }

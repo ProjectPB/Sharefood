@@ -3,6 +3,9 @@ export const ENG_MISC = {
   NO_RECIPES: "Could not find any recipes",
   COPY: "Copy Link",
   SHARE: "Share",
+  RECIPES: "Recipes",
+  USERS: "Users",
+  SEARCH_NOT_FOUND: "Could not find any results",
 }
 
 export const PL_MISC = {
@@ -10,4 +13,7 @@ export const PL_MISC = {
   NO_RECIPES: "Brak przepisów",
   COPY: "Kopiuj adres",
   SHARE: "Udostępnij",
+  RECIPES: "Przepisy",
+  USERS: "Użytkownicy",
+  SEARCH_NOT_FOUND: "Brak wyników",
 }
