@@ -1,6 +1,7 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useWidth } from "../../hooks";
+import { Helmet } from "react-helmet-async";
+import { useLanguage, useWidth } from "../../hooks";
 import { State } from "../../shared/types";
 import { getRecipesCounter } from "../../shared/functions";
 
@@ -16,6 +17,7 @@ const MyPage: React.FC = () => {
   const { currentUser, sidebarIsOpen } = useSelector(mapState);
   const authorFilter = currentUser?.uid;
   const width = useWidth();
+  const LANG = useLanguage();
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
   const filters = {
     authorFilter, store: 'my', counter: counter, language: ""
@@ -26,11 +28,12 @@ const MyPage: React.FC = () => {
   }, [width, sidebarIsOpen]);
 
   return (
-    <Fragment>
-      <WithAuth>
-        <RecipesRenderer filters={filters} />
-      </WithAuth>
-    </Fragment >
+    <WithAuth>
+      <Helmet>
+        <title>{LANG.HELMET.YOURS} | Sharefood</title>
+      </Helmet>
+      <RecipesRenderer filters={filters} />
+    </WithAuth>
   );
 };
 

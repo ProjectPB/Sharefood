@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { googleSignInStart, signUpError } from "../../redux/User/user.actions";
 import { loadAuth } from "../../redux/Loading/loading.actions";
@@ -49,6 +50,10 @@ const AuthPage: React.FC = () => {
 
   return (
     <div className="auth">
+      <Helmet>
+        <title>{LANG.HELMET.AUTH} | Sharefood</title>
+      </Helmet>
+
       <div className="auth__logo">
         <Logo />
       </div>

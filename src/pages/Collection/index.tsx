@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { fetchCollectionStart } from './../../redux/Collections/collections.actions';
 import { State } from '../../shared/types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -64,6 +65,11 @@ const CollectionPage = () => {
 
   return (
     <div className='collection' ref={collectionRef} onScroll={() => setDistance(collectionRef.current?.scrollTop)}>
+      <Helmet>
+        {loaded && <title>{language === 'english' ? collection.eng_title : collection.pl_title} | Sharefood</title>}
+        {!loaded && <title>Sharefood</title>}
+      </Helmet>
+
       {loaded && language === 'english' && <h1 className='collection__title'>{collection?.eng_title}</h1>}
       {loaded && language === 'polish' && <h1 className='collection__title'>{collection?.pl_title}</h1>}
 

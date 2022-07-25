@@ -1,7 +1,7 @@
 import { State } from "../shared/types";
 import { useSelector } from "react-redux";
 
-import { ENG_MISC, PL_MISC, ENG_RECIPE, ENG_HEADER, ENG_SIDEBAR, ENG_FILTERS, ENG_NEW_RECIPE, ENG_AUTH, ENG_ERRORS, PL_HEADER, PL_SIDEBAR, PL_FILTERS, PL_NEW_RECIPE, PL_AUTH, PL_ERRORS, PL_RECIPE, ENG_HOMEPAGE, PL_HOMEPAGE, ENG_SETTINGS, PL_SETTINGS } from "../assets/lang";
+import { ENG_MISC, PL_MISC, ENG_RECIPE, ENG_HEADER, ENG_SIDEBAR, ENG_FILTERS, ENG_NEW_RECIPE, ENG_AUTH, ENG_ERRORS, PL_HEADER, PL_SIDEBAR, PL_FILTERS, PL_NEW_RECIPE, PL_AUTH, PL_ERRORS, PL_RECIPE, ENG_HOMEPAGE, PL_HOMEPAGE, ENG_SETTINGS, PL_SETTINGS, ENG_HELMET, PL_HELMET } from "../assets/lang";
 
 const mapState = ({ ui }: State) => ({
   language: ui.language
@@ -23,6 +23,7 @@ const useLanguage = () => {
         MISC: ENG_MISC,
         HOMEPAGE: ENG_HOMEPAGE,
         SETTINGS: ENG_SETTINGS,
+        HELMET: ENG_HELMET,
       }
     case "polish":
       return {
@@ -36,6 +37,7 @@ const useLanguage = () => {
         MISC: PL_MISC,
         HOMEPAGE: PL_HOMEPAGE,
         SETTINGS: PL_SETTINGS,
+        HELMET: PL_HELMET,
       }
   }
 }

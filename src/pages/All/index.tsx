@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
-import { useWidth } from "../../hooks";
+import { useLanguage, useWidth } from "../../hooks";
 import { getRecipesCounter } from "../../shared/functions";
 import { setSortFilter, setTagFilter, setTypeFilter } from "../../redux/Recipes/recipes.actions";
 import { State } from "../../shared/types";
@@ -17,6 +18,7 @@ const mapState = ({ ui, recipes }: State) => ({
 
 const AllPage: React.FC = () => {
   const width = useWidth();
+  const LANG = useLanguage();
   const dispatch = useDispatch();
   const { sidebarIsOpen, typeFilter, sortFilter, tagFilter, language } = useSelector(mapState)
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
@@ -38,6 +40,10 @@ const AllPage: React.FC = () => {
 
   return (
     <Fragment>
+      <Helmet>
+        <title>{LANG.HELMET.ALL_RECIPES} | Sharefood</title>
+      </Helmet>
+
       <RecipesRenderer {...rendererConfig} />
     </Fragment >
   );

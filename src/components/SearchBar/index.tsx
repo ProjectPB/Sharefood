@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Index, InstantSearch, Pagination } from "react-instantsearch-dom";
+import { InstantSearch } from "react-instantsearch-dom";
 import { Configure } from 'react-instantsearch-dom';
 import { Search } from "@material-ui/icons";
 import { searchClient } from "../../firebase/config";

@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
+import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { loadRecipeData, loadRelatedRecipes } from "../../redux/Loading/loading.actions";
 import { State } from "../../shared/types";
@@ -38,21 +39,22 @@ const RecipePage: React.FC = () => {
     };
   }, [recipeId, currentUser?.uid, dispatch]);
 
-  return !loaded ? (
+  return (
     <div className="recipePage">
-      <Loading />
-    </div>
-  ) : (
-    <div className="recipePage">
-      {!recipeData ? (
-        <NoData />
-      ) : (
+      <Helmet>
+        {loaded && <title>{`${recipeData?.title}`} | Sharefood</title>}
+        {!loaded && <title>Sharefood</title>}
+      </Helmet>
+
+      {!recipeData && loaded && <NoData />}
+      {!loaded && <Loading />}
+      {loaded && recipeData &&
         <div className="recipePage__wrapper">
           <Recipe data={recipeData} />
           <MoreRecipes filter={recipeData.type} excludeId={recipeId} />
         </div>
-      )}
-    </div>
+      }
+    </div >
   );
 };
 
