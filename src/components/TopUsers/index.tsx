@@ -47,7 +47,7 @@ const TopUsers = ({ keepScroll }: Props) => {
           {(loaded && topUsers.length > 0) && topUsers.map((user) => (
             <Link to={`/user/${user?.uid}`} onClick={keepScroll} key={user.uid}>
               <div className="userProfile">
-                <Avatar className="userProfile__profilePic" src={user?.profilePic} />
+                <Avatar className="userProfile__profilePic" alt="avatar" src={user?.profilePic} />
                 <h3>{user.displayName}</h3>
               </div>
             </Link>
@@ -62,7 +62,7 @@ const TopUsers = ({ keepScroll }: Props) => {
           {(loaded && activeUsers.length > 0) && activeUsers.map((user) => (
             <Link to={`/user/${user?.uid}`} onClick={keepScroll} id={user.uid} key={user.uid}>
               <div className="userProfile">
-                <Avatar className="userProfile__profilePic" src={user?.profilePic} />
+                <Avatar className="userProfile__profilePic" alt="avatar" src={user?.profilePic} />
                 <h3>{user.displayName}</h3>
               </div>
             </Link>

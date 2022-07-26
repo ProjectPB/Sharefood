@@ -68,7 +68,7 @@ const Card: React.FC<Data> = ({
             <div className="card__dataContainer">
               <div className="card__data">
                 <div className="card__infoContainer">
-                  <Avatar className="card__icon" src={profilePic} />
+                  <Avatar className="card__icon" src={profilePic} alt="avatar" />
                   <p className="card__text">{username}</p>
                 </div>
               </div>

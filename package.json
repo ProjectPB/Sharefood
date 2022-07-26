@@ -43,17 +43,21 @@
     "sass": "^1.52.0",
     "start": "^5.1.0",
     "typescript": "^4.5.5",
-    "update-notifier": "^5.1.0",
+    "update-notifier": "^6.0.2",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && npm run delete-maps",
+    "postbuild": "react-snap",
     "delete-maps": "npm run delete-map-files && npm run delete-references-to-map-files",
     "delete-map-files": "find ./build -name '*.map' -delete",
     "delete-references-to-map-files": "find ./build -regex '.*\\.\\(js\\|css\\)' -exec sed -i -E '\\/[\\*\\/]#\\ssourceMappingURL=main(\\.[0-9a-f]+)?\\.(css|js)\\.map(\\*\\/)?/g' {} +",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "reactSnap": {
+    "inlineCss": true
   },
   "eslintConfig": {
     "extends": [
@@ -79,6 +83,7 @@
     "@types/react-copy-to-clipboard": "^5.0.3",
     "@types/react-draft-wysiwyg": "^1.13.4",
     "@types/react-instantsearch-dom": "^6.12.2",
-    "@types/react-redux": "^7.1.22"
+    "@types/react-redux": "^7.1.22",
+    "react-snap": "^0.2.0"
   }
 }
