@@ -6,7 +6,7 @@ import { State } from '../../shared/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetScrollDistancesStart, setScrollDistanceStart } from '../../redux/Recipes/recipes.actions';
 import { setLastDisplayedCollection } from '../../redux/UI/ui.actions';
-import { useRecipeData } from '../../hooks';
+import { useLanguage, useRecipeData } from '../../hooks';
 
 import Recipes from '../../components/Recipes';
 import Loading from '../../components/Loading';
@@ -24,6 +24,7 @@ const mapState = ({ ui, collections, loading }: State) => ({
 const CollectionPage = () => {
   const dispatch = useDispatch();
   const collectionRef = useRef<HTMLDivElement>();
+  const LANG = useLanguage();
   const { collectionId } = useParams();
   const { language, collection, loaded, lastDisplayedCollection } = useSelector(mapState);
   const { data, scrollDistance } = useRecipeData("collection");
@@ -68,6 +69,7 @@ const CollectionPage = () => {
       <Helmet>
         {loaded && <title>{language === 'english' ? collection.eng_title : collection.pl_title} | Sharefood</title>}
         {!loaded && <title>Sharefood</title>}
+        <meta name="description" content={LANG.HELMET.COLLECTION_DESCRIPTION}></meta>
       </Helmet>
 
       {loaded && language === 'english' && <h1 className='collection__title'>{collection?.eng_title}</h1>}

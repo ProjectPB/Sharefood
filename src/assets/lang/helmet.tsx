@@ -7,6 +7,10 @@ export const ENG_HELMET = {
   YOURS: "Your recipes",
   SETTINGS: "Settings",
   DESCRIPTION: "Recipes",
+  ALL_DESCRIPTION: "View all recipes",
+  AUTH_DESCRIPTION: "Create a new account or sign in if you already have an existing account",
+  COLLECTION_DESCRIPTION: "View the collection",
+  RECIPE_DESCRIPTION: "View the recipe",
 }
 
 export const PL_HELMET = {
@@ -18,4 +22,8 @@ export const PL_HELMET = {
   YOURS: "Twoje przepisy",
   SETTINGS: "Ustawienia",
   DESCRIPTION: "Przepisy",
+  ALL_DESCRIPTION: "Wyświetl wszystkie przepisy",
+  AUTH_DESCRIPTION: "Utwórz nowe konto lub zaloguj się jeśli masz już konto",
+  COLLECTION_DESCRIPTION: "Wyświetl kolekcję przepisów",
+  RECIPE_DESCRIPTION: "Wyświetl przepis",
 }

@@ -42,6 +42,7 @@ const AllPage: React.FC = () => {
     <Fragment>
       <Helmet>
         <title>{LANG.HELMET.ALL_RECIPES} | Sharefood</title>
+        <meta name="description" content={LANG.HELMET.ALL_DESCRIPTION}></meta>
       </Helmet>
 
       <RecipesRenderer {...rendererConfig} />

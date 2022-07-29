@@ -85,6 +85,7 @@ const Header: React.FC = () => {
             <Avatar
               onClick={() => setProfileMenuIsOpen(!profileMenuIsOpen)}
               src={currentUser?.profilePic}
+              alt="avatar"
               className="avatarIcon"
             />
             {profileMenuIsOpen && <ProfilePopup close={() => setProfileMenuIsOpen(false)} />}

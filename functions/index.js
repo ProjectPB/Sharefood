@@ -5,11 +5,10 @@ admin.initializeApp();
 exports.buildSitemap = functions.https.onRequest(async (request, response) => {
   const sitemapHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
 
-  const allURL = `<url><loc>https://pb-sharefood.web.app/all</loc><lastmod>${new Date().toISOString()}</lastmod></url>`;
-  const favoriteURL = `<url><loc>https://pb-sharefood.web.app/favorite</loc><lastmod>${new Date().toISOString()}</lastmod></url>`;
-  const myURL = `<url><loc>https://pb-sharefood.web.app/my</loc><lastmod>${new Date().toISOString()}</lastmod></url>`;
-  const authURL = `<url><loc>https://pb-sharefood.web.app/auth</loc><lastmod>${new Date().toISOString()}</lastmod></url>`;
-  const resetURL = `<url><loc>https://pb-sharefood.web.app/reset</loc><lastmod>${new Date().toISOString()}</lastmod></url>`;
+  const baseURL = `<url><loc>https://pb-sharefood.web.app</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>`;
+  const allURL = `<url><loc>https://pb-sharefood.web.app/all</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`;
+  const authURL = `<url><loc>https://pb-sharefood.web.app/auth</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly<changefreq><priority>0.8</priority></url>`;
+  const resetURL = `<url><loc>https://pb-sharefood.web.app/reset</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly<changefreq><priority>0.6</priority></url>`;
 
   const recipesURLs = [];
   const usersURLs = [];
@@ -24,7 +23,8 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
     recipesURLs.push(
         `<url><loc>https://pb-sharefood.web.app/recipe/${
           docSnapshot.id
-        }</loc><lastmod>${new Date().toISOString()}</lastmod></url>`,
+        }</loc><lastmod>${new Date().toISOString()}</lastmod>
+        <changefreq>daily</changefreq><priority>0.7</priority></url>`,
     );
   }
 
@@ -37,7 +37,8 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
     recipesURLs.push(
         `<url><loc>https://pb-sharefood.web.app/user/${
           docSnapshot.id
-        }</loc><lastmod>${new Date().toISOString()}</lastmod></url>`,
+        }</loc><lastmod>${new Date().toISOString()}</lastmod>
+        <changefreq>weekly</changefreq><priority>0.5</priority></url>`,
     );
   }
 
@@ -50,7 +51,8 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
     collectionsURLs.push(
         `<url><loc>https://pb-sharefood.web.app/collection/${
           docSnapshot.id
-        }</loc><lastmod>${new Date().toISOString()}</lastmod></url>`,
+        }</loc><lastmod>${new Date().toISOString()}</lastmod>
+        <changefreq>monthly</changefreq><priority>0.5</priority></url>`,
     );
   }
 
@@ -58,9 +60,8 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
 
   const sitemapString =
     sitemapHeader +
+    baseURL +
     allURL +
-    favoriteURL +
-    myURL +
     authURL +
     resetURL +
     recipesURLs +

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { bannerConfig } from '../../config';
+import { bannerConfig } from './config';
 import { useLanguage } from '../../hooks';
 import { fetchBannerDataStart } from '../../redux/Collections/collections.actions';
 import { State } from '../../shared/types';

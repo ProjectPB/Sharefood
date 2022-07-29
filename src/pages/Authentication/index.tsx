@@ -52,6 +52,7 @@ const AuthPage: React.FC = () => {
     <div className="auth">
       <Helmet>
         <title>{LANG.HELMET.AUTH} | Sharefood</title>
+        <meta name="description" content={LANG.HELMET.AUTH_DESCRIPTION}></meta>
       </Helmet>
 
       <div className="auth__logo">
