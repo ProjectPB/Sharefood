@@ -7,8 +7,8 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
 
   const baseURL = `<url><loc>https://pb-sharefood.web.app</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>`;
   const allURL = `<url><loc>https://pb-sharefood.web.app/all</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`;
-  const authURL = `<url><loc>https://pb-sharefood.web.app/auth</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly<changefreq><priority>0.8</priority></url>`;
-  const resetURL = `<url><loc>https://pb-sharefood.web.app/reset</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly<changefreq><priority>0.6</priority></url>`;
+  const authURL = `<url><loc>https://pb-sharefood.web.app/auth</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>`;
+  const resetURL = `<url><loc>https://pb-sharefood.web.app/reset</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>`;
 
   const recipesURLs = [];
   const usersURLs = [];
