@@ -7,14 +7,14 @@ export const handleUserProfile = async ({ userAuth, additionalData }: any) => {
   if (!userAuth) return;
 
   const userRef = db.doc(`users/${userAuth.uid}`);
-
   const snapshot = await userRef.get();
+
   if (!snapshot.exists) {
     const { email, photoURL } = userAuth;
 
     try {
       await userRef.set({
-        displayName: additionalData?.displayName,
+        displayName: additionalData?.displayName || userAuth.displayName,
         email,
         uid: userAuth.uid,
         profilePic: photoURL || '',

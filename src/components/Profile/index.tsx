@@ -20,8 +20,8 @@ const Profile: React.FC<Props> = ({ id }) => {
     const getData = async () => {
       const data = await handleGetUserData(id)
 
-      setUserImg(data.profilePic)
-      setUsername(data.username);
+      setUserImg(data?.profilePic)
+      setUsername(data?.username);
       setLoading(false);
     }
 

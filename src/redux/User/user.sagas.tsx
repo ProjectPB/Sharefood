@@ -123,7 +123,7 @@ export function* signUpUser({
         email,
         password
       );
-      const additionalData = { displayName: displayName };
+      const additionalData = { displayName };
       yield fetchDataFromUserAuth(user, additionalData);
       yield put(loadAuth(false));
     }
@@ -141,7 +141,9 @@ export function* onSignUpUserStart() {
 export function* googleSignIn() {
   try {
     const { user } = yield auth.signInWithPopup(GoogleProvider);
+    yield put(loadAuth(true))
     yield fetchDataFromUserAuth(user);
+    yield put(loadAuth(false));
   } catch (err) {
     // console.log(err.message);
   }
