@@ -59,7 +59,7 @@ export const checkCurrentUser = () => {
 
 export const handleResetPasswordAPI = (email: string) => {
   const config = {
-    url: "https://pb-sharefood.web.app/auth",
+    url: "https://sharefood.pl/auth",
   };
 
   return new Promise<void>((resolve, reject) => {

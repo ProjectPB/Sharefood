@@ -63,7 +63,9 @@ const Card: React.FC<Data> = ({
             </div >}
 
           {loaded && <div className="card__body">
-            <h1 className="card__title">{title}</h1>
+            <div className="card__titleContainer">
+              <h1 className="card__title">{title}</h1>
+            </div>
 
             <div className="card__dataContainer">
               <div className="card__data">

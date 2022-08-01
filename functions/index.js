@@ -5,10 +5,10 @@ admin.initializeApp();
 exports.buildSitemap = functions.https.onRequest(async (request, response) => {
   const sitemapHeader = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
 
-  const baseURL = `<url><loc>https://pb-sharefood.web.app</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>`;
-  const allURL = `<url><loc>https://pb-sharefood.web.app/all</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`;
-  const authURL = `<url><loc>https://pb-sharefood.web.app/auth</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>`;
-  const resetURL = `<url><loc>https://pb-sharefood.web.app/reset</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>`;
+  const baseURL = `<url><loc>https://sharefood.pl</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>`;
+  const allURL = `<url><loc>https://sharefood.pl/all</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`;
+  const authURL = `<url><loc>https://sharefood.pl/auth</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>`;
+  const resetURL = `<url><loc>https://sharefood.pl/reset</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>`;
 
   const recipesURLs = [];
   const usersURLs = [];
@@ -21,7 +21,7 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
       .get();
   for (const docSnapshot of recipeSnapshot.docs) {
     recipesURLs.push(
-        `<url><loc>https://pb-sharefood.web.app/recipe/${
+        `<url><loc>https://sharefood.pl/recipe/${
           docSnapshot.id
         }</loc><lastmod>${new Date().toISOString()}</lastmod>
         <changefreq>daily</changefreq><priority>0.7</priority></url>`,
@@ -35,7 +35,7 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
       .get();
   for (const docSnapshot of usersSnapshot.docs) {
     recipesURLs.push(
-        `<url><loc>https://pb-sharefood.web.app/user/${
+        `<url><loc>https://sharefood.pl/user/${
           docSnapshot.id
         }</loc><lastmod>${new Date().toISOString()}</lastmod>
         <changefreq>weekly</changefreq><priority>0.5</priority></url>`,
@@ -49,7 +49,7 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
       .get();
   for (const docSnapshot of collectionsSnapshot.docs) {
     collectionsURLs.push(
-        `<url><loc>https://pb-sharefood.web.app/collection/${
+        `<url><loc>https://sharefood.pl/collection/${
           docSnapshot.id
         }</loc><lastmod>${new Date().toISOString()}</lastmod>
         <changefreq>monthly</changefreq><priority>0.5</priority></url>`,

@@ -4,4 +4,4 @@ Disallow: /my/
 Disallow: /favorite/
 Disallow: /settings/
 
-Sitemap: https://pb-sharefood.web.app/sitemap.xml
+Sitemap: https://sharefood.pl/sitemap.xml

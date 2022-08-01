@@ -29,8 +29,13 @@ const App = () => {
   const currentUserData: CurrentUser = useSelector((state: RootState) => state.user.currentUser);
 
   useEffect(() => {
-    dispatch(checkUserSessionStart(currentUserData));
+    if (window.location.hostname !== 'localhost') {
+      if (window.location.hostname.indexOf('sharefood.pl') === -1) {
+        window.location.replace("https://sharefood.pl");
+      }
+    }
 
+    dispatch(checkUserSessionStart(currentUserData));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
