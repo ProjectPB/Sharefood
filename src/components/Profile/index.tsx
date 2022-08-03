@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet-async';
 import { Avatar } from '@material-ui/core';
 import { handleGetUserData } from '../../redux/Recipes/recipes.helpers';
 
@@ -36,11 +35,6 @@ const Profile: React.FC<Props> = ({ id }) => {
 
   return (
     <div className="profile">
-      <Helmet>
-        {!loading && <title>{username} | Sharefood</title>}
-        {loading && <title>Sharefood</title>}
-      </Helmet>
-
       {loading && <Loading />}
 
       {!loading &&

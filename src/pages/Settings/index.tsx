@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Helmet } from 'react-helmet-async';
-import { useLanguage } from '../../hooks';
 import { deleteAccountError, passwordError, usernameError } from '../../redux/User/user.actions';
 import { State } from '../../shared/types';
 
@@ -20,7 +18,6 @@ const mapState = ({ user }: State) => ({
 const SettingsPage = () => {
   const { currentUser } = useSelector(mapState);
   const navigate = useNavigate();
-  const LANG = useLanguage();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,10 +33,6 @@ const SettingsPage = () => {
 
   return (
     <div className='settings'>
-      <Helmet>
-        <title>{LANG.HELMET.SETTINGS} | Sharefood</title>
-      </Helmet>
-
       <div className="settings__container">
         <ProfilePic />
 

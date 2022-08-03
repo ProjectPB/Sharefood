@@ -2,7 +2,6 @@
 
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
-import { Helmet } from "react-helmet-async";
 import { useDispatch, useSelector } from "react-redux";
 import { loadRecipeData, loadRelatedRecipes } from "../../redux/Loading/loading.actions";
 import { State } from "../../shared/types";
@@ -15,7 +14,6 @@ import Recipe from "../../components/Recipe";
 import MoreRecipes from '../../components/MoreRecipes';
 
 import "./styles.scss";
-import { useLanguage } from "../../hooks";
 
 const mapState = ({ user, loading, recipe }: State) => ({
   currentUser: user.currentUser,
@@ -25,7 +23,6 @@ const mapState = ({ user, loading, recipe }: State) => ({
 
 const RecipePage: React.FC = () => {
   const dispatch = useDispatch();
-  const LANG = useLanguage();
   const { currentUser, loaded, recipeData } = useSelector(mapState);
   const { recipeId } = useParams<{ recipeId: string }>();
 
@@ -43,12 +40,6 @@ const RecipePage: React.FC = () => {
 
   return (
     <div className="recipePage">
-      <Helmet>
-        {loaded && <title>{`${recipeData?.title}`} | Sharefood</title>}
-        {!loaded && <title>Sharefood</title>}
-        <meta name="description" content={LANG.HELMET.RECIPE_DESCRIPTION}></meta>
-      </Helmet>
-
       {!recipeData && loaded && <NoData />}
       {!loaded && <Loading />}
       {loaded && recipeData &&

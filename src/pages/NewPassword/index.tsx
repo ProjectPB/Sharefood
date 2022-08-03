@@ -17,7 +17,6 @@ import AuthError from "../../components/AuthError";
 import Loading from "../../components/Loading";
 
 import "./styles.scss";
-import { Helmet } from "react-helmet-async";
 
 const mapState = ({ user, loading }: State) => ({
   resetPasswordSuccess: user.resetPasswordSuccess,
@@ -81,10 +80,6 @@ const NewPasswordPage: React.FC = () => {
 
   return (
     <form className="newPassword" onSubmit={handleSubmit}>
-      <Helmet>
-        <title>{LANG.HELMET.NEW_PASSWORD} | Sharefood</title>
-      </Helmet>
-
       <h3>{LANG.AUTH.NEW_PASSWORD}</h3>
 
       <div className="newPassword__body">

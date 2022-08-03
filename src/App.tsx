@@ -2,10 +2,8 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { checkUserSessionStart } from "./redux/User/user.actions";
-import { useLanguage } from "./hooks";
 import { RootState } from "./redux/rootReducer";
 import { CurrentUser } from "./shared/types";
-import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 import FullscreenLayout from './layouts/FullscreenLayout';
 import MainLayout from './layouts/MainLayout';
@@ -25,7 +23,6 @@ import SettingsPage from './pages/Settings';
 
 const App = () => {
   const dispatch = useDispatch();
-  const LANG = useLanguage();
   const currentUserData: CurrentUser = useSelector((state: RootState) => state.user.currentUser);
 
   useEffect(() => {
@@ -40,39 +37,31 @@ const App = () => {
   }, []);
 
   return (
-    <HelmetProvider>
-      <BrowserRouter>
-        <Helmet>
-          <title>Sharefood</title>
-          <meta name="author" content="PB Projects"></meta>
-          <meta name="description" content={LANG.HELMET.DESCRIPTION}></meta>
-        </Helmet>
-
-        <Routes>
-          <Route path="/" >
-            <Route element={<MainLayout />}>
-              <Route index element={<HomePage />} />
-              <Route path="all" element={<AllRecipesPage />} />
-              <Route path="favorite" element={<FavoriteRecipesPage />} />
-              <Route path="my" element={<MyRecipesPage />} />
-              <Route path="collection/:collectionId" element={<CollectionPage />} />
-            </Route>
-            <Route element={<WideLayout />}>
-              <Route path="recipe/:recipeId" element={<RecipePage />} />
-              <Route path="user">
-                <Route path=":userId" element={<UserPage />} />
-                <Route path="settings" element={<SettingsPage />} />
-              </Route>
-              <Route path="*" element={<EmptyPage />} />
-            </Route>
-            <Route element={<FullscreenLayout />}>
-              <Route path="auth" element={<AuthenticationPage />} />
-              <Route path="reset" element={<NewPasswordPage />} />
-            </Route>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" >
+          <Route element={<MainLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="all" element={<AllRecipesPage />} />
+            <Route path="favorite" element={<FavoriteRecipesPage />} />
+            <Route path="my" element={<MyRecipesPage />} />
+            <Route path="collection/:collectionId" element={<CollectionPage />} />
           </Route>
-        </Routes>
-      </BrowserRouter>
-    </HelmetProvider>
+          <Route element={<WideLayout />}>
+            <Route path="recipe/:recipeId" element={<RecipePage />} />
+            <Route path="user">
+              <Route path=":userId" element={<UserPage />} />
+              <Route path="settings" element={<SettingsPage />} />
+            </Route>
+            <Route path="*" element={<EmptyPage />} />
+          </Route>
+          <Route element={<FullscreenLayout />}>
+            <Route path="auth" element={<AuthenticationPage />} />
+            <Route path="reset" element={<NewPasswordPage />} />
+          </Route>
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 

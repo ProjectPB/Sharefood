@@ -1,5 +1,7 @@
+/* eslint-disable max-len */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
+const fs = require("fs");
 admin.initializeApp();
 
 exports.buildSitemap = functions.https.onRequest(async (request, response) => {
@@ -71,4 +73,42 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
 
   response.set("Content-Type", "text/xml");
   response.status(200).send(sitemapString);
+});
+
+
+exports.preRender = functions.https.onRequest(async (request, response) => {
+  const error404 = false;
+  const path = request.path ? request.path.split("/") : request.path;
+  let index = fs.readFileSync("./web/index.html").toString();
+
+  const setMetas = (title, description, thumbnail) => {
+    index = index.replace(/__TITLE__/g, title);
+    index = index.replace(/__DESCRIPTION__/g, description);
+    index = index.replace(/__THUMB__/g, thumbnail);
+  };
+
+  if (path[1] === "all") setMetas("All recipes | Sharefood", "All recipes");
+  else if (path[1] === "auth") setMetas("Authentication | Sharefood", "Create a new account or sign in");
+  else if (path[1] === "reset") setMetas("Reset password | Sharefood", "Reset passwords");
+  else if (path[1] === "recipe" && path[2]) {
+    await admin.firestore().collection("recipes").doc(path[2]).get().then((queryResult) => {
+      if (queryResult.data()) {
+        setMetas(queryResult.data().title, "", queryResult.data().imageLow);
+      } else {
+        setMetas("Sharefood", "Sharefood");
+      }
+    });
+  } else if (path[1] === "collection" && path[2]) {
+    await admin.firestore().collection("collections").doc(path[2]).get().then((queryResult) => {
+      if (queryResult.data()) {
+        setMetas(queryResult.data().eng_title, "", queryResult.data().img);
+      } else {
+        setMetas("Sharefood", "Sharefood");
+      }
+    });
+  } else setMetas("Sharefood", "Sharefood");
+
+  error404 ?
+  response.status(400).send(index) :
+  response.status(200).send(index);
 });
