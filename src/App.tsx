@@ -20,6 +20,7 @@ import FavoriteRecipesPage from './pages/Favorite';
 import MyRecipesPage from './pages/My';
 import CollectionPage from './pages/Collection';
 import SettingsPage from './pages/Settings';
+import RedirectPage from './pages/Redirect';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ const App = () => {
           <Route element={<MainLayout />}>
             <Route index element={<HomePage />} />
             <Route path="all" element={<AllRecipesPage />} />
+            <Route path="all/pl" element={<RedirectPage link='/all' />} />
             <Route path="favorite" element={<FavoriteRecipesPage />} />
             <Route path="my" element={<MyRecipesPage />} />
             <Route path="collection/:collectionId" element={<CollectionPage />} />

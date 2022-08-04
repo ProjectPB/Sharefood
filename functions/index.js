@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable max-len */
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
@@ -9,6 +10,7 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
 
   const baseURL = `<url><loc>https://sharefood.pl</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>weekly</changefreq><priority>1</priority></url>`;
   const allURL = `<url><loc>https://sharefood.pl/all</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`;
+  const allURL_pl = `<url><loc>https://sharefood.pl/all/pl</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>daily</changefreq><priority>0.9</priority></url>`;
   const authURL = `<url><loc>https://sharefood.pl/auth</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly</changefreq><priority>0.8</priority></url>`;
   const resetURL = `<url><loc>https://sharefood.pl/reset</loc><lastmod>${new Date().toISOString()}</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>`;
 
@@ -64,6 +66,7 @@ exports.buildSitemap = functions.https.onRequest(async (request, response) => {
     sitemapHeader +
     baseURL +
     allURL +
+    allURL_pl +
     authURL +
     resetURL +
     recipesURLs +
@@ -88,6 +91,7 @@ exports.preRender = functions.https.onRequest(async (request, response) => {
   };
 
   if (path[1] === "all") setMetas("All recipes | Sharefood", "All recipes");
+  if (path[1] === "all" && path[2] === "pl") setMetas("Wszystkie przepisy | Sharefood", "Wszystkie przepisy");
   else if (path[1] === "auth") setMetas("Authentication | Sharefood", "Create a new account or sign in");
   else if (path[1] === "reset") setMetas("Reset password | Sharefood", "Reset passwords");
   else if (path[1] === "recipe" && path[2]) {
