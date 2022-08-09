@@ -1,6 +1,6 @@
 import firebase from "firebase/compat/app";
 import { auth, db, storage } from "../../firebase/utils";
-import { deleteUser } from "firebase/auth";
+import { deleteUser, getAuth, updateProfile } from "firebase/auth";
 import { handleDeleteRecipe, putImgToStorage } from './../Recipe/recipe.helpers';
 
 export const handleUserProfile = async ({ userAuth, additionalData }: any) => {
@@ -142,7 +142,13 @@ export const handleUpdateProfilePic = (userId: string, profilePic: File): Promis
 
       deleteStorageUserFiles(userId).then(() => {
         putImgToStorage(profilePic, storageRef)
-          .then((res: string) => (imgUrl = res))
+          .then((res: string) => (imgUrl = res)).then(() => {
+            updateProfile(auth.currentUser, {
+              photoURL: imgUrl
+            }).catch((err) => {
+              console.log(resolve(err.message));
+            })
+          })
           .then(() => {
             db.collection('users').doc(userId).update({
               'profilePic': imgUrl,
@@ -160,13 +166,20 @@ export const handleUpdateProfilePic = (userId: string, profilePic: File): Promis
 
 export const handleUpdateUsername = (userId: string, username: string) => {
   return new Promise((resolve, reject) => {
+    const auth = getAuth();
     try {
       if (username.length > 12 || username.length < 4) {
         return resolve(["INVALID_USERNAME"]);
       }
-
-      db.collection('users').doc(userId).update({
-        'displayName': username,
+      
+      updateProfile(auth.currentUser, {
+        displayName: username
+      }).catch((err) => {
+        console.log(resolve([err.message]));
+      }).then(() => {
+        db.collection('users').doc(userId).update({
+          'displayName': username,
+        })
       }).then(() => {
         resolve([]);
       })
