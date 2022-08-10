@@ -20,6 +20,7 @@ import FavoriteRecipesPage from './pages/Favorite';
 import MyRecipesPage from './pages/My';
 import CollectionPage from './pages/Collection';
 import SettingsPage from './pages/Settings';
+import PrivacyPage from './pages/Privacy';
 import RedirectPage from './pages/Redirect';
 
 const App = () => {
@@ -60,6 +61,7 @@ const App = () => {
           <Route element={<FullscreenLayout />}>
             <Route path="auth" element={<AuthenticationPage />} />
             <Route path="reset" element={<NewPasswordPage />} />
+            <Route path="privacy" element={<PrivacyPage />} />
           </Route>
         </Route>
       </Routes>

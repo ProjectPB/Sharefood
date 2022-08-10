@@ -1,0 +1,55 @@
+@use "./../../sass/variables" as *;
+@use "./../../sass/mixins" as m;
+
+.privacy {
+  @include m.borders;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 90%;
+  margin: 10px 0;
+
+  .privacy__logo {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid $gray-border;
+    width: 100%;
+    text-align: center;
+  }
+
+  .privacy__wrapper {
+    h1 {
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .privacy__container {
+      padding: 10px 0;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-size: 16px;
+        font-weight: 400;
+      }
+
+      span {
+        font-weight: 500;
+      }
+
+      a {
+        color: $link;
+      }
+
+      ul {
+        list-style-position: inside;
+      }
+    }
+  }
+}

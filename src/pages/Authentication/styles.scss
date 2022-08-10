@@ -28,15 +28,20 @@
   .auth__links {
     display: flex;
     flex-direction: column;
+    width: 100%;
     margin-bottom: 10px;
     gap: 5px;
 
     .auth__link {
+      width: 100%;
+      text-align: center;
+      color: $gray-text;
+
       .span {
         color: $link;
         text-decoration: underline;
         cursor: pointer;
-        margin-top: 5px;
+        margin-top: 7px;
       }
     }
   }

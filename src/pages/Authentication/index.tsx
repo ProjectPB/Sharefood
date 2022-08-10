@@ -76,12 +76,20 @@ const AuthPage: React.FC = () => {
               <span className="span">{LANG.AUTH.RESET_PASSWORD}</span>
             </Link>
           </p>
+
+          <p className="auth__link">
+            {LANG.AUTH.ACCEPT_TERMS}{" "}
+            <Link to="/privacy">
+              <span className="span">{LANG.AUTH.TERMS}</span>
+            </Link>
+          </p>
         </div>
       )}
 
       {!newAccount && <GoogleButton handleClick={handleGoogleSignIn} />}
 
       {loading && <div className="auth__loading"><Loading /></div>}
+
     </div>
   );
 };

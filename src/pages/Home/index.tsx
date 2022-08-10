@@ -11,6 +11,7 @@ import Banner from "../../components/Banner";
 import TopUsers from './../../components/TopUsers';
 
 import './styles.scss';
+import { Link } from "react-router-dom";
 
 const mapState = ({ ui, recipes, loading }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,
@@ -88,6 +89,10 @@ const HomePage: React.FC = () => {
           keepScroll={keepScroll} />
 
         <TopUsers keepScroll={keepScroll} />
+
+        <div className="homepage__links">
+          <Link onClick={keepScroll} to="/privacy">{LANG.HOMEPAGE.PRIVACY_POLICY}</Link>
+        </div>
       </div >
     </div >
   );

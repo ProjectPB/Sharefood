@@ -22,6 +22,8 @@ export const ENG_AUTH = {
   NEW_PASSWORD_TEXT: "Please provide an e-mail in order to send a message with a password reset.",
   NEW_PASSWORD_SEND: "Send",
   NEW_PASSWORD_SEND_SUCCESS: "E-mail sent. ",
+  ACCEPT_TERMS: "By signing in you accept the current version of the",
+  TERMS: "Terms of service"
 }
 
 export const PL_AUTH = {
@@ -48,4 +50,6 @@ export const PL_AUTH = {
   NEW_PASSWORD_TEXT: "Wprowadź adres e-mail aby wyszukać swoje konto.",
   NEW_PASSWORD_SEND: "Wyślij",
   NEW_PASSWORD_SEND_SUCCESS: "Wiadomość została wysłana.",
+  ACCEPT_TERMS: "Zalogowanie się oznacza akceptację",
+  TERMS: "Regulaminu serwisu"
 }

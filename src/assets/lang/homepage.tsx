@@ -4,7 +4,8 @@ export const ENG_HOMEPAGE = {
   MORE: "More",
   FEATURED: "Featured recipes",
   TOP_USERS: "Top users",
-  ACTIVE_USERS: "Most active users"
+  ACTIVE_USERS: "Most active users",
+  PRIVACY_POLICY: "Privacy Policy",
 }
 
 export const PL_HOMEPAGE = {
@@ -13,5 +14,6 @@ export const PL_HOMEPAGE = {
   MORE: "Więcej",
   FEATURED: "Polecane przepisy",
   TOP_USERS: "Najpopularniejsi użytkownicy",
-  ACTIVE_USERS: "Najaktywniejsi użytkownicy"
+  ACTIVE_USERS: "Najaktywniejsi użytkownicy",
+  PRIVACY_POLICY: "Regulamin",
 }
