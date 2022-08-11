@@ -5,13 +5,13 @@ import { getRecipesCounter } from "../../shared/functions";
 import { useLanguage, useRecipeData, useWidth } from "../../hooks";
 import { State } from "../../shared/types";
 import { loadHomePopularRecipes, loadHomeRecentRecipes } from "../../redux/Loading/loading.actions";
+import { Link } from "react-router-dom";
 
 import HomeRecipes from "../../components/HomeRecipes";
 import Banner from "../../components/Banner";
 import TopUsers from './../../components/TopUsers';
 
 import './styles.scss';
-import { Link } from "react-router-dom";
 
 const mapState = ({ ui, recipes, loading }: State) => ({
   sidebarIsOpen: ui.sidebarOpen,
