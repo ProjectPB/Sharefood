@@ -179,7 +179,7 @@ export const putImgToStorage = (file: any, refString: string) => {
 const handleExistingDoc = (title: string, collection: string) => {
   return new Promise<string>(async (resolve, reject) => {
     try {
-      const id = title.trim().split(' ').join('-').toLowerCase();
+      const id = title.trim().replace(/[-._,]/g, '').split(' ').join('-').toLowerCase();
       const refSnapshot = db.collection(collection).doc(id).get();
       if (!(await refSnapshot).exists) {
         resolve(id);
