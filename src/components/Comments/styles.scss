@@ -1,0 +1,115 @@
+@use "/src/sass/variables" as *;
+@use "/src/sass/mixins" as m;
+
+.comments {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid $gray-border;
+  padding: 10px;
+
+  .comments__header {
+    margin-bottom: 5px;
+
+    h2 {
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+
+  .comments__input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    background-color: $lightgray-background;
+    padding: 10px 10px 10px 5px;
+    border-radius: 10px;
+    margin: 0 -5px;
+
+    a {
+      color: $link;
+    }
+
+    .sendIcon {
+      width: 20px;
+      height: 20px;
+      color: $color-secondary;
+      cursor: pointer;
+    }
+
+    .avatarIcon {
+      width: 35px;
+      height: 35px;
+    }
+
+    textarea {
+      resize: none;
+      width: 100%;
+      outline: none;
+      border: none;
+      background-color: transparent;
+      padding-bottom: 5px;
+      font-size: 16px;
+      color: black;
+      font-family: "Montserrat", sans-serif;
+      border-bottom: 1px solid $gray-border;
+
+      &:focus {
+        border-bottom: 2px solid $color-secondary;
+      }
+    }
+  }
+
+  .comment {
+    display: flex;
+
+    .MuiAvatar-root {
+      width: 35px;
+      height: 35px;
+      margin-top: 5px;
+    }
+
+    .comment__wrapper {
+      padding: 5px;
+      width: 100%;
+
+      .comment__header {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 3px;
+
+        h3 {
+          font-size: 16px;
+          font-weight: 500;
+          color: $gray-text;
+        }
+
+        p {
+          color: $gray-text;
+          font-size: 16px;
+          font-weight: 400;
+        }
+      }
+
+      .comment__text {
+        flex: 1;
+        white-space: wrap;
+        text-overflow: ellipsis;
+        word-break: break-all;
+      }
+
+      .comment__userActions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 8px;
+
+        .MuiSvgIcon-root {
+          cursor: pointer;
+          opacity: 0.7;
+        }
+      }
+    }
+  }
+}

@@ -22,6 +22,7 @@ import { useLanguage } from '../../hooks';
 import { ShareOutlined } from '@mui/icons-material';
 
 import Loading from '../Loading';
+import Comments from './../Comments';
 import Modal from '../Modal';
 import Share from '../Share';
 
@@ -171,6 +172,8 @@ const Recipe: React.FC<Props> = ({ data }) => {
             <div className="recipe__fromHTML" dangerouslySetInnerHTML={{ __html: data?.method }} />
           </div>
         </div>
+
+        <Comments />
       </div >
     )
 };
