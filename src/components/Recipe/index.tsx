@@ -148,7 +148,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
         {(data?.description && data?.description !== '<p></p>') &&
           <div className="recipe__description">
             <div className="recipe__descriptionHeader" onClick={() => setShowDescription(!showDescription)} >
-              <p>Description</p>
+              <p>{LANG.RECIPE.DESCRIPTION}</p>
               {!showDescription && <ArrowDownward fontSize='small' />}
               {showDescription && <ArrowUpward fontSize='small' />}
             </div>
@@ -173,7 +173,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
           </div>
         </div>
 
-        <Comments />
+        <Comments recipeId={recipeId} />
       </div >
     )
 };

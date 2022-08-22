@@ -195,6 +195,20 @@ const handleExistingDoc = (title: string, collection: string) => {
   })
 }
 
+export const handleAddComment = (comment: string, recipeId: string, userId: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection('recipes').doc(recipeId).collection('comments').add({
+        authorId: userId,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        text: comment,
+        likesUsers: [],
+      }).then(() => { resolve(true) });
+    } catch (error) {
+      reject(error);
+    }
+  })
+}
 
 export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
   return new Promise((resolve, reject) => {

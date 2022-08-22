@@ -1,8 +1,13 @@
 import recipeTypes from "./recipe.types";
-import { RecipeData } from "../../shared/types";
+import { Comments, RecipeData } from "../../shared/types";
 
-const INITIAL_STATE: { recipeData: RecipeData } = {
+const INITIAL_STATE: { recipeData: RecipeData, comments: Comments } = {
   recipeData: null,
+  comments: {
+    data: [],
+    queryDoc: null,
+    isLastPage: false,
+  }
 };
 
 const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: RecipeData }) => {
@@ -11,6 +16,11 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: R
       return {
         ...state,
         recipeData: action.payload
+      }
+    case recipeTypes.ADD_COMMENT:
+      return {
+        ...state,
+        comments: { ...state.comments, data: [...state.comments.data, action.payload] }
       }
     default:
       return state;

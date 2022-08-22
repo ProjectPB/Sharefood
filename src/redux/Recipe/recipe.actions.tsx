@@ -25,3 +25,8 @@ export const dislikeRecipeStart = (ID: { userId: string, recipeId: string, data:
   type: recipeTypes.DISLIKE_RECIPE,
   payload: ID,
 })
+
+export const addCommentStart = (data: { text: string, authorId: string, recipeId: string }) => ({
+  type: recipeTypes.ADD_COMMENT,
+  payload: data,
+})

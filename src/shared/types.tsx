@@ -101,6 +101,19 @@ export interface SingleRecipes {
   isLastPage: boolean;
 }
 
+export interface Comments {
+  data: Comment[] | [];
+  queryDoc: firebase.firestore.QueryDocumentSnapshot | undefined;
+  isLastPage: boolean;
+}
+
+export interface Comment {
+  authorId: string,
+  timestamp: any,
+  text: string,
+  likesUsers: [],
+}
+
 export interface Recipes {
   recipes: {
     homeRecentRecipes: SingleRecipes
@@ -146,7 +159,8 @@ export interface State {
   recipes: Recipes;
   loading: Loading;
   recipe: {
-    recipeData: RecipeData
+    recipeData: RecipeData,
+    comments: Comments,
   };
   collections: Collections
 }
