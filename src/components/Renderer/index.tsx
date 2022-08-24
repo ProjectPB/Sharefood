@@ -87,7 +87,7 @@ const RecipesRenderer: React.FC<Props> = ({ filters, changeType, changeSort, cha
       dispatch(
         fetchRecipesStart({
           ...filters, startAfterDoc: queryDoc,
-          persistProducts: data
+          persistRecipes: data
         })
       );
     }

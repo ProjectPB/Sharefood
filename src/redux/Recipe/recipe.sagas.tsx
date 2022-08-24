@@ -1,7 +1,7 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
-import { RecipeData } from "../../shared/types";
-import { addCommentStart, createRecipeStart, dislikeRecipeStart, fetchRecipeDataStart, likeRecipeStart, setRecipeData } from "./recipe.actions";
-import { handleAddComment, handleCreateRecipe, handleDislikeRecipe, handleFetchRecipeData, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
+import { Comments, RecipeData } from "../../shared/types";
+import { addCommentStart, createRecipeStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeRecipeStart, setComments, setRecipeData } from "./recipe.actions";
+import { handleAddComment, handleCreateRecipe, handleDislikeRecipe, handleFetchComments, handleFetchRecipeData, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
 import { setFavoriteRecipes } from './../Recipes/recipes.actions'
 import { loadRecipeData } from "../Loading/loading.actions";
 import recipeTypes from "./recipe.types";
@@ -69,7 +69,7 @@ export function* onDislikeRecipeStart() {
   yield takeLatest(recipeTypes.DISLIKE_RECIPE, dislikeRecipe);
 }
 
-export function* addComment({ payload: { text, authorId, recipeId } }: ReturnType<typeof addCommentStart>) {
+export function* addComment({ payload: { text, authorId, recipeId, profilePic, username } }: ReturnType<typeof addCommentStart>) {
   try {
     yield handleAddComment(text, authorId, recipeId);
   } catch (error) {
@@ -81,10 +81,24 @@ export function* onAddCommentStart() {
   yield takeLatest(recipeTypes.ADD_COMMENT, addComment);
 }
 
+export function* fetchComments({ payload }: ReturnType<typeof fetchCommentsStart>) {
+  try {
+    const commentsData: Comments = yield handleFetchComments(payload);
+    yield put(setComments(commentsData));
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export function* onFetchCommentsStart() {
+  yield takeLatest(recipeTypes.FETCH_COMMENTS, fetchComments);
+}
+
 export default function* recipeSagas() {
   yield all([
     call(onCreateRecipeStart),
     call(onFetchRecipeDataStart),
+    call(onFetchCommentsStart),
     call(onLikeRecipeStart),
     call(onDislikeRecipeStart),
     call(onAddCommentStart),

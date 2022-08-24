@@ -7,20 +7,33 @@ const INITIAL_STATE: { recipeData: RecipeData, comments: Comments } = {
     data: [],
     queryDoc: null,
     isLastPage: false,
+    amount: 0,
   }
 };
 
-const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: RecipeData }) => {
+const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: any }) => {
   switch (action.type) {
     case recipeTypes.SET_RECIPE_DATA:
       return {
         ...state,
-        recipeData: action.payload
+        recipeData: action.payload,
+      }
+    case recipeTypes.SET_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
       }
     case recipeTypes.ADD_COMMENT:
       return {
         ...state,
-        comments: { ...state.comments, data: [...state.comments.data, action.payload] }
+        comments: {
+          ...state.comments,
+          amount: state.comments.amount + 1,
+          data: [{
+            id: null,
+            data: action.payload
+          }, ...state.comments.data]
+        },
       }
     default:
       return state;

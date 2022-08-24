@@ -7,6 +7,8 @@ const recipeTypes = {
   DELETE_RECIPE: 'DELETE_RECIPE',
   VIEW_RECIPE: "VIEW_RECIPE",
   ADD_COMMENT: "ADD_COMMENT",
+  FETCH_COMMENTS: "FETCH_COMMENTS",
+  SET_COMMENTS: "SET_COMMENTS"
 }
 
 export default recipeTypes;

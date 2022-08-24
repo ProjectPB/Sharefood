@@ -1,7 +1,9 @@
 import firebase from "firebase/compat/app";
 import { db, storage } from "../../firebase/utils";
+import { Query } from "@firebase/firestore-types";
 import { handleGetUserData } from './../Recipes/recipes.helpers'
 import { createRecipeStart } from "./recipe.actions";
+import { FiltersTypes } from "../../shared/types";
 
 export const handleFetchSelectedRecipe = (recipeId: string) => {
   return new Promise((resolve, reject) => {
@@ -195,21 +197,6 @@ const handleExistingDoc = (title: string, collection: string) => {
   })
 }
 
-export const handleAddComment = (comment: string, recipeId: string, userId: string) => {
-  return new Promise((resolve, reject) => {
-    try {
-      db.collection('recipes').doc(recipeId).collection('comments').add({
-        authorId: userId,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        text: comment,
-        likesUsers: [],
-      }).then(() => { resolve(true) });
-    } catch (error) {
-      reject(error);
-    }
-  })
-}
-
 export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
   return new Promise((resolve, reject) => {
     const {
@@ -271,4 +258,78 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
         reject(err.message);
       });
   });
+};
+
+export const handleAddComment = (comment: string, userId: string, recipeId: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection('recipes').doc(recipeId).collection('comments').add({
+        authorId: userId,
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        text: comment,
+        likesUsers: [],
+      }).then(() => { resolve(true) });
+    } catch (error) {
+      reject(error);
+    }
+  })
+}
+
+export const handleFetchComments = (filters: FiltersTypes) => {
+  return new Promise((resolve, reject) => {
+    let ref: Query = db.collection("recipes").doc(filters.recipeId).collection('comments');
+    let commentsCounter = 0;
+
+    let {
+      sortFilter,
+      counter,
+      startAfterDoc,
+      persistComments = [],
+    } = filters;
+
+    if (sortFilter === 'likes') {
+      ref = ref.orderBy("stats.likesQuantity", "desc");
+    } else if (sortFilter === 'recent') {
+      ref = ref.orderBy("timestamp", "desc");
+    } else if (sortFilter === 'oldest') {
+      ref = ref.orderBy('timestamp', 'asc');
+    }
+
+    if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
+
+    ref.get().then((snapshot) => {
+      commentsCounter = snapshot.size;
+    })
+
+    ref
+      .limit(counter)
+      .get()
+      .then((snapshot) => {
+        const totalCount = snapshot.size;
+        const queryDoc = snapshot.docs[totalCount - 1];
+        const isLastPage = totalCount < counter;
+
+        const data = [
+          ...persistComments,
+          ...snapshot.docs.map(async (doc) => {
+            let { profilePic, username } = await handleGetUserData(doc.data().authorId);
+            return {
+              id: doc.id,
+              data: { ...doc.data(), profilePic, username },
+            }
+          })
+        ];
+
+        Promise.all(data).then((value) => resolve({
+          data: value,
+          queryDoc,
+          isLastPage,
+          amount: commentsCounter,
+        }));
+      })
+      .catch(err => {
+        console.log(err.message);
+        reject(err.message);
+      })
+  })
 };

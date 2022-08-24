@@ -13,6 +13,7 @@ export const ENG_RECIPE = {
   OTHER: "other",
   MORE: "More recipes",
   DESCRIPTION: "Description",
+  COMMENTS_COUNTER: "Comments",
 };
 
 export const PL_RECIPE = {
@@ -30,4 +31,5 @@ export const PL_RECIPE = {
   OTHER: "inne",
   MORE: "Więcej przepisów",
   DESCRIPTION: "Opis",
+  COMMENTS_COUNTER: "Komentarze",
 };

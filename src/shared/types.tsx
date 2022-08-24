@@ -84,10 +84,12 @@ export interface FiltersTypes {
   authorFilter?: string;
   favoriteFilter?: string;
   startAfterDoc?: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
-  persistProducts?: Recipe[];
+  persistRecipes?: Recipe[];
+  persistComments?: Comment[];
   store?: string,
   rendered?: boolean;
   excludeId?: string;
+  recipeId?: string
 }
 
 export interface Recipe {
@@ -105,13 +107,19 @@ export interface Comments {
   data: Comment[] | [];
   queryDoc: firebase.firestore.QueryDocumentSnapshot | undefined;
   isLastPage: boolean;
+  amount: number;
 }
 
 export interface Comment {
-  authorId: string,
-  timestamp: any,
-  text: string,
-  likesUsers: [],
+  id: string,
+  data: {
+    authorId: string,
+    timestamp: any,
+    text: string,
+    likesUsers: [],
+    profilePic?: string,
+    username: string,
+  }
 }
 
 export interface Recipes {

@@ -28,7 +28,7 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
       excludeId,
       language,
       startAfterDoc,
-      persistProducts = [],
+      persistRecipes = [],
     } = filters;
 
     if (excludeId) {
@@ -82,7 +82,7 @@ export const handleFetchRecipes = (filters: FiltersTypes) => {
         const isLastPage = totalCount < counter;
 
         const data = [
-          ...persistProducts,
+          ...persistRecipes,
           ...snapshot.docs.map(async (doc) => {
             let { profilePic, username } = await handleGetUserData(doc.data().authorId);
             return {
