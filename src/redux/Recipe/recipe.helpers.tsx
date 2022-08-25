@@ -268,7 +268,22 @@ export const handleAddComment = (comment: string, userId: string, recipeId: stri
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         text: comment,
         likesUsers: [],
-      }).then(() => { resolve(true) });
+        likesQuantity: 0,
+      }).then((docRef) => {
+        resolve(docRef.id);
+      })
+    } catch (error) {
+      reject(error);
+    }
+  })
+}
+
+export const handleDeleteComment = (commentId: string, recipeId: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection('recipes').doc(recipeId).collection('comments').doc(commentId).delete().then(() => {
+        resolve(true);
+      })
     } catch (error) {
       reject(error);
     }
@@ -288,8 +303,8 @@ export const handleFetchComments = (filters: FiltersTypes) => {
     } = filters;
 
     if (sortFilter === 'likes') {
-      ref = ref.orderBy("stats.likesQuantity", "desc");
-    } else if (sortFilter === 'recent') {
+      ref = ref.orderBy("likesQuantity", "desc");
+    } else if (sortFilter === 'newest') {
       ref = ref.orderBy("timestamp", "desc");
     } else if (sortFilter === 'oldest') {
       ref = ref.orderBy('timestamp', 'asc');

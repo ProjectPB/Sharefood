@@ -68,7 +68,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
 
   const deleteRecipe = async () => {
     const answer = window.confirm(
-      LANG.RECIPE.DELETE_ALERT
+      LANG.RECIPE.DELETE_RECIPE_ALERT
     );
 
     if (answer) {
@@ -76,7 +76,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
       const resolve = await handleDeleteRecipe({ imageRef: data?.image, imageLowRef: data?.imageLow, recipeId: recipeId, authorId: data?.authorId });
       if (resolve) {
         dispatch(resetRecipes());
-        alert("Recipe deleted");
+        alert(LANG.RECIPE.RECIPE_DELETED);
         setIsDeleting(false);
         navigate('/');
       }

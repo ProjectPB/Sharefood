@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { loadRecipeData, loadRelatedRecipes } from "../../redux/Loading/loading.actions";
 import { State } from "../../shared/types";
 import { resetScrollDistancesStart, setRelatedRecipes } from "../../redux/Recipes/recipes.actions";;
-import { fetchCommentsStart, fetchRecipeDataStart, setComments, setRecipeData } from "../../redux/Recipe/recipe.actions";;
+import { fetchRecipeDataStart, setRecipeData } from "../../redux/Recipe/recipe.actions";;
 
 import Loading from "../../components/Loading";
 import NoData from "../../components/NoData";
@@ -28,14 +28,12 @@ const RecipePage: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchRecipeDataStart({ recipeId: recipeId, userId: currentUser?.uid }));
-    dispatch(fetchCommentsStart({ recipeId: recipeId, sortFilter: "recent", counter: 20 }));
 
     return () => {
       dispatch(loadRecipeData(false));
       dispatch(resetScrollDistancesStart());
       dispatch(setRecipeData(null));
       dispatch(setRelatedRecipes({ data: [], queryDoc: null, isLastPage: null }));
-      dispatch(setComments({ data: [], queryDoc: null, isLastPage: null }));
       dispatch(loadRelatedRecipes(false));
     };
   }, [recipeId, currentUser?.uid, dispatch]);

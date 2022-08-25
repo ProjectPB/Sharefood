@@ -1,11 +1,13 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Avatar, TextareaAutosize } from '@material-ui/core';
 import { ArrowDownwardOutlined, DeleteOutlined, FavoriteBorderOutlined, Send } from '@mui/icons-material';
 import { State } from '../../shared/types';
 import { useClickOutside, useLanguage } from '../../hooks';
-import { addCommentStart } from '../../redux/Recipe/recipe.actions';
+import { addCommentStart, fetchCommentsStart, setComments } from '../../redux/Recipe/recipe.actions';
+import { translateCommentFilter } from '../../shared/functions';
+import { handleDeleteComment } from '../../redux/Recipe/recipe.helpers';
 import Moment from 'react-moment';
 
 import './styles.scss';
@@ -25,10 +27,10 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
   const sortMenuRef = useRef<HTMLDivElement>();
   useClickOutside(sortMenuRef, () => setSortMenuIsOpen(false))
   const [sortMenuIsOpen, setSortMenuIsOpen] = useState(false);
-  const [filter, setFilter] = useState('recent');
+  const [filter, setFilter] = useState('newest');
 
   const config = {
-    placeholder: "@POST A COMMENT@",
+    placeholder: LANG.RECIPE.ADD_COMMENT,
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
       setInput(e.target.value),
     value: input,
@@ -43,23 +45,49 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
     setIsTextareaFocused(false);
   }
 
+  const deleteComment = async (commentId: string) => {
+    const answer = window.confirm(
+      LANG.RECIPE.DELETE_COMMENT_ALERT
+    );
+
+    if (answer) {
+      const resolve = await handleDeleteComment(commentId, recipeId);
+      if (resolve) {
+        alert(LANG.RECIPE.COMMENT_DELETED);
+      }
+    }
+  }
+
+  useEffect(() => {
+    dispatch(fetchCommentsStart({ recipeId: recipeId, sortFilter: filter, counter: 20 }));
+
+    return () => {
+      dispatch(setComments({ data: [], queryDoc: null, isLastPage: null, amount: 0 }));
+    };
+  }, [dispatch, recipeId, filter])
+
   return (
     <div className='comments'>
       <div className="comments__header">
         <h2>{comments.amount} {LANG.RECIPE.COMMENTS_COUNTER}</h2>
         <div className="comments__sort" ref={sortMenuRef} onClick={() => setSortMenuIsOpen(!sortMenuIsOpen)}>
-          <p>{filter}</p>
+          <p className="comments_sortValue">{translateCommentFilter(filter, language)}</p>
 
           {sortMenuIsOpen &&
             <div className='comments__sortFilters'>
               <div className="comments__filter">
-                <input type="radio" name="commentFilter" value="recent" checked={filter === 'recent'} onChange={() => setFilter('recent')} />
-                <p>@RECENT@</p>
+                <input type="radio" name="commentFilter" value="newest" checked={filter === 'newest'} onChange={() => setFilter('newest')} />
+                <p>{LANG.RECIPE.NEWEST_FILTER_COMMENT}</p>
+              </div>
+
+              <div className="comments__filter">
+                <input type="radio" name="commentFilter" value="oldest" checked={filter === 'oldest'} onChange={() => setFilter('oldest')} />
+                <p>{LANG.RECIPE.OLDEST_FILTER_COMMENT}</p>
               </div>
 
               <div className="comments__filter">
                 <input type="radio" name="commentFilter" value="popular" checked={filter === 'popular'} onChange={() => setFilter('popular')} />
-                <p>@POPULAR@</p>
+                <p>{LANG.RECIPE.POPULAR_FILTER_COMMENT}</p>
               </div>
             </div>}
           <ArrowDownwardOutlined />
@@ -73,7 +101,7 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
           {(isTextareaFocused || input.length > 0) && <Send className='sendIcon' onClick={handleSubmit} />}
         </div> :
         <div className="comments__input">
-          <p>Please <Link to='/auth'>sign in</Link> to comment</p>
+          <p>{LANG.RECIPE.UNABLE_TO_COMMENT_1}<Link to='/auth'>{LANG.RECIPE.UNABLE_TO_COMMENT_SIGN_IN}</Link>{LANG.RECIPE.UNABLE_TO_COMMENT_2}</p>
         </div>}
 
       {(comments && comments?.data?.length > 0) && comments?.data.map(({ id, data }) => (
@@ -94,7 +122,7 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
 
             <div className="comment__userActions">
               <p><FavoriteBorderOutlined /></p>
-              {(data.authorId === currentUser.uid) && <p><DeleteOutlined /> </p>}
+              {(data.authorId === currentUser.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
             </div>
           </div>
         </div>

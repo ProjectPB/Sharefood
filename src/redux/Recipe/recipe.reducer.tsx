@@ -23,14 +23,14 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: a
         ...state,
         comments: action.payload,
       }
-    case recipeTypes.ADD_COMMENT:
+    case recipeTypes.ADD_STORE_COMMENT:
       return {
         ...state,
         comments: {
           ...state.comments,
           amount: state.comments.amount + 1,
           data: [{
-            id: null,
+            id: action.payload.commentId,
             data: action.payload
           }, ...state.comments.data]
         },

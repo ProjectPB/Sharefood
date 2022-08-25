@@ -31,6 +31,11 @@ export const addCommentStart = (data: { text: string, authorId: string, recipeId
   payload: data,
 })
 
+export const addStoreCommentStart = (data: { text: string, authorId: string, profilePic: string, username: string, commentId: string }) => ({
+  type: recipeTypes.ADD_STORE_COMMENT,
+  payload: data,
+})
+
 export const fetchCommentsStart = (filters: any) => ({
   type: recipeTypes.FETCH_COMMENTS,
   payload: filters

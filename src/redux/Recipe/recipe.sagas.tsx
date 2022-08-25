@@ -1,6 +1,6 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
 import { Comments, RecipeData } from "../../shared/types";
-import { addCommentStart, createRecipeStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeRecipeStart, setComments, setRecipeData } from "./recipe.actions";
+import { addCommentStart, addStoreCommentStart, createRecipeStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeRecipeStart, setComments, setRecipeData } from "./recipe.actions";
 import { handleAddComment, handleCreateRecipe, handleDislikeRecipe, handleFetchComments, handleFetchRecipeData, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
 import { setFavoriteRecipes } from './../Recipes/recipes.actions'
 import { loadRecipeData } from "../Loading/loading.actions";
@@ -71,7 +71,8 @@ export function* onDislikeRecipeStart() {
 
 export function* addComment({ payload: { text, authorId, recipeId, profilePic, username } }: ReturnType<typeof addCommentStart>) {
   try {
-    yield handleAddComment(text, authorId, recipeId);
+    const commentId: string = yield handleAddComment(text, authorId, recipeId);
+    yield put(addStoreCommentStart({ text, authorId, profilePic, username, commentId }));
   } catch (error) {
     console.log(error.message)
   }

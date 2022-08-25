@@ -108,6 +108,23 @@ export const translateType = (type: string, lang: string) => {
   }
 }
 
+export const translateCommentFilter = (filter: string, lang: string) => {
+  if (lang === 'english') {
+    return filter;
+  }
+
+  if (lang === 'polish') {
+    switch (filter) {
+      case "newest":
+        return PL_RECIPE.NEWEST_FILTER_COMMENT;
+      case "oldest":
+        return PL_RECIPE.OLDEST_FILTER_COMMENT;
+      case 'popular':
+        return PL_RECIPE.POPULAR_FILTER_COMMENT;
+    }
+  }
+}
+
 export const translateTag = (tag: string, lang: string) => {
   if (lang === 'english') {
     switch (tag) {
