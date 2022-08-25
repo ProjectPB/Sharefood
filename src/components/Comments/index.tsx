@@ -8,6 +8,7 @@ import { useClickOutside, useLanguage } from '../../hooks';
 import { addCommentStart, fetchCommentsStart, setComments } from '../../redux/Recipe/recipe.actions';
 import { translateCommentFilter } from '../../shared/functions';
 import { handleDeleteComment } from '../../redux/Recipe/recipe.helpers';
+
 import Moment from 'react-moment';
 
 import './styles.scss';
@@ -122,7 +123,7 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
 
             <div className="comment__userActions">
               <p><FavoriteBorderOutlined /></p>
-              {(data.authorId === currentUser.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
+              {(data.authorId === currentUser?.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
             </div>
           </div>
         </div>
