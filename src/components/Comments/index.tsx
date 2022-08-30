@@ -5,9 +5,8 @@ import { Avatar, TextareaAutosize } from '@material-ui/core';
 import { ArrowDownwardOutlined, DeleteOutlined, FavoriteBorderOutlined, Send } from '@mui/icons-material';
 import { State } from '../../shared/types';
 import { useClickOutside, useLanguage } from '../../hooks';
-import { addCommentStart, fetchCommentsStart, setComments } from '../../redux/Recipe/recipe.actions';
+import { addCommentStart, deleteCommentStart, fetchCommentsStart, setComments } from '../../redux/Recipe/recipe.actions';
 import { translateCommentFilter } from '../../shared/functions';
-import { handleDeleteComment } from '../../redux/Recipe/recipe.helpers';
 
 import Moment from 'react-moment';
 
@@ -46,16 +45,13 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
     setIsTextareaFocused(false);
   }
 
-  const deleteComment = async (commentId: string) => {
+  const deleteComment = (commentId: string) => {
     const answer = window.confirm(
       LANG.RECIPE.DELETE_COMMENT_ALERT
     );
 
     if (answer) {
-      const resolve = await handleDeleteComment(commentId, recipeId);
-      if (resolve) {
-        alert(LANG.RECIPE.COMMENT_DELETED);
-      }
+      dispatch(deleteCommentStart({ commentId: commentId, recipeId: recipeId, alert: LANG.RECIPE.COMMENT_DELETED }));
     }
   }
 

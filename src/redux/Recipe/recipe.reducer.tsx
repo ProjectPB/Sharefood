@@ -1,5 +1,6 @@
 import recipeTypes from "./recipe.types";
 import { Comments, RecipeData } from "../../shared/types";
+import { handleRemoveStoreComment } from "./recipe.helpers";
 
 const INITIAL_STATE: { recipeData: RecipeData, comments: Comments } = {
   recipeData: null,
@@ -34,6 +35,15 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: a
             data: action.payload
           }, ...state.comments.data]
         },
+      }
+    case recipeTypes.DELETE_STORE_COMMENT:
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          amount: state.comments.amount - 1,
+          data: handleRemoveStoreComment({ prevComments: state.comments.data, commentToRemove: action.payload })
+        }
       }
     default:
       return state;

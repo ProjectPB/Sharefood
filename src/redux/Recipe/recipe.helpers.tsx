@@ -3,7 +3,7 @@ import { db, storage } from "../../firebase/utils";
 import { Query } from "@firebase/firestore-types";
 import { handleGetUserData } from './../Recipes/recipes.helpers'
 import { createRecipeStart } from "./recipe.actions";
-import { FiltersTypes } from "../../shared/types";
+import { Comment, Comments, FiltersTypes } from "../../shared/types";
 
 export const handleFetchSelectedRecipe = (recipeId: string) => {
   return new Promise((resolve, reject) => {
@@ -347,4 +347,10 @@ export const handleFetchComments = (filters: FiltersTypes) => {
         reject(err.message);
       })
   })
+};
+
+export const handleRemoveStoreComment = ({ prevComments, commentToRemove }: { prevComments: Comments['data'], commentToRemove: string }) => {
+  return prevComments.filter(
+    (comment: Comment) => comment.id !== commentToRemove
+  );
 };

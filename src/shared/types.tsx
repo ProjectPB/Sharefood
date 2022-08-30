@@ -79,7 +79,7 @@ export interface FiltersTypes {
   sortFilter?: string;
   userId?: string;
   typeFilter?: string,
-  language: string,
+  language?: string,
   tagFilter?: string,
   authorFilter?: string;
   favoriteFilter?: string;

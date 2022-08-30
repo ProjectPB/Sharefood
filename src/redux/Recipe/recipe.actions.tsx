@@ -1,5 +1,5 @@
 import recipeTypes from './recipe.types';
-import { NewRecipeData, RecipeData } from "../../shared/types";
+import { Comments, FiltersTypes, NewRecipeData, RecipeData } from "../../shared/types";
 
 export const createRecipeStart = (data: NewRecipeData) => ({
   type: recipeTypes.CREATE_RECIPE,
@@ -36,12 +36,22 @@ export const addStoreCommentStart = (data: { text: string, authorId: string, pro
   payload: data,
 })
 
-export const fetchCommentsStart = (filters: any) => ({
+export const deleteStoreCommentStart = (commentId: String) => ({
+  type: recipeTypes.DELETE_STORE_COMMENT,
+  payload: commentId,
+})
+
+export const fetchCommentsStart = (filters: FiltersTypes) => ({
   type: recipeTypes.FETCH_COMMENTS,
   payload: filters
 })
 
-export const setComments = (comments: any) => ({
+export const setComments = (comments: Comments) => ({
   type: recipeTypes.SET_COMMENTS,
   payload: comments,
+})
+
+export const deleteCommentStart = (data: { commentId: string, recipeId: string, alert: string }) => ({
+  type: recipeTypes.DELETE_COMMENT,
+  payload: data,
 })

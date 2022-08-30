@@ -1,7 +1,7 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
 import { Comments, RecipeData } from "../../shared/types";
-import { addCommentStart, addStoreCommentStart, createRecipeStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeRecipeStart, setComments, setRecipeData } from "./recipe.actions";
-import { handleAddComment, handleCreateRecipe, handleDislikeRecipe, handleFetchComments, handleFetchRecipeData, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
+import { addCommentStart, addStoreCommentStart, createRecipeStart, deleteCommentStart, deleteStoreCommentStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeRecipeStart, setComments, setRecipeData } from "./recipe.actions";
+import { handleAddComment, handleCreateRecipe, handleDeleteComment, handleDislikeRecipe, handleFetchComments, handleFetchRecipeData, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
 import { setFavoriteRecipes } from './../Recipes/recipes.actions'
 import { loadRecipeData } from "../Loading/loading.actions";
 import recipeTypes from "./recipe.types";
@@ -95,6 +95,22 @@ export function* onFetchCommentsStart() {
   yield takeLatest(recipeTypes.FETCH_COMMENTS, fetchComments);
 }
 
+export function* deleteComment({ payload }: ReturnType<typeof deleteCommentStart>) {
+  try {
+    const resolve: boolean = yield handleDeleteComment(payload.commentId, payload.recipeId);
+    if (resolve) {
+      yield put(deleteStoreCommentStart(payload.commentId));
+      alert(payload.alert);
+    }
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export function* onDeleteCommentStart() {
+  yield takeLatest(recipeTypes.DELETE_COMMENT, deleteComment);
+}
+
 export default function* recipeSagas() {
   yield all([
     call(onCreateRecipeStart),
@@ -103,5 +119,6 @@ export default function* recipeSagas() {
     call(onLikeRecipeStart),
     call(onDislikeRecipeStart),
     call(onAddCommentStart),
+    call(onDeleteCommentStart),
   ]);
 }
