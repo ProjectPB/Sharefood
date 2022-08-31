@@ -293,14 +293,16 @@ export const handleDeleteComment = (commentId: string, recipeId: string) => {
 export const handleFetchComments = (filters: FiltersTypes) => {
   return new Promise((resolve, reject) => {
     let ref: Query = db.collection("recipes").doc(filters.recipeId).collection('comments');
-    let commentsCounter = 0;
 
     let {
       sortFilter,
       counter,
       startAfterDoc,
+      commentsQuantity,
       persistComments = [],
     } = filters;
+
+    let commentsCounter = commentsQuantity;
 
     if (sortFilter === 'likes') {
       ref = ref.orderBy("likesQuantity", "desc");
@@ -312,7 +314,7 @@ export const handleFetchComments = (filters: FiltersTypes) => {
 
     if (startAfterDoc) ref = ref.startAfter(startAfterDoc);
 
-    ref.get().then((snapshot) => {
+    !commentsQuantity && ref.get().then((snapshot) => {
       commentsCounter = snapshot.size;
     })
 

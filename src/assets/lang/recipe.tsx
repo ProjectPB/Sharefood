@@ -24,6 +24,7 @@ export const ENG_RECIPE = {
   UNABLE_TO_COMMENT_1: "Please ",
   UNABLE_TO_COMMENT_SIGN_IN: "sign in",
   UNABLE_TO_COMMENT_2: " to comment",
+  MORE_COMMENTS: "Load more"
 };
 
 export const PL_RECIPE = {
@@ -52,4 +53,5 @@ export const PL_RECIPE = {
   UNABLE_TO_COMMENT_1: "",
   UNABLE_TO_COMMENT_SIGN_IN: "Zaloguj się",
   UNABLE_TO_COMMENT_2: ", żeby dodać komentarz",
+  MORE_COMMENTS: "Więcej"
 };

@@ -111,6 +111,11 @@
     }
   }
 
+  .comments__more {
+    max-width: 120px;
+    margin: 0 auto;
+  }
+
   .comment {
     display: flex;
 
@@ -132,8 +137,7 @@
 
         h3 {
           font-size: 16px;
-          font-weight: 500;
-          color: $gray-text;
+          font-weight: 400;
         }
 
         p {

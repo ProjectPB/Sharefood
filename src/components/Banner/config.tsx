@@ -1,1 +1,1 @@
-export const bannerConfig = ['grill', 'cherry'];
+export const bannerConfig = ['grill', 'apple'];

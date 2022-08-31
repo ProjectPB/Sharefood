@@ -11,11 +11,12 @@ import { translateCommentFilter } from '../../shared/functions';
 import Moment from 'react-moment';
 
 import './styles.scss';
+import Button from '../forms/Button';
 
 const mapState = ({ ui, user, recipe }: State) => ({
   currentUser: user.currentUser,
   comments: recipe.comments,
-  language: ui.language
+  language: ui.language,
 });
 
 const Comments = ({ recipeId }: { recipeId: string }) => {
@@ -53,6 +54,13 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
     if (answer) {
       dispatch(deleteCommentStart({ commentId: commentId, recipeId: recipeId, alert: LANG.RECIPE.COMMENT_DELETED }));
     }
+  }
+
+  const fetchMoreComments = () => {
+    dispatch(fetchCommentsStart({
+      recipeId: recipeId, sortFilter: filter, counter: 20, startAfterDoc: comments.queryDoc,
+      persistComments: comments?.data, commentsQuantity: comments.amount
+    }));
   }
 
   useEffect(() => {
@@ -124,7 +132,13 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
           </div>
         </div>
       ))}
-    </div >
+
+      {!comments.isLastPage &&
+        <div className="comments__more">
+          <Button handleClick={fetchMoreComments}>{LANG.RECIPE.MORE_COMMENTS}</Button>
+        </div>
+      }
+    </div>
   )
 }
 

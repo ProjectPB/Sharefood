@@ -89,7 +89,8 @@ export interface FiltersTypes {
   store?: string,
   rendered?: boolean;
   excludeId?: string;
-  recipeId?: string
+  recipeId?: string;
+  commentsQuantity?: number;
 }
 
 export interface Recipe {
