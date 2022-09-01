@@ -299,6 +299,7 @@ export const handleFetchComments = (filters: FiltersTypes) => {
       counter,
       startAfterDoc,
       commentsQuantity,
+      userId,
       persistComments = [],
     } = filters;
 
@@ -330,9 +331,10 @@ export const handleFetchComments = (filters: FiltersTypes) => {
           ...persistComments,
           ...snapshot.docs.map(async (doc) => {
             let { profilePic, username } = await handleGetUserData(doc.data().authorId);
+            let liked = await checkIfLiked(userId, doc.data());
             return {
               id: doc.id,
-              data: { ...doc.data(), profilePic, username },
+              data: { ...doc.data(), profilePic, username, liked },
             }
           })
         ];
@@ -355,4 +357,50 @@ export const handleRemoveStoreComment = ({ prevComments, commentToRemove }: { pr
   return prevComments.filter(
     (comment: Comment) => comment.id !== commentToRemove
   );
+};
+
+export const handleDislikeComment = (userId: string, recipeId: string, commentId: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes")
+        .doc(recipeId)
+        .collection('comments')
+        .doc(commentId)
+        .update({
+          likesQuantity: firebase.firestore.FieldValue.increment(-1),
+          likesUsers: firebase.firestore.FieldValue.arrayRemove(userId),
+        }).then(() => {
+          resolve(true);
+        })
+    } catch (err) {
+      reject(err.message)
+    }
+  })
+};
+
+export const handleLikeComment = (userId: string, recipeId: string, commentId: string) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection("recipes")
+        .doc(recipeId)
+        .collection('comments')
+        .doc(commentId)
+        .update({
+          likesQuantity: firebase.firestore.FieldValue.increment(+1),
+          likesUsers: firebase.firestore.FieldValue.arrayUnion(userId),
+        }).then(() => {
+          resolve(true);
+        })
+    } catch (err) {
+      reject(err.message)
+    }
+  })
+};
+
+export const handleCommentsLikes = ({ prevComments, commentId, likeStatus }: { prevComments: Comments['data'], commentId: string, likeStatus: boolean }) => {
+  let foundComment: Comment = prevComments.find(
+    (comment: Comment) => comment.id === commentId
+  );
+  foundComment.data.liked = likeStatus;
+  return prevComments;
 };

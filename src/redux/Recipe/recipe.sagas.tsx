@@ -1,7 +1,7 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
 import { Comments, RecipeData } from "../../shared/types";
-import { addCommentStart, addStoreCommentStart, createRecipeStart, deleteCommentStart, deleteStoreCommentStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeRecipeStart, setComments, setRecipeData } from "./recipe.actions";
-import { handleAddComment, handleCreateRecipe, handleDeleteComment, handleDislikeRecipe, handleFetchComments, handleFetchRecipeData, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
+import { addCommentStart, addStoreCommentStart, createRecipeStart, deleteCommentStart, deleteStoreCommentStart, dislikeCommentStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeCommentStart, likeRecipeStart, setComments, setRecipeData } from "./recipe.actions";
+import { handleAddComment, handleCreateRecipe, handleDeleteComment, handleDislikeComment, handleDislikeRecipe, handleFetchComments, handleFetchRecipeData, handleLikeComment, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
 import { setFavoriteRecipes } from './../Recipes/recipes.actions'
 import { loadRecipeData } from "../Loading/loading.actions";
 import recipeTypes from "./recipe.types";
@@ -111,6 +111,30 @@ export function* onDeleteCommentStart() {
   yield takeLatest(recipeTypes.DELETE_COMMENT, deleteComment);
 }
 
+export function* likeComment({ payload }: ReturnType<typeof likeCommentStart>) {
+  try {
+    yield handleLikeComment(payload.userId, payload.recipeId, payload.commentId);
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export function* onLikeCommentStart() {
+  yield takeLatest(recipeTypes.LIKE_COMMENT, likeComment);
+}
+
+export function* dislikeComment({ payload }: ReturnType<typeof dislikeCommentStart>) {
+  try {
+    yield handleDislikeComment(payload.userId, payload.recipeId, payload.commentId,);
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export function* onDislikeCommentStart() {
+  yield takeLatest(recipeTypes.DISLIKE_COMMENT, dislikeComment);
+}
+
 export default function* recipeSagas() {
   yield all([
     call(onCreateRecipeStart),
@@ -120,5 +144,7 @@ export default function* recipeSagas() {
     call(onDislikeRecipeStart),
     call(onAddCommentStart),
     call(onDeleteCommentStart),
+    call(onLikeCommentStart),
+    call(onDislikeCommentStart)
   ]);
 }

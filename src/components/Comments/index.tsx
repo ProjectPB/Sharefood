@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, TextareaAutosize } from '@material-ui/core';
-import { ArrowDownwardOutlined, DeleteOutlined, FavoriteBorderOutlined, Send } from '@mui/icons-material';
-import { State } from '../../shared/types';
+import { ArrowDownwardOutlined, DeleteOutlined, Favorite, FavoriteBorderOutlined, Send } from '@mui/icons-material';
+import { Comment, State } from '../../shared/types';
 import { useClickOutside, useLanguage } from '../../hooks';
-import { addCommentStart, deleteCommentStart, fetchCommentsStart, setComments } from '../../redux/Recipe/recipe.actions';
+import { addCommentStart, deleteCommentStart, dislikeCommentStart, fetchCommentsStart, likeCommentStart, setComments } from '../../redux/Recipe/recipe.actions';
 import { translateCommentFilter } from '../../shared/functions';
 
 import Moment from 'react-moment';
+import Button from '../forms/Button';
 
 import './styles.scss';
-import Button from '../forms/Button';
 
 const mapState = ({ ui, user, recipe }: State) => ({
   currentUser: user.currentUser,
@@ -23,6 +23,7 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
   const { currentUser, comments, language } = useSelector(mapState);
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const LANG = useLanguage();
   const [isTextareaFocused, setIsTextareaFocused] = useState(false);
   const sortMenuRef = useRef<HTMLDivElement>();
@@ -59,17 +60,28 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
   const fetchMoreComments = () => {
     dispatch(fetchCommentsStart({
       recipeId: recipeId, sortFilter: filter, counter: 20, startAfterDoc: comments.queryDoc,
-      persistComments: comments?.data, commentsQuantity: comments.amount
+      persistComments: comments?.data, commentsQuantity: comments.amount, userId: currentUser?.uid
     }));
   }
 
   useEffect(() => {
-    dispatch(fetchCommentsStart({ recipeId: recipeId, sortFilter: filter, counter: 20 }));
+    dispatch(fetchCommentsStart({ recipeId: recipeId, sortFilter: filter, counter: 20, userId: currentUser?.uid }));
 
     return () => {
       dispatch(setComments({ data: [], queryDoc: null, isLastPage: null, amount: 0 }));
     };
-  }, [dispatch, recipeId, filter])
+  }, [dispatch, recipeId, filter, currentUser?.uid])
+
+  const handleLikes = (id: string, data: Comment['data']) => {
+    if (!currentUser) {
+      navigate("/auth");
+    }
+    if (!data.liked) {
+      dispatch(likeCommentStart({ userId: currentUser?.uid, commentId: id, recipeId: recipeId }))
+    } else {
+      dispatch(dislikeCommentStart({ userId: currentUser?.uid, commentId: id, recipeId: recipeId }));
+    }
+  }
 
   return (
     <div className='comments'>
@@ -126,7 +138,8 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
             <p className='comment__text'>{data.text}</p>
 
             <div className="comment__userActions">
-              <p><FavoriteBorderOutlined /></p>
+              {data?.liked && <p><Favorite onClick={() => handleLikes(id, data)} /></p>}
+              {!data?.liked && <p><FavoriteBorderOutlined onClick={() => handleLikes(id, data)} /></p>}
               {(data.authorId === currentUser?.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
             </div>
           </div>
@@ -136,8 +149,8 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
       {!comments.isLastPage &&
         <div className="comments__more">
           <Button handleClick={fetchMoreComments}>{LANG.RECIPE.MORE_COMMENTS}</Button>
-        </div>
-      }
+        </div>}
+
     </div>
   )
 }

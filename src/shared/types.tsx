@@ -120,6 +120,7 @@ export interface Comment {
     likesUsers: [],
     profilePic?: string,
     username: string,
+    liked?: boolean,
   }
 }
 

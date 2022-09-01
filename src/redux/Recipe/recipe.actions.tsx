@@ -55,3 +55,13 @@ export const deleteCommentStart = (data: { commentId: string, recipeId: string, 
   type: recipeTypes.DELETE_COMMENT,
   payload: data,
 })
+
+export const likeCommentStart = (IDs: { userId: string, commentId: string, recipeId: string }) => ({
+  type: recipeTypes.LIKE_COMMENT,
+  payload: IDs,
+})
+
+export const dislikeCommentStart = (IDs: { userId: string, commentId: string, recipeId: string }) => ({
+  type: recipeTypes.DISLIKE_COMMENT,
+  payload: IDs,
+})
