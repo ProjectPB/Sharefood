@@ -69,10 +69,11 @@ export function* onDislikeRecipeStart() {
   yield takeLatest(recipeTypes.DISLIKE_RECIPE, dislikeRecipe);
 }
 
-export function* addComment({ payload: { text, authorId, recipeId, profilePic, username } }: ReturnType<typeof addCommentStart>) {
+export function* addComment({ payload: { text, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
   try {
     const commentId: string = yield handleAddComment(text, authorId, recipeId);
     yield put(addStoreCommentStart({ text, authorId, profilePic, username, commentId }));
+    yield handleSuccess();
   } catch (error) {
     console.log(error.message)
   }
@@ -86,6 +87,7 @@ export function* fetchComments({ payload }: ReturnType<typeof fetchCommentsStart
   try {
     const commentsData: Comments = yield handleFetchComments(payload);
     yield put(setComments(commentsData));
+    yield payload.handleSuccess();
   } catch (error) {
     console.log(error.message)
   }
@@ -100,7 +102,6 @@ export function* deleteComment({ payload }: ReturnType<typeof deleteCommentStart
     const resolve: boolean = yield handleDeleteComment(payload.commentId, payload.recipeId);
     if (resolve) {
       yield put(deleteStoreCommentStart(payload.commentId));
-      alert(payload.alert);
     }
   } catch (error) {
     console.log(error.message)

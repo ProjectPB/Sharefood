@@ -305,7 +305,7 @@ export const handleFetchComments = (filters: FiltersTypes) => {
 
     let commentsCounter = commentsQuantity;
 
-    if (sortFilter === 'likes') {
+    if (sortFilter === 'popular') {
       ref = ref.orderBy("likesQuantity", "desc");
     } else if (sortFilter === 'newest') {
       ref = ref.orderBy("timestamp", "desc");

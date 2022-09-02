@@ -2,7 +2,7 @@ import React from "react";
 import Resizer from "react-image-file-resizer";
 import Card from "../components/Card";
 import { Option, Recipe } from "./types";
-import { PL_RECIPE } from './../assets/lang/recipe';
+import { ENG_RECIPE, PL_RECIPE } from './../assets/lang/recipe';
 
 export const resizeFile = (file: Blob, maxWidth: number, maxHeight: number): Promise<string | unknown> =>
   new Promise((resolve) => {
@@ -110,7 +110,14 @@ export const translateType = (type: string, lang: string) => {
 
 export const translateCommentFilter = (filter: string, lang: string) => {
   if (lang === 'english') {
-    return filter;
+    switch (filter) {
+      case "newest":
+        return ENG_RECIPE.NEWEST_FILTER_COMMENT;
+      case "oldest":
+        return ENG_RECIPE.OLDEST_FILTER_COMMENT;
+      case 'popular':
+        return ENG_RECIPE.POPULAR_FILTER_COMMENT;
+    }
   }
 
   if (lang === 'polish') {

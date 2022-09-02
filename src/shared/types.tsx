@@ -91,6 +91,7 @@ export interface FiltersTypes {
   excludeId?: string;
   recipeId?: string;
   commentsQuantity?: number;
+  handleSuccess?: () => void;
 }
 
 export interface Recipe {

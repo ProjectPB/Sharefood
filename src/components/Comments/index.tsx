@@ -12,6 +12,7 @@ import Moment from 'react-moment';
 import Button from '../forms/Button';
 
 import './styles.scss';
+import Loading from '../Loading';
 
 const mapState = ({ ui, user, recipe }: State) => ({
   currentUser: user.currentUser,
@@ -30,6 +31,11 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
   useClickOutside(sortMenuRef, () => setSortMenuIsOpen(false))
   const [sortMenuIsOpen, setSortMenuIsOpen] = useState(false);
   const [filter, setFilter] = useState('newest');
+  const [loading, setLoading] = useState({
+    addingComment: false,
+    fetchingMoreComments: false,
+    fetchingComments: false,
+  })
 
   const config = {
     placeholder: LANG.RECIPE.ADD_COMMENT,
@@ -42,7 +48,8 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
   }
 
   const handleSubmit = () => {
-    dispatch(addCommentStart({ text: input, recipeId: recipeId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName }));
+    setLoading({ ...loading, addingComment: true });
+    dispatch(addCommentStart({ text: input, recipeId: recipeId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setLoading({ ...loading, addingComment: false }) }));
     setInput("");
     setIsTextareaFocused(false);
   }
@@ -58,18 +65,21 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
   }
 
   const fetchMoreComments = () => {
+    setLoading({ ...loading, fetchingMoreComments: true });
     dispatch(fetchCommentsStart({
       recipeId: recipeId, sortFilter: filter, counter: 20, startAfterDoc: comments.queryDoc,
-      persistComments: comments?.data, commentsQuantity: comments.amount, userId: currentUser?.uid
+      persistComments: comments?.data, commentsQuantity: comments.amount, userId: currentUser?.uid, handleSuccess: () => setLoading({ ...loading, fetchingMoreComments: false })
     }));
   }
 
   useEffect(() => {
-    dispatch(fetchCommentsStart({ recipeId: recipeId, sortFilter: filter, counter: 20, userId: currentUser?.uid }));
+    setLoading({ ...loading, fetchingComments: true });
+    dispatch(fetchCommentsStart({ recipeId: recipeId, sortFilter: filter, counter: 20, userId: currentUser?.uid, handleSuccess: () => setLoading({ ...loading, fetchingComments: false }) }));
 
     return () => {
       dispatch(setComments({ data: [], queryDoc: null, isLastPage: null, amount: 0 }));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, recipeId, filter, currentUser?.uid])
 
   const handleLikes = (id: string, data: Comment['data']) => {
@@ -85,73 +95,87 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
 
   return (
     <div className='comments'>
-      <div className="comments__header">
-        <h2>{comments.amount} {LANG.RECIPE.COMMENTS_COUNTER}</h2>
-        <div className="comments__sort" ref={sortMenuRef} onClick={() => setSortMenuIsOpen(!sortMenuIsOpen)}>
-          <p className="comments_sortValue">{translateCommentFilter(filter, language)}</p>
+      {loading.fetchingComments ?
+        <div className="comments__loading"><Loading /></div> :
+        <>
+          <div className="comments__header">
+            <h2>{comments.amount} {LANG.RECIPE.COMMENTS_COUNTER}</h2>
+            <div className="comments__sort" ref={sortMenuRef} onClick={() => setSortMenuIsOpen(!sortMenuIsOpen)}>
+              <p className="comments_sortValue">{translateCommentFilter(filter, language)}</p>
 
-          {sortMenuIsOpen &&
-            <div className='comments__sortFilters'>
-              <div className="comments__filter">
-                <input type="radio" name="commentFilter" value="newest" checked={filter === 'newest'} onChange={() => setFilter('newest')} />
-                <p>{LANG.RECIPE.NEWEST_FILTER_COMMENT}</p>
-              </div>
+              {sortMenuIsOpen &&
+                <div className='comments__sortFilters'>
+                  <div className="comments__filter">
+                    <input type="radio" name="commentFilter" value="newest" checked={filter === 'newest'} onChange={() => setFilter('newest')} />
+                    <p>{LANG.RECIPE.NEWEST_FILTER_COMMENT}</p>
+                  </div>
 
-              <div className="comments__filter">
-                <input type="radio" name="commentFilter" value="oldest" checked={filter === 'oldest'} onChange={() => setFilter('oldest')} />
-                <p>{LANG.RECIPE.OLDEST_FILTER_COMMENT}</p>
-              </div>
+                  <div className="comments__filter">
+                    <input type="radio" name="commentFilter" value="oldest" checked={filter === 'oldest'} onChange={() => setFilter('oldest')} />
+                    <p>{LANG.RECIPE.OLDEST_FILTER_COMMENT}</p>
+                  </div>
 
-              <div className="comments__filter">
-                <input type="radio" name="commentFilter" value="popular" checked={filter === 'popular'} onChange={() => setFilter('popular')} />
-                <p>{LANG.RECIPE.POPULAR_FILTER_COMMENT}</p>
-              </div>
-            </div>}
-          <ArrowDownwardOutlined />
-        </div>
-      </div>
-
-      {currentUser ?
-        <div className="comments__input">
-          <Avatar className='avatarIcon' src={currentUser?.profilePic} />
-          <TextareaAutosize {...config} />
-          {(isTextareaFocused || input.length > 0) && <Send className='sendIcon' onClick={handleSubmit} />}
-        </div> :
-        <div className="comments__input">
-          <p>{LANG.RECIPE.UNABLE_TO_COMMENT_1}<Link to='/auth'>{LANG.RECIPE.UNABLE_TO_COMMENT_SIGN_IN}</Link>{LANG.RECIPE.UNABLE_TO_COMMENT_2}</p>
-        </div>}
-
-      {(comments && comments?.data?.length > 0) && comments?.data.map(({ id, data }) => (
-        <div className="comment" key={id}>
-          <Avatar src={data?.profilePic} />
-
-          <div className="comment__wrapper">
-            <div className="comment__header">
-              <h3>{data.username}</h3> ·
-              <p>
-                <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow >
-                  {data.timestamp?.toDate()}
-                </Moment>
-              </p>
-            </div>
-
-            <p className='comment__text'>{data.text}</p>
-
-            <div className="comment__userActions">
-              {data?.liked && <p><Favorite onClick={() => handleLikes(id, data)} /></p>}
-              {!data?.liked && <p><FavoriteBorderOutlined onClick={() => handleLikes(id, data)} /></p>}
-              {(data.authorId === currentUser?.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
+                  <div className="comments__filter">
+                    <input type="radio" name="commentFilter" value="popular" checked={filter === 'popular'} onChange={() => setFilter('popular')} />
+                    <p>{LANG.RECIPE.POPULAR_FILTER_COMMENT}</p>
+                  </div>
+                </div>}
+              <ArrowDownwardOutlined />
             </div>
           </div>
-        </div>
-      ))}
 
-      {!comments.isLastPage &&
-        <div className="comments__more">
-          <Button handleClick={fetchMoreComments}>{LANG.RECIPE.MORE_COMMENTS}</Button>
-        </div>}
+          {currentUser ?
+            <div className="comments__input">
+              {!loading.addingComment ?
+                <>
+                  <Avatar className='avatarIcon' src={currentUser?.profilePic} />
+                  <TextareaAutosize {...config} />
+                  {(isTextareaFocused || input.length > 0) && <Send className='sendIcon' onClick={handleSubmit} />}
+                </>
+                :
+                <Loading />}
+            </div> :
+            <div className="comments__input">
+              <p>{LANG.RECIPE.UNABLE_TO_COMMENT_1}<Link to='/auth'>{LANG.RECIPE.UNABLE_TO_COMMENT_SIGN_IN}</Link>{LANG.RECIPE.UNABLE_TO_COMMENT_2}</p>
+            </div>}
 
-    </div>
+          {(comments && comments?.data?.length > 0) && comments?.data.map(({ id, data }) => (
+            <div className="comment" key={id}>
+              <Avatar src={data?.profilePic} />
+
+              <div className="comment__wrapper">
+                <div className="comment__header">
+                  <h3>{data.username}</h3> ·
+                  <p>
+                    <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow >
+                      {data.timestamp?.toDate()}
+                    </Moment>
+                  </p>
+                </div>
+
+                <p className='comment__text'>{data.text}</p>
+
+                <div className="comment__userActions">
+                  {data?.liked && <p><Favorite onClick={() => handleLikes(id, data)} /></p>}
+                  {!data?.liked && <p><FavoriteBorderOutlined onClick={() => handleLikes(id, data)} /></p>}
+                  {(data.authorId === currentUser?.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
+                </div>
+              </div>
+            </div>
+          ))}
+
+          {!comments.isLastPage && !loading.fetchingMoreComments &&
+            <div className="comments__moreButton">
+              <Button handleClick={fetchMoreComments}>{LANG.RECIPE.MORE_COMMENTS}</Button>
+            </div>}
+
+          {loading.fetchingMoreComments &&
+            <div className="comments__loading">
+              <Loading />
+            </div>}
+        </>
+      }
+    </div >
   )
 }
 

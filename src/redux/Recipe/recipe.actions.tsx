@@ -26,7 +26,7 @@ export const dislikeRecipeStart = (ID: { userId: string, recipeId: string, data:
   payload: ID,
 })
 
-export const addCommentStart = (data: { text: string, authorId: string, recipeId: string, profilePic: string, username: string }) => ({
+export const addCommentStart = (data: { text: string, authorId: string, recipeId: string, profilePic: string, username: string, handleSuccess: () => void }) => ({
   type: recipeTypes.ADD_COMMENT,
   payload: data,
 })
@@ -51,7 +51,7 @@ export const setComments = (comments: Comments) => ({
   payload: comments,
 })
 
-export const deleteCommentStart = (data: { commentId: string, recipeId: string, alert: string }) => ({
+export const deleteCommentStart = (data: { commentId: string, recipeId: string, alert: string, }) => ({
   type: recipeTypes.DELETE_COMMENT,
   payload: data,
 })
