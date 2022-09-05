@@ -3,7 +3,7 @@ import { db, storage } from "../../firebase/utils";
 import { Query } from "@firebase/firestore-types";
 import { handleGetUserData } from './../Recipes/recipes.helpers'
 import { createRecipeStart } from "./recipe.actions";
-import { Comment, Comments, FiltersTypes } from "../../shared/types";
+import { CommentType, Comments, FiltersTypes } from "../../shared/types";
 
 export const handleFetchSelectedRecipe = (recipeId: string) => {
   return new Promise((resolve, reject) => {
@@ -355,7 +355,7 @@ export const handleFetchComments = (filters: FiltersTypes) => {
 
 export const handleRemoveStoreComment = ({ prevComments, commentToRemove }: { prevComments: Comments['data'], commentToRemove: string }) => {
   return prevComments.filter(
-    (comment: Comment) => comment.id !== commentToRemove
+    (comment: CommentType) => comment.id !== commentToRemove
   );
 };
 
@@ -398,8 +398,8 @@ export const handleLikeComment = (userId: string, recipeId: string, commentId: s
 };
 
 export const handleCommentsLikes = ({ prevComments, commentId, likeStatus }: { prevComments: Comments['data'], commentId: string, likeStatus: boolean }) => {
-  let foundComment: Comment = prevComments.find(
-    (comment: Comment) => comment.id === commentId
+  let foundComment: CommentType = prevComments.find(
+    (comment: CommentType) => comment.id === commentId
   );
   foundComment.data.liked = likeStatus;
   return prevComments;

@@ -85,7 +85,7 @@ export interface FiltersTypes {
   favoriteFilter?: string;
   startAfterDoc?: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>;
   persistRecipes?: Recipe[];
-  persistComments?: Comment[];
+  persistComments?: CommentType[];
   store?: string,
   rendered?: boolean;
   excludeId?: string;
@@ -106,13 +106,13 @@ export interface SingleRecipes {
 }
 
 export interface Comments {
-  data: Comment[] | [];
+  data: CommentType[] | [];
   queryDoc: firebase.firestore.QueryDocumentSnapshot | undefined;
   isLastPage: boolean;
   amount: number;
 }
 
-export interface Comment {
+export interface CommentType {
   id: string,
   data: {
     authorId: string,

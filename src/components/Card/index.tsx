@@ -50,7 +50,6 @@ const Card: React.FC<Data> = ({
             onLoad={() => setLoaded(true)}
             alt="recipe"
             className="card__img"
-            // loading="lazy"
           />
 
           {!loaded && <div className='cardImg--loading__overlay' />}

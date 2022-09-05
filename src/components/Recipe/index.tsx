@@ -128,7 +128,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
 
             <div className="recipe__userActions">
               <div className="recipe__action" onClick={handleLikes}>
-                {!data?.liked ? <FavoriteBorderOutlined /> : <Favorite />}
+                {!data?.liked ? <FavoriteBorderOutlined /> : <Favorite htmlColor="crimson" />}
                 <p>{data?.stats?.likesQuantity}</p>
               </div>
 

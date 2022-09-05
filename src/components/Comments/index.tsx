@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, } from 'react-router-dom';
 import { Avatar, TextareaAutosize } from '@material-ui/core';
-import { ArrowDownwardOutlined, DeleteOutlined, Favorite, FavoriteBorderOutlined, Send } from '@mui/icons-material';
-import { Comment, State } from '../../shared/types';
+import { ArrowDownwardOutlined, Send } from '@mui/icons-material';
+import { State } from '../../shared/types';
 import { useClickOutside, useLanguage } from '../../hooks';
-import { addCommentStart, deleteCommentStart, dislikeCommentStart, fetchCommentsStart, likeCommentStart, setComments } from '../../redux/Recipe/recipe.actions';
+import { addCommentStart, fetchCommentsStart, setComments } from '../../redux/Recipe/recipe.actions';
 import { translateCommentFilter } from '../../shared/functions';
 
-import Moment from 'react-moment';
 import Button from '../forms/Button';
+import Comment from './Comment';
+import Loading from '../Loading';
 
 import './styles.scss';
-import Loading from '../Loading';
 
 const mapState = ({ ui, user, recipe }: State) => ({
   currentUser: user.currentUser,
@@ -24,7 +24,6 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
   const { currentUser, comments, language } = useSelector(mapState);
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const LANG = useLanguage();
   const [isTextareaFocused, setIsTextareaFocused] = useState(false);
   const sortMenuRef = useRef<HTMLDivElement>();
@@ -54,16 +53,6 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
     setIsTextareaFocused(false);
   }
 
-  const deleteComment = (commentId: string) => {
-    const answer = window.confirm(
-      LANG.RECIPE.DELETE_COMMENT_ALERT
-    );
-
-    if (answer) {
-      dispatch(deleteCommentStart({ commentId: commentId, recipeId: recipeId, alert: LANG.RECIPE.COMMENT_DELETED }));
-    }
-  }
-
   const fetchMoreComments = () => {
     setLoading({ ...loading, fetchingMoreComments: true });
     dispatch(fetchCommentsStart({
@@ -81,17 +70,6 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, recipeId, filter, currentUser?.uid])
-
-  const handleLikes = (id: string, data: Comment['data']) => {
-    if (!currentUser) {
-      navigate("/auth");
-    }
-    if (!data.liked) {
-      dispatch(likeCommentStart({ userId: currentUser?.uid, commentId: id, recipeId: recipeId }))
-    } else {
-      dispatch(dislikeCommentStart({ userId: currentUser?.uid, commentId: id, recipeId: recipeId }));
-    }
-  }
 
   return (
     <div className='comments'>
@@ -140,28 +118,7 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
             </div>}
 
           {(comments && comments?.data?.length > 0) && comments?.data.map(({ id, data }) => (
-            <div className="comment" key={id}>
-              <Avatar src={data?.profilePic} />
-
-              <div className="comment__wrapper">
-                <div className="comment__header">
-                  <h3>{data.username}</h3> ·
-                  <p>
-                    <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow >
-                      {data.timestamp?.toDate()}
-                    </Moment>
-                  </p>
-                </div>
-
-                <p className='comment__text'>{data.text}</p>
-
-                <div className="comment__userActions">
-                  {data?.liked && <p><Favorite onClick={() => handleLikes(id, data)} /></p>}
-                  {!data?.liked && <p><FavoriteBorderOutlined onClick={() => handleLikes(id, data)} /></p>}
-                  {(data.authorId === currentUser?.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
-                </div>
-              </div>
-            </div>
+            <Comment recipeId={recipeId} id={id} data={data} />
           ))}
 
           {!comments.isLastPage && !loading.fetchingMoreComments &&
