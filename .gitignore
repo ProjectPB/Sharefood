@@ -10,6 +10,7 @@
 
 # production
 /build
+/functions/web
 /public/googlee3b8d127ccd0348b.html
 .firebase/*
 .vscode/*
