@@ -15,6 +15,7 @@ interface Props {
   recipeId: string,
   id: CommentType['id'],
   data: CommentType['data']
+  recipeAuthorId: string,
 }
 
 const mapState = ({ user, ui }: State) => ({
@@ -22,7 +23,7 @@ const mapState = ({ user, ui }: State) => ({
   language: ui.language,
 });
 
-const Comment = ({ recipeId, id, data }: Props) => {
+const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
   const { currentUser, language } = useSelector(mapState);
   const LANG = useLanguage();
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ const Comment = ({ recipeId, id, data }: Props) => {
     );
 
     if (answer) {
-      dispatch(deleteCommentStart({ commentId: commentId, recipeId: recipeId, alert: LANG.RECIPE.COMMENT_DELETED }));
+      dispatch(deleteCommentStart({ commentId: commentId, recipeId: recipeId, alert: LANG.RECIPE.COMMENT_DELETED, authorId: currentUser?.uid, recipeAuthorId: recipeAuthorId }));
     }
   }
 

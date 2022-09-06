@@ -171,7 +171,7 @@ export const handleUpdateUsername = (userId: string, username: string) => {
       if (username.length > 12 || username.length < 4) {
         return resolve(["INVALID_USERNAME"]);
       }
-      
+
       updateProfile(auth.currentUser, {
         displayName: username
       }).catch((err) => {
@@ -237,6 +237,19 @@ export const handleDeleteUserData = (id: string) => {
             .catch(error => console.log(error));
         })
       })
+    } catch (error) {
+      reject(error.message);
+    }
+  })
+}
+
+export const handleUserActivity = (uid: string, amount: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection('users').doc(uid).update({
+        // eslint-disable-next-line 
+        ['stats.activity']: firebase.firestore.FieldValue.increment(amount),
+      }).then(() => resolve(true));
     } catch (error) {
       reject(error.message);
     }

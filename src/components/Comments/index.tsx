@@ -20,7 +20,7 @@ const mapState = ({ ui, user, recipe }: State) => ({
   language: ui.language,
 });
 
-const Comments = ({ recipeId }: { recipeId: string }) => {
+const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthorId: string }) => {
   const { currentUser, comments, language } = useSelector(mapState);
   const [input, setInput] = useState('');
   const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
 
   const handleSubmit = () => {
     setLoading({ ...loading, addingComment: true });
-    dispatch(addCommentStart({ text: input, recipeId: recipeId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setLoading({ ...loading, addingComment: false }) }));
+    dispatch(addCommentStart({ text: input, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setLoading({ ...loading, addingComment: false }) }));
     setInput("");
     setIsTextareaFocused(false);
   }
@@ -118,7 +118,7 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
             </div>}
 
           {(comments && comments?.data?.length > 0) && comments?.data.map(({ id, data }) => (
-            <Comment recipeId={recipeId} id={id} data={data} />
+            <Comment recipeId={recipeId} id={id} data={data} recipeAuthorId={recipeAuthorId} />
           ))}
 
           {!comments.isLastPage && !loading.fetchingMoreComments &&
