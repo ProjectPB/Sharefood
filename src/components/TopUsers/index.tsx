@@ -35,7 +35,7 @@ const TopUsers = ({ keepScroll }: Props) => {
 
   useEffect(() => {
     if (topUsers.length === 0 || activeUsers.length === 0) {
-      dispatch(fetchTopUsersStart({ topFilter: 'stats.likesQuantity', activeFilter: "stats.recipesAdded" }));
+      dispatch(fetchTopUsersStart({ topFilter: 'stats.likesQuantity', activeFilter: "stats.activity" }));
     }
   }, [dispatch, topUsers, activeUsers]);
 

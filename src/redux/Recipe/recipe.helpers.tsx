@@ -4,6 +4,7 @@ import { Query } from "@firebase/firestore-types";
 import { handleGetUserData } from './../Recipes/recipes.helpers'
 import { createRecipeStart } from "./recipe.actions";
 import { CommentType, Comments, FiltersTypes } from "../../shared/types";
+import { handleUserActivity } from "../User/user.helpers";
 
 export const handleFetchSelectedRecipe = (recipeId: string) => {
   return new Promise((resolve, reject) => {
@@ -126,7 +127,14 @@ export const handleDislikeRecipe = (userId: string, recipeId: string, authorId: 
 export const handleDeleteRecipe = ({ imageRef, imageLowRef, recipeId, authorId }: { imageRef: string, imageLowRef: string, recipeId: string, authorId: string }) => {
   return new Promise((resolve, reject) => {
     try {
-      db.collection("recipes").doc(recipeId).delete()
+      db.collection('recipes').doc(recipeId).collection('comments').get().then((snapshot) => {
+        // eslint-disable-next-line array-callback-return
+        snapshot.docs.forEach((doc) => {
+          db.collection('recipes').doc(recipeId).collection('comments').doc(doc.id).delete();
+        })
+      }).then(() => {
+        db.collection("recipes").doc(recipeId).delete()
+      })
         .then(() => {
           storage.refFromURL(imageRef).delete()
           storage.refFromURL(imageLowRef).delete()
@@ -154,10 +162,7 @@ export const handleDeleteRecipe = ({ imageRef, imageLowRef, recipeId, authorId }
             })
           });
         }).then(() => {
-          db.collection('users').doc(authorId).update({
-            // eslint-disable-next-line 
-            ['stats.recipesAdded']: firebase.firestore.FieldValue.increment(-1),
-          })
+          handleUserActivity(authorId, -2);
         }).then(() => {
           resolve(true);
         })
@@ -246,10 +251,7 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
             views: 0,
           }
         }).then(() => {
-          db.collection('users').doc(authorId).update({
-            // eslint-disable-next-line 
-            ['stats.recipesAdded']: firebase.firestore.FieldValue.increment(1),
-          })
+          handleUserActivity(authorId, 2);
         }).then(() => {
           resolve(true);
         })

@@ -173,7 +173,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
           </div>
         </div>
 
-        <Comments recipeId={recipeId} />
+        <Comments recipeId={recipeId} recipeAuthorId={data?.authorId} />
       </div >
     )
 };

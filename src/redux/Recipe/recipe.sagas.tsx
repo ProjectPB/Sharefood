@@ -5,6 +5,7 @@ import { handleAddComment, handleCreateRecipe, handleDeleteComment, handleDislik
 import { setFavoriteRecipes } from './../Recipes/recipes.actions'
 import { loadRecipeData } from "../Loading/loading.actions";
 import recipeTypes from "./recipe.types";
+import { handleUserActivity } from "../User/user.helpers";
 
 export function* fetchRecipeData({ payload }: ReturnType<typeof fetchRecipeDataStart>) {
   try {
@@ -69,20 +70,6 @@ export function* onDislikeRecipeStart() {
   yield takeLatest(recipeTypes.DISLIKE_RECIPE, dislikeRecipe);
 }
 
-export function* addComment({ payload: { text, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
-  try {
-    const commentId: string = yield handleAddComment(text, authorId, recipeId);
-    yield put(addStoreCommentStart({ text, authorId, profilePic, username, commentId }));
-    yield handleSuccess();
-  } catch (error) {
-    console.log(error.message)
-  }
-}
-
-export function* onAddCommentStart() {
-  yield takeLatest(recipeTypes.ADD_COMMENT, addComment);
-}
-
 export function* fetchComments({ payload }: ReturnType<typeof fetchCommentsStart>) {
   try {
     const commentsData: Comments = yield handleFetchComments(payload);
@@ -97,11 +84,31 @@ export function* onFetchCommentsStart() {
   yield takeLatest(recipeTypes.FETCH_COMMENTS, fetchComments);
 }
 
-export function* deleteComment({ payload }: ReturnType<typeof deleteCommentStart>) {
+export function* addComment({ payload: { text, recipeAuthorId, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
   try {
-    const resolve: boolean = yield handleDeleteComment(payload.commentId, payload.recipeId);
+    const commentId: string = yield handleAddComment(text, authorId, recipeId);
+    yield put(addStoreCommentStart({ text, authorId, profilePic, username, commentId }));
+    if (recipeAuthorId !== authorId) {
+      yield handleUserActivity(authorId, 1);
+    }
+    yield handleSuccess();
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export function* onAddCommentStart() {
+  yield takeLatest(recipeTypes.ADD_COMMENT, addComment);
+}
+
+export function* deleteComment({ payload: { commentId, recipeId, authorId, recipeAuthorId } }: ReturnType<typeof deleteCommentStart>) {
+  try {
+    const resolve: boolean = yield handleDeleteComment(commentId, recipeId);
+    if (recipeAuthorId !== authorId) {
+      yield handleUserActivity(authorId, -1);
+    }
     if (resolve) {
-      yield put(deleteStoreCommentStart(payload.commentId));
+      yield put(deleteStoreCommentStart(commentId));
     }
   } catch (error) {
     console.log(error.message)

@@ -29,7 +29,7 @@ const ProfilePic = () => {
   const changeImgFile = async (e: any) => {
     try {
       const file = new File([e.target.files[0]], currentUser?.uid);
-      const image: any = await resizeFile(file, 200, 200);
+      const image: any = await resizeFile(file, 100, 100);
       setPreviewImg(URL.createObjectURL(image));
       setProfilePic(image);
       setImgChanged(true);
