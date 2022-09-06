@@ -19,8 +19,8 @@ const LangSelector: React.FC<Props> = ({ close }) => {
   const { language } = useSelector(mapState);
   const LANG = useLanguage();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeLanguageStart(e.target.value));
+  const handleChange = (value: string) => {
+    dispatch(changeLanguageStart(value));
     close();
   }
 
@@ -29,13 +29,13 @@ const LangSelector: React.FC<Props> = ({ close }) => {
       <p className='langSelector__text'>{LANG.HEADER.SELECT_LANG}</p>
       <form className="langSelector__languages">
         <div className="langSelector__language">
-          <input type="radio" name="language" value="english" checked={language === 'english'} onChange={handleChange} />
-          <p>{LANG.HEADER.LANG_ENG}</p>
+          <input type="radio" name="language" value="english" checked={language === 'english'} onChange={() => handleChange('english')} />
+          <p onClick={() => handleChange('english')}>{LANG.HEADER.LANG_ENG}</p>
         </div>
 
         <div className="langSelector__language">
-          <input type="radio" name="language" value="polish" checked={language === 'polish'} onChange={handleChange} />
-          <p>{LANG.HEADER.LANG_PL}</p>
+          <input type="radio" name="language" value="polish" checked={language === 'polish'} onChange={() => handleChange('polish')} />
+          <p onClick={() => handleChange('polish')}>{LANG.HEADER.LANG_PL}</p>
         </div>
       </form >
     </div >
