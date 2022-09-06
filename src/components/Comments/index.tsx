@@ -85,17 +85,17 @@ const Comments = ({ recipeId }: { recipeId: string }) => {
                 <div className='comments__sortFilters'>
                   <div className="comments__filter">
                     <input type="radio" name="commentFilter" value="newest" checked={filter === 'newest'} onChange={() => setFilter('newest')} />
-                    <p>{LANG.RECIPE.NEWEST_FILTER_COMMENT}</p>
+                    <p onClick={() => setFilter('newest')}>{LANG.RECIPE.NEWEST_FILTER_COMMENT}</p>
                   </div>
 
                   <div className="comments__filter">
                     <input type="radio" name="commentFilter" value="oldest" checked={filter === 'oldest'} onChange={() => setFilter('oldest')} />
-                    <p>{LANG.RECIPE.OLDEST_FILTER_COMMENT}</p>
+                    <p onClick={() => setFilter('oldest')}>{LANG.RECIPE.OLDEST_FILTER_COMMENT}</p>
                   </div>
 
                   <div className="comments__filter">
                     <input type="radio" name="commentFilter" value="popular" checked={filter === 'popular'} onChange={() => setFilter('popular')} />
-                    <p>{LANG.RECIPE.POPULAR_FILTER_COMMENT}</p>
+                    <p onClick={() => setFilter('popular')}>{LANG.RECIPE.POPULAR_FILTER_COMMENT}</p>
                   </div>
                 </div>}
               <ArrowDownwardOutlined />
