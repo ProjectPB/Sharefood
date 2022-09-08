@@ -10,16 +10,15 @@ import RecipesRenderer from "../../components/Renderer";
 const mapState = ({ user, ui }: State) => ({
   currentUser: user.currentUser,
   sidebarIsOpen: ui.sidebarOpen,
-  language: ui.language,
 });
 
 const FavoritePage: React.FC = () => {
-  const { currentUser, sidebarIsOpen, language } = useSelector(mapState);
+  const { currentUser, sidebarIsOpen } = useSelector(mapState);
   const favoriteFilter = currentUser?.uid;
   const width = useWidth();
   const [counter, setCounter] = useState(() => getRecipesCounter(width, sidebarIsOpen));
   const filters = {
-    favoriteFilter, store: 'favorite', counter: counter, language: language
+    favoriteFilter, store: 'favorite', counter: counter
   }
 
   useEffect(() => {
