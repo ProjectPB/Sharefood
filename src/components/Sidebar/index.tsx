@@ -39,7 +39,7 @@ const Sidebar = ({ narrow }: { narrow?: boolean }) => {
     <div className={className}>
       <SidebarOption Icon={Home} title={LANG.SIDEBAR.HOME} link="/" color="orange" />
 
-      <SidebarOption Icon={LocalDining} title={LANG.SIDEBAR.ALL} link="/all" color="darkred" />
+      <SidebarOption Icon={LocalDining} title={LANG.SIDEBAR.ALL} link="/all" color="green" />
 
       {currentUser ? (
         <SidebarOption Icon={LibraryBooks} title={LANG.SIDEBAR.YOUR} link="/my" color="teal" />
@@ -48,7 +48,7 @@ const Sidebar = ({ narrow }: { narrow?: boolean }) => {
       )}
 
       {currentUser ? (
-        <SidebarOption Icon={Favorite} title={LANG.SIDEBAR.FAVORITE} link="/favorite" color="red" />
+        <SidebarOption Icon={Favorite} title={LANG.SIDEBAR.FAVORITE} link="/favorite" color="crimson" />
       ) : (
         <SidebarOption Icon={Favorite} title={LANG.SIDEBAR.FAVORITE} blocked link="/auth" />
       )}
