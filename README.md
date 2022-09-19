@@ -12,17 +12,33 @@ Users can also submit their own ideas after signing up.
 - Create account and sign in with email and password
 - Sign In with Google
 - Validate authentication
-- Reset password
-- Browse recipes with implemented pagination
-- Filter browsed recipes by the timestamp, likes
+- Reset password functionality
+- Browse recipes with implemented pagination and various filters
 - Add recipes to favorites
-- Create recipes through a form with an uploaded image stored in firestore
-- Search recipes through tags e.g. "chicken"
+- Create recipes through a form (resize images, format ingredients and method)
+- Dynamically search recipes (using Algolia)
+- Modern UI/UX
+- Browse recipes of the specific user
+- Post comments below recipes
+- Polish and english language support
+- Privacy Policy
+- Change username and profile picture
+- Find top and the most active users (based on amount of recipes/comments added and likes)
+- Browse collections related to ingredients or season
+- Render meta tags upon entering the website, SEO implementations through firebase functions
 
 ## Technologies
 
-- React | Redux-saga | Firebase | MUI |
+- Typescript | React | Redux-saga | Firebase | MUI | styled-components
 - react-router-dom | react-moment | redux-thunk
+
+## Planned / In development
+
+- Comments improvements (Answers to existing comments, navigation to authors' profiles)
+- SEO improvements
+- Subscribe to selected users and display their recipes in a separate page
+- Premium recipes (payments via credit card or cryptocurrency)
+- Algolia replacement (might be too expensive in future) 
 
 ## Other
 
@@ -33,13 +49,3 @@ Favicon was generated using the following graphics from Twitter Twemoji:
 - Graphics Author: Copyright 2020 Twitter, Inc and other contributors (https://github.com/twitter/twemoji)
 - Graphics Source: https://github.com/twitter/twemoji/blob/master/assets/svg/1f37d.svg
 - Graphics License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/)
-
-## Planned / In development
-
-- Refactor css to use styled-components
-- Refactor code to Typescript
-- UI/UX v.2.0
-- Filter images by type (e.g. soups/main dish)
-- Browse recipes of the specific user
-- Add recipe ingredients and method using draft js
-- Post comments below recipes
