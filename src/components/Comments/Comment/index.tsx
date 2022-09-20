@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { DeleteOutlined, Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 import { Avatar } from '@material-ui/core';
 import { deleteCommentStart, dislikeCommentStart, likeCommentStart } from '../../../redux/Recipe/recipe.actions';
@@ -52,11 +52,11 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
   return (
     <div className="comment" key={id}>
-      <Avatar src={data?.profilePic} />
+      <Link to={`/user/${data.authorId}`}><Avatar src={data?.profilePic} /></Link>
 
       <div className="comment__wrapper">
         <div className="comment__header">
-          <h3>{data.username}</h3> ·
+          <Link to={`/user/${data.authorId}`}><h3>{data.username}</h3></Link> ·
           <p>
             <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow >
               {data.timestamp?.toDate()}
