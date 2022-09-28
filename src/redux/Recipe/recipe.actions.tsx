@@ -36,6 +36,16 @@ export const addStoreCommentStart = (data: { text: string, authorId: string, pro
   payload: data,
 })
 
+export const addCommentReplyStart = (data: { text: string, parentId: string, recipeAuthorId: string, authorId: string, recipeId: string, profilePic: string, username: string, handleSuccess: () => void }) => ({
+  type: recipeTypes.ADD_COMMENT_REPLY,
+  payload: data,
+})
+
+export const addStoreCommentReplyStart = (data: { text: string, parentId: string, authorId: string, profilePic: string, username: string, commentId: string }) => ({
+  type: recipeTypes.ADD_STORE_COMMENT_REPLY,
+  payload: data,
+})
+
 export const deleteStoreCommentStart = (commentId: String) => ({
   type: recipeTypes.DELETE_STORE_COMMENT,
   payload: commentId,
