@@ -1,7 +1,7 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
 import { Comments, RecipeData } from "../../shared/types";
 import { addCommentStart, addStoreCommentStart, createRecipeStart, deleteCommentStart, deleteStoreCommentStart, dislikeCommentStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeCommentStart, likeRecipeStart, setComments, setRecipeData } from "./recipe.actions";
-import { handleAddComment, handleCreateRecipe, handleDeleteComment, handleDislikeComment, handleDislikeRecipe, handleFetchComments, handleFetchRecipeData, handleLikeComment, handleLikeRecipe, handleViewRecipe } from "./recipe.helpers";
+import { handleAddComment, handleCreateRecipe, handleDeleteAllReplies, handleDeleteComment, handleDislikeComment, handleDislikeRecipe, handleFetchComments, handleFetchRecipeData, handleLikeComment, handleLikeRecipe, handleReplyCounter, handleViewRecipe } from "./recipe.helpers";
 import { setFavoriteRecipes } from './../Recipes/recipes.actions'
 import { loadRecipeData } from "../Loading/loading.actions";
 import recipeTypes from "./recipe.types";
@@ -84,13 +84,19 @@ export function* onFetchCommentsStart() {
   yield takeLatest(recipeTypes.FETCH_COMMENTS, fetchComments);
 }
 
-export function* addComment({ payload: { text, recipeAuthorId, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
+export function* addComment({ payload: { text, parentId, recipeAuthorId, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
   try {
-    const commentId: string = yield handleAddComment(text, authorId, recipeId);
+    const commentId: string = yield handleAddComment(text, authorId, recipeId, parentId);
     yield put(addStoreCommentStart({ text, authorId, profilePic, username, commentId }));
-    if (recipeAuthorId !== authorId) {
-      yield handleUserActivity(authorId, 1);
+
+    if (parentId) {
+      yield handleReplyCounter(recipeId, parentId, 1);
     }
+
+    if (recipeAuthorId !== authorId) {
+      yield handleUserActivity(authorId, 0.25);
+    }
+
     yield handleSuccess();
   } catch (error) {
     console.log(error.message)
@@ -101,15 +107,28 @@ export function* onAddCommentStart() {
   yield takeLatest(recipeTypes.ADD_COMMENT, addComment);
 }
 
-export function* deleteComment({ payload: { commentId, recipeId, authorId, recipeAuthorId } }: ReturnType<typeof deleteCommentStart>) {
+export function* deleteComment({ payload: { commentId, recipeId, parentId, authorId, recipeAuthorId, repliesQuantity, handleSuccess } }: ReturnType<typeof deleteCommentStart>) {
   try {
     const resolve: boolean = yield handleDeleteComment(commentId, recipeId);
-    if (recipeAuthorId !== authorId) {
-      yield handleUserActivity(authorId, -1);
+
+    if (parentId) {
+      yield handleReplyCounter(recipeId, parentId, -1);
     }
+
+    if (repliesQuantity > 0) {
+      yield handleDeleteAllReplies({ recipeId: recipeId, commentId: commentId });
+    }
+
+    if (recipeAuthorId !== authorId) {
+      yield handleUserActivity(authorId, -0.25);
+    }
+
     if (resolve) {
       yield put(deleteStoreCommentStart(commentId));
     }
+
+    yield handleSuccess();
+
   } catch (error) {
     console.log(error.message)
   }

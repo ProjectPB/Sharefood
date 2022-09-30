@@ -48,7 +48,7 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
 
   const handleSubmit = () => {
     setLoading({ ...loading, addingComment: true });
-    dispatch(addCommentStart({ text: input, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setLoading({ ...loading, addingComment: false }) }));
+    dispatch(addCommentStart({ text: input, parentId: "", recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setLoading({ ...loading, addingComment: false }) }));
     setInput("");
     setIsTextareaFocused(false);
   }
@@ -56,7 +56,7 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
   const fetchMoreComments = () => {
     setLoading({ ...loading, fetchingMoreComments: true });
     dispatch(fetchCommentsStart({
-      recipeId: recipeId, sortFilter: filter, counter: 20, startAfterDoc: comments.queryDoc,
+      recipeId: recipeId, sortFilter: filter, counter: 20, startAfterDoc: comments.queryDoc, parentId: "",
       persistComments: comments?.data, commentsQuantity: comments.amount, userId: currentUser?.uid, handleSuccess: () => setLoading({ ...loading, fetchingMoreComments: false })
     }));
   }
@@ -118,7 +118,7 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
             </div>}
 
           {(comments && comments?.data?.length > 0) && comments?.data.map(({ id, data }) => (
-            <Comment recipeId={recipeId} id={id} data={data} recipeAuthorId={recipeAuthorId} />
+            <Comment key={id} recipeId={recipeId} id={id} data={data} recipeAuthorId={recipeAuthorId} />
           ))}
 
           {!comments.isLastPage && !loading.fetchingMoreComments &&

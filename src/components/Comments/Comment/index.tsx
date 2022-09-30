@@ -8,6 +8,7 @@ import { useLanguage } from '../../../hooks';
 import { CommentType, State } from '../../../shared/types';
 
 import Moment from 'react-moment';
+import Loading from '../../Loading';
 
 import './styles.scss';
 
@@ -16,19 +17,22 @@ interface Props {
   id: CommentType['id'],
   data: CommentType['data']
   recipeAuthorId: string,
+  key: string,
 }
 
-const mapState = ({ user, ui }: State) => ({
+const mapState = ({ user, ui, recipe }: State) => ({
   currentUser: user.currentUser,
   language: ui.language,
+  comments: recipe.comments,
 });
 
 const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
-  const { currentUser, language } = useSelector(mapState);
+  const { currentUser, language, comments } = useSelector(mapState);
   const LANG = useLanguage();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [reply, setReply] = useState({ input: '', status: false, textareaFocus: false, loading: false, addingReply: false });
+  const [reply, setReply] = useState({ input: '', status: false, textareaFocus: false, addingReply: false, deletingReply: false });
+  const [showReplies, setShowReplies] = useState(false);
 
   const handleLikes = (id: string, data: CommentType['data']) => {
     if (!currentUser) {
@@ -47,12 +51,13 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
     );
 
     if (answer) {
-      dispatch(deleteCommentStart({ commentId: commentId, recipeId: recipeId, alert: LANG.RECIPE.COMMENT_DELETED, authorId: currentUser?.uid, recipeAuthorId: recipeAuthorId }));
+      setReply({ ...reply, deletingReply: true })
+      dispatch(deleteCommentStart({ commentId: commentId, recipeId: recipeId, parentId: data?.parentId, alert: LANG.RECIPE.COMMENT_DELETED, authorId: currentUser?.uid, recipeAuthorId: recipeAuthorId, repliesQuantity: data?.repliesQuantity, handleSuccess: () => setReply({ ...reply, deletingReply: false }) }));
     }
   }
 
   const replyInputConfig = {
-    placeholder: LANG.RECIPE.REPLY_COMMENT,
+    placeholder: LANG.RECIPE.REPLY_COMMENT + " @" + data.username,
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) =>
       setReply({ ...reply, input: e.target.value }),
     value: reply.input,
@@ -62,55 +67,77 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
   }
 
   const handleSubmitReply = () => {
-    dispatch(addCommentStart({ text: reply.input, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setReply({ ...reply, addingReply: false }) }));
-    setReply({ ...reply, status: false, input: '', textareaFocus: false, });
+    setReply({ ...reply, addingReply: true })
+    dispatch(addCommentStart({ text: reply.input, parentId: id, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setReply({ ...reply, input: '', status: false, textareaFocus: false, addingReply: false }) }));
   }
 
-  return (
-    <div className="comment" key={id}>
-      <Link to={`/user/${data.authorId}`}><Avatar src={data?.profilePic} /></Link>
+  const commentRepliesData = comments.data.filter(({ data }) => {
+    return data?.parentId === id
+  });
 
-      <div className="comment__wrapper">
-        <div className="comment__header">
-          <Link to={`/user/${data.authorId}`}><h3>{data.username}</h3></Link> ·
-          <p>
-            <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow >
-              {data.timestamp?.toDate()}
-            </Moment>
-          </p>
-        </div>
+  if (reply.deletingReply) {
+    return <div className="comment">
+      <div className='comment__loading'>
+        <Loading />
+      </div>
+    </div>
+  } else {
+    return (
+      <div className="comment">
+        <Link to={`/user/${data.authorId}`}><Avatar src={data?.profilePic} /></Link>
 
-        <p className='comment__text'>{data.text}</p>
-
-        <div className="comment__userActions">
-          <p onClick={() => setReply({ ...reply, status: !reply.status })}><ReplyOutlined /></p>
-          {data?.liked && <p><Favorite htmlColor="crimson" onClick={() => handleLikes(id, data)} /></p>}
-          {!data?.liked && <p><FavoriteBorderOutlined onClick={() => handleLikes(id, data)} /></p>}
-          {(data.authorId === currentUser?.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
-        </div>
-
-        {currentUser && reply.status &&
-          <div className="comments__input">
-            <TextareaAutosize {...replyInputConfig} />
-            {(reply.textareaFocus || reply.input.length > 0) && <Send className='sendIcon' onClick={handleSubmitReply} />}
+        <div className="comment__wrapper">
+          <div className="comment__header">
+            <Link to={`/user/${data.authorId}`}><h3>{data.username}</h3></Link> ·
+            <p>
+              <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow >
+                {data.timestamp?.toDate()}
+              </Moment>
+            </p>
           </div>
-        }
 
-        {reply.status && !currentUser &&
-          <div className="comments__input">
-            <p>{LANG.RECIPE.UNABLE_TO_COMMENT_1}<Link to='/auth'>{LANG.RECIPE.UNABLE_TO_COMMENT_SIGN_IN}</Link>{LANG.RECIPE.UNABLE_TO_REPLY}</p>
-          </div>
-        }
+          <p className='comment__text'>{data.text}{data?.parentId && <span>REPLY {data?.parentId} </span>}</p>
 
-        <div className="comment__repliesWrapper">
-          <div className="comment__repliesHeader">
-            <ArrowDownwardOutlined />
-            <h2>{LANG.RECIPE.SHOW_REPLIES}</h2>
+          <div className="comment__userActions">
+            <p onClick={() => setReply({ ...reply, status: !reply.status })}><ReplyOutlined /></p>
+            {data?.liked && <p><Favorite htmlColor="crimson" onClick={() => handleLikes(id, data)} /></p>}
+            {!data?.liked && <p><FavoriteBorderOutlined onClick={() => handleLikes(id, data)} /></p>}
+            {(data.authorId === currentUser?.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
           </div>
+
+          {(currentUser && reply.status) &&
+            <div className="comments__input">
+              {!reply.addingReply ?
+                <>
+                  <TextareaAutosize {...replyInputConfig} />
+                  {(reply.textareaFocus || reply.input.length > 0) && <Send className='sendIcon' onClick={handleSubmitReply} />}
+                </> :
+                <Loading />
+              }
+            </div>
+          }
+
+          {(!currentUser && reply.status) &&
+            <div className="comments__input">
+              <p>{LANG.RECIPE.UNABLE_TO_COMMENT_1}<Link to='/auth'>{LANG.RECIPE.UNABLE_TO_COMMENT_SIGN_IN}</Link>{LANG.RECIPE.UNABLE_TO_REPLY}</p>
+            </div>
+          }
+
+          {data?.repliesQuantity > 0 &&
+            <div className="comment__repliesWrapper">
+              <div className="comment__repliesHeader" onClick={() => setShowReplies(!showReplies)}>
+                <ArrowDownwardOutlined />
+                <h2>{LANG.RECIPE.SHOW_REPLIES} ({data?.repliesQuantity})</h2>
+              </div>
+            </div>}
+
+          {(showReplies && data?.repliesQuantity > 0) && commentRepliesData.map(({ id, data }) => (
+            <Comment key={id} recipeId={recipeId} id={id} data={data} recipeAuthorId={recipeAuthorId} />
+          ))}
         </div>
       </div>
-    </div >
-  )
+    )
+  }
 }
 
 export default Comment;
