@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { ArrowDownwardOutlined, DeleteOutlined, Favorite, FavoriteBorderOutlined, ReplyOutlined, Send } from '@material-ui/icons';
 import { Avatar, TextareaAutosize } from '@material-ui/core';
-import { addCommentStart, deleteCommentStart, dislikeCommentStart, likeCommentStart } from '../../../redux/Recipe/recipe.actions';
+import { addCommentStart, deleteCommentStart, dislikeCommentStart, fetchRepliesStart, likeCommentStart } from '../../../redux/Recipe/recipe.actions';
 import { useLanguage } from '../../../hooks';
 import { CommentType, State } from '../../../shared/types';
 
@@ -71,6 +71,11 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
     dispatch(addCommentStart({ text: reply.input, parentId: id, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setReply({ ...reply, input: '', status: false, textareaFocus: false, addingReply: false }) }));
   }
 
+  const fetchReplies = () => {
+    setShowReplies(!showReplies);
+    dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'newest', userId: currentUser?.uid }));
+  }
+
   const commentRepliesData = comments.data.filter(({ data }) => {
     return data?.parentId === id
   });
@@ -125,7 +130,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
           {data?.repliesQuantity > 0 &&
             <div className="comment__repliesWrapper">
-              <div className="comment__repliesHeader" onClick={() => setShowReplies(!showReplies)}>
+              <div className="comment__repliesHeader" onClick={fetchReplies}>
                 <ArrowDownwardOutlined />
                 <h2>{LANG.RECIPE.SHOW_REPLIES} ({data?.repliesQuantity})</h2>
               </div>

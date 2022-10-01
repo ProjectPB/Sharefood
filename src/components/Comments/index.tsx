@@ -71,6 +71,10 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, recipeId, filter, currentUser?.uid])
 
+  const commentRepliesData = comments.data.filter(({ data }) => {
+    return data?.parentId === ""
+  });
+
   return (
     <div className='comments'>
       {loading.fetchingComments ?
@@ -117,7 +121,7 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
               <p>{LANG.RECIPE.UNABLE_TO_COMMENT_1}<Link to='/auth'>{LANG.RECIPE.UNABLE_TO_COMMENT_SIGN_IN}</Link>{LANG.RECIPE.UNABLE_TO_COMMENT_2}</p>
             </div>}
 
-          {(comments && comments?.data?.length > 0) && comments?.data.map(({ id, data }) => (
+          {(commentRepliesData && commentRepliesData?.length > 0) && commentRepliesData?.map(({ id, data }) => (
             <Comment key={id} recipeId={recipeId} id={id} data={data} recipeAuthorId={recipeAuthorId} />
           ))}
 

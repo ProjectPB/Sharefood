@@ -24,6 +24,14 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: a
         ...state,
         comments: action.payload,
       }
+    case recipeTypes.SET_REPLIES:
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          data: [...state.comments.data, ...action.payload.data,]
+        }
+      }
     case recipeTypes.ADD_STORE_COMMENT:
       return {
         ...state,

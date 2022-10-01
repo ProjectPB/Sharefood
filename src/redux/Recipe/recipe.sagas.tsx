@@ -1,6 +1,6 @@
 import { takeLatest, call, all, put } from "redux-saga/effects";
 import { Comments, RecipeData } from "../../shared/types";
-import { addCommentStart, addStoreCommentStart, createRecipeStart, deleteCommentStart, deleteStoreCommentStart, dislikeCommentStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeCommentStart, likeRecipeStart, setComments, setRecipeData } from "./recipe.actions";
+import { addCommentStart, addStoreCommentStart, createRecipeStart, deleteCommentStart, deleteStoreCommentStart, dislikeCommentStart, dislikeRecipeStart, fetchCommentsStart, fetchRecipeDataStart, likeCommentStart, likeRecipeStart, setComments, setRecipeData, setReplies } from "./recipe.actions";
 import { handleAddComment, handleCreateRecipe, handleDeleteAllReplies, handleDeleteComment, handleDislikeComment, handleDislikeRecipe, handleFetchComments, handleFetchRecipeData, handleLikeComment, handleLikeRecipe, handleReplyCounter, handleViewRecipe } from "./recipe.helpers";
 import { setFavoriteRecipes } from './../Recipes/recipes.actions'
 import { loadRecipeData } from "../Loading/loading.actions";
@@ -162,11 +162,25 @@ export function* onDislikeCommentStart() {
   yield takeLatest(recipeTypes.DISLIKE_COMMENT, dislikeComment);
 }
 
+export function* fetchReplies({ payload }: ReturnType<typeof fetchCommentsStart>) {
+  try {
+    const commentsData: Comments = yield handleFetchComments(payload);
+    yield put(setReplies(commentsData));
+  } catch (error) {
+    console.log(error.message)
+  }
+}
+
+export function* onFetchRepliesStart() {
+  yield takeLatest(recipeTypes.FETCH_REPLIES, fetchReplies);
+}
+
 export default function* recipeSagas() {
   yield all([
     call(onCreateRecipeStart),
     call(onFetchRecipeDataStart),
     call(onFetchCommentsStart),
+    call(onFetchRepliesStart),
     call(onLikeRecipeStart),
     call(onDislikeRecipeStart),
     call(onAddCommentStart),

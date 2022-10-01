@@ -61,6 +61,16 @@ export const setComments = (comments: Comments) => ({
   payload: comments,
 })
 
+export const fetchRepliesStart = (filters: FiltersTypes) => ({
+  type: recipeTypes.FETCH_REPLIES,
+  payload: filters
+})
+
+export const setReplies = (comments: Comments) => ({
+  type: recipeTypes.SET_REPLIES,
+  payload: comments,
+})
+
 export const deleteCommentStart = (data: { commentId: string, recipeId: string, parentId: string, alert: string, authorId: string, recipeAuthorId: string, repliesQuantity: number, handleSuccess: () => void }) => ({
   type: recipeTypes.DELETE_COMMENT,
   payload: data,
