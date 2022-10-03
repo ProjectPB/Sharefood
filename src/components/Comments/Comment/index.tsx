@@ -32,7 +32,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [reply, setReply] = useState({ input: '', status: false, textareaFocus: false, addingReply: false, deletingReply: false });
-  const [showReplies, setShowReplies] = useState(false);
+  const [replies, setReplies] = useState({ loading: false, display: false });
 
   const handleLikes = (id: string, data: CommentType['data']) => {
     if (!currentUser) {
@@ -71,9 +71,19 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
     dispatch(addCommentStart({ text: reply.input, parentId: id, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setReply({ ...reply, input: '', status: false, textareaFocus: false, addingReply: false }) }));
   }
 
-  const fetchReplies = () => {
-    setShowReplies(!showReplies);
-    dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'newest', userId: currentUser?.uid }));
+  const handleReplies = () => {
+    if (replies.display) {
+      setReplies({ ...replies, display: false })
+    }
+
+    if (!replies.display) {
+      setReplies({ ...replies, display: true })
+    }
+
+    if (commentRepliesData?.length === 0) {
+      setReplies({ ...replies, loading: true })
+      dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'newest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true }) }));
+    }
   }
 
   const commentRepliesData = comments.data.filter(({ data }) => {
@@ -110,6 +120,11 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
             {(data.authorId === currentUser?.uid) && <p><DeleteOutlined onClick={() => deleteComment(id)} /> </p>}
           </div>
 
+          {replies.loading &&
+            <div className="comments__loading">
+              <Loading />
+            </div>}
+
           {(currentUser && reply.status) &&
             <div className="comments__input">
               {!reply.addingReply ?
@@ -130,13 +145,13 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
           {data?.repliesQuantity > 0 &&
             <div className="comment__repliesWrapper">
-              <div className="comment__repliesHeader" onClick={fetchReplies}>
+              <div className="comment__repliesHeader" onClick={handleReplies}>
                 <ArrowDownwardOutlined />
                 <h2>{LANG.RECIPE.SHOW_REPLIES} ({data?.repliesQuantity})</h2>
               </div>
             </div>}
 
-          {(showReplies && data?.repliesQuantity > 0) && commentRepliesData.map(({ id, data }) => (
+          {(replies.display && data?.repliesQuantity > 0) && commentRepliesData.map(({ id, data }) => (
             <Comment key={id} recipeId={recipeId} id={id} data={data} recipeAuthorId={recipeAuthorId} />
           ))}
         </div>

@@ -31,7 +31,7 @@ export const addCommentStart = (data: { text: string, parentId: string, recipeAu
   payload: data,
 })
 
-export const addStoreCommentStart = (data: { text: string, authorId: string, profilePic: string, username: string, commentId: string }) => ({
+export const addStoreCommentStart = (data: { text: string, authorId: string, parentId: string, profilePic: string, username: string, commentId: string }) => ({
   type: recipeTypes.ADD_STORE_COMMENT,
   payload: data,
 })

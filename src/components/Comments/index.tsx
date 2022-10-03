@@ -71,7 +71,7 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, recipeId, filter, currentUser?.uid])
 
-  const commentRepliesData = comments.data.filter(({ data }) => {
+  const commentRepliesData = comments?.data.filter(({ data }) => {
     return data?.parentId === ""
   });
 

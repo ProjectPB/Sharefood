@@ -72,6 +72,7 @@
 
     .comment__repliesWrapper {
       margin-top: 3px;
+      user-select: none;
 
       .comment__repliesHeader {
         width: fit-content;

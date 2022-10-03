@@ -87,7 +87,7 @@ export function* onFetchCommentsStart() {
 export function* addComment({ payload: { text, parentId, recipeAuthorId, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
   try {
     const commentId: string = yield handleAddComment(text, authorId, recipeId, parentId);
-    yield put(addStoreCommentStart({ text, authorId, profilePic, username, commentId }));
+    yield put(addStoreCommentStart({ text, authorId, parentId, profilePic, username, commentId }));
 
     if (parentId) {
       yield handleReplyCounter(recipeId, parentId, 1);
@@ -166,6 +166,8 @@ export function* fetchReplies({ payload }: ReturnType<typeof fetchCommentsStart>
   try {
     const commentsData: Comments = yield handleFetchComments(payload);
     yield put(setReplies(commentsData));
+
+    yield payload.handleSuccess();
   } catch (error) {
     console.log(error.message)
   }
