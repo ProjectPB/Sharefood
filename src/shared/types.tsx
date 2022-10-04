@@ -116,6 +116,7 @@ export interface Comments {
 export interface CommentType {
   id: string,
   data: {
+    commentId?: string,
     authorId: string,
     timestamp: any,
     text: string,

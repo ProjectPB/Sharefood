@@ -1,6 +1,6 @@
 import recipeTypes from "./recipe.types";
 import { Comments, RecipeData } from "../../shared/types";
-import { handleCommentsLikes, handleRemoveStoreComment } from "./recipe.helpers";
+import { handleAddStoreCommentReply, handleCommentsLikes, handleRemoveStoreComment, handleRemoveStoreCommentReply } from "./recipe.helpers";
 
 const INITIAL_STATE: { recipeData: RecipeData, comments: Comments } = {
   recipeData: null,
@@ -44,6 +44,15 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: a
           }, ...state.comments.data]
         },
       }
+    case recipeTypes.ADD_STORE_COMMENT_REPLY:
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          amount: state.comments.amount + 1,
+          data: handleAddStoreCommentReply({ prevComments: state.comments.data, data: action.payload })
+        },
+      }
     case recipeTypes.DELETE_STORE_COMMENT:
       return {
         ...state,
@@ -51,6 +60,15 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: a
           ...state.comments,
           amount: state.comments.amount - 1,
           data: handleRemoveStoreComment({ prevComments: state.comments.data, commentToRemove: action.payload })
+        }
+      }
+    case recipeTypes.DELETE_STORE_COMMENT_REPLY:
+      return {
+        ...state,
+        comments: {
+          ...state.comments,
+          amount: state.comments.amount - 1,
+          data: handleRemoveStoreCommentReply({ prevComments: state.comments.data, parentId: action.payload.parentId, commentToRemove: action.payload.commentId })
         }
       }
     case recipeTypes.LIKE_COMMENT:

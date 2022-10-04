@@ -52,7 +52,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
     if (answer) {
       setReply({ ...reply, deletingReply: true })
-      dispatch(deleteCommentStart({ commentId: commentId, recipeId: recipeId, parentId: data?.parentId, alert: LANG.RECIPE.COMMENT_DELETED, authorId: currentUser?.uid, recipeAuthorId: recipeAuthorId, repliesQuantity: data?.repliesQuantity, handleSuccess: () => setReply({ ...reply, deletingReply: false }) }));
+      dispatch(deleteCommentStart({ commentId: commentId, recipeId: recipeId, parentId: data?.parentId, authorId: currentUser?.uid, recipeAuthorId: recipeAuthorId, repliesQuantity: data?.repliesQuantity, handleSuccess: () => setReply({ ...reply, deletingReply: false }) }));
     }
   }
 
@@ -68,7 +68,13 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
   const handleSubmitReply = () => {
     setReply({ ...reply, addingReply: true })
-    dispatch(addCommentStart({ text: reply.input, parentId: id, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setReply({ ...reply, input: '', status: false, textareaFocus: false, addingReply: false }) }));
+
+    const handleSuccess = () => {
+      setReply({ ...reply, input: '', status: false, textareaFocus: false, addingReply: false })
+      setReplies({ ...replies, display: true })
+    }
+
+    dispatch(addCommentStart({ text: reply.input, parentId: id, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => handleSuccess() }));
   }
 
   const handleReplies = () => {
@@ -86,7 +92,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
     }
   }
 
-  const commentRepliesData = comments.data.filter(({ data }) => {
+  const commentRepliesData = comments.data.filter(({ data }: { data: CommentType['data'] }) => {
     return data?.parentId === id
   });
 
@@ -111,7 +117,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
             </p>
           </div>
 
-          <p className='comment__text'>{data.text}{data?.parentId && <span>REPLY {data?.parentId} </span>}</p>
+          <p className='comment__text'>{data.text}</p>
 
           <div className="comment__userActions">
             <p onClick={() => setReply({ ...reply, status: !reply.status })}><ReplyOutlined /></p>

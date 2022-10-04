@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, } from 'react-router-dom';
 import { Avatar, TextareaAutosize } from '@material-ui/core';
 import { ArrowDownwardOutlined, Send } from '@mui/icons-material';
-import { State } from '../../shared/types';
+import { CommentType, State } from '../../shared/types';
 import { useClickOutside, useLanguage } from '../../hooks';
 import { addCommentStart, fetchCommentsStart, setComments } from '../../redux/Recipe/recipe.actions';
 import { translateCommentFilter } from '../../shared/functions';
@@ -71,7 +71,7 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, recipeId, filter, currentUser?.uid])
 
-  const commentRepliesData = comments?.data.filter(({ data }) => {
+  const commentRepliesData = comments?.data.filter(({ data }: { data: CommentType['data'] }) => {
     return data?.parentId === ""
   });
 

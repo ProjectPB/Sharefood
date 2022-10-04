@@ -444,3 +444,27 @@ export const handleCommentsLikes = ({ prevComments, commentId, likeStatus }: { p
   foundComment.data.liked = likeStatus;
   return prevComments;
 };
+
+export const handleAddStoreCommentReply = ({ prevComments, data }: { prevComments: Comments['data'], data: CommentType['data'] }) => {
+  let foundComment: CommentType = prevComments.find(
+    (comment: CommentType) => comment.id === data.parentId
+  )
+  foundComment.data.repliesQuantity += 1
+
+  return [{
+    id: data.commentId,
+    data: data
+  }, ...prevComments]
+}
+
+export const handleRemoveStoreCommentReply = ({ prevComments, parentId, commentToRemove }: { prevComments: Comments['data'], parentId: string, commentToRemove: string }) => {
+  let foundComment: CommentType = prevComments.find(
+    (comment: CommentType) => comment.id === parentId
+  )
+  foundComment.data.repliesQuantity -= 1
+
+  return prevComments.filter(
+    (comment: CommentType) => comment.id !== commentToRemove
+  );
+
+}
