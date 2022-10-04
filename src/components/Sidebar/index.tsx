@@ -39,7 +39,7 @@ const Sidebar = ({ narrow }: { narrow?: boolean }) => {
     <div className={className}>
       <SidebarOption Icon={Home} title={LANG.SIDEBAR.HOME} link="/" color="orange" />
 
-      <SidebarOption Icon={LocalDining} title={LANG.SIDEBAR.ALL} link="/all" color="green" />
+      <SidebarOption Icon={LocalDining} title={LANG.SIDEBAR.ALL} link="/all" color="violet" />
 
       {currentUser ? (
         <SidebarOption Icon={LibraryBooks} title={LANG.SIDEBAR.YOUR} link="/my" color="teal" />

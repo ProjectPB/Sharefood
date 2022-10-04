@@ -262,7 +262,7 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
   });
 };
 
-export const handleAddComment = (comment: string, userId: string, recipeId: string) => {
+export const handleAddComment = (comment: string, userId: string, recipeId: string, parentId: string) => {
   return new Promise((resolve, reject) => {
     try {
       db.collection('recipes').doc(recipeId).collection('comments').add({
@@ -271,11 +271,27 @@ export const handleAddComment = (comment: string, userId: string, recipeId: stri
         text: comment,
         likesUsers: [],
         likesQuantity: 0,
+        repliesQuantity: 0,
+        parentId: parentId,
       }).then((docRef) => {
         resolve(docRef.id);
       })
     } catch (error) {
       reject(error);
+    }
+  })
+}
+
+export const handleReplyCounter = (recipeId: string, parentId: string, counter: number) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection('recipes').doc(recipeId).collection('comments').doc(parentId).update({
+        repliesQuantity: firebase.firestore.FieldValue.increment(counter)
+      }).then(() => {
+        resolve(true);
+      })
+    } catch (error) {
+      reject(error.message);
     }
   })
 }
@@ -292,6 +308,21 @@ export const handleDeleteComment = (commentId: string, recipeId: string) => {
   })
 }
 
+export const handleDeleteAllReplies = ({ recipeId, commentId }: { recipeId: string, commentId: string }) => {
+  return new Promise((resolve, reject) => {
+    try {
+      db.collection('recipes').doc(recipeId).collection('comments').where('parentId', '==', commentId).get().then(res => res.forEach(element => {
+        handleDeleteComment(element?.id, recipeId)
+        handleUserActivity(element?.data().authorId, -0.25);
+      })).then(() => {
+        resolve(true);
+      })
+    } catch (error) {
+      reject(error.message);
+    }
+  })
+}
+
 export const handleFetchComments = (filters: FiltersTypes) => {
   return new Promise((resolve, reject) => {
     let ref: Query = db.collection("recipes").doc(filters.recipeId).collection('comments');
@@ -302,10 +333,17 @@ export const handleFetchComments = (filters: FiltersTypes) => {
       startAfterDoc,
       commentsQuantity,
       userId,
+      parentId,
       persistComments = [],
     } = filters;
 
     let commentsCounter = commentsQuantity;
+
+    if (parentId) {
+      ref = ref.where('parentId', '==', parentId);
+    } else {
+      ref = ref.where('parentId', '==', '');
+    }
 
     if (sortFilter === 'popular') {
       ref = ref.orderBy("likesQuantity", "desc");
@@ -406,3 +444,27 @@ export const handleCommentsLikes = ({ prevComments, commentId, likeStatus }: { p
   foundComment.data.liked = likeStatus;
   return prevComments;
 };
+
+export const handleAddStoreCommentReply = ({ prevComments, data }: { prevComments: Comments['data'], data: CommentType['data'] }) => {
+  let foundComment: CommentType = prevComments.find(
+    (comment: CommentType) => comment.id === data.parentId
+  )
+  foundComment.data.repliesQuantity += 1
+
+  return [{
+    id: data.commentId,
+    data: data
+  }, ...prevComments]
+}
+
+export const handleRemoveStoreCommentReply = ({ prevComments, parentId, commentToRemove }: { prevComments: Comments['data'], parentId: string, commentToRemove: string }) => {
+  let foundComment: CommentType = prevComments.find(
+    (comment: CommentType) => comment.id === parentId
+  )
+  foundComment.data.repliesQuantity -= 1
+
+  return prevComments.filter(
+    (comment: CommentType) => comment.id !== commentToRemove
+  );
+
+}

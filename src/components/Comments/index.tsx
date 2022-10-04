@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, } from 'react-router-dom';
 import { Avatar, TextareaAutosize } from '@material-ui/core';
 import { ArrowDownwardOutlined, Send } from '@mui/icons-material';
-import { State } from '../../shared/types';
+import { CommentType, State } from '../../shared/types';
 import { useClickOutside, useLanguage } from '../../hooks';
 import { addCommentStart, fetchCommentsStart, setComments } from '../../redux/Recipe/recipe.actions';
 import { translateCommentFilter } from '../../shared/functions';
@@ -48,7 +48,7 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
 
   const handleSubmit = () => {
     setLoading({ ...loading, addingComment: true });
-    dispatch(addCommentStart({ text: input, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setLoading({ ...loading, addingComment: false }) }));
+    dispatch(addCommentStart({ text: input, parentId: "", recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => setLoading({ ...loading, addingComment: false }) }));
     setInput("");
     setIsTextareaFocused(false);
   }
@@ -56,7 +56,7 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
   const fetchMoreComments = () => {
     setLoading({ ...loading, fetchingMoreComments: true });
     dispatch(fetchCommentsStart({
-      recipeId: recipeId, sortFilter: filter, counter: 20, startAfterDoc: comments.queryDoc,
+      recipeId: recipeId, sortFilter: filter, counter: 20, startAfterDoc: comments.queryDoc, parentId: "",
       persistComments: comments?.data, commentsQuantity: comments.amount, userId: currentUser?.uid, handleSuccess: () => setLoading({ ...loading, fetchingMoreComments: false })
     }));
   }
@@ -70,6 +70,10 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, recipeId, filter, currentUser?.uid])
+
+  const commentRepliesData = comments?.data.filter(({ data }: { data: CommentType['data'] }) => {
+    return data?.parentId === ""
+  });
 
   return (
     <div className='comments'>
@@ -117,8 +121,8 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
               <p>{LANG.RECIPE.UNABLE_TO_COMMENT_1}<Link to='/auth'>{LANG.RECIPE.UNABLE_TO_COMMENT_SIGN_IN}</Link>{LANG.RECIPE.UNABLE_TO_COMMENT_2}</p>
             </div>}
 
-          {(comments && comments?.data?.length > 0) && comments?.data.map(({ id, data }) => (
-            <Comment recipeId={recipeId} id={id} data={data} recipeAuthorId={recipeAuthorId} />
+          {(commentRepliesData && commentRepliesData?.length > 0) && commentRepliesData?.map(({ id, data }) => (
+            <Comment key={id} recipeId={recipeId} id={id} data={data} recipeAuthorId={recipeAuthorId} />
           ))}
 
           {!comments.isLastPage && !loading.fetchingMoreComments &&

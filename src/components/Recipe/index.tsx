@@ -15,7 +15,7 @@ import {
 } from "@material-ui/icons";
 import { RecipeData, State } from '../../shared/types';
 import { handleDeleteRecipe } from '../../redux/Recipe/recipe.helpers';
-import { resetRecipes } from '../../redux/Recipes/recipes.actions';
+import { resetRecipes, setAllRecipes, setSortFilter, setTagFilter, setTypeFilter } from '../../redux/Recipes/recipes.actions';
 import { dislikeRecipeStart, likeRecipeStart } from '../../redux/Recipe/recipe.actions';
 import { translateTag, translateType } from '../../shared/functions';
 import { useLanguage } from '../../hooks';
@@ -83,6 +83,30 @@ const Recipe: React.FC<Props> = ({ data }) => {
     }
   }
 
+  const navToTag = (tag: string) => {
+    dispatch(setAllRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }));
+    dispatch(setSortFilter('recent'));
+    dispatch(setTypeFilter('all'));
+    dispatch(setTagFilter(tag));
+    navigate('/all');
+  }
+
+  const navToType = (type: string) => {
+    dispatch(setAllRecipes({
+      data: [],
+      queryDoc: null,
+      isLastPage: false,
+    }))
+    dispatch(setSortFilter('recent'));
+    dispatch(setTypeFilter(type));
+    dispatch(setTagFilter('all'));
+    navigate('/all');
+  }
+
   return isDeleting ?
     <div className="recipe__loading">
       <Loading />
@@ -102,7 +126,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
           </div>
 
           <div className="recipe__data">
-            <div className="recipe__type">
+            <div className="recipe__type" onClick={() => navToType(data?.type)}>
               <LocalDining className="card__icon" />
               <p>{translateType(data?.type, language)}</p>
             </div>
@@ -122,7 +146,7 @@ const Recipe: React.FC<Props> = ({ data }) => {
             {data?.tags && data?.tags.length > 0 &&
               <div className="recipe__tags">
                 {data?.tags.map((tag, id) => (
-                  <p className='recipe__tag' key={id}>{translateTag(tag, language)}</p>
+                  <p className='recipe__tag' key={id} onClick={() => navToTag(tag)}>{translateTag(tag, language)}</p>
                 ))}
               </div>}
 

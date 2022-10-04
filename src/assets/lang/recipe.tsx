@@ -24,7 +24,11 @@ export const ENG_RECIPE = {
   UNABLE_TO_COMMENT_1: "Please ",
   UNABLE_TO_COMMENT_SIGN_IN: "sign in",
   UNABLE_TO_COMMENT_2: " to comment",
-  MORE_COMMENTS: "Load more"
+  UNABLE_TO_REPLY: " to reply",
+  MORE_COMMENTS: "Load more",
+  REPLY_COMMENT: "Reply",
+  SHOW_REPLIES: "Show replies",
+  HIDE_REPLIES: "Hide replies",
 };
 
 export const PL_RECIPE = {
@@ -53,5 +57,9 @@ export const PL_RECIPE = {
   UNABLE_TO_COMMENT_1: "",
   UNABLE_TO_COMMENT_SIGN_IN: "Zaloguj się",
   UNABLE_TO_COMMENT_2: ", żeby dodać komentarz",
-  MORE_COMMENTS: "Więcej"
+  UNABLE_TO_REPLY: ", żeby odpowiedzieć",
+  MORE_COMMENTS: "Więcej",
+  REPLY_COMMENT: "Odpowiedz",
+  SHOW_REPLIES: "Wyświetl odpowiedzi",
+  HIDE_REPLIES: "Ukryj odpowiedzi",
 };

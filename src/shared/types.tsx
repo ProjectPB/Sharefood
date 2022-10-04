@@ -90,6 +90,7 @@ export interface FiltersTypes {
   rendered?: boolean;
   excludeId?: string;
   recipeId?: string;
+  parentId?: string;
   commentsQuantity?: number;
   handleSuccess?: () => void;
 }
@@ -115,6 +116,7 @@ export interface Comments {
 export interface CommentType {
   id: string,
   data: {
+    commentId?: string,
     authorId: string,
     timestamp: any,
     text: string,
@@ -122,6 +124,8 @@ export interface CommentType {
     profilePic?: string,
     username: string,
     liked?: boolean,
+    parentId?: string,
+    repliesQuantity?: number,
   }
 }
 

@@ -26,20 +26,35 @@ export const dislikeRecipeStart = (ID: { userId: string, recipeId: string, data:
   payload: ID,
 })
 
-export const addCommentStart = (data: { text: string, recipeAuthorId: string, authorId: string, recipeId: string, profilePic: string, username: string, handleSuccess: () => void }) => ({
+export const addCommentStart = (data: { text: string, parentId: string, recipeAuthorId: string, authorId: string, recipeId: string, profilePic: string, username: string, handleSuccess: () => void }) => ({
   type: recipeTypes.ADD_COMMENT,
   payload: data,
 })
 
-export const addStoreCommentStart = (data: { text: string, authorId: string, profilePic: string, username: string, commentId: string }) => ({
+export const addStoreCommentStart = (data: { text: string, authorId: string, parentId: string, profilePic: string, username: string, commentId: string, repliesQuantity: number }) => ({
   type: recipeTypes.ADD_STORE_COMMENT,
   payload: data,
 })
 
-export const deleteStoreCommentStart = (commentId: String) => ({
+export const addStoreCommentReplyStart = (data: { text: string, authorId: string, parentId: string, profilePic: string, username: string, commentId: string, repliesQuantity: number }) => ({
+  type: recipeTypes.ADD_STORE_COMMENT_REPLY,
+  payload: data,
+});
+
+export const deleteCommentStart = (data: { commentId: string, recipeId: string, parentId: string, authorId: string, recipeAuthorId: string, repliesQuantity: number, handleSuccess: () => void }) => ({
+  type: recipeTypes.DELETE_COMMENT,
+  payload: data,
+})
+
+export const deleteStoreCommentStart = (commentId: string) => ({
   type: recipeTypes.DELETE_STORE_COMMENT,
   payload: commentId,
 })
+
+export const deleteStoreCommentReplyStart = (data: { parentId: string, commentId: string }) => ({
+  type: recipeTypes.DELETE_STORE_COMMENT_REPLY,
+  payload: data,
+});
 
 export const fetchCommentsStart = (filters: FiltersTypes) => ({
   type: recipeTypes.FETCH_COMMENTS,
@@ -51,9 +66,14 @@ export const setComments = (comments: Comments) => ({
   payload: comments,
 })
 
-export const deleteCommentStart = (data: { commentId: string, recipeId: string, alert: string, authorId: string, recipeAuthorId: string }) => ({
-  type: recipeTypes.DELETE_COMMENT,
-  payload: data,
+export const fetchRepliesStart = (filters: FiltersTypes) => ({
+  type: recipeTypes.FETCH_REPLIES,
+  payload: filters
+})
+
+export const setReplies = (comments: Comments) => ({
+  type: recipeTypes.SET_REPLIES,
+  payload: comments,
 })
 
 export const likeCommentStart = (IDs: { userId: string, commentId: string, recipeId: string }) => ({
