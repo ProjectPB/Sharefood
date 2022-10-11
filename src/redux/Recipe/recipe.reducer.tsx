@@ -1,6 +1,6 @@
 import recipeTypes from "./recipe.types";
 import { Comments, RecipeData } from "../../shared/types";
-import { handleAddStoreCommentReply, handleCommentsLikes, handleRemoveStoreComment, handleRemoveStoreCommentReply } from "./recipe.helpers";
+import { handleAddStoreCommentReply, handleCommentsLikes, handleRemoveStoreComment, handleRemoveStoreCommentReply, handleSetRepliesData } from "./recipe.helpers";
 
 const INITIAL_STATE: { recipeData: RecipeData, comments: Comments } = {
   recipeData: null,
@@ -29,7 +29,7 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: a
         ...state,
         comments: {
           ...state.comments,
-          data: [...state.comments.data, ...action.payload.data,]
+          data: handleSetRepliesData({ prevData: state.comments.data, newData: action.payload.commentsData.data, parentId: action.payload.parentId })
         }
       }
     case recipeTypes.ADD_STORE_COMMENT:

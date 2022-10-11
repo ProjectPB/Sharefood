@@ -437,6 +437,14 @@ export const handleLikeComment = (userId: string, recipeId: string, commentId: s
   })
 };
 
+export const handleSetRepliesData = ({ prevData, newData, parentId }: { prevData: CommentType[], newData: Comments['data'], parentId: string }) => {
+  const filteredData = prevData.filter(({ data }) => {
+    return !(data?.parentId === parentId && data.isNewReply)
+  })
+
+  return [...filteredData, ...newData]
+}
+
 export const handleCommentsLikes = ({ prevComments, commentId, likeStatus }: { prevComments: Comments['data'], commentId: string, likeStatus: boolean }) => {
   let foundComment: CommentType = prevComments.find(
     (comment: CommentType) => comment.id === commentId
