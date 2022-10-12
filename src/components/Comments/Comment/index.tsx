@@ -33,6 +33,10 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
   const dispatch = useDispatch();
   const [reply, setReply] = useState({ input: '', status: false, textareaFocus: false, addingReply: false, deletingReply: false });
   const [replies, setReplies] = useState({ loading: false, display: false, fetched: false });
+  const commentRepliesData = comments.data.filter(({ data }: { data: CommentType['data'] }) => {
+    return data?.parentId === id
+  });
+  const repliesContainNewReply = commentRepliesData.find(({ data }) => data.isNewReply);
 
   const handleLikes = (id: string, data: CommentType['data']) => {
     if (!currentUser) {
@@ -92,10 +96,6 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
     }
   }
 
-  const commentRepliesData = comments.data.filter(({ data }: { data: CommentType['data'] }) => {
-    return data?.parentId === id
-  });
-
   if (reply.deletingReply) {
     return <div className="comment">
       <div className='comment__loading'>
@@ -152,8 +152,16 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
           {data?.repliesQuantity > 0 &&
             <div className="comment__repliesWrapper">
               <div className="comment__repliesHeader" onClick={handleReplies}>
-                {replies.display ? <ArrowUpwardOutlined /> : <ArrowDownwardOutlined />}
-                <h2>{LANG.RECIPE.SHOW_REPLIES} ({data?.repliesQuantity})</h2>
+                {(!replies.fetched && repliesContainNewReply) ?
+                  <>
+                    <ArrowDownwardOutlined />
+                    <h2>{LANG.RECIPE.SHOW_ALL_REPLIES}</h2>
+                  </>
+                  :
+                  <>
+                    {replies.display ? <ArrowUpwardOutlined /> : <ArrowDownwardOutlined />}
+                    <h2>{(replies.display) ? LANG.RECIPE.HIDE_REPLIES : LANG.RECIPE.SHOW_REPLIES} ({data?.repliesQuantity})</h2>
+                  </>}
               </div>
             </div>}
 

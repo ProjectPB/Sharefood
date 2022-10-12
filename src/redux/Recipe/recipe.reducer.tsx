@@ -49,7 +49,6 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: a
         ...state,
         comments: {
           ...state.comments,
-          amount: state.comments.amount + 1,
           data: handleAddStoreCommentReply({ prevComments: state.comments.data, data: action.payload })
         },
       }
@@ -67,7 +66,6 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: a
         ...state,
         comments: {
           ...state.comments,
-          amount: state.comments.amount - 1,
           data: handleRemoveStoreCommentReply({ prevComments: state.comments.data, parentId: action.payload.parentId, commentToRemove: action.payload.commentId })
         }
       }
