@@ -126,6 +126,8 @@ export interface CommentType {
     liked?: boolean,
     parentId?: string,
     repliesQuantity?: number,
+    repliesFetched?: boolean,
+    isNewReply?: boolean,
   }
 }
 

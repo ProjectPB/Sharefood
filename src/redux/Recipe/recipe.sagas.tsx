@@ -90,7 +90,7 @@ export function* addComment({ payload: { text, parentId, recipeAuthorId, authorI
     if (!parentId) {
       yield put(addStoreCommentStart({ text, authorId, parentId, profilePic, username, commentId, repliesQuantity: 0 }));
     } else if (parentId) {
-      yield put(addStoreCommentReplyStart({ text, authorId, parentId, profilePic, username, commentId, repliesQuantity: 0 }));
+      yield put(addStoreCommentReplyStart({ text, authorId, parentId, profilePic, username, commentId, repliesQuantity: 0, isNewReply: true }));
       yield handleReplyCounter(recipeId, parentId, 1);
     }
 
@@ -164,7 +164,7 @@ export function* onDislikeCommentStart() {
 export function* fetchReplies({ payload }: ReturnType<typeof fetchCommentsStart>) {
   try {
     const commentsData: Comments = yield handleFetchComments(payload);
-    yield put(setReplies(commentsData));
+    yield put(setReplies({ commentsData: commentsData, parentId: payload.parentId }));
 
     yield payload.handleSuccess();
   } catch (error) {

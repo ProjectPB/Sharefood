@@ -28,6 +28,7 @@ export const ENG_RECIPE = {
   MORE_COMMENTS: "Load more",
   REPLY_COMMENT: "Reply",
   SHOW_REPLIES: "Show replies",
+  SHOW_ALL_REPLIES: "Show all replies",
   HIDE_REPLIES: "Hide replies",
 };
 
@@ -61,5 +62,6 @@ export const PL_RECIPE = {
   MORE_COMMENTS: "Więcej",
   REPLY_COMMENT: "Odpowiedz",
   SHOW_REPLIES: "Wyświetl odpowiedzi",
+  SHOW_ALL_REPLIES: "Wyświetl wszystkie odpowiedzi",
   HIDE_REPLIES: "Ukryj odpowiedzi",
 };

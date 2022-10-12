@@ -36,7 +36,7 @@ export const addStoreCommentStart = (data: { text: string, authorId: string, par
   payload: data,
 })
 
-export const addStoreCommentReplyStart = (data: { text: string, authorId: string, parentId: string, profilePic: string, username: string, commentId: string, repliesQuantity: number }) => ({
+export const addStoreCommentReplyStart = (data: { text: string, authorId: string, parentId: string, profilePic: string, username: string, commentId: string, repliesQuantity: number, isNewReply: boolean }) => ({
   type: recipeTypes.ADD_STORE_COMMENT_REPLY,
   payload: data,
 });
@@ -71,9 +71,9 @@ export const fetchRepliesStart = (filters: FiltersTypes) => ({
   payload: filters
 })
 
-export const setReplies = (comments: Comments) => ({
+export const setReplies = (data: { commentsData: Comments, parentId: string }) => ({
   type: recipeTypes.SET_REPLIES,
-  payload: comments,
+  payload: data,
 })
 
 export const likeCommentStart = (IDs: { userId: string, commentId: string, recipeId: string }) => ({

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { ArrowDownwardOutlined, DeleteOutlined, Favorite, FavoriteBorderOutlined, ReplyOutlined, Send } from '@material-ui/icons';
+import { ArrowDownwardOutlined, ArrowUpwardOutlined, DeleteOutlined, Favorite, FavoriteBorderOutlined, ReplyOutlined, Send } from '@material-ui/icons';
 import { Avatar, TextareaAutosize } from '@material-ui/core';
 import { addCommentStart, deleteCommentStart, dislikeCommentStart, fetchRepliesStart, likeCommentStart } from '../../../redux/Recipe/recipe.actions';
 import { useLanguage } from '../../../hooks';
@@ -32,7 +32,11 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [reply, setReply] = useState({ input: '', status: false, textareaFocus: false, addingReply: false, deletingReply: false });
-  const [replies, setReplies] = useState({ loading: false, display: false });
+  const [replies, setReplies] = useState({ loading: false, display: false, fetched: false });
+  const commentRepliesData = comments.data.filter(({ data }: { data: CommentType['data'] }) => {
+    return data?.parentId === id
+  });
+  const repliesContainNewReply = commentRepliesData.find(({ data }) => data.isNewReply);
 
   const handleLikes = (id: string, data: CommentType['data']) => {
     if (!currentUser) {
@@ -86,15 +90,11 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
       setReplies({ ...replies, display: true })
     }
 
-    if (commentRepliesData?.length === 0) {
+    if (!replies.fetched) {
       setReplies({ ...replies, loading: true })
-      dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'newest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true }) }));
+      dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'newest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true, fetched: true }) }));
     }
   }
-
-  const commentRepliesData = comments.data.filter(({ data }: { data: CommentType['data'] }) => {
-    return data?.parentId === id
-  });
 
   if (reply.deletingReply) {
     return <div className="comment">
@@ -152,8 +152,16 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
           {data?.repliesQuantity > 0 &&
             <div className="comment__repliesWrapper">
               <div className="comment__repliesHeader" onClick={handleReplies}>
-                <ArrowDownwardOutlined />
-                <h2>{LANG.RECIPE.SHOW_REPLIES} ({data?.repliesQuantity})</h2>
+                {(!replies.fetched && repliesContainNewReply) ?
+                  <>
+                    <ArrowDownwardOutlined />
+                    <h2>{LANG.RECIPE.SHOW_ALL_REPLIES}</h2>
+                  </>
+                  :
+                  <>
+                    {replies.display ? <ArrowUpwardOutlined /> : <ArrowDownwardOutlined />}
+                    <h2>{(replies.display) ? LANG.RECIPE.HIDE_REPLIES : LANG.RECIPE.SHOW_REPLIES} ({data?.repliesQuantity})</h2>
+                  </>}
               </div>
             </div>}
 
