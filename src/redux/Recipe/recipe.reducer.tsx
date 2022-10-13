@@ -9,6 +9,7 @@ const INITIAL_STATE: { recipeData: RecipeData, comments: Comments } = {
     queryDoc: null,
     isLastPage: false,
     amount: 0,
+    repliesFetched: [],
   }
 };
 
@@ -29,6 +30,7 @@ const recipeReducer = (state = INITIAL_STATE, action: { type: string; payload: a
         ...state,
         comments: {
           ...state.comments,
+          repliesFetched: [...state.comments.repliesFetched, action.payload.parentId],
           data: handleSetRepliesData({ prevData: state.comments.data, newData: action.payload.commentsData.data, parentId: action.payload.parentId })
         }
       }

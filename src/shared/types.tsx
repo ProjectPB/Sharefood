@@ -111,6 +111,7 @@ export interface Comments {
   queryDoc: firebase.firestore.QueryDocumentSnapshot | undefined;
   isLastPage: boolean;
   amount: number;
+  repliesFetched?: string[];
 }
 
 export interface CommentType {

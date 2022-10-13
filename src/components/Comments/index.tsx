@@ -66,7 +66,7 @@ const Comments = ({ recipeId, recipeAuthorId }: { recipeId: string, recipeAuthor
     dispatch(fetchCommentsStart({ recipeId: recipeId, sortFilter: filter, counter: 20, userId: currentUser?.uid, handleSuccess: () => setLoading({ ...loading, fetchingComments: false }) }));
 
     return () => {
-      dispatch(setComments({ data: [], queryDoc: null, isLastPage: null, amount: 0 }));
+      dispatch(setComments({ data: [], queryDoc: null, isLastPage: null, amount: 0, repliesFetched: [] }));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch, recipeId, filter, currentUser?.uid])

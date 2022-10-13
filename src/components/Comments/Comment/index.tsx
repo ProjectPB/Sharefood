@@ -24,19 +24,21 @@ const mapState = ({ user, ui, recipe }: State) => ({
   currentUser: user.currentUser,
   language: ui.language,
   comments: recipe.comments,
+  repliesFetched: recipe.comments.repliesFetched
 });
 
 const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
-  const { currentUser, language, comments } = useSelector(mapState);
+  const { currentUser, language, comments, repliesFetched } = useSelector(mapState);
   const LANG = useLanguage();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [reply, setReply] = useState({ input: '', status: false, textareaFocus: false, addingReply: false, deletingReply: false });
-  const [replies, setReplies] = useState({ loading: false, display: false, fetched: false });
+  const [replies, setReplies] = useState({ loading: false, display: false });
   const commentRepliesData = comments.data.filter(({ data }: { data: CommentType['data'] }) => {
     return data?.parentId === id
   });
   const repliesContainNewReply = commentRepliesData.find(({ data }) => data.isNewReply);
+  const repliesFetchedContainComment: boolean = repliesFetched.includes(id);
 
   const handleLikes = (id: string, data: CommentType['data']) => {
     if (!currentUser) {
@@ -90,9 +92,9 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
       setReplies({ ...replies, display: true })
     }
 
-    if (!replies.fetched) {
+    if (!repliesFetchedContainComment) {
       setReplies({ ...replies, loading: true })
-      dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'newest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true, fetched: true }) }));
+      dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'newest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true }) }));
     }
   }
 
@@ -152,7 +154,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
           {data?.repliesQuantity > 0 &&
             <div className="comment__repliesWrapper">
               <div className="comment__repliesHeader" onClick={handleReplies}>
-                {(!replies.fetched && repliesContainNewReply) ?
+                {(!repliesFetchedContainComment && repliesContainNewReply) ?
                   <>
                     <ArrowDownwardOutlined />
                     <h2>{LANG.RECIPE.SHOW_ALL_REPLIES}</h2>
