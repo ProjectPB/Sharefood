@@ -384,6 +384,7 @@ export const handleFetchComments = (filters: FiltersTypes) => {
           queryDoc,
           isLastPage,
           amount: commentsCounter,
+          repliesFetched: [],
         }));
       })
       .catch(err => {
