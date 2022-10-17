@@ -80,7 +80,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
       setReplies({ ...replies, display: true })
     }
 
-    dispatch(addCommentStart({ text: reply.input, parentId: id, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => handleSuccess() }));
+    dispatch(addCommentStart({ text: reply.input, parentId: data?.parentId || id, replyToId: id, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => handleSuccess() }));
   }
 
   const handleReplies = () => {
@@ -94,7 +94,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
     if (!repliesFetchedContainComment) {
       setReplies({ ...replies, loading: true })
-      dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'newest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true }) }));
+      dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'oldest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true }) }));
     }
   }
 
@@ -117,6 +117,18 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
                 {data.timestamp?.toDate()}
               </Moment>
             </p>
+          </div>
+
+          <div className="comment__wrapper">
+            <div className="comment__header">
+              <p><b>ID: </b>{id}</p> ·
+            </div>
+            <div className="comment__header">
+              <p><b>Parent ID: </b>{data?.parentId}</p>
+            </div>
+            <div className="comment__header">
+              <p><b>Reply To ID:  </b>{data?.replyToId}</p>
+            </div>
           </div>
 
           <p className='comment__text'>{data.text}</p>

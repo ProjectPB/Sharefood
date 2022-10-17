@@ -125,6 +125,7 @@ export interface CommentType {
     profilePic?: string,
     username: string,
     liked?: boolean,
+    replyToId?: string,
     parentId?: string,
     repliesQuantity?: number,
     repliesFetched?: boolean,

@@ -84,13 +84,13 @@ export function* onFetchCommentsStart() {
   yield takeLatest(recipeTypes.FETCH_COMMENTS, fetchComments);
 }
 
-export function* addComment({ payload: { text, parentId, recipeAuthorId, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
+export function* addComment({ payload: { text, parentId, replyToId, recipeAuthorId, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
   try {
-    const commentId: string = yield handleAddComment(text, authorId, recipeId, parentId);
+    const commentId: string = yield handleAddComment(text, authorId, recipeId, parentId, replyToId);
     if (!parentId) {
-      yield put(addStoreCommentStart({ text, authorId, parentId, profilePic, username, commentId, repliesQuantity: 0 }));
+      yield put(addStoreCommentStart({ text, authorId, parentId, replyToId, profilePic, username, commentId, repliesQuantity: 0 }));
     } else if (parentId) {
-      yield put(addStoreCommentReplyStart({ text, authorId, parentId, profilePic, username, commentId, repliesQuantity: 0, isNewReply: true }));
+      yield put(addStoreCommentReplyStart({ text, authorId, parentId, replyToId, profilePic, username, commentId, repliesQuantity: 0, isNewReply: true }));
       yield handleReplyCounter(recipeId, parentId, 1);
     }
 

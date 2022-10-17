@@ -14,6 +14,8 @@ export const handleGetUserData = (userId: string): Promise<{ profilePic: string,
   })
 }
 
+
+
 export const handleFetchRecipes = (filters: FiltersTypes) => {
   return new Promise((resolve, reject) => {
     let ref: Query = db.collection("recipes");
