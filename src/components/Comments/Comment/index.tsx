@@ -39,6 +39,9 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
   });
   const repliesContainNewReply = commentRepliesData.find(({ data }) => data.isNewReply);
   const repliesFetchedContainComment: boolean = repliesFetched.includes(id);
+  const replyToComment = data?.replyToId && comments?.data.find(({ id }) => {
+    return (id === data?.replyToId);
+  })
 
   const handleLikes = (id: string, data: CommentType['data']) => {
     if (!currentUser) {
@@ -111,24 +114,12 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
         <div className="comment__wrapper">
           <div className="comment__header">
-            <Link to={`/user/${data.authorId}`}><h3>{data.username}</h3></Link> ·
+            <Link to={`/user/${data.authorId}`}><h3>{data.username} {replyToComment && LANG.RECIPE.COMMENT_TO + " " + replyToComment?.data.username}</h3></Link> ·
             <p>
               <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow >
                 {data.timestamp?.toDate()}
               </Moment>
             </p>
-          </div>
-
-          <div className="comment__wrapper">
-            <div className="comment__header">
-              <p><b>ID: </b>{id}</p> ·
-            </div>
-            <div className="comment__header">
-              <p><b>Parent ID: </b>{data?.parentId}</p>
-            </div>
-            <div className="comment__header">
-              <p><b>Reply To ID:  </b>{data?.replyToId}</p>
-            </div>
           </div>
 
           <p className='comment__text'>{data.text}</p>
@@ -169,7 +160,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
                 {(!repliesFetchedContainComment && repliesContainNewReply) ?
                   <>
                     <ArrowDownwardOutlined />
-                    <h2>{LANG.RECIPE.SHOW_ALL_REPLIES}</h2>
+                    <h2>{LANG.RECIPE.SHOW_ALL_REPLIES} ({data?.repliesQuantity})</h2>
                   </>
                   :
                   <>
