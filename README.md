@@ -26,6 +26,7 @@ Users can also submit their own ideas after signing up.
 - Find top and the most active users (based on amount of recipes/comments added and likes)
 - Browse collections related to ingredients or season
 - Render meta tags upon entering the website, SEO implementations through firebase functions
+- Comments improvements (Answers to existing comments, navigation to authors' profiles)
 
 ## Technologies
 
@@ -34,7 +35,6 @@ Users can also submit their own ideas after signing up.
 
 ## Planned / In development
 
-- Comments improvements (Answers to existing comments, navigation to authors' profiles)
 - SEO improvements
 - Subscribe to selected users and display their recipes in a separate page
 - Premium recipes (payments via credit card or cryptocurrency)
