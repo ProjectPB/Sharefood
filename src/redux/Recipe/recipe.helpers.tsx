@@ -2,8 +2,7 @@ import firebase from "firebase/compat/app";
 import { db, storage } from "../../firebase/utils";
 import { Query } from "@firebase/firestore-types";
 import { handleGetUserData } from './../Recipes/recipes.helpers'
-import { createRecipeStart } from "./recipe.actions";
-import { CommentType, Comments, FiltersTypes } from "../../shared/types";
+import { CommentType, Comments, FiltersTypes, NewRecipeData } from "../../shared/types";
 import { handleUserActivity } from "../User/user.helpers";
 
 export const handleFetchSelectedRecipe = (recipeId: string) => {
@@ -202,7 +201,7 @@ const handleExistingDoc = (title: string, collection: string) => {
   })
 }
 
-export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeStart>) => {
+export const handleCreateRecipe = (payload: NewRecipeData) => {
   return new Promise((resolve, reject) => {
     const {
       authorId,
@@ -250,8 +249,6 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
             likesQuantity: 0,
             views: 0,
           }
-        }).then(() => {
-          handleUserActivity(authorId, 2);
         }).then(() => {
           resolve(true);
         })

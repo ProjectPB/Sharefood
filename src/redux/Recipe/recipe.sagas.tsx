@@ -22,9 +22,12 @@ export function* onFetchRecipeDataStart() {
   yield takeLatest(recipeTypes.FETCH_RECIPE_DATA, fetchRecipeData);
 }
 
-export function* createRecipe(payload: ReturnType<typeof createRecipeStart>) {
+export function* createRecipe({ payload }: ReturnType<typeof createRecipeStart>) {
   try {
-    yield handleCreateRecipe(payload);
+    const created: boolean = yield handleCreateRecipe(payload);
+    if (created) {
+      yield handleUserActivity(payload.authorId, 2)
+    };
   } catch (err) {
     console.log(err.message);
   }
@@ -84,7 +87,7 @@ export function* onFetchCommentsStart() {
   yield takeLatest(recipeTypes.FETCH_COMMENTS, fetchComments);
 }
 
-export function* addComment({ payload: { text, parentId, replyToId, recipeAuthorId, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
+export function* addComment({ payload: { text, parentId, replyToId, authorId, recipeId, profilePic, username, handleSuccess } }: ReturnType<typeof addCommentStart>) {
   try {
     const commentId: string = yield handleAddComment(text, authorId, recipeId, parentId, replyToId);
     if (!parentId) {
@@ -93,12 +96,10 @@ export function* addComment({ payload: { text, parentId, replyToId, recipeAuthor
       yield put(addStoreCommentReplyStart({ text, authorId, parentId, replyToId, profilePic, username, commentId, repliesQuantity: 0, isNewReply: true }));
       yield handleReplyCounter(recipeId, parentId, 1);
     }
-
-    if (recipeAuthorId !== authorId) {
-      yield handleUserActivity(authorId, 0.25);
-    }
+    yield handleUserActivity(authorId, 0.25);
 
     yield handleSuccess();
+
   } catch (error) {
     console.log(error.message)
   }
@@ -116,9 +117,7 @@ export function* deleteComment({ payload: { commentId, recipeId, parentId, autho
       yield handleDeleteAllReplies({ recipeId: recipeId, commentId: commentId });
     }
 
-    if (recipeAuthorId !== authorId) {
-      yield handleUserActivity(authorId, -0.25);
-    }
+    yield handleUserActivity(authorId, -0.25);
 
     if (!parentId) {
       yield put(deleteStoreCommentStart(commentId));
