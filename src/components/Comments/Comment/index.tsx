@@ -42,6 +42,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
   const replyToComment = data?.replyToId && comments?.data.find(({ id }) => {
     return (id === data?.replyToId);
   })
+  const repliesContainOnlyNewReplies = (commentRepliesData.length === data?.repliesQuantity) && !commentRepliesData.some(({ data }) => !data.isNewReply);
 
   const handleLikes = (id: string, data: CommentType['data']) => {
     if (!currentUser) {
@@ -95,7 +96,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
       setReplies({ ...replies, display: true })
     }
 
-    if (!repliesFetchedContainComment) {
+    if (!repliesFetchedContainComment && !repliesContainOnlyNewReplies) {
       setReplies({ ...replies, loading: true })
       dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'oldest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true }) }));
     }
@@ -114,7 +115,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
         <div className="comment__wrapper">
           <div className="comment__header">
-            <Link to={`/user/${data.authorId}`}><h3>{data.username}</h3></Link>
+            <Link to={`/user/${data.authorId}`}><h3>{data.username} </h3></Link>
             {replyToComment && (replyToComment?.id !== data?.parentId) &&
               <>
                 <h4>{LANG.RECIPE.COMMENT_TO + " "}</h4>
@@ -165,7 +166,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
           {data?.repliesQuantity > 0 &&
             <div className="comment__repliesWrapper">
               <div className="comment__repliesHeader" onClick={handleReplies}>
-                {(!repliesFetchedContainComment && repliesContainNewReply) ?
+                {(!repliesFetchedContainComment && repliesContainNewReply && !repliesContainOnlyNewReplies) ?
                   <>
                     <ArrowDownwardOutlined />
                     <h2>{LANG.RECIPE.SHOW_ALL_REPLIES} ({data?.repliesQuantity})</h2>
