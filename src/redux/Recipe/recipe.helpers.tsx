@@ -262,7 +262,7 @@ export const handleCreateRecipe = ({ payload }: ReturnType<typeof createRecipeSt
   });
 };
 
-export const handleAddComment = (comment: string, userId: string, recipeId: string, parentId: string) => {
+export const handleAddComment = (comment: string, userId: string, recipeId: string, parentId: string, replyToId: string) => {
   return new Promise((resolve, reject) => {
     try {
       db.collection('recipes').doc(recipeId).collection('comments').add({
@@ -273,6 +273,7 @@ export const handleAddComment = (comment: string, userId: string, recipeId: stri
         likesQuantity: 0,
         repliesQuantity: 0,
         parentId: parentId,
+        replyToId: replyToId || "",
       }).then((docRef) => {
         resolve(docRef.id);
       })
@@ -460,10 +461,10 @@ export const handleAddStoreCommentReply = ({ prevComments, data }: { prevComment
   )
   foundComment.data.repliesQuantity += 1
 
-  return [{
+  return [...prevComments, {
     id: data.commentId,
     data: data
-  }, ...prevComments]
+  }]
 }
 
 export const handleRemoveStoreCommentReply = ({ prevComments, parentId, commentToRemove }: { prevComments: Comments['data'], parentId: string, commentToRemove: string }) => {

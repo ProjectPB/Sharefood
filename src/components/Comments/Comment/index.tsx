@@ -39,6 +39,9 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
   });
   const repliesContainNewReply = commentRepliesData.find(({ data }) => data.isNewReply);
   const repliesFetchedContainComment: boolean = repliesFetched.includes(id);
+  const replyToComment = data?.replyToId && comments?.data.find(({ id }) => {
+    return (id === data?.replyToId);
+  })
 
   const handleLikes = (id: string, data: CommentType['data']) => {
     if (!currentUser) {
@@ -80,7 +83,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
       setReplies({ ...replies, display: true })
     }
 
-    dispatch(addCommentStart({ text: reply.input, parentId: id, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => handleSuccess() }));
+    dispatch(addCommentStart({ text: reply.input, parentId: data?.parentId || id, replyToId: id, recipeId: recipeId, recipeAuthorId: recipeAuthorId, authorId: currentUser?.uid, profilePic: currentUser?.profilePic, username: currentUser?.displayName, handleSuccess: () => handleSuccess() }));
   }
 
   const handleReplies = () => {
@@ -94,7 +97,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
     if (!repliesFetchedContainComment) {
       setReplies({ ...replies, loading: true })
-      dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'newest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true }) }));
+      dispatch(fetchRepliesStart({ recipeId: recipeId, parentId: id, sortFilter: 'oldest', userId: currentUser?.uid, handleSuccess: () => setReplies({ ...replies, loading: false, display: true }) }));
     }
   }
 
@@ -111,7 +114,15 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
         <div className="comment__wrapper">
           <div className="comment__header">
-            <Link to={`/user/${data.authorId}`}><h3>{data.username}</h3></Link> ·
+            <Link to={`/user/${data.authorId}`}><h3>{data.username}</h3></Link>
+            {replyToComment && (replyToComment?.id !== data?.parentId) &&
+              <>
+                <h4>{LANG.RECIPE.COMMENT_TO + " "}</h4>
+                <Link to={`/user/${replyToComment?.data.authorId}`}>
+                  <h3>{replyToComment?.data.username}</h3>
+                </Link>
+              </>
+            } ·
             <p>
               <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow >
                 {data.timestamp?.toDate()}
@@ -157,7 +168,7 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
                 {(!repliesFetchedContainComment && repliesContainNewReply) ?
                   <>
                     <ArrowDownwardOutlined />
-                    <h2>{LANG.RECIPE.SHOW_ALL_REPLIES}</h2>
+                    <h2>{LANG.RECIPE.SHOW_ALL_REPLIES} ({data?.repliesQuantity})</h2>
                   </>
                   :
                   <>

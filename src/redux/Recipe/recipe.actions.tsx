@@ -26,17 +26,17 @@ export const dislikeRecipeStart = (ID: { userId: string, recipeId: string, data:
   payload: ID,
 })
 
-export const addCommentStart = (data: { text: string, parentId: string, recipeAuthorId: string, authorId: string, recipeId: string, profilePic: string, username: string, handleSuccess: () => void }) => ({
+export const addCommentStart = (data: { text: string, parentId: string, replyToId?: string, recipeAuthorId: string, authorId: string, recipeId: string, profilePic: string, username: string, handleSuccess: () => void }) => ({
   type: recipeTypes.ADD_COMMENT,
   payload: data,
 })
 
-export const addStoreCommentStart = (data: { text: string, authorId: string, parentId: string, profilePic: string, username: string, commentId: string, repliesQuantity: number }) => ({
+export const addStoreCommentStart = (data: { text: string, authorId: string, parentId: string, replyToId: string, profilePic: string, username: string, commentId: string, repliesQuantity: number }) => ({
   type: recipeTypes.ADD_STORE_COMMENT,
   payload: data,
 })
 
-export const addStoreCommentReplyStart = (data: { text: string, authorId: string, parentId: string, profilePic: string, username: string, commentId: string, repliesQuantity: number, isNewReply: boolean }) => ({
+export const addStoreCommentReplyStart = (data: { text: string, authorId: string, parentId: string, replyToId: string, profilePic: string, username: string, commentId: string, repliesQuantity: number, isNewReply: boolean }) => ({
   type: recipeTypes.ADD_STORE_COMMENT_REPLY,
   payload: data,
 });
