@@ -114,7 +114,15 @@ const Comment = ({ recipeId, id, data, recipeAuthorId }: Props) => {
 
         <div className="comment__wrapper">
           <div className="comment__header">
-            <Link to={`/user/${data.authorId}`}><h3>{data.username} {replyToComment && LANG.RECIPE.COMMENT_TO + " " + replyToComment?.data.username}</h3></Link> ·
+            <Link to={`/user/${data.authorId}`}><h3>{data.username}</h3></Link>
+            {replyToComment && (replyToComment?.id !== data?.parentId) &&
+              <>
+                <h4>{LANG.RECIPE.COMMENT_TO + " "}</h4>
+                <Link to={`/user/${replyToComment?.data.authorId}`}>
+                  <h3>{replyToComment?.data.username}</h3>
+                </Link>
+              </>
+            } ·
             <p>
               <Moment locale={(language === 'polish') ? 'pl' : 'en'} fromNow >
                 {data.timestamp?.toDate()}
